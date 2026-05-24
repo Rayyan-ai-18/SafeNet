@@ -4,8 +4,8 @@ import { gsap, ScrollTrigger } from '../../lib/gsap'
 const trustItems = [
   { label: '50.8M', sub: 'SA internet users', count: true, target: 50.8 },
   { label: '11', sub: 'Official languages', count: false },
-  { label: 'POPIA', sub: 'Compliant', count: false },
-  { label: 'Childline SA', sub: 'Partner', count: false },
+  { label: 'POPIA', sub: 'Compliant', count: false, link: 'https://popia.co.za/' },
+  { label: 'Childline SA', sub: 'Partner', count: false, link: 'https://www.childlinesa.org.za/' },
   { label: 'Born in', sub: 'South Africa', count: false },
 ]
 
@@ -71,6 +71,15 @@ export default function TrustBar() {
               >
                 {i === 0 ? (
                   <span ref={counterRef}>0M</span>
+                ) : item.link ? (
+                  <a
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-safenet-primary-dark transition-colors"
+                  >
+                    {item.label}
+                  </a>
                 ) : (
                   item.label
                 )}

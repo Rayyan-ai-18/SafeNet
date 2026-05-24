@@ -78,6 +78,15 @@ export default function Problem() {
               <p className="text-lg text-safenet-text-2 leading-relaxed">
                 Your child lives on WhatsApp. Not iMessage. Not Snapchat.
                 WhatsApp — where the real threats in South Africa happen every day.
+                According to{' '}
+                <a
+                  href="https://businesstech.co.za/news/internet/758979/cybercrime-in-sa-phishing-attacks-now-targeting-whatsapp-users/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-safenet-primary underline decoration-safenet-primary/30 hover:decoration-safenet-primary transition-all"
+                >
+                  BusinessTech
+                </a>, phishing attacks targeting WhatsApp users in South Africa have surged, with criminals exploiting messaging apps to steal personal data.
               </p>
               <p className="text-lg text-safenet-text-2 leading-relaxed">
                 Bark costs R260 a month and does not monitor WhatsApp.
@@ -87,6 +96,17 @@ export default function Problem() {
               <p className="text-lg text-safenet-text font-semibold">
                 SafeNet SA was built for Soweto, Stellenbosch, Polokwane,
                 and every family in between.
+              </p>
+              <p className="text-sm text-safenet-text-3 leading-relaxed">
+                <a
+                  href="https://www.childlinesa.org.za/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-safenet-primary underline decoration-safenet-primary/30 hover:decoration-safenet-primary transition-all"
+                >
+                  Childline South Africa
+                </a>{' '}
+                reports that online grooming and cyberbullying cases have risen significantly, making digital safety tools essential for modern parenting.
               </p>
             </div>
 
