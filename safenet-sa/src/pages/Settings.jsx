@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Settings as SettingsIcon, User, Globe, CreditCard, Shield, Check, ChevronRight } from 'lucide-react'
+import SEO from '../components/seo/SEO'
 import DashboardShell from '../components/layout/DashboardShell'
 
 const tabs = [
@@ -23,6 +24,23 @@ const languages = [
   { code: 'ss', name: 'siSwati', native: 'siSwati', speakers: '1.3M' },
   { code: 'nr', name: 'isiNdebele', native: 'isiNdebele', speakers: '1.1M' },
 ]
+
+const settingsSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'SafeNet SA — Account & Privacy Settings',
+  description: 'Manage your SafeNet SA account, language preferences, subscription plan, and POPIA privacy settings.',
+  url: 'https://safenet-sa.co.za/settings',
+  isPartOf: {
+    '@type': 'Organization',
+    name: 'SafeNet SA',
+    url: 'https://safenet-sa.co.za',
+  },
+  about: {
+    '@type': 'Thing',
+    name: 'Parental control account settings and privacy management',
+  },
+}
 
 export default function Settings() {
   const [activeTab, setActiveTab] = useState('account')
@@ -193,6 +211,12 @@ export default function Settings() {
 
   return (
     <DashboardShell>
+      <SEO
+        title="SafeNet SA — Account & Privacy Settings"
+        description="Manage your SafeNet SA account, language preferences, subscription plan, and POPIA privacy settings."
+        canonicalPath="/settings"
+        jsonLd={settingsSchema}
+      />
       <div className="max-w-5xl mx-auto space-y-6">
         {/* Header */}
         <div>

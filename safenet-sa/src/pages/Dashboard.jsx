@@ -2,6 +2,7 @@ import React from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Shield, Bell, ArrowRight, Users } from 'lucide-react'
+import SEO from '../components/seo/SEO'
 import DashboardShell from '../components/layout/DashboardShell'
 import ChildCard from '../components/dashboard/ChildCard'
 import AlertCard from '../components/dashboard/AlertCard'
@@ -9,12 +10,35 @@ import SafeZoneStatus from '../components/dashboard/SafeZoneStatus'
 import SchoolHours from '../components/dashboard/SchoolHours'
 import { useApp } from '../context/AppContext'
 
+const dashboardSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'SafeNet SA — Parent Dashboard',
+  description: 'Monitor your children\'s digital safety in real-time. View alerts, screen time, location, and safe zones from your SafeNet SA dashboard.',
+  url: 'https://safenet-sa.co.za/dashboard',
+  isPartOf: {
+    '@type': 'Organization',
+    name: 'SafeNet SA',
+    url: 'https://safenet-sa.co.za',
+  },
+  about: {
+    '@type': 'Thing',
+    name: 'Child safety monitoring dashboard',
+  },
+}
+
 export default function Dashboard() {
   const { children, alerts, markAlertRead } = useApp()
   const hasAlerts = alerts.some(a => !a.isRead && a.severity !== 'safe')
 
   return (
     <DashboardShell>
+      <SEO
+        title="SafeNet SA — Parent Dashboard"
+        description="Monitor your children's digital safety in real-time. View alerts, screen time, location, and safe zones from your SafeNet SA dashboard."
+        canonicalPath="/dashboard"
+        jsonLd={dashboardSchema}
+      />
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Status banner */}
         <motion.div

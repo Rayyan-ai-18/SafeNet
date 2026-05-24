@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Shield, Phone, ArrowRight, Check, ChevronLeft } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import SEO from '../components/seo/SEO'
 import Nav from '../components/layout/Nav'
 import Footer from '../components/layout/Footer'
 import Button from '../components/ui/Button'
@@ -33,6 +34,24 @@ const consentItems = [
     required: true,
   },
 ]
+
+const authSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'SafeNet SA — Sign Up & POPIA Consent',
+  description: 'Create your SafeNet SA account. South African phone verification with full POPIA compliance consent.',
+  url: 'https://safenet-sa.co.za/auth',
+  isPartOf: {
+    '@type': 'Organization',
+    name: 'SafeNet SA',
+    url: 'https://safenet-sa.co.za',
+  },
+  about: {
+    '@type': 'Thing',
+    name: 'Parental control and child safety sign-up',
+  },
+  inLanguage: ['en-ZA', 'zu', 'af', 'xh', 'st', 'tn', 'nso', 've', 'ts', 'ss', 'nr'],
+}
 
 export default function Auth() {
   const [step, setStep] = useState('phone')
@@ -74,6 +93,12 @@ export default function Auth() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEO
+        title="SafeNet SA — Sign Up & POPIA Consent"
+        description="Create your SafeNet SA account. South African phone verification with full POPIA compliance consent."
+        canonicalPath="/auth"
+        jsonLd={authSchema}
+      />
       <Nav />
       <div className="min-h-screen flex items-center justify-center px-4 pt-20 pb-16">
         <div className="w-full max-w-md">

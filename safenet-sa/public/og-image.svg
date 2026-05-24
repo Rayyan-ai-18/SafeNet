@@ -1,0 +1,23 @@
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0F7B4D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#064E30;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)" />
+  <text x="80" y="200" font-family="Arial, sans-serif" font-size="64" font-weight="bold" fill="white">SafeNet SA</text>
+  <text x="80" y="280" font-family="Arial, sans-serif" font-size="36" fill="rgba(255,255,255,0.85)">
+    Digital Safety for South African Families
+  </text>
+  <text x="80" y="370" font-family="Arial, sans-serif" font-size="24" fill="rgba(255,255,255,0.7)">
+    Monitors WhatsApp · Speaks Zulu · POPIA Compliant
+  </text>
+  <rect x="80" y="440" width="200" height="8" rx="4" fill="rgba(255,255,255,0.3)" />
+  <text x="80" y="520" font-family="Arial, sans-serif" font-size="18" fill="rgba(255,255,255,0.5)">
+    safenet-sa.co.za
+  </text>
+  <!-- Shield icon -->
+  <path d="M1060 160 L1100 180 L1100 280 C1100 370 1060 420 1060 420 C1060 420 1020 370 1020 280 L1020 180 Z" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M1045 290 L1055 310 L1075 270" fill="none" stroke="rgba(255,255,255,0.8)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

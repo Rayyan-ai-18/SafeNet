@@ -2,7 +2,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet-async'
 
 const SITE_URL = 'https://safenet-sa.co.za'
-const DEFAULT_OG_IMAGE = '/og-image.png'
+const DEFAULT_OG_IMAGE = '/og-image.svg'
 const FALLBACK_IMAGE = '/favicon.svg'
 const DEFAULT_TITLE = 'SafeNet SA — Digital Safety for South African Families'
 const DEFAULT_DESC =

@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { MapContainer, TileLayer, Marker, Popup, Polyline, Circle, useMap } from 'react-leaflet'
 import L from 'leaflet'
 import { MapPin, Target, Navigation, Clock, Circle as CircleIcon, Plus, Trash2, Users, Edit3 } from 'lucide-react'
+import SEO from '../components/seo/SEO'
 import DashboardShell from '../components/layout/DashboardShell'
 import GeofenceEditor from '../components/dashboard/GeofenceEditor'
 import { useApp } from '../context/AppContext'
@@ -54,6 +55,23 @@ function MapController({ center }) {
   return null
 }
 
+const locationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'SafeNet SA — Real-Time GPS Location Tracking',
+  description: 'Track your children\'s real-time GPS location. View location history, set safe zones (geofences), and receive arrival and departure alerts.',
+  url: 'https://safenet-sa.co.za/location',
+  isPartOf: {
+    '@type': 'Organization',
+    name: 'SafeNet SA',
+    url: 'https://safenet-sa.co.za',
+  },
+  about: {
+    '@type': 'Thing',
+    name: 'Real-time GPS child location tracking and geofencing',
+  },
+}
+
 export default function Location() {
   const { children, zones, removeZone } = useApp()
   const [selectedChild, setSelectedChild] = useState(children[0]?.id || '1')
@@ -67,6 +85,12 @@ export default function Location() {
 
   return (
     <DashboardShell>
+      <SEO
+        title="SafeNet SA — Real-Time GPS Location Tracking"
+        description="Track your children's real-time GPS location. View location history, set safe zones (geofences), and receive arrival and departure alerts."
+        canonicalPath="/location"
+        jsonLd={locationSchema}
+      />
       <div className="max-w-7xl mx-auto space-y-6">
         {/* Header */}
         <div>

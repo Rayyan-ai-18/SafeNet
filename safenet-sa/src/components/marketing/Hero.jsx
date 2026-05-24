@@ -94,6 +94,11 @@ export default function Hero() {
             <p ref={trustRef} className="text-sm text-safenet-text-3 mt-6">
               POPIA compliant · No credit card required · Cancel anytime
             </p>
+            <p className="text-sm text-safenet-text-3 mt-2">
+              <a href="#features" className="text-safenet-primary hover:underline">Explore all features</a>
+              {' · '}
+              <a href="#pricing" className="text-safenet-primary hover:underline">View pricing</a>
+            </p>
           </div>
 
           {/* Right: Phone Mockup */}

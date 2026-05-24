@@ -108,9 +108,41 @@ export default function Problem() {
                 </a>{' '}
                 reports that online grooming and cyberbullying cases have risen significantly, making digital safety tools essential for modern parenting.
               </p>
+              <p className="text-sm text-safenet-text-3 leading-relaxed">
+                According to{' '}
+                <a
+                  href="https://www.unicef.org/southafrica/press-releases/children-increasingly-targeted-online-south-africa"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-safenet-primary underline decoration-safenet-primary/30 hover:decoration-safenet-primary transition-all"
+                >
+                  UNICEF South Africa
+                </a>, children in SA are increasingly targeted online, with 1 in 3 children having been exposed to harmful content. Early intervention and digital monitoring are critical.
+              </p>
+              <p className="text-sm text-safenet-text-3 leading-relaxed">
+                The{' '}
+                <a
+                  href="https://www.saps.gov.za/resource_centre/publications/cybercrime_report.php"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-safenet-primary underline decoration-safenet-primary/30 hover:decoration-safenet-primary transition-all"
+                >
+                  South African Police Service
+                </a>{' '}
+                has reported a significant rise in cybercrimes targeting minors, including online extortion and grooming through social media platforms like WhatsApp.
+              </p>
             </div>
 
             {/* Comparison Table */}
+            <div className="flex justify-center mt-6">
+              <a
+                href="#pricing"
+                className="inline-flex items-center gap-2 text-sm font-medium text-safenet-primary hover:text-safenet-primary-dark transition-colors group"
+              >
+                See our affordable plans — starting at free
+                <span className="transition-transform group-hover:translate-x-1">→</span>
+              </a>
+            </div>
             <div ref={tableRef} className="bg-white border border-safenet-border rounded-card-lg shadow-safenet-md overflow-hidden">
               <table className="w-full text-sm">
                 <thead>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Bell, ShieldCheck, Filter, ArrowUpDown, AlertTriangle, Search } from 'lucide-react'
+import SEO from '../components/seo/SEO'
 import DashboardShell from '../components/layout/DashboardShell'
 import AlertCard from '../components/dashboard/AlertCard'
 
@@ -17,6 +18,23 @@ const allAlerts = [
   { id: '8', title: 'New device detected', severity: 'low', description: 'Liam logged into a new device.', lunaExplanation: 'New device added to monitored list.', timestamp: Date.now() - 1000 * 60 * 600, actionTaken: 'Added', isRead: true },
 ]
 
+const alertsSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'SafeNet SA — Security Alerts & Threat History',
+  description: 'View all security events across your family. Filter by severity, search alerts, and review Luna AI\'s threat detection history.',
+  url: 'https://safenet-sa.co.za/alerts',
+  isPartOf: {
+    '@type': 'Organization',
+    name: 'SafeNet SA',
+    url: 'https://safenet-sa.co.za',
+  },
+  about: {
+    '@type': 'Thing',
+    name: 'Child safety alerts and security event history',
+  },
+}
+
 export default function Alerts() {
   const [activeFilter, setActiveFilter] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
@@ -32,6 +50,12 @@ export default function Alerts() {
 
   return (
     <DashboardShell>
+      <SEO
+        title="SafeNet SA — Security Alerts & Threat History"
+        description="View all security events across your family. Filter by severity, search alerts, and review Luna AI's threat detection history."
+        canonicalPath="/alerts"
+        jsonLd={alertsSchema}
+      />
       <div className="max-w-5xl mx-auto space-y-6">
         {/* Header */}
         <div>

@@ -2,10 +2,28 @@ import React, { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useParams } from 'react-router-dom'
 import { ArrowLeft, Clock, Shield, Moon, Smartphone, WifiOff } from 'lucide-react'
+import SEO from '../components/seo/SEO'
 import DashboardShell from '../components/layout/DashboardShell'
 import ScreenTimeChart from '../components/dashboard/ScreenTimeChart'
 import AppBlockGrid from '../components/dashboard/AppBlockGrid'
 import PauseToggle from '../components/dashboard/PauseToggle'
+
+const childSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'SafeNet SA — Child Profile & Device Controls',
+  description: 'Manage your child\'s SafeNet SA profile. View screen time, block apps, set bedtime, and control internet access from one place.',
+  url: 'https://safenet-sa.co.za/child',
+  isPartOf: {
+    '@type': 'Organization',
+    name: 'SafeNet SA',
+    url: 'https://safenet-sa.co.za',
+  },
+  about: {
+    '@type': 'Thing',
+    name: 'Child device management and parental controls',
+  },
+}
 
 export default function Child() {
   const { childId } = useParams()
@@ -16,6 +34,12 @@ export default function Child() {
 
   return (
     <DashboardShell>
+      <SEO
+        title="SafeNet SA — Child Profile & Device Controls"
+        description="Manage your child's SafeNet SA profile. View screen time, block apps, set bedtime, and control internet access from one place."
+        canonicalPath="/child"
+        jsonLd={childSchema}
+      />
       <div className="max-w-5xl mx-auto space-y-8">
         {/* Back */}
         <motion.a
