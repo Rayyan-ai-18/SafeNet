@@ -1,0 +1,16 @@
+# SafeNet SA — robots.txt
+# https://safenet-sa.co.za/robots.txt
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://safenet-sa.co.za/sitemap.xml
+
+# Crawl delay for polite crawling
+Crawl-Delay: 10
+
+# Disallow internal-only paths
+Disallow: /api/
+Disallow: /_vercel/
+Disallow: /__vercel/

@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="SafeNet SA — The only digital safety platform built for South African families. Monitors WhatsApp. Speaks Zulu. POPIA compliant. Ready in 5 minutes." />
     <meta name="theme-color" content="#0F7B4D" />
+    <meta name="robots" content="index, follow" />
+    <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large" />
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://safenet-sa.co.za/" />
@@ -15,7 +17,10 @@
     <meta property="og:url" content="https://safenet-sa.co.za/" />
     <meta property="og:title" content="SafeNet SA — Digital Safety for South African Families" />
     <meta property="og:description" content="The only digital safety platform built for South African families. Monitors WhatsApp. Speaks Zulu. POPIA compliant. Ready in 5 minutes." />
-    <meta property="og:image" content="https://safenet-sa.co.za/og-image.svg" />
+    <meta property="og:image" content="https://safenet-sa.co.za/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="SafeNet SA — Protect your family online" />
     <meta property="og:site_name" content="SafeNet SA" />
     <meta property="og:locale" content="en_ZA" />
 
@@ -23,7 +28,7 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="SafeNet SA — Digital Safety for South African Families" />
     <meta name="twitter:description" content="The only digital safety platform built for South African families. Monitors WhatsApp. Speaks Zulu. POPIA compliant. Ready in 5 minutes." />
-    <meta name="twitter:image" content="https://safenet-sa.co.za/og-image.svg" />
+    <meta name="twitter:image" content="https://safenet-sa.co.za/og-image.png" />
 
     <title>SafeNet SA — Digital Safety for South African Families</title>
 
@@ -31,7 +36,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- JSON-LD Structured Data (fallback) -->
+    <!-- JSON-LD Structured Data: Organization -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -41,12 +46,220 @@
       "logo": "https://safenet-sa.co.za/favicon.svg",
       "description": "The only digital safety platform built for South African families. Monitors WhatsApp. Speaks Zulu. POPIA compliant. Ready in 5 minutes.",
       "foundingLocation": "South Africa",
-      "areaServed": "ZA"
+      "areaServed": "ZA",
+      "knowsLanguage": ["en", "zu", "af", "xh", "st", "tn", "nso", "ve", "ts", "ss", "nr"],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "availableLanguage": ["English", "isiZulu", "Afrikaans", "isiXhosa", "Sesotho", "Setswana", "Sepedi", "Tshivenḓa", "Xitsonga", "siSwati", "isiNdebele"]
+      }
+    }
+    </script>
+
+    <!-- JSON-LD: FAQ Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is SafeNet SA?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SafeNet SA is the only digital safety platform purpose-built for South African families. It monitors WhatsApp messages using on-device AI, supports all 11 official South African languages, and is fully POPIA compliant. Parents can track location, manage screen time, block apps, pause internet, and receive real-time alerts about threats."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does SafeNet SA work on WhatsApp?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. SafeNet SA is the only parental control platform that monitors WhatsApp messages for threats like phishing, grooming, and cyberbullying. Luna AI analyzes messages on-device — no message content is ever transmitted or stored. It understands South African English, slang, and multilingual conversations."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many South African languages does SafeNet SA support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SafeNet SA supports all 11 official South African languages: English, isiZulu, Afrikaans, isiXhosa, Sesotho, Setswana, Sepedi, Tshivenḓa, Xitsonga, siSwati, and isiNdebele. Alerts, voice notifications, and the full dashboard are available in your preferred language."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is SafeNet SA POPIA compliant?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, SafeNet SA is fully compliant with South Africa's Protection of Personal Information Act (POPIA). All WhatsApp analysis happens on-device — no message content leaves the child's device. Alert data is stored securely for 90 days and location data for 30 days. Parents can request data deletion at any time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much does SafeNet SA cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "SafeNet SA offers a Free plan with basic WhatsApp monitoring and Luna AI alerts. The Guardian plan costs R89 per month (or R890 per year) and covers up to 4 children with all 11 languages. The Sentinel plan costs R149 per month (or R1,490 per year) for unlimited children, School Shield integration, and 24/7 phone support."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can my child uninstall SafeNet SA?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. SafeNet SA uses device admin privileges to prevent removal. If a child attempts to uninstall the app, Luna AI immediately alerts the parent and blocks the uninstall attempt. This is one of the most requested features from South African parents."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does SafeNet SA work in South African schools?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. SafeNet SA offers School Shield — a complete digital safety solution for South African schools. Features include batch enrollment via CSV, curriculum mode to silence devices during class, emergency broadcast to all parents, and a school-wide admin dashboard. Over 50 schools in South Africa are already enrolled."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <!-- JSON-LD: BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://safenet-sa.co.za/" },
+        { "@type": "ListItem", "position": 2, "name": "Sign Up", "item": "https://safenet-sa.co.za/auth" },
+        { "@type": "ListItem", "position": 3, "name": "Dashboard", "item": "https://safenet-sa.co.za/dashboard" },
+        { "@type": "ListItem", "position": 4, "name": "Alerts", "item": "https://safenet-sa.co.za/alerts" },
+        { "@type": "ListItem", "position": 5, "name": "Location Tracking", "item": "https://safenet-sa.co.za/location" },
+        { "@type": "ListItem", "position": 6, "name": "Settings", "item": "https://safenet-sa.co.za/settings" }
+      ]
     }
     </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- =============================================
+           STATIC FALLBACK CONTENT
+           This content is visible to AI crawlers and
+           search engines that do not execute JavaScript.
+           The React app replaces this content when loaded.
+           ============================================= -->
+      <div style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif; color: #1a1a2e; line-height: 1.6;">
+        <header style="margin-bottom: 3rem; text-align: center;">
+          <h1 style="font-size: 2.5rem; font-weight: 700; color: #0F7B4D; margin-bottom: 0.5rem;">SafeNet SA</h1>
+          <p style="font-size: 1.25rem; color: #4a5568;">Digital Safety for South African Families</p>
+        </header>
+
+        <main>
+          <!-- Hero content -->
+          <section style="margin-bottom: 3rem; text-align: center;">
+            <h2 style="font-size: 2rem; color: #1a1a2e; margin-bottom: 1rem;">Your child is safe online. We made certain of it.</h2>
+            <p style="font-size: 1.125rem; color: #4a5568; max-width: 42rem; margin: 0 auto 1.5rem;">
+              SafeNet SA is the only digital safety platform built for South African families. 
+              It monitors WhatsApp for phishing and grooming threats using on-device AI, 
+              speaks all 11 official South African languages, and is fully POPIA compliant.
+              Setup takes just 5 minutes.
+            </p>
+            <p style="font-size: 1rem; color: #718096;">
+              POPIA compliant · No credit card required · Cancel anytime
+            </p>
+          </section>
+
+          <!-- Key features -->
+          <section style="margin-bottom: 3rem;">
+            <h2 style="font-size: 1.75rem; color: #1a1a2e; margin-bottom: 1rem;">Features</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
+              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+                <h3 style="font-size: 1.25rem; color: #0F7B4D; margin-bottom: 0.5rem;">WhatsApp Monitoring</h3>
+                <p style="color: #4a5568;">The only platform that monitors WhatsApp threats in Zulu, Afrikaans, Sotho, and Xhosa. All analysis happens on-device — nothing is transmitted or stored.</p>
+              </div>
+              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+                <h3 style="font-size: 1.25rem; color: #0F7B4D; margin-bottom: 0.5rem;">Luna AI Alerts</h3>
+                <p style="color: #4a5568;">Real-time threat detection powered by Luna AI. Block phishing links, detect grooming attempts, and receive instant alerts in your preferred language.</p>
+              </div>
+              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+                <h3 style="font-size: 1.25rem; color: #0F7B4D; margin-bottom: 0.5rem;">GPS Location Tracking</h3>
+                <p style="color: #4a5568;">Real-time GPS tracking with geofencing. Set safe zones around home, school, and other trusted locations. Get notified when your child arrives or leaves.</p>
+              </div>
+              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+                <h3 style="font-size: 1.25rem; color: #0F7B4D; margin-bottom: 0.5rem;">Screen Time Management</h3>
+                <p style="color: #4a5568;">Daily and weekly reports on app usage. Set time limits per app or category. Pause the internet with one tap across all connected devices.</p>
+              </div>
+              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+                <h3 style="font-size: 1.25rem; color: #0F7B4D; margin-bottom: 0.5rem;">11 Language Support</h3>
+                <p style="color: #4a5568;">Full support for all South African languages. Alerts, voice notifications, and the entire dashboard available in isiZulu, Afrikaans, isiXhosa, Sesotho, Setswana, Sepedi, Tshivenḓa, Xitsonga, siSwati, and isiNdebele.</p>
+              </div>
+              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+                <h3 style="font-size: 1.25rem; color: #0F7B4D; margin-bottom: 0.5rem;">Anti-Uninstall Protection</h3>
+                <p style="color: #4a5568;">Device admin privileges prevent children from removing the app. If an uninstall is attempted, parents are alerted immediately and the attempt is blocked.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Why SafeNet SA -->
+          <section style="margin-bottom: 3rem;">
+            <h2 style="font-size: 1.75rem; color: #1a1a2e; margin-bottom: 1rem;">Why South African parents choose SafeNet SA</h2>
+            <p style="color: #4a5568; margin-bottom: 1rem;">
+              Every global safety tool was built for them, not for you. Bark costs R260 per month and does not monitor WhatsApp. 
+              Qustodio does not speak Afrikaans. Google Family Link can be bypassed in 30 seconds.
+            </p>
+            <p style="color: #4a5568; margin-bottom: 1rem;">
+              According to <a href="https://businesstech.co.za/news/internet/758979/cybercrime-in-sa-phishing-attacks-now-targeting-whatsapp-users/" style="color: #0F7B4D;" rel="noopener noreferrer">BusinessTech</a>, 
+              phishing attacks targeting WhatsApp users in South Africa have surged dramatically. 
+              <a href="https://www.childlinesa.org.za/" style="color: #0F7B4D;" rel="noopener noreferrer">Childline South Africa</a> reports 
+              that online grooming and cyberbullying cases have risen significantly. 
+              <a href="https://www.unicef.org/southafrica/press-releases/children-increasingly-targeted-online-south-africa" style="color: #0F7B4D;" rel="noopener noreferrer">UNICEF South Africa</a> 
+              reports that 1 in 3 children in SA have been exposed to harmful content online. 
+              The <a href="https://www.saps.gov.za/resource_centre/publications/cybercrime_report.php" style="color: #0F7B4D;" rel="noopener noreferrer">South African Police Service</a> 
+              has reported a significant rise in cybercrimes targeting minors through WhatsApp and social media.
+            </p>
+            <p style="color: #4a5568;">
+              SafeNet SA was built for Soweto, Stellenbosch, Polokwane, and every family in between.
+            </p>
+          </section>
+
+          <!-- Pricing -->
+          <section style="margin-bottom: 3rem;">
+            <h2 style="font-size: 1.75rem; color: #1a1a2e; margin-bottom: 1rem;">Pricing</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+                <h3 style="font-size: 1.25rem; color: #0F7B4D;">Free</h3>
+                <p style="font-size: 1.5rem; font-weight: 700; color: #1a1a2e;">R0/month</p>
+                <p style="color: #4a5568;">Basic WhatsApp monitoring, Luna AI alerts, basic location tracking, email support.</p>
+              </div>
+              <div style="background: #f0fff4; padding: 1.5rem; border-radius: 12px; border: 2px solid #0F7B4D;">
+                <h3 style="font-size: 1.25rem; color: #0F7B4D;">Guardian</h3>
+                <p style="font-size: 1.5rem; font-weight: 700; color: #1a1a2e;">R89/month</p>
+                <p style="color: #4a5568;">Up to 4 children, all 11 languages, voice alerts, weekly digest, priority support.</p>
+              </div>
+              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
+                <h3 style="font-size: 1.25rem; color: #0F7B4D;">Sentinel</h3>
+                <p style="font-size: 1.5rem; font-weight: 700; color: #1a1a2e;">R149/month</p>
+                <p style="color: #4a5568;">Unlimited children, School Shield integration, ISP billing, 24/7 phone support.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Internal navigation links -->
+          <nav style="margin-bottom: 2rem; text-align: center;">
+            <p style="color: #4a5568;">
+              <a href="https://safenet-sa.co.za/" style="color: #0F7B4D;">Home</a> · 
+              <a href="https://safenet-sa.co.za/auth" style="color: #0F7B4D;">Sign Up</a> · 
+              <a href="https://safenet-sa.co.za/dashboard" style="color: #0F7B4D;">Dashboard</a> · 
+              <a href="https://safenet-sa.co.za/alerts" style="color: #0F7B4D;">Alerts</a> · 
+              <a href="https://safenet-sa.co.za/location" style="color: #0F7B4D;">Location</a> · 
+              <a href="https://safenet-sa.co.za/settings" style="color: #0F7B4D;">Settings</a>
+            </p>
+          </nav>
+        </main>
+
+        <footer style="border-top: 1px solid #e2e8f0; padding-top: 1.5rem; text-align: center; color: #718096; font-size: 0.875rem;">
+          <p>&copy; 2026 SafeNet SA. All rights reserved. POPIA compliant. Made in South Africa.</p>
+        </footer>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

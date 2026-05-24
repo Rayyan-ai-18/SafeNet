@@ -1,0 +1,36 @@
+# SafeNet SA — AI Summary
+> The only digital safety platform built for South African families.
+> Monitors WhatsApp. Speaks 11 languages. POPIA compliant.
+
+## Key Pages
+- Homepage: https://safenet-sa.co.za/ — Digital safety for SA families, WhatsApp monitoring, Luna AI
+- Sign Up: https://safenet-sa.co.za/auth — Create account with SA phone number, POPIA consent
+- Dashboard: https://safenet-sa.co.za/dashboard — Real-time monitoring dashboard for parents
+- Alerts: https://safenet-sa.co.za/alerts — Security alert history and threat detection
+- Location: https://safenet-sa.co.za/location — GPS tracking and geofencing
+- Settings: https://safenet-sa.co.za/settings — Account, language, plan, and privacy settings
+
+## About
+SafeNet SA is a South African digital safety platform that protects children online. It monitors WhatsApp messages using on-device AI (Luna), supports all 11 official South African languages, and is fully POPIA compliant. The platform offers real-time threat detection, GPS location tracking, screen time management, app blocking, internet pause controls, and school integration features.
+
+## Key Features
+- **WhatsApp Monitoring**: On-device analysis of WhatsApp messages for phishing, grooming, and harmful content. No message content is transmitted or stored.
+- **Luna AI**: Proprietary AI that detects threats in real-time. Understands South African slang and context. Sends alerts in the parent's preferred language.
+- **11 Language Support**: Full support for all South African official languages including isiZulu, Afrikaans, isiXhosa, Sesotho, Setswana, Sepedi, Tshivenḓa, Xitsonga, siSwati, and isiNdebele.
+- **GPS Location Tracking**: Real-time location monitoring with geofencing. Receive alerts when children arrive at or leave safe zones.
+- **Screen Time Management**: Daily and weekly reports on app usage. Set time limits per app or category.
+- **Internet Pause**: One-tap internet pause across all connected devices.
+- **Anti-Uninstall**: Device admin protection prevents children from removing the app.
+- **School Shield**: Integration for schools with batch enrollment, emergency broadcasts, and curriculum mode.
+- **POPIA Compliance**: Full compliance with South Africa's Protection of Personal Information Act.
+
+## Pricing
+- **Free**: Basic WhatsApp monitoring, Luna AI alerts, basic location tracking
+- **Guardian (R89/month)**: Up to 4 children, all 11 languages, voice alerts, weekly digest, priority support
+- **Sentinel (R149/month)**: Unlimited children, School Shield, ISP billing integration, dedicated account manager, 24/7 phone support
+
+## External References
+- BusinessTech: Phishing attacks targeting WhatsApp users in South Africa surge
+- Childline South Africa: Online grooming and cyberbullying cases rise significantly
+- UNICEF South Africa: 1 in 3 children in SA exposed to harmful content online
+- SAPS: Rise in cybercrimes targeting minors through WhatsApp and social media
