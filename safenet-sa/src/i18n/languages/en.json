@@ -1,0 +1,102 @@
+{
+  "translation": {
+    "nav": {
+      "features": "Features",
+      "howItWorks": "How it works",
+      "pricing": "Pricing",
+      "forSchools": "For Schools",
+      "languages": "Languages",
+      "signIn": "Sign in",
+      "protectMyChild": "Protect My Child",
+      "poweredBy": "Powered by Luna AI"
+    },
+    "hero": {
+      "badge": "Now protecting SA families · Free to start",
+      "headline": "Your child is safe online. We made certain of it.",
+      "subheadline": "The only digital safety platform built for South African families. Monitors WhatsApp. Speaks Zulu. Ready in 5 minutes.",
+      "cta": "Protect My Child",
+      "watchHow": "Watch how it works →",
+      "trust": "POPIA compliant · No credit card required · Cancel anytime"
+    },
+    "trust": {
+      "internetUsers": "SA internet users",
+      "languages": "Official languages",
+      "compliant": "Compliant",
+      "partner": "Partner",
+      "bornIn": "South Africa"
+    },
+    "problem": {
+      "title": "Every global safety tool was built for them. Not for you.",
+      "p1": "Your child lives on WhatsApp. Not iMessage. Not Snapchat.",
+      "p2": "Bark costs R260 a month and does not monitor WhatsApp. Qustodio does not speak Afrikaans. Google Family Link can be bypassed in 30 seconds.",
+      "p3": "SafeNet SA was built for Soweto, Stellenbosch, Polokwane, and every family in between."
+    },
+    "howItWorks": {
+      "label": "How SafeNet SA Works",
+      "headline": "Set up in 5 minutes. Protection that lasts.",
+      "step1": "Download and log in with your SA number. No password needed.",
+      "step2": "Scan the QR code on your child's phone. 60 seconds.",
+      "step3": "Luna AI monitors immediately. Alerts in your language."
+    },
+    "features": {
+      "headline": "Everything a South African parent needs",
+      "whatsapp": "WhatsApp monitoring. On your child's device. Private.",
+      "whatsappDesc": "The only platform that understands WhatsApp threats in Zulu, Afrikaans, Sotho and Xhosa. Never transmitted. POPIA safe."
+    },
+    "pricing": {
+      "headline": "Protection for every family",
+      "monthly": "Monthly",
+      "annual": "Annual",
+      "save": "Save 17%",
+      "free": "Free",
+      "guardian": "Guardian",
+      "sentinel": "Sentinel",
+      "perMonth": "/month",
+      "perYear": "/year",
+      "mostPopular": "Most popular"
+    },
+    "testimonials": {
+      "headline": "Trusted by South African families"
+    },
+    "cta": {
+      "headline": "3.2 million South African families need this. Yours is one of them.",
+      "sub": "Start protecting your family today. Free to try. POPIA compliant. Ready in 5 minutes."
+    },
+    "footer": {
+      "description": "Digital safety infrastructure for South African families. Born here. Built here.",
+      "allSafe": "All systems safe",
+      "rights": "All rights reserved.",
+      "popia": "POPIA compliant"
+    },
+    "auth": {
+      "welcome": "Welcome to SafeNet SA",
+      "phonePrompt": "Enter your South African phone number to get started",
+      "phoneLabel": "Phone number",
+      "phoneHint": "We'll send you a one-time verification code",
+      "sendCode": "Send verification code",
+      "verifyTitle": "Verify your number",
+      "verifyHint": "Enter the 6-digit code sent to +27",
+      "verify": "Verify & Continue",
+      "resend": "Resend",
+      "consentTitle": "POPIA Consent",
+      "consentDesc": "Under South Africa's Protection of Personal Information Act, we need your consent for the following:",
+      "agreeAll": "I agree to all of the above",
+      "start": "Start Protecting My Family"
+    },
+    "dashboard": {
+      "overview": "Overview",
+      "children": "Children",
+      "alerts": "Alerts",
+      "location": "Location",
+      "settings": "Settings",
+      "allSafe": "All children safe and secure",
+      "needsAttention": "Alerts require your attention",
+      "updated": "Updated just now",
+      "yourChildren": "Your Children",
+      "manageChildren": "Manage children",
+      "recentAlerts": "Recent Alerts",
+      "viewAll": "View all",
+      "askLuna": "Ask Luna"
+    }
+  }
+}

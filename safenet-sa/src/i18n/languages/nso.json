@@ -1,0 +1,102 @@
+{
+  "translation": {
+    "nav": {
+      "features": "Dikarolo",
+      "howItWorks": "E Šoma Bjang",
+      "pricing": "Ditheko",
+      "forSchools": "Sa Dikolo",
+      "languages": "Dipolelo",
+      "signIn": "Tsena",
+      "protectMyChild": "Šireletša Ngwana wa Ka",
+      "poweredBy": "E fepegile ke Luna AI"
+    },
+    "hero": {
+      "badge": "E šireletša malapa a Afrika Borwa · Mahala go thoma",
+      "headline": "Ngwana wa gago o širilegile inthaneteng. Re netefaditše seo.",
+      "subheadline": "Sethala se tee sa tšhireletšo sa dijithale se agetšwego malapa a Afrika Borwa. Se lebela WhatsApp. Se bolela Sezulu. Se lokile ka metsotso e 5.",
+      "cta": "Šireletša Ngwana wa Ka",
+      "watchHow": "Lebelela ge e šoma →",
+      "trust": "E dumelana le POPIA · Ga go karete ya mokitlane ye e nyakegago · Khansela nako le nako"
+    },
+    "trust": {
+      "internetUsers": "Bašomiši ba inthanete ba Afrika Borwa",
+      "languages": "Dipolelo tša semmušo",
+      "compliant": "E dumelana",
+      "partner": "Molekane",
+      "bornIn": "Afrika Borwa"
+    },
+    "problem": {
+      "title": "Didirišwa tšohle tša tšhireletšo tša lefase di agetšwe bona. E sego wena.",
+      "p1": "Ngwana wa gago o phela go WhatsApp. E sego iMessage. E sego Snapchat.",
+      "p2": "Bark e bitša R260 ka kgwedi gomme ga e lebele WhatsApp. Qustodio ga e bolele Seburu. Google Family Link e ka feta ka metsotswana e 30.",
+      "p3": "SafeNet SA e agetšwe Soweto, Stellenbosch, Polokwane, le lapa le lengwe le le lengwe le magareng."
+    },
+    "howItWorks": {
+      "label": "SafeNet SA E Šoma Bjang",
+      "headline": "E bea ka metsotso e 5. Tšhireletšo ye e tšwago pele.",
+      "step1": "Lata o tsene ka nomoro ya gago ya SA. Ga go hloke phasewete.",
+      "step2": "Skena khoutu ya QR go founu ya ngwana wa gago. Metsotswana e 60.",
+      "step3": "Luna AI e lebela ka yona nako. Ditemošo ka polelo ya gago."
+    },
+    "features": {
+      "headline": "Sengwe le sengwe se motsadi wa Afrika Borwa a se nyakago",
+      "whatsapp": "Go lebela WhatsApp. Sedirišweng sa ngwana wa gago. Sephiri.",
+      "whatsappDesc": "Sethala se tee se kwešišago ditšhošetšo tša WhatsApp ka Sezulu, Seburu, Sesotho le Sexhosa. Ga se fetišwe. E širilegile go POPIA."
+    },
+    "pricing": {
+      "headline": "Tšhireletšo ya lapa le lengwe le le lengwe",
+      "monthly": "Ka kgwedi",
+      "annual": "Ka ngwaga",
+      "save": "Boloka 17%",
+      "free": "Mahala",
+      "guardian": "Mohlagodi",
+      "sentinel": "Molebeli",
+      "perMonth": "/kgwedi",
+      "perYear": "/ngwaga",
+      "mostPopular": "E tsebjago kudu"
+    },
+    "testimonials": {
+      "headline": "E tšepilwe ke malapa a Afrika Borwa"
+    },
+    "cta": {
+      "headline": "Dimilione tše 3.2 tša malapa a Afrika Borwa a nyaka se. Sa gago ke se sengwe sa tšona.",
+      "sub": "Thoma go šireletša lapa la gago lehono. Mahala go leka. E dumelana le POPIA. E lokile ka metsotso e 5."
+    },
+    "footer": {
+      "description": "Motheo wa tšhireletšo wa dijithale wa malapa a Afrika Borwa. E belegwe mo. E agilwe mo.",
+      "allSafe": "Dithulaganyo ka moka di širilegile",
+      "rights": "Ditokelo ka moka di bolokilwe.",
+      "popia": "E dumelana le POPIA"
+    },
+    "auth": {
+      "welcome": "O amogetšwe go SafeNet SA",
+      "phonePrompt": "Tsenya nomoro ya gago ya mohola ya Afrika Borwa go thoma",
+      "phoneLabel": "Nomoro ya mohola",
+      "phoneHint": "Re tla go romela khoutu ya netefatšo e tee",
+      "sendCode": "Romela khoutu ya netefatšo",
+      "verifyTitle": "Netefatša nomoro ya gago",
+      "verifyHint": "Tsenya khoutu ya dinomoro tše 6 e rometšwego go +27",
+      "verify": "Netefatša & Tšwela Pele",
+      "resend": "Romela gape",
+      "consentTitle": "Tumello ya POPIA",
+      "consentDesc": "Ka fase ga Molao wa Tšhireletšo ya Tshedimošo ya botho wa Afrika Borwa, re nyaka tumello ya gago bakeng sa se se latelago:",
+      "agreeAll": "Ke dumela go tšohle tše di ka godimo",
+      "start": "Thoma go Šireletša Lapa la Ka"
+    },
+    "dashboard": {
+      "overview": "Kakaretšo",
+      "children": "Bana",
+      "alerts": "Ditemošo",
+      "location": "Lefelo",
+      "settings": "Dipeakanyo",
+      "allSafe": "Bana ka moka ba širilegile",
+      "needsAttention": "Ditemošo di nyaka tlhokomelo ya gago",
+      "updated": "E sa tšwa ntlafatšwa",
+      "yourChildren": "Bana ba Gago",
+      "manageChildren": "Laola bana",
+      "recentAlerts": "Ditemošo tša Morao",
+      "viewAll": "Bona ka moka",
+      "askLuna": "Botšiša Luna"
+    }
+  }
+}

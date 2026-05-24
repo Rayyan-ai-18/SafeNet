@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Status — Luna AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{background:#060610;color:#e2e8f0;font-family:'Inter',sans-serif;min-height:100vh;display:flex;flex-direction:column;}
+    .top-bar{padding:20px 32px;border-bottom:1px solid rgba(255,255,255,0.07);}
+    .logo{font-size:22px;font-weight:800;color:#fff;text-decoration:none;letter-spacing:-0.5px;}
+    .logo span{color:#3b82f6;}
+    .main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:48px 24px;}
+    .status-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:40px 48px;max-width:560px;width:100%;text-align:center;}
+    .status-dot{width:56px;height:56px;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:24px;}
+    .status-dot.online{background:rgba(34,197,94,0.15);box-shadow:0 0 24px rgba(34,197,94,0.3);}
+    .status-dot.offline{background:rgba(239,68,68,0.15);box-shadow:0 0 24px rgba(239,68,68,0.3);}
+    .status-dot.unknown{background:rgba(100,116,139,0.15);}
+    .status-label{font-size:26px;font-weight:700;margin-bottom:6px;}
+    .status-label.online{color:#22c55e;}
+    .status-label.offline{color:#ef4444;}
+    .status-label.unknown{color:#94a3b8;}
+    .monitor-name{font-size:15px;color:#94a3b8;margin-bottom:28px;}
+    .stats-row{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;}
+    .stat-box{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:14px 20px;min-width:120px;}
+    .stat-val{font-size:22px;font-weight:700;color:#f8fafc;}
+    .stat-key{font-size:11px;color:#64748b;margin-top:4px;text-transform:uppercase;letter-spacing:0.5px;}
+    .last-checked{font-size:12px;color:#475569;margin-top:8px;}
+    .monitor-url{font-size:12px;color:#3b82f6;margin-top:4px;word-break:break-all;}
+    .loading{color:#64748b;font-size:15px;padding:60px;}
+    .footer{padding:20px 32px;border-top:1px solid rgba(255,255,255,0.05);text-align:center;font-size:12px;color:#334155;}
+    .footer a{color:#3b82f6;text-decoration:none;}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <a href="https://meet-luna-ai.vercel.app" class="logo">lun<span>a!</span></a>
+  </div>
+  <div class="main">
+    <div id="content"><div class="loading">Loading status…</div></div>
+  </div>
+  <div class="footer">Powered by <a href="https://meet-luna-ai.vercel.app">Luna AI</a> — Autonomous Security Sentinel</div>
+  <script>
+    const id = location.pathname.replace(/^\/status\/?/, '').replace(/\/$/, '');
+    if (!id) {
+      document.getElementById('content').innerHTML = '<div class="loading">No monitor ID provided.</div>';
+    } else {
+      fetch('/api/monitor?action=status&id=' + encodeURIComponent(id))
+        .then(r => r.ok ? r.json() : Promise.reject(r.status))
+        .then(data => {
+          const online = data.online;
+          const cls = online ? 'online' : data.last_status ? 'offline' : 'unknown';
+          const emoji = online ? '✅' : data.last_status ? '🔴' : '❓';
+          const label = online ? 'All Systems Operational' : data.last_status ? 'Outage Detected' : 'Status Unknown';
+          const uptime = data.uptime_pct != null ? parseFloat(data.uptime_pct).toFixed(1) + '%' : '—';
+          const ttfb = data.last_ttfb ? data.last_ttfb + 'ms' : '—';
+          const checked = data.last_checked ? new Date(data.last_checked).toLocaleString() : 'Never';
+          document.getElementById('content').innerHTML = `
+            <div class="status-card">
+              <div class="status-dot ${cls}">${emoji}</div>
+              <div class="status-label ${cls}">${label}</div>
+              <div class="monitor-name">${data.label || 'Monitor'}</div>
+              <div class="stats-row">
+                <div class="stat-box"><div class="stat-val">${uptime}</div><div class="stat-key">Uptime</div></div>
+                <div class="stat-box"><div class="stat-val">${ttfb}</div><div class="stat-key">Response</div></div>
+                <div class="stat-box"><div class="stat-val">${data.last_status || '—'}</div><div class="stat-key">HTTP Status</div></div>
+              </div>
+              <div class="last-checked">Last checked: ${checked}</div>
+              <div class="monitor-url">${data.url || ''}</div>
+            </div>`;
+          document.title = (data.label || 'Monitor') + ' Status — Luna AI';
+        })
+        .catch(err => {
+          document.getElementById('content').innerHTML = err === 404
+            ? '<div class="loading">Monitor not found.</div>'
+            : '<div class="loading">Could not load status.</div>';
+        });
+    }
+  </script>
+</body>
+</html>

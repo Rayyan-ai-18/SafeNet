@@ -1,0 +1,102 @@
+{
+  "translation": {
+    "nav": {
+      "features": "Dintlha",
+      "howItWorks": "E Bereka Jang",
+      "pricing": "Ditshupitsho",
+      "forSchools": "Sa Dikolo",
+      "languages": "Dipuo",
+      "signIn": "Tsena",
+      "protectMyChild": "Sireletsa Ngwana wa Me",
+      "poweredBy": "E tsamaisiwa ke Luna AI"
+    },
+    "hero": {
+      "badge": "E sireletsa malapa a Aforika Borwa · Mahala go simolola",
+      "headline": "Ngwana wa gago o sireletsegile mo inthaneteng. Re netefaditse seo.",
+      "subheadline": "Sethala se se feletseng sa tshireletso sa dijithale se agetsweng malapa a Aforika Borwa. Se lebela WhatsApp. Se bua Sezulu. Se lokile ka metsotso e 5.",
+      "cta": "Sireletsa Ngwana wa Me",
+      "watchHow": "Lebelela gore e bereka jang →",
+      "trust": "E dumellana le POPIA · Ga go karata ya mokitlane e e tlhokegang · Khansela nako mgwe le mgwe"
+    },
+    "trust": {
+      "internetUsers": "Batho ba ba dirisang inthanete ba Aforika Borwa",
+      "languages": "Dipuo tsa semmuso",
+      "compliant": "E dumellana",
+      "partner": "Molekane",
+      "bornIn": "Aforika Borwa"
+    },
+    "problem": {
+      "title": "Didirisiwa tsotlhe tsa tshireletso tsa lefatshe di agetswe bone. Eseng mo go wena.",
+      "p1": "Ngwana wa gago o tshela mo WhatsApp. Ga se mo iMessage. Ga se mo Snapchat.",
+      "p2": "Bark e bitsa R260 ka kgwedi mme ga e lebele WhatsApp. Qustodio ga e bolele Seburu. Google Family Link e ka feta ka metsotswana e 30.",
+      "p3": "SafeNet SA e agetswe Soweto, Stellenbosch, Polokwane, le lwapa lengwe le lengwe le fa gare."
+    },
+    "howItWorks": {
+      "label": "SafeNet SA E Bereka Jang",
+      "headline": "E bea ka metsotso e 5. Tshireletso e e tswelelang.",
+      "step1": "Lata mme o tsene ka nomoro ya gago ya SA. Ga go tlhoke phasewete.",
+      "step2": "Skena khoutu ya QR mo founung ya ngwana wa gago. Metsotswana e 60.",
+      "step3": "Luna AI e lebela ka yone nako. Ditemoso ka puo ya gago."
+    },
+    "features": {
+      "headline": "Sengwe le sengwe se motsadi wa Aforika Borwa a se tlhokang",
+      "whatsapp": "Go lebela WhatsApp. Mo sedirisweng sa ngwana wa gago. Sephiri.",
+      "whatsappDesc": "Sethala se le seng se utlwisisang ditshoso tsa WhatsApp ka Sezulu, Seburu, Sesotho le Sexhosa. Ga se fetisiwe. E sireletsegile mo POPIA."
+    },
+    "pricing": {
+      "headline": "Tshireletso ya lwapa lengwe le lengwe",
+      "monthly": "Ka kgwedi",
+      "annual": "Ka ngwaga",
+      "save": "Boloka 17%",
+      "free": "Mahala",
+      "guardian": "Modisireletsi",
+      "sentinel": "Molebeli",
+      "perMonth": "/kgwedi",
+      "perYear": "/ngwaga",
+      "mostPopular": "E itseweng thata"
+    },
+    "testimonials": {
+      "headline": "E tshepilwe ke malapa a Aforika Borwa"
+    },
+    "cta": {
+      "headline": "Dimilione tse 3.2 tsa malapa a Aforika Borwa a tlhoka se. Sa gago ke sengwe sa tsone.",
+      "sub": "Simolola go sireletsa lwapa la gago gompieno. Mahala go leka. E dumellana le POPIA. E lokile ka metsotso e 5."
+    },
+    "footer": {
+      "description": "Motheo wa tshireletso wa dijithale wa malapa a Aforika Borwa. E tsholetswe fano. E agilwe fano.",
+      "allSafe": "Dithulaganyo tsotlhe di sireletsegile",
+      "rights": "Ditshwanelo tsotlhe di bolokilwe.",
+      "popia": "E dumellana le POPIA"
+    },
+    "auth": {
+      "welcome": "O amogelesega mo SafeNet SA",
+      "phonePrompt": "Tsenya nomoro ya gago ya mohala ya Aforika Borwa go simolola",
+      "phoneLabel": "Nomoro ya mohala",
+      "phoneHint": "Re tla go romela khoutu ya netefatso e le nngwe",
+      "sendCode": "Romela khoutu ya netefatso",
+      "verifyTitle": "Netefatsa nomoro ya gago",
+      "verifyHint": "Tsenya khoutu ya dinomoro tse 6 e rometsweng go +27",
+      "verify": "Netefatsa & Tswela Pele",
+      "resend": "Romela gape",
+      "consentTitle": "Tumello ya POPIA",
+      "consentDesc": "Ka fa tlase ga Molao wa Tshireletso ya Kitso ya Botho wa Aforika Borwa, re tlhoka tumello ya gago mo go se latelang:",
+      "agreeAll": "Ke dumela mo go tsotlhe tse di kwa godimo",
+      "start": "Simolola go Sireletsa Lwapa la Me"
+    },
+    "dashboard": {
+      "overview": "Kakaretso",
+      "children": "Bana",
+      "alerts": "Ditemoso",
+      "location": "Lefelo",
+      "settings": "Dithulaganyo",
+      "allSafe": "Bana botlhe ba sireletsegile",
+      "needsAttention": "Ditemoso di tlhoka tlhokomelo ya gago",
+      "updated": "E sa tswa ntšhafatswa",
+      "yourChildren": "Bana ba Gago",
+      "manageChildren": "Laola bana",
+      "recentAlerts": "Ditemoso tsa Morao",
+      "viewAll": "Bona tsotlhe",
+      "askLuna": "Botsa Luna"
+    }
+  }
+}

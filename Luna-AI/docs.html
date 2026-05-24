@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Developer Docs — Luna AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bg:#060610;
+      --surface:rgba(255,255,255,0.03);
+      --border:rgba(255,255,255,0.08);
+      --blue:#3b82f6;
+      --text:#e2e8f0;
+      --muted:#94a3b8;
+      --dim:#64748b;
+      --code-bg:#0d1117;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh;display:flex;flex-direction:column;}
+
+    /* Top bar */
+    .top-bar{padding:18px 40px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:24px;position:sticky;top:0;background:rgba(6,6,16,0.92);backdrop-filter:blur(12px);z-index:50;}
+    .logo{font-size:20px;font-weight:800;color:#fff;text-decoration:none;letter-spacing:-0.5px;}
+    .logo span{color:var(--blue);}
+    .top-badge{font-size:11px;font-weight:600;background:rgba(59,130,246,0.15);color:var(--blue);border:1px solid rgba(59,130,246,0.3);border-radius:20px;padding:3px 10px;letter-spacing:0.5px;}
+
+    /* Layout */
+    .layout{display:flex;flex:1;max-width:1200px;margin:0 auto;width:100%;padding:0 24px;}
+
+    /* Sidebar */
+    nav.sidebar{width:220px;flex-shrink:0;padding:40px 0 40px;position:sticky;top:61px;height:calc(100vh - 61px);overflow-y:auto;}
+    .nav-section{margin-bottom:24px;}
+    .nav-title{font-size:10px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;padding:0 12px;}
+    .nav-link{display:block;padding:7px 12px;font-size:13px;color:var(--muted);text-decoration:none;border-radius:7px;transition:background 0.15s,color 0.15s;}
+    .nav-link:hover,.nav-link.active{background:rgba(59,130,246,0.1);color:var(--blue);}
+
+    /* Main content */
+    main{flex:1;padding:40px 0 80px 48px;min-width:0;}
+    section{margin-bottom:64px;}
+    h1{font-size:32px;font-weight:800;color:#f8fafc;letter-spacing:-0.5px;margin-bottom:8px;}
+    h2{font-size:20px;font-weight:700;color:#f8fafc;margin-bottom:16px;padding-top:8px;}
+    h3{font-size:15px;font-weight:600;color:#cbd5e1;margin-bottom:10px;margin-top:24px;}
+    p{color:var(--muted);margin-bottom:14px;font-size:14.5px;}
+    a{color:var(--blue);text-decoration:none;}
+    a:hover{text-decoration:underline;}
+
+    .lead{font-size:16px;color:#cbd5e1;margin-bottom:0;}
+
+    /* Code blocks */
+    pre{background:var(--code-bg);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:20px 24px;overflow-x:auto;margin-bottom:16px;}
+    code{font-family:'JetBrains Mono',monospace;font-size:13px;color:#e2e8f0;}
+    pre code{color:#e2e8f0;}
+    .inline-code{background:rgba(255,255,255,0.07);padding:2px 7px;border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#c9d1d9;}
+
+    /* Syntax colors */
+    .kw{color:#ff79c6;}
+    .str{color:#f1fa8c;}
+    .cm{color:#6272a4;}
+    .fn{color:#50fa7b;}
+    .num{color:#bd93f9;}
+    .hdr{color:#8be9fd;}
+
+    /* Callout */
+    .callout{background:rgba(59,130,246,0.06);border:1px solid rgba(59,130,246,0.2);border-radius:10px;padding:14px 18px;margin-bottom:20px;font-size:13.5px;color:#93c5fd;}
+    .callout strong{color:var(--blue);}
+    .callout.warn{background:rgba(251,191,36,0.06);border-color:rgba(251,191,36,0.25);color:#fde68a;}
+    .callout.warn strong{color:#fbbf24;}
+
+    /* Endpoint cards */
+    .endpoint-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px;}
+    .endpoint-header{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+    .method{font-size:12px;font-weight:700;padding:4px 10px;border-radius:6px;font-family:'JetBrains Mono',monospace;}
+    .method.get{background:rgba(34,197,94,0.15);color:#22c55e;}
+    .method.post{background:rgba(59,130,246,0.15);color:#60a5fa;}
+    .endpoint-path{font-family:'JetBrains Mono',monospace;font-size:14px;color:#f8fafc;font-weight:500;}
+    .endpoint-desc{font-size:13.5px;color:var(--muted);margin-bottom:16px;}
+    .param-table{width:100%;border-collapse:collapse;font-size:13px;}
+    .param-table th{text-align:left;color:var(--dim);font-weight:600;padding:6px 10px;border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;}
+    .param-table td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--muted);}
+    .param-table td:first-child{color:#cbd5e1;font-family:'JetBrains Mono',monospace;font-size:12px;}
+    .required{color:#f87171;font-size:10px;font-weight:700;text-transform:uppercase;}
+    .optional{color:var(--dim);font-size:10px;font-weight:600;text-transform:uppercase;}
+
+    /* Rate limit table */
+    .tier-table{width:100%;border-collapse:collapse;font-size:13.5px;}
+    .tier-table th{text-align:left;color:var(--dim);font-weight:600;padding:10px 16px;border-bottom:1px solid var(--border);font-size:11px;text-transform:uppercase;letter-spacing:0.5px;}
+    .tier-table td{padding:12px 16px;border-bottom:1px solid rgba(255,255,255,0.04);color:var(--muted);}
+    .tier-table tr:hover td{background:rgba(255,255,255,0.02);}
+    .badge{display:inline-block;font-size:11px;font-weight:600;padding:2px 9px;border-radius:20px;}
+    .badge.free{background:rgba(100,116,139,0.2);color:#94a3b8;}
+    .badge.pro{background:rgba(59,130,246,0.15);color:#60a5fa;}
+    .badge.enterprise{background:rgba(168,85,247,0.15);color:#c084fc;}
+
+    /* Tab switcher */
+    .tabs{display:flex;gap:4px;margin-bottom:16px;background:rgba(255,255,255,0.04);border-radius:10px;padding:4px;width:fit-content;}
+    .tab{padding:7px 16px;font-size:13px;font-weight:500;border-radius:7px;cursor:pointer;color:var(--dim);border:none;background:transparent;transition:all 0.15s;}
+    .tab.active{background:rgba(59,130,246,0.2);color:var(--blue);}
+
+    /* SSE section */
+    .sse-flow{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:16px;}
+    .sse-event{display:flex;gap:16px;align-items:flex-start;margin-bottom:16px;}
+    .sse-event:last-child{margin-bottom:0;}
+    .sse-type{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:#f8fafc;background:rgba(255,255,255,0.07);padding:3px 10px;border-radius:6px;white-space:nowrap;min-width:100px;text-align:center;}
+    .sse-desc{font-size:13.5px;color:var(--muted);}
+
+    /* Footer */
+    footer{border-top:1px solid var(--border);text-align:center;padding:24px;font-size:12px;color:var(--dim);}
+    footer a{color:var(--blue);}
+
+    @media(max-width:768px){
+      .layout{flex-direction:column;}
+      nav.sidebar{width:100%;height:auto;position:static;padding:24px 0 0;}
+      main{padding:24px 0 60px;}
+      .top-bar{padding:16px 20px;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <a href="https://meet-luna-ai.vercel.app" class="logo">lun<span>a!</span></a>
+  <span class="top-badge">DEVELOPER DOCS</span>
+</div>
+
+<div class="layout">
+  <nav class="sidebar">
+    <div class="nav-section">
+      <div class="nav-title">Getting Started</div>
+      <a href="#introduction" class="nav-link">Introduction</a>
+      <a href="#authentication" class="nav-link">Authentication</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-title">API Reference</div>
+      <a href="#endpoints" class="nav-link">Endpoints</a>
+      <a href="#scan" class="nav-link">→ /api/scan</a>
+      <a href="#dep-scan" class="nav-link">→ /api/dep-scan</a>
+      <a href="#monitor" class="nav-link">→ /api/monitor</a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-title">Reference</div>
+      <a href="#examples" class="nav-link">Code Examples</a>
+      <a href="#rate-limits" class="nav-link">Rate Limits</a>
+      <a href="#response-format" class="nav-link">Response Format</a>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- Introduction -->
+    <section id="introduction">
+      <h1>Luna AI API</h1>
+      <p class="lead">Autonomous security scanning via a simple REST API. Detect vulnerabilities, scan dependencies, and monitor uptime — all from your CI/CD pipeline or application.</p>
+      <p>The Luna AI API is built on Vercel serverless functions and uses <strong>Server-Sent Events (SSE)</strong> for real-time streaming of scan results. Results are delivered progressively as Luna analyzes each vulnerability, so you can display findings as they arrive.</p>
+      <div class="callout">
+        <strong>Base URL:</strong> <span class="inline-code">https://meet-luna-ai.vercel.app</span>
+      </div>
+    </section>
+
+    <!-- Authentication -->
+    <section id="authentication">
+      <h2>Authentication</h2>
+      <p>All scan endpoints require an API key passed via the <span class="inline-code">x-api-key</span> HTTP header. You can generate an API key from the Luna AI dashboard after signing in.</p>
+      <pre><code><span class="hdr">x-api-key</span>: luna_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</code></pre>
+      <div class="callout warn">
+        <strong>Keep your key secret.</strong> Never expose your API key in client-side JavaScript or public repositories. Use environment variables.
+      </div>
+      <h3>Getting an API Key</h3>
+      <p>1. Sign in at <a href="https://meet-luna-ai.vercel.app">meet-luna-ai.vercel.app</a><br>
+         2. Open the <strong>Developer API</strong> panel<br>
+         3. Click <strong>Generate Key</strong><br>
+         4. Copy and store your key securely — it won't be shown again</p>
+    </section>
+
+    <!-- Endpoints -->
+    <section id="endpoints">
+      <h2>Endpoints</h2>
+
+      <!-- /api/scan -->
+      <div id="scan" class="endpoint-card">
+        <div class="endpoint-header">
+          <span class="method get">GET</span>
+          <span class="endpoint-path">/api/scan</span>
+        </div>
+        <p class="endpoint-desc">Scan a URL for security vulnerabilities including XSS, SQL injection, exposed secrets, outdated headers, and misconfigurations. Returns a streaming SSE response.</p>
+        <table class="param-table">
+          <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>url</td><td>string</td><td><span class="required">Required</span></td><td>The full URL to scan (must include scheme, e.g. https://)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- /api/dep-scan -->
+      <div id="dep-scan" class="endpoint-card">
+        <div class="endpoint-header">
+          <span class="method post">POST</span>
+          <span class="endpoint-path">/api/dep-scan</span>
+        </div>
+        <p class="endpoint-desc">Scan a <span class="inline-code">package.json</span> manifest for known vulnerable dependencies using the OSV (Open Source Vulnerabilities) database. Streams results as findings are discovered.</p>
+        <table class="param-table">
+          <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>packages</td><td>object</td><td><span class="required">Required</span></td><td>Key-value map of package name to version (from <span class="inline-code">dependencies</span>)</td></tr>
+            <tr><td>devPackages</td><td>object</td><td><span class="optional">Optional</span></td><td>Key-value map from <span class="inline-code">devDependencies</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- /api/monitor -->
+      <div id="monitor" class="endpoint-card">
+        <div class="endpoint-header">
+          <span class="method post">POST</span>
+          <span class="endpoint-path">/api/monitor</span>
+        </div>
+        <p class="endpoint-desc">Create, update, delete, or list uptime monitors. Monitors are checked every 5 minutes and results are stored in Supabase.</p>
+        <table class="param-table">
+          <thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td>action</td><td>string</td><td><span class="required">Required</span></td><td><span class="inline-code">create</span> | <span class="inline-code">delete</span> | <span class="inline-code">list</span></td></tr>
+            <tr><td>url</td><td>string</td><td><span class="optional">Optional</span></td><td>URL to monitor (required for <span class="inline-code">create</span>)</td></tr>
+            <tr><td>label</td><td>string</td><td><span class="optional">Optional</span></td><td>Human-readable name for the monitor</td></tr>
+            <tr><td>id</td><td>string</td><td><span class="optional">Optional</span></td><td>Monitor ID (required for <span class="inline-code">delete</span>)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Code Examples -->
+    <section id="examples">
+      <h2>Code Examples</h2>
+
+      <div class="tabs" id="lang-tabs">
+        <button class="tab active" data-lang="curl" onclick="switchTab(this,'curl')">cURL</button>
+        <button class="tab" data-lang="js" onclick="switchTab(this,'js')">JavaScript</button>
+        <button class="tab" data-lang="python" onclick="switchTab(this,'python')">Python</button>
+      </div>
+
+      <!-- cURL -->
+      <div id="ex-curl">
+        <h3>Scan a URL</h3>
+        <pre><code><span class="cm"># Stream results in real-time</span>
+curl -N -H <span class="str">"x-api-key: YOUR_KEY"</span> \
+  <span class="str">"https://meet-luna-ai.vercel.app/api/scan?url=https://example.com"</span></code></pre>
+
+        <h3>Scan dependencies</h3>
+        <pre><code>curl -X POST \
+  -H <span class="str">"x-api-key: YOUR_KEY"</span> \
+  -H <span class="str">"Content-Type: application/json"</span> \
+  -d <span class="str">'{"packages":{"express":"4.18.2","lodash":"4.17.20"}}'</span> \
+  <span class="str">"https://meet-luna-ai.vercel.app/api/dep-scan"</span></code></pre>
+
+        <h3>Create a monitor</h3>
+        <pre><code>curl -X POST \
+  -H <span class="str">"x-api-key: YOUR_KEY"</span> \
+  -H <span class="str">"Content-Type: application/json"</span> \
+  -d <span class="str">'{"action":"create","url":"https://example.com","label":"My Site"}'</span> \
+  <span class="str">"https://meet-luna-ai.vercel.app/api/monitor"</span></code></pre>
+      </div>
+
+      <!-- JavaScript -->
+      <div id="ex-js" style="display:none">
+        <h3>Scan a URL (streaming)</h3>
+        <pre><code><span class="kw">const</span> response = <span class="kw">await</span> fetch(
+  <span class="str">'https://meet-luna-ai.vercel.app/api/scan?url=https://example.com'</span>,
+  { headers: { <span class="str">'x-api-key'</span>: <span class="str">'YOUR_KEY'</span> } }
+);
+
+<span class="kw">const</span> reader = response.body.getReader();
+<span class="kw">const</span> decoder = <span class="kw">new</span> TextDecoder();
+
+<span class="kw">while</span> (<span class="kw">true</span>) {
+  <span class="kw">const</span> { done, value } = <span class="kw">await</span> reader.read();
+  <span class="kw">if</span> (done) <span class="kw">break</span>;
+  <span class="kw">const</span> lines = decoder.decode(value).split(<span class="str">'\n'</span>);
+  <span class="kw">for</span> (<span class="kw">const</span> line <span class="kw">of</span> lines) {
+    <span class="kw">if</span> (line.startsWith(<span class="str">'data: '</span>)) {
+      <span class="kw">const</span> data = JSON.parse(line.slice(<span class="num">6</span>));
+      console.log(data);
+    }
+  }
+}</code></pre>
+
+        <h3>Scan dependencies</h3>
+        <pre><code><span class="kw">const</span> pkg = <span class="kw">await</span> <span class="fn">import</span>(<span class="str">'./package.json'</span>, { assert: { type: <span class="str">'json'</span> } });
+
+<span class="kw">const</span> res = <span class="kw">await</span> fetch(
+  <span class="str">'https://meet-luna-ai.vercel.app/api/dep-scan'</span>,
+  {
+    method: <span class="str">'POST'</span>,
+    headers: {
+      <span class="str">'x-api-key'</span>: <span class="str">'YOUR_KEY'</span>,
+      <span class="str">'Content-Type'</span>: <span class="str">'application/json'</span>
+    },
+    body: JSON.stringify({
+      packages: pkg.dependencies,
+      devPackages: pkg.devDependencies
+    })
+  }
+);
+
+<span class="kw">const</span> result = <span class="kw">await</span> res.json();
+console.log(result);</code></pre>
+      </div>
+
+      <!-- Python -->
+      <div id="ex-python" style="display:none">
+        <h3>Scan a URL (streaming)</h3>
+        <pre><code><span class="kw">import</span> requests
+
+url = <span class="str">"https://meet-luna-ai.vercel.app/api/scan"</span>
+headers = {<span class="str">"x-api-key"</span>: <span class="str">"YOUR_KEY"</span>}
+params = {<span class="str">"url"</span>: <span class="str">"https://example.com"</span>}
+
+<span class="kw">with</span> requests.get(url, headers=headers, params=params, stream=<span class="kw">True</span>) <span class="kw">as</span> r:
+    <span class="kw">for</span> line <span class="kw">in</span> r.iter_lines():
+        <span class="kw">if</span> line.startswith(<span class="str">b"data: "</span>):
+            <span class="kw">import</span> json
+            data = json.loads(line[<span class="num">6</span>:])
+            print(data)</code></pre>
+
+        <h3>Scan dependencies</h3>
+        <pre><code><span class="kw">import</span> requests, json
+
+<span class="kw">with</span> open(<span class="str">"package.json"</span>) <span class="kw">as</span> f:
+    pkg = json.load(f)
+
+res = requests.post(
+    <span class="str">"https://meet-luna-ai.vercel.app/api/dep-scan"</span>,
+    headers={
+        <span class="str">"x-api-key"</span>: <span class="str">"YOUR_KEY"</span>,
+        <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>
+    },
+    json={
+        <span class="str">"packages"</span>: pkg.get(<span class="str">"dependencies"</span>, {}),
+        <span class="str">"devPackages"</span>: pkg.get(<span class="str">"devDependencies"</span>, {})
+    }
+)
+print(res.json())</code></pre>
+      </div>
+    </section>
+
+    <!-- Rate Limits -->
+    <section id="rate-limits">
+      <h2>Rate Limits</h2>
+      <p>Rate limits are applied per API key per minute. Exceeding the limit returns a <span class="inline-code">429 Too Many Requests</span> response.</p>
+      <table class="tier-table">
+        <thead>
+          <tr><th>Tier</th><th>Requests / min</th><th>Concurrent scans</th><th>Monitor slots</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge free">Free</span></td>
+            <td>5</td>
+            <td>1</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td><span class="badge pro">Pro</span></td>
+            <td>Unlimited</td>
+            <td>5</td>
+            <td>50</td>
+          </tr>
+          <tr>
+            <td><span class="badge enterprise">Enterprise</span></td>
+            <td>Unlimited</td>
+            <td>Unlimited</td>
+            <td>Unlimited</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="margin-top:14px;">Rate limit headers are included in every response:</p>
+      <pre><code><span class="hdr">X-RateLimit-Limit</span>: 5
+<span class="hdr">X-RateLimit-Remaining</span>: 3
+<span class="hdr">X-RateLimit-Reset</span>: 1712345678</code></pre>
+    </section>
+
+    <!-- Response Format -->
+    <section id="response-format">
+      <h2>Response Format</h2>
+      <p>Scan endpoints (<span class="inline-code">/api/scan</span>, <span class="inline-code">/api/dep-scan</span>) return <strong>Server-Sent Events (SSE)</strong> — a streaming text format where each event is a line starting with <span class="inline-code">data: </span> followed by JSON.</p>
+
+      <h3>SSE Event Types</h3>
+      <div class="sse-flow">
+        <div class="sse-event">
+          <span class="sse-type">status</span>
+          <div class="sse-desc">Scan lifecycle updates: <span class="inline-code">scanning</span>, <span class="inline-code">analyzing</span>, <span class="inline-code">complete</span>. Contains <span class="inline-code">{ type: "status", message: "..." }</span></div>
+        </div>
+        <div class="sse-event">
+          <span class="sse-type">finding</span>
+          <div class="sse-desc">A single vulnerability finding. Contains severity, title, description, and remediation advice.</div>
+        </div>
+        <div class="sse-event">
+          <span class="sse-type">summary</span>
+          <div class="sse-desc">Final scan summary with counts by severity. Sent after all findings.</div>
+        </div>
+        <div class="sse-event">
+          <span class="sse-type">error</span>
+          <div class="sse-desc">Scan-level error (e.g. unreachable target, auth failure). Contains <span class="inline-code">{ type: "error", message: "..." }</span></div>
+        </div>
+      </div>
+
+      <h3>Example SSE stream</h3>
+      <pre><code>data: <span class="str">{"type":"status","message":"Scanning https://example.com..."}</span>
+
+data: <span class="str">{"type":"finding","severity":"HIGH","title":"Missing Content-Security-Policy","description":"No CSP header found.","remediation":"Add a Content-Security-Policy header."}</span>
+
+data: <span class="str">{"type":"summary","critical":0,"high":1,"medium":2,"low":0,"info":3}</span>
+
+data: <span class="str">{"type":"status","message":"complete"}</span></code></pre>
+
+      <h3>Finding object schema</h3>
+      <pre><code>{
+  <span class="hdr">"type"</span>:         <span class="str">"finding"</span>,
+  <span class="hdr">"severity"</span>:     <span class="str">"CRITICAL"</span> | <span class="str">"HIGH"</span> | <span class="str">"MEDIUM"</span> | <span class="str">"LOW"</span> | <span class="str">"INFO"</span>,
+  <span class="hdr">"title"</span>:        <span class="str">"string"</span>,
+  <span class="hdr">"description"</span>: <span class="str">"string"</span>,
+  <span class="hdr">"remediation"</span>: <span class="str">"string"</span>,
+  <span class="hdr">"url"</span>:          <span class="str">"string (optional)"</span>,
+  <span class="hdr">"package"</span>:      <span class="str">"string (dep-scan only)"</span>,
+  <span class="hdr">"version"</span>:      <span class="str">"string (dep-scan only)"</span>,
+  <span class="hdr">"cve"</span>:          <span class="str">"string (dep-scan only, e.g. CVE-2023-1234)"</span>
+}</code></pre>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <a href="https://meet-luna-ai.vercel.app">Luna AI</a> — Autonomous Security Sentinel &nbsp;·&nbsp; <a href="https://meet-luna-ai.vercel.app">Back to App</a>
+</footer>
+
+<script>
+  function switchTab(btn, lang) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    ['curl','js','python'].forEach(l => {
+      document.getElementById('ex-' + l).style.display = l === lang ? '' : 'none';
+    });
+  }
+
+  // Highlight active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const match = document.querySelector('.nav-link[href="#' + e.target.id + '"]');
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

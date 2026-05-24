@@ -1,0 +1,102 @@
+{
+  "translation": {
+    "nav": {
+      "features": "Kenmerke",
+      "howItWorks": "Hoe dit werk",
+      "pricing": "Pryse",
+      "forSchools": "Vir Skole",
+      "languages": "Tale",
+      "signIn": "Teken in",
+      "protectMyChild": "Beskerm My Kind",
+      "poweredBy": "Aangedryf deur Luna AI"
+    },
+    "hero": {
+      "badge": "Beskerm nou SA gesinne · Gratis om te begin",
+      "headline": "Jou kind is veilig aanlyn. Ons het seker gemaak.",
+      "subheadline": "Die enigste digitale veiligheidsplatform vir Suid-Afrikaanse gesinne. Monitor WhatsApp. Praat Zulu. Gereed in 5 minute.",
+      "cta": "Beskerm My Kind",
+      "watchHow": "Kyk hoe dit werk →",
+      "trust": "POPIA voldoen · Geen kredietkaart nodig · Kanselleer enige tyd"
+    },
+    "trust": {
+      "internetUsers": "SA internetgebruikers",
+      "languages": "Amptelike tale",
+      "compliant": "Voldoen",
+      "partner": "Vennoot",
+      "bornIn": "Suid-Afrika"
+    },
+    "problem": {
+      "title": "Elke globale veiligheidsinstrument is vir hulle gebou. Nie vir jou nie.",
+      "p1": "Jou kind leef op WhatsApp. Nie iMessage nie. Nie Snapchat nie.",
+      "p2": "Bark kos R260 per maand en monitor nie WhatsApp nie. Qustodio praat nie Afrikaans nie. Google Family Link kan in 30 sekondes omseil word.",
+      "p3": "SafeNet SA is gebou vir Soweto, Stellenbosch, Polokwane, en elke gesin tussenin."
+    },
+    "howItWorks": {
+      "label": "Hoe SafeNet SA Werk",
+      "headline": "Stel op in 5 minute. Beskerming wat hou.",
+      "step1": "Laai af en teken in met jou SA-nommer. Geen wagwoord nodig nie.",
+      "step2": "Skandeer die QR-kode op jou kind se foon. 60 sekondes.",
+      "step3": "Luna AI monitor onmiddellik. Waarskuwings in jou taal."
+    },
+    "features": {
+      "headline": "Alles wat 'n Suid-Afrikaanse ouer nodig het",
+      "whatsapp": "WhatsApp-monitering. Op jou kind se toestel. Privaat.",
+      "whatsappDesc": "Die enigste platform wat WhatsApp-bedreigings in Zoeloe, Afrikaans, Sotho en Xhosa verstaan. Nooit oorgedra nie. POPIA veilig."
+    },
+    "pricing": {
+      "headline": "Beskerming vir elke gesin",
+      "monthly": "Maandeliks",
+      "annual": "Jaarliks",
+      "save": "Spaar 17%",
+      "free": "Gratis",
+      "guardian": "Beskermer",
+      "sentinel": "Wag",
+      "perMonth": "/maand",
+      "perYear": "/jaar",
+      "mostPopular": "Mees gewild"
+    },
+    "testimonials": {
+      "headline": "Vertrou deur Suid-Afrikaanse gesinne"
+    },
+    "cta": {
+      "headline": "3.2 miljoen Suid-Afrikaanse gesinne het dit nodig. Joune is een van hulle.",
+      "sub": "Begin vandag om jou gesin te beskerm. Gratis om te probeer. POPIA voldoen. Gereed in 5 minute."
+    },
+    "footer": {
+      "description": "Digitale veiligheidsinfrastruktuur vir Suid-Afrikaanse gesinne. Hier gebore. Hier gebou.",
+      "allSafe": "Alle stelsels veilig",
+      "rights": "Alle regte voorbehou.",
+      "popia": "POPIA voldoen"
+    },
+    "auth": {
+      "welcome": "Welkom by SafeNet SA",
+      "phonePrompt": "Voer jou Suid-Afrikaanse foonnommer in om te begin",
+      "phoneLabel": "Foonnommer",
+      "phoneHint": "Ons stuur vir jou 'n eenmalige verifikasiekode",
+      "sendCode": "Stuur verifikasiekode",
+      "verifyTitle": "Bevestig jou nommer",
+      "verifyHint": "Voer die 6-syfer kode in wat gestuur is na +27",
+      "verify": "Bevestig & Gaan voort",
+      "resend": "Herstuur",
+      "consentTitle": "POPIA Toestemming",
+      "consentDesc": "Kragtens Suid-Afrika se Wet op die Beskerming van Persoonlike Inligting, benodig ons jou toestemming vir die volgende:",
+      "agreeAll": "Ek stem in tot al bogenoemde",
+      "start": "Begin My Gesin Beskerm"
+    },
+    "dashboard": {
+      "overview": "Oorsig",
+      "children": "Kinders",
+      "alerts": "Waarskuwings",
+      "location": "Ligging",
+      "settings": "Instellings",
+      "allSafe": "Alle kinders veilig en beskerm",
+      "needsAttention": "Waarskuwings vereis jou aandag",
+      "updated": "Pas opgedateer",
+      "yourChildren": "Jou Kinders",
+      "manageChildren": "Bestuur kinders",
+      "recentAlerts": "Onlangse Waarskuwings",
+      "viewAll": "Bekyk alles",
+      "askLuna": "Vra Luna"
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "translation": {
+    "nav": {
+      "features": "Izici",
+      "howItWorks": "Ukusebenza kwayo",
+      "pricing": "Intengo",
+      "forSchools": "Ezikoleni",
+      "languages": "Izilimi",
+      "signIn": "Ngena ngemvume",
+      "protectMyChild": "Vikela Ingane Yami",
+      "poweredBy": "Inikwa amandla yi-Luna AI"
+    },
+    "hero": {
+      "badge": "Ivikela imindeni yaseNingizimu Afrika · Mahhala ukuqala",
+      "headline": "Ingane yakho iphephile ku-inthanethi. Siqinisekile ngakho.",
+      "subheadline": "Iplatifomu yokuphepha yedijithali eyakhelwe imindeni yaseNingizimu Afrika. Iqapha i-WhatsApp. Ikhuluma isiZulu. Ilungile emizuzwini emi-5.",
+      "cta": "Vikela Ingane Yami",
+      "watchHow": "Buka ukusebenza kwayo →",
+      "trust": "Iyahambisana ne-POPIA · Ayikho ikhadi lesikweletu elidingekayo · Khansela noma nini"
+    },
+    "trust": {
+      "internetUsers": "Abasebenzisi be-inthanethi baseNingizimu Afrika",
+      "languages": "Izilimi ezisemthethweni",
+      "compliant": "Iyahambisana",
+      "partner": "Ubambiswano",
+      "bornIn": "INingizimu Afrika"
+    },
+    "problem": {
+      "title": "Wonke amathuluzi okuphepha omhlaba azenzelwe bona. Akuwona owakho.",
+      "p1": "Ingane yakho ihlala ku-WhatsApp. Hhayi iMessage. Hhayi i-Snapchat.",
+      "p2": "I-Bark ibiza u-R260 ngenyanga futhi ayiqaphi i-WhatsApp. I-Qustodio ayikhulumi isiBhunu. I-Google Family Link ingadlulwa ngemizuzwana engu-30.",
+      "p3": "ISafeNet SA yakhelwe iSoweto, iStellenbosch, iPolokwane, nawo wonke umndeni ophakathi."
+    },
+    "howItWorks": {
+      "label": "Isebenza Kanjani i-SafeNet SA",
+      "headline": "Misa ngemizuzu emi-5. Ukuvikelwa okuhlala njalo.",
+      "step1": "Landa ungene ngenombolo yakho ye-SA. Ayikho impawu yokungena edingekayo.",
+      "step2": "Skana ikhodi ye-QR efonini yengane yakho. Imizuzwana engu-60.",
+      "step3": "I-Luna AI iqapha ngokushesha. Izaziso ngolimi lwakho."
+    },
+    "features": {
+      "headline": "Konke umzali waseNingizimu Afrika akudingayo",
+      "whatsapp": "Ukuqapha i-WhatsApp. Kusebenza kudivayisi yengane yakho. Kuyimfihlo.",
+      "whatsappDesc": "Ukuphela kwendandatho eqonda izinsongo ze-WhatsApp ngesiZulu, isiBhunu, isiSuthu nesiXhosa. Akukho okudluliselwa. Kuphephile ne-POPIA."
+    },
+    "pricing": {
+      "headline": "Ukuvikelwa kuwo wonke umndeni",
+      "monthly": "Ngenyanga",
+      "annual": "Ngonyaka",
+      "save": "Londoloza u-17%",
+      "free": "Mahhala",
+      "guardian": "Umlondolozi",
+      "sentinel": "Unogada",
+      "perMonth": "/inyanga",
+      "perYear": "/unyaka",
+      "mostPopular": "Othandwa kakhulu"
+    },
+    "testimonials": {
+      "headline": "Ithenjwe imindeni yaseNingizimu Afrika"
+    },
+    "cta": {
+      "headline": "Izigidi eziyi-3.2 zemindeni yaseNingizimu Afrika iyakudinga lokhu. Owakho ungomunye wabo.",
+      "sub": "Qala ukuvikela umndeni wakho namuhla. Mahhala ukuzama. Ihambisana ne-POPIA. Ilungile ngemizuzu emi-5."
+    },
+    "footer": {
+      "description": "Ingqalasizinda yokuphepha yedijithali yemindeni yaseNingizimu Afrika. Izelwe lapha. Yakhelwe lapha.",
+      "allSafe": "Zonke izinhlelo ziphephile",
+      "rights": "Wonke amalungelo agodliwe.",
+      "popia": "Iyahambisana ne-POPIA"
+    },
+    "auth": {
+      "welcome": "Uyemukelwa ku-SafeNet SA",
+      "phonePrompt": "Faka inombolo yakho yaseNingizimu Afrika ukuze uqale",
+      "phoneLabel": "Inombolo yocingo",
+      "phoneHint": "Sizokuthumela ikhodi yokuqinisekisa eyodwa",
+      "sendCode": "Thumela ikhodi yokuqinisekisa",
+      "verifyTitle": "Qinisekisa inombolo yakho",
+      "verifyHint": "Faka ikhodi enezinombolo eziyi-6 ethunyelwe ku-+27",
+      "verify": "Qinisekisa & Qhubeka",
+      "resend": "Thumela futhi",
+      "consentTitle": "Imvume ye-POPIA",
+      "consentDesc": "Ngaphansi koMthetho Wokuvikelwa Kolwazi Lomuntu Siqu waseNingizimu Afrika, sidinga imvume yakho kulokhu okulandelayo:",
+      "agreeAll": "Ngiyavuma kukho konke okungenhla",
+      "start": "Qala Ukuvikela Umndeni Wami"
+    },
+    "dashboard": {
+      "overview": "Uhlolojikelele",
+      "children": "Izingane",
+      "alerts": "Izaziso",
+      "location": "Indawo",
+      "settings": "Izilungiselelo",
+      "allSafe": "Zonke izingane ziphephile futhi zivikelekile",
+      "needsAttention": "Izaziso zidinga ukunakwa kwakho",
+      "updated": "Isanda kubuyekezwa",
+      "yourChildren": "Izingane Zakho",
+      "manageChildren": "Phatha izingane",
+      "recentAlerts": "Izaziso Zakamuva",
+      "viewAll": "Buka konke",
+      "askLuna": "Buza uLuna"
+    }
+  }
+}

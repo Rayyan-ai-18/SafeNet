@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luna AI</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 340px;
+      max-width: 100vw;
+      min-height: 200px;
+      background: #0a0a0f;
+      color: #e2e8f0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 13px;
+      overflow-x: hidden;
+    }
+
+    @media (max-width: 360px) {
+      body { width: 100vw; font-size: 12px; }
+      .header { padding: 10px 12px; }
+      .verdict-card { margin: 10px 10px 0 !important; padding: 10px 12px !important; }
+      .findings { margin: 8px 10px 0 !important; }
+      .actions { padding: 10px 10px 12px !important; }
+      .score-pill { font-size: 11px !important; padding: 1px 7px !important; }
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+
+    .luna-orb {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #a78bfa, #6d28d9 60%, #1e1b4b);
+      box-shadow: 0 0 16px rgba(139,92,246,0.5);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .luna-orb.scanning {
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 16px rgba(139,92,246,0.5); }
+      50% { box-shadow: 0 0 28px rgba(139,92,246,0.9); }
+    }
+
+    .header-text h1 {
+      font-size: 15px;
+      font-weight: 700;
+      color: #f8fafc;
+      letter-spacing: 0.3px;
+    }
+
+    .header-text p {
+      font-size: 11px;
+      color: #64748b;
+      margin-top: 1px;
+    }
+
+    .settings-btn {
+      margin-left: auto;
+      background: none;
+      border: none;
+      color: #64748b;
+      cursor: pointer;
+      font-size: 16px;
+      padding: 4px;
+      border-radius: 4px;
+      transition: color 0.2s;
+    }
+
+    .settings-btn:hover { color: #a78bfa; }
+
+    /* ── Verdict card ── */
+    .verdict-card {
+      margin: 14px 14px 0;
+      border-radius: 12px;
+      padding: 14px 16px;
+      border: 1px solid transparent;
+    }
+
+    .verdict-card.safe {
+      background: rgba(34,197,94,0.08);
+      border-color: rgba(34,197,94,0.2);
+    }
+
+    .verdict-card.suspicious {
+      background: rgba(245,158,11,0.08);
+      border-color: rgba(245,158,11,0.2);
+    }
+
+    .verdict-card.dangerous {
+      background: rgba(239,68,68,0.08);
+      border-color: rgba(239,68,68,0.3);
+    }
+
+    .verdict-card.scanning {
+      background: rgba(99,102,241,0.08);
+      border-color: rgba(99,102,241,0.2);
+    }
+
+    .verdict-card.unknown {
+      background: rgba(100,116,139,0.08);
+      border-color: rgba(100,116,139,0.2);
+    }
+
+    .verdict-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .verdict-icon { font-size: 22px; }
+
+    .verdict-label {
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .safe    .verdict-label { color: #22c55e; }
+    .suspicious .verdict-label { color: #f59e0b; }
+    .dangerous  .verdict-label { color: #ef4444; }
+    .scanning   .verdict-label { color: #818cf8; }
+    .unknown    .verdict-label { color: #94a3b8; }
+
+    .score-pill {
+      margin-left: auto;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .safe    .score-pill { background: rgba(34,197,94,0.15); color: #22c55e; }
+    .suspicious .score-pill { background: rgba(245,158,11,0.15); color: #f59e0b; }
+    .dangerous  .score-pill { background: rgba(239,68,68,0.15); color: #ef4444; }
+    .scanning   .score-pill { background: rgba(99,102,241,0.15); color: #818cf8; }
+    .unknown    .score-pill { background: rgba(100,116,139,0.15); color: #94a3b8; }
+
+    .verdict-url {
+      margin-top: 6px;
+      font-size: 11px;
+      color: #64748b;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── Findings list ── */
+    .findings {
+      margin: 10px 14px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .finding-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 10px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .finding-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .finding-dot.safe       { background: #22c55e; }
+    .finding-dot.vulnerable { background: #ef4444; }
+    .finding-dot.scanning   { background: #818cf8; animation: pulse 1s infinite; }
+
+    .finding-name {
+      font-size: 11px;
+      color: #94a3b8;
+      flex-shrink: 0;
+      min-width: 110px;
+    }
+
+    .finding-detail {
+      font-size: 11px;
+      color: #cbd5e1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── Scanning state ── */
+    .scanning-msg {
+      padding: 20px 16px;
+      text-align: center;
+      color: #64748b;
+      font-size: 12px;
+    }
+
+    .scanning-msg span {
+      display: block;
+      font-size: 22px;
+      margin-bottom: 8px;
+      animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* ── Actions ── */
+    .actions {
+      display: flex;
+      gap: 8px;
+      padding: 12px 14px 14px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 8px;
+      border-radius: 8px;
+      border: none;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+
+    .btn:hover { opacity: 0.85; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #7c3aed, #6d28d9);
+      color: #fff;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.06);
+      color: #94a3b8;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* ── Settings panel ── */
+    #settings-panel {
+      display: none;
+      padding: 14px 16px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+
+    #settings-panel.open { display: block; }
+
+    .setting-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .setting-label {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    .toggle {
+      position: relative;
+      width: 36px;
+      height: 20px;
+    }
+
+    .toggle input { display: none; }
+
+    .toggle-track {
+      position: absolute;
+      inset: 0;
+      background: #1e293b;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .toggle input:checked + .toggle-track { background: #7c3aed; }
+
+    .toggle-track::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+
+    .toggle input:checked + .toggle-track::after { transform: translateX(16px); }
+
+    select {
+      background: #1e293b;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #e2e8f0;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 12px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      padding: 8px 16px 12px;
+      text-align: center;
+      font-size: 10px;
+      color: #334155;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <div class="luna-orb" id="luna-orb"></div>
+    <div class="header-text">
+      <h1>Luna AI</h1>
+      <p id="status-text">Security Sentinel</p>
+    </div>
+    <button class="settings-btn" id="settings-toggle" title="Settings">⚙</button>
+  </div>
+
+  <div id="main-content">
+    <!-- Populated by popup.js -->
+  </div>
+
+  <div id="settings-panel">
+    <div class="setting-row">
+      <span class="setting-label">Auto-scan pages</span>
+      <label class="toggle">
+        <input type="checkbox" id="toggle-autoscan" checked>
+        <div class="toggle-track"></div>
+      </label>
+    </div>
+    <div class="setting-row">
+      <span class="setting-label">Browser notifications</span>
+      <label class="toggle">
+        <input type="checkbox" id="toggle-notifs" checked>
+        <div class="toggle-track"></div>
+      </label>
+    </div>
+    <div class="setting-row">
+      <span class="setting-label">Alert sensitivity</span>
+      <select id="select-sensitivity">
+        <option value="80">Low (score ≥ 80)</option>
+        <option value="60" selected>Medium (score ≥ 60)</option>
+        <option value="40">High (score ≥ 40)</option>
+      </select>
+    </div>
+  </div>
+
+  <div id="autopilot-section" style="display:none; padding:8px 14px 4px; border-top:1px solid rgba(255,255,255,0.05);">
+    <button id="btn-scan-all-tabs" style="
+      width:100%; padding:8px; border-radius:8px;
+      background:rgba(99,102,241,0.12); border:1px solid rgba(99,102,241,0.25);
+      color:#818cf8; font-size:12px; font-weight:600; cursor:pointer;
+      transition: background 0.2s;
+    ">⚡ Scan All Open Tabs</button>
+    <div id="all-tabs-status" style="font-size:11px;color:#475569;text-align:center;margin-top:6px;display:none;"></div>
+  </div>
+  <div class="footer">Luna AI · meet-luna-ai.vercel.app</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

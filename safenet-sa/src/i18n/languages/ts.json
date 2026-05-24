@@ -1,0 +1,102 @@
+{
+  "translation": {
+    "nav": {
+      "features": "Swilo",
+      "howItWorks": "Yi Tirha Ku yini",
+      "pricing": "Timpahla",
+      "forSchools": "E Swikolweni",
+      "languages": "Tindzimi",
+      "signIn": "Nghena",
+      "protectMyChild": "Sirhelela N'wana wa Mina",
+      "poweredBy": "Yi fambisiwa hi Luna AI"
+    },
+    "hero": {
+      "badge": "Yi sirhelela mindyangu ya Afrika Dzonga · Mahala ku sungula",
+      "headline": "N'wana wena u sirhelekile inthanetini. Hi tiyisile sweswo.",
+      "subheadline": "Ntsena pulatifomu ya vuhlayiseki ya digirhali leyi akiwelaka mindyangu ya Afrika Dzonga. Yi languta WhatsApp. Yi vulavula Xizulu. Yi lulamile hi timinete ta 5.",
+      "cta": "Sirhelela N'wana wa Mina",
+      "watchHow": "Languta loko yi tirha →",
+      "trust": "Yi fambelana na POPIA · A ku na kharati ya xikweletu leyi lavekaka · Khansela nkarhi wun'wana na wun'wana"
+    },
+    "trust": {
+      "internetUsers": "Vatirhisi va inthanete va Afrika Dzonga",
+      "languages": "Tindzimi ta ximfumo",
+      "compliant": "Yi fambelana",
+      "partner": "Mukamberi",
+      "bornIn": "Afrika Dzonga"
+    },
+    "problem": {
+      "title": "Switirhisiwa hinkwaswo swa vuhlayiseki swa misava swi akeriwe vona. Ku nga ri wena.",
+      "p1": "N'wana wena u hanya eka WhatsApp. Eka iMessage eka nene. Eka Snapchat eka nene.",
+      "p2": "Bark yi durha R260 hi n'hweti naswona a yi languteli WhatsApp. Qustodio a yi vulavuli Xibunu. Google Family Link yi nga tluliwa hi timinete ta 30.",
+      "p3": "SafeNet SA yi akeriwe Soweto, Stellenbosch, Polokwane, na mindyangu hinkwayo leyi exikarhi."
+    },
+    "howItWorks": {
+      "label": "SafeNet SA Yi Tirha Ku yini",
+      "headline": "Yi lulamisa hi timinete ta 5. Vuhlayiseki lebyi hlalaka.",
+      "step1": "Lawula mi nghena hi nomboro ya wena ya SA. A ku na phasiwedi leyi lavekaka.",
+      "step2": "Skena khodi ya QR eka riqingho ra n'wana wena. Timinete ta 60.",
+      "step3": "Luna AI yi langutela hi ku hatlisa. Swihlelo hi ririmi ra wena."
+    },
+    "features": {
+      "headline": "Hinkwaswo leswi mutswari wa Afrika Dzonga a swi lavaka",
+      "whatsapp": "Ku langutela WhatsApp. Eka xitirhisiwa xa n'wana wena. Xihlayisi.",
+      "whatsappDesc": "Ntsena pulatifomu leyi twisisaka vukheti bya WhatsApp hi Xizulu, Xibunu, Xisuthu na Xitsonga. A swi na n'okisiwa. Swi sirhelekile eka POPIA."
+    },
+    "pricing": {
+      "headline": "Vuhlayiseki bya mindyangu hinkwayo",
+      "monthly": "Hi n'hweti",
+      "annual": "Hi lembe",
+      "save": "Hlayisa 17%",
+      "free": "Mahala",
+      "guardian": "Mulanguteri",
+      "sentinel": "Mulindi",
+      "perMonth": "/nhweti",
+      "perYear": "/lembe",
+      "mostPopular": "Yi tiveka swinene"
+    },
+    "testimonials": {
+      "headline": "Yi tshembiwa hi mindyangu ya Afrika Dzonga"
+    },
+    "cta": {
+      "headline": "3.2 wa timiliyoni ta mindyangu ya Afrika Dzonga yi swi lava. Wa wena i wun'wana wa yona.",
+      "sub": "Sungula ku sirhelela ndyangu wa wena namuntlha. Mahala ku ringeta. Yi fambelana na POPIA. Yi lulamile hi timinete ta 5."
+    },
+    "footer": {
+      "description": "Nkoka wa vuhlayiseki bya digirhali bya mindyangu ya Afrika Dzonga. Yi velekiwe laha. Yi akiwe laha.",
+      "allSafe": "Tisisiteme hinkwato ti sirhelekile",
+      "rights": "Timfanelo hinkwato ti hlayisiwile.",
+      "popia": "Yi fambelana na POPIA"
+    },
+    "auth": {
+      "welcome": "U amukeriwile eka SafeNet SA",
+      "phonePrompt": "Nghenisa nomboro ya wena ya riqingho ya Afrika Dzonga ku sungula",
+      "phoneLabel": "Nomboro ya riqingho",
+      "phoneHint": "Hi ta ku rhumela khodi ya vumbonisi yi n'we",
+      "sendCode": "Rhumelela khodi ya vumbonisi",
+      "verifyTitle": "Tiyisisa nomboro ya wena",
+      "verifyHint": "Nghenisa khodi ya tinomboro ta 6 leyi rhumeriweke eka +27",
+      "verify": "Tiyisisa & Yana emahlweni",
+      "resend": "Rhumelela nakambe",
+      "consentTitle": "Mpfumelelo wa POPIA",
+      "consentDesc": "Ehansi ka Nawu wa Vuhlayisi wa Vuxokoxoko bya Vumunhu bya Afrika Dzonga, hi lava mpfumelelo wa wena eka leswi landzelaka:",
+      "agreeAll": "Ndza pfumela eka hinkwaswo leswi nga laha henhla",
+      "start": "Sungula ku Sirhelela Ndyangu wa Mina"
+    },
+    "dashboard": {
+      "overview": "Nkatsakanyo",
+      "children": "Va na",
+      "alerts": "Swihlelo",
+      "location": "Ndhawu",
+      "settings": "Masungulo",
+      "allSafe": "Va na hinkwavo va sirhelekile",
+      "needsAttention": "Swihlelo swi lava vuhlayisi bya wena",
+      "updated": "Yi ha ku hluvukisiwa",
+      "yourChildren": "Va na va Wena",
+      "manageChildren": "Lawula va na",
+      "recentAlerts": "Swihlelo swa Nkarhi lowu Nga hundza",
+      "viewAll": "Languta hinkwaswo",
+      "askLuna": "Vutisa Luna"
+    }
+  }
+}

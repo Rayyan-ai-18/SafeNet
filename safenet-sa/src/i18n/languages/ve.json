@@ -1,0 +1,102 @@
+{
+  "translation": {
+    "nav": {
+      "features": "Zwithu",
+      "howItWorks": "Zwi Shuma Hani",
+      "pricing": "Mitengo",
+      "forSchools": "Zwa Zwikolo",
+      "languages": "Nyambo",
+      "signIn": "Dzhena",
+      "protectMyChild": "Tsireledza Nwana wa Nga",
+      "poweredBy": "I tsireledzwa nga Luna AI"
+    },
+    "hero": {
+      "badge": "I tsireledza mimba ya Afrika Tshipembe · Mahala u thoma",
+      "headline": "Nwana wau o tsireledzea inthanedzini. Ro vha na vhutanzi ha izwo.",
+      "subheadline": "Fulatformu ya tsireledzo ya dijithale yo fhelelaho yo sikiwaho mimba ya Afrika Tshipembe. I sedza WhatsApp. I amba Tshivenda. Yo lugela mi davhula ya 5.",
+      "cta": "Tsireledza Nwana wa Nga",
+      "watchHow": "Sedza uri zwi shuma hani →",
+      "trust": "I tsikelana na POPIA · A hina khadu ya tshelede i tshinywaho · Khantsela tshifhinga tshinwe na tshinwe"
+    },
+    "trust": {
+      "internetUsers": "Vhashumisi vha inthanedze vha Afrika Tshipembe",
+      "languages": "Nyambo dza mulawo",
+      "compliant": "I tsikelana",
+      "partner": "Mukumedzani",
+      "bornIn": "Afrika Tshipembe"
+    },
+    "problem": {
+      "title": "Zwigwadiso zwo the zwa tsireledzo zwa shango zwo sikiwa u itela vhone. I si ya inwi.",
+      "p1": "Nwana wau u tshila kha WhatsApp. I si iMessage. I si Snapchat.",
+      "p2": "Bark i dzhia R260 nga nwedzi nahone a i sedzi WhatsApp. Qustodio a i ambei Tshiburu. Google Family Link i nga fhandekwa nga mi davhula ya 30.",
+      "p3": "SafeNet SA yo sikiwa u itela Soweto, Stellenbosch, Polokwane, na muya wo the."
+    },
+    "howItWorks": {
+      "label": "SafeNet SA Zwi Shuma Hani",
+      "headline": "I lugise nga mi davhula ya 5. Tsireledzo i tshilaho.",
+      "step1": "Khuvela nthani u dzhena nga nomba yau ya SA. A hina phasiwede i tshinywaho.",
+      "step2": "Skena khoutu ya QR kha fhoni ya nwana wau. Mi davhula ya 60.",
+      "step3": "Luna AI i sedza nga yone ntha. Zwiambedzi kha luanbo lwau."
+    },
+    "features": {
+      "headline": "Zwo the zwine mubei wa Afrika Tshipembe a zwi toda",
+      "whatsapp": "U sedza WhatsApp. Kha tshigwadiso tsha nwana wau. Tshiphiri.",
+      "whatsappDesc": "Fulatformu i no the i pfesesa khombo dza WhatsApp nga Tshivenda, Tshivhuru, Sesotho na Xhosa. A zwi fheliswi. Zwo tsireledzea kha POPIA."
+    },
+    "pricing": {
+      "headline": "Tsireledzo ya muya wo the",
+      "monthly": "Nwedzi",
+      "annual": "Nwaha",
+      "save": "Sevha 17%",
+      "free": "Mahala",
+      "guardian": "Mutsireledzi",
+      "sentinel": "Mulinda",
+      "perMonth": "/nwedzi",
+      "perYear": "/nwaha",
+      "mostPopular": "I divheaho nga vhunzhi"
+    },
+    "testimonials": {
+      "headline": "I tshivhwa nga mimba ya Afrika Tshipembe"
+    },
+    "cta": {
+      "headline": "3.2 milione dza mimba ya Afrika Tshipembe i zwi toda. Yau ndi i nthihi khayo.",
+      "sub": "Thoma u tsireledza muya wau namusi. Mahala u lingedza. I tsikelana na POPIA. Yo lugela mi davhula ya 5."
+    },
+    "footer": {
+      "description": "Mbumbo ya tsireledzo ya dijithale ya mimba ya Afrika Tshipembe. I bebelwa afha. I sikiwa afha.",
+      "allSafe": "Sisteme dzo the dzo tsireledzea",
+      "rights": "Pfanelo dzo the dzo vhulungwa.",
+      "popia": "I tsikelana na POPIA"
+    },
+    "auth": {
+      "welcome": "Ni a tanganedzwa kha SafeNet SA",
+      "phonePrompt": "Dzhenisa nomba yau ya fhoni ya Afrika Tshipembe u thoma",
+      "phoneLabel": "Nomba ya fhoni",
+      "phoneHint": "Ri do ni rumela khoutu ya u khwathisedza nthihi",
+      "sendCode": "Rumela khoutu ya u khwathisedza",
+      "verifyTitle": "Kgwathisedza nomba yau",
+      "verifyHint": "Dzhenisa khoutu ya nomboro dza 6 yo rumelwaho kha +27",
+      "verify": "Kgwathisedza & I Tshimbilele",
+      "resend": "Rumela hafhu",
+      "consentTitle": "Thendelo ya POPIA",
+      "consentDesc": "Fhasi ha Mulayo wa Tsireledzo ya Mafhungo a Muthu wa Afrika Tshipembe, ri toda thendelo yau kha zwi tevhelaho:",
+      "agreeAll": "Ndi tenda kha zwo the zwi re ntha",
+      "start": "Thoma u Tsireledza Muya wa Nga"
+    },
+    "dashboard": {
+      "overview": "Tshidimbini",
+      "children": "Vhana",
+      "alerts": "Zwiambedzi",
+      "location": "Fhethu",
+      "settings": "Khethekanyo",
+      "allSafe": "Vhana vho the vha tsireledzea",
+      "needsAttention": "Zwiambedzi zwi toda u sedzeswa nga iwe",
+      "updated": "I sa tsha vhuedzwa",
+      "yourChildren": "Vhana Vhau",
+      "manageChildren": "Langa vhana",
+      "recentAlerts": "Zwiambedzi zwa Zwino",
+      "viewAll": "Sedza zwo the",
+      "askLuna": "Vhudzisa Luna"
+    }
+  }
+}

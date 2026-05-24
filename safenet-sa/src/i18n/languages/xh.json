@@ -1,0 +1,102 @@
+{
+  "translation": {
+    "nav": {
+      "features": "Iimpawu",
+      "howItWorks": "Indlela esebenza ngayo",
+      "pricing": "Amaxabiso",
+      "forSchools": "Ezikolweni",
+      "languages": "Iilwimi",
+      "signIn": "Ngena",
+      "protectMyChild": "Khusela uMwana waM",
+      "poweredBy": "Iqhutywa yi-Luna AI"
+    },
+    "hero": {
+      "badge": "Ngoku ikhusela iintsapho zaseMzantsi Afrika · Isimahla ukuqala",
+      "headline": "Umntwana wakho ukhuselekile kwi-intanethi. Siqinisekile ngako.",
+      "subheadline": "Kuphela komhlaba wedijithali wokhuseleko eyakhelwe iintsapho zaseMzantsi Afrika. Ibeka iliso kwi-WhatsApp. Ithetha isiZulu. Ilungile kwimizuzu emi-5.",
+      "cta": "Khusela uMwana waM",
+      "watchHow": "Jonga indlela esebenza ngayo →",
+      "trust": "Iyahambelana ne-POPIA · Akukho khadi letyala lidingekayo · Rhoxisa nanini na"
+    },
+    "trust": {
+      "internetUsers": "Abasebenzisi be-intanethi baseMzantsi Afrika",
+      "languages": "Iilwimi ezisemthethweni",
+      "compliant": "Iyahambelana",
+      "partner": "Iqabane",
+      "bornIn": "UMzantsi Afrika"
+    },
+    "problem": {
+      "title": "Zonke izixhobo zokhuseleko zehlabathi zakhelwe bona. Ayisiyo eyakho.",
+      "p1": "Umntwana wakho uhlala kwi-WhatsApp. Ayikho i-iMessage. Ayikho i-Snapchat.",
+      "p2": "I-Bark ixabisa i-R260 ngenyanga kwaye ayijongi i-WhatsApp. I-Qustodio ayithethi isiBhulu. I-Google Family Link inokugqithwa kwimizuzwana engama-30.",
+      "p3": "ISafeNet SA yakhelwe eSoweto, eStellenbosch, ePolokwane, kunye nayo yonke intsapho ephakathi."
+    },
+    "howItWorks": {
+      "label": "Indlela iSafeNet SA esebenza ngayo",
+      "headline": "Yimisela kwimizuzu emi-5. Ukhuselo oluhlala luhleli.",
+      "step1": "Khuphela kwaye ungene ngenombolo yakho yaseMzantsi Afrika. Akukho magama ayimfihlo afunekayo.",
+      "step2": "Skena ikhowudi ye-QR kwifowuni yomntwana wakho. Imizuzwana engama-60.",
+      "step3": "I-Luna AI ijonga ngoko nangoko. Izilumkiso ngolwimi lwakho."
+    },
+    "features": {
+      "headline": "Yonke into umzali waseMzantsi Afrika ayifunayo",
+      "whatsapp": "Ukubekwa kweliso kwi-WhatsApp. Kwisixhobo somntwana wakho. Ngasese.",
+      "whatsappDesc": "Kuphela kweqonga eliziqondayo izoyikiso ze-WhatsApp ngesiZulu, isiBhulu, isiSuthu nesiXhosa. Ayikho into egqithiselwayo. Ukhuselekile kwi-POPIA."
+    },
+    "pricing": {
+      "headline": "Ukhuselo lwazo zonke iintsapho",
+      "monthly": "Ngenyanga",
+      "annual": "Ngonyaka",
+      "save": "Gcina i-17%",
+      "free": "Simahla",
+      "guardian": "Umlondolozi",
+      "sentinel": "Unogada",
+      "perMonth": "/inyanga",
+      "perYear": "/unyaka",
+      "mostPopular": "Othandwa kakhulu"
+    },
+    "testimonials": {
+      "headline": "Ithembeke kwiintsapho zaseMzantsi Afrika"
+    },
+    "cta": {
+      "headline": "I-3.2 yezigidi zeentsapho zaseMzantsi Afrika ziyayidinga le nto. Owakho ngomnye wazo.",
+      "sub": "Qala ukukhusela intsapho yakho namhlanje. Simahla ukuzama. Iyahambelana ne-POPIA. Ilungile kwimizuzu emi-5."
+    },
+    "footer": {
+      "description": "Isiseko sosasazo lokhuseleko lwedijithali kwiintsapho zaseMzantsi Afrika. Izelwe apha. Yakhelwe apha.",
+      "allSafe": "Zonke iinkqubo zikhuselekile",
+      "rights": "Onke amalungelo agciniwe.",
+      "popia": "Iyahambelana ne-POPIA"
+    },
+    "auth": {
+      "welcome": "Wamkelekile kwi-SafeNet SA",
+      "phonePrompt": "Faka inombolo yakho yaseMzantsi Afrika ukuze uqale",
+      "phoneLabel": "Inombolo yomnxeba",
+      "phoneHint": "Siza kukuthumelela ikhowudi yokuqinisekisa enye",
+      "sendCode": "Thumela ikhowudi yokuqinisekisa",
+      "verifyTitle": "Qinisekisa inombolo yakho",
+      "verifyHint": "Faka ikhowudi enamanani ama-6 ethunyelwe ku-+27",
+      "verify": "Qinisekisa & Qhubeka",
+      "resend": "Thumela kwakhona",
+      "consentTitle": "Imvume ye-POPIA",
+      "consentDesc": "Ngaphantsi koMthetho woKhuselo loLwazi lobuQu waseMzantsi Afrika, sifuna imvume yakho koku kulandelayo:",
+      "agreeAll": "Ndiyavuma kuko konke okungasentla",
+      "start": "Qala uKhusela uSapho lwaM"
+    },
+    "dashboard": {
+      "overview": "Ushwankathelo",
+      "children": "Abantwana",
+      "alerts": "Izilumkiso",
+      "location": "Indawo",
+      "settings": "Useto",
+      "allSafe": "Bonke abantwana bakhuselekile",
+      "needsAttention": "Izilumkiso zifuna ingqalelo yakho",
+      "updated": "Isandula ukuhlaziywa",
+      "yourChildren": "Abantwana Bakho",
+      "manageChildren": "Lawula abantwana",
+      "recentAlerts": "Izilumkiso Zamva",
+      "viewAll": "Jonga konke",
+      "askLuna": "Buza uLuna"
+    }
+  }
+}

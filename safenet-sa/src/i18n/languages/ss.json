@@ -1,0 +1,102 @@
+{
+  "translation": {
+    "nav": {
+      "features": "Tintfo",
+      "howItWorks": "Isebenta Kanjani",
+      "pricing": "Tintselo",
+      "forSchools": "Letikolweni",
+      "languages": "Tilwimi",
+      "signIn": "Ngena",
+      "protectMyChild": "Vikela Mntfwana wami",
+      "poweredBy": "Inikwa emandla ngu-Luna AI"
+    },
+    "hero": {
+      "badge": "Iyavikela imindeni yaseNingizimu Afrika · Mahala kucala",
+      "headline": "Mntfwana wakho uphephile ku-inthanethi. Siqinisekile ngaloko.",
+      "subheadline": "Kuphela kwendzandza yekuphepha yedijithali leyakhelwe imindeni yaseNingizimu Afrika. Ibeka liliso ku-WhatsApp. Ikhuluma siZulu. Ilungele emumitini lengu-5.",
+      "cta": "Vikela Mntfwana wami",
+      "watchHow": "Buka kutsi isebenta kanjani →",
+      "trust": "Iyahambisana ne-POPIA · Akukho likhadi lesikweletu lolidingekako · Khansela noma nini"
+    },
+    "trust": {
+      "internetUsers": "Bantfu baseNingizimu Afrika labasebentisa i-inthanethi",
+      "languages": "Tilwimi letisemtsetfweni",
+      "compliant": "Iyahambisana",
+      "partner": "Umbambiswano",
+      "bornIn": "INingizimu Afrika"
+    },
+    "problem": {
+      "title": "Toni letakuphepha temhlaba tonkhe takhelwe bona. Hhayi wena.",
+      "p1": "Mntfwana wakho uhlala ku-WhatsApp. Hhayi iMessage. Hhayi i-Snapchat.",
+      "p2": "Bark ibita R260 ngenyanga futsi ayibeki liliso ku-WhatsApp. Qustodio ayikhulumi siBhunu. Google Family Link ingacanyulwa emumitwseni lengu-30.",
+      "p3": "SafeNet SA yakhelwe eSoweto, eStellenbosch, ePolokwane, nasemndenini wonkhe lophakathi."
+    },
+    "howItWorks": {
+      "label": "SafeNet SA Isebenta Kanjani",
+      "headline": "Yilungise emumitini lengu-5. Kuvikeleka lokuhlala.",
+      "step1": "Download bese ungena ngenombolo yakho ye-SA. Akunasiphashamisi lesidzingekako.",
+      "step2": "Skhena ikhodi ye-QR kulucingingo lwemntfwana wakho. Imizuzwana lengu-60.",
+      "step3": "Luna AI ibeka liliso ngemuva nje. Tixwayiso ngelulwimi lwakho."
+    },
+    "features": {
+      "headline": "Konkhe lokumdingako umzalati waseNingizimu Afrika",
+      "whatsapp": "Kubekwa kweliso ku-WhatsApp. Kulucingingo lwemntfwana wakho. Kuyimfihlo.",
+      "whatsappDesc": "Kuphela kwendzandza levisa tingoti ta-WhatsApp ngesiZulu, siBhunu, siSuthu nesiXhosa. Akudluliselwa. Kuphephile ku-POPIA."
+    },
+    "pricing": {
+      "headline": "Kuvikeleka kwawo wonkhe umndeni",
+      "monthly": "Ngenyanga",
+      "annual": "Ngonyaka",
+      "save": "Londvolota 17%",
+      "free": "Mahala",
+      "guardian": "Umlondvoloti",
+      "sentinel": "Lilita",
+      "perMonth": "/nyanga",
+      "perYear": "/nyaka",
+      "mostPopular": "Lodvume kakhulu"
+    },
+    "testimonials": {
+      "headline": "Itsenjwe yimindeni yaseNingizimu Afrika"
+    },
+    "cta": {
+      "headline": "3.2 tigidzi temindeni yaseNingizimu Afrika iyakudzinga loku. Owakho ngumunye wayo.",
+      "sub": "Calekela kuvikela umndeni wakho namuhla. Mahala kwilinga. Iyahambisana ne-POPIA. Ilungele emumitini lengu-5."
+    },
+    "footer": {
+      "description": "Ingqalasizinda yekuphepha yedijithali yemindeni yaseNingizimu Afrika. Italwe lapha. Yakhelwe lapha.",
+      "allSafe": "Tinhlelo tonkhe tiphephile",
+      "rights": "Onkhe emalungelo agciniwe.",
+      "popia": "Iyahambisana ne-POPIA"
+    },
+    "auth": {
+      "welcome": "Uyemukelwa ku-SafeNet SA",
+      "phonePrompt": "Faka inombolo yakho yaseNingizimu Afrika ku cala",
+      "phoneLabel": "Inombolo yelucingo",
+      "phoneHint": "Sitokuthumela ikhodi yekuqinisekisa munye",
+      "sendCode": "Thumela ikhodi yekuqinisekisa",
+      "verifyTitle": "Qinisekisa inombolo yakho",
+      "verifyHint": "Faka ikhodi yetinombolo leti-6 letitfunyelwe ku-+27",
+      "verify": "Qinisekisa & Cohleka",
+      "resend": "Thumela futsi",
+      "consentTitle": "Imvumo ye-POPIA",
+      "consentDesc": "Ngaphansi kweMtsetfo wekuVikeleka kwelwati Lomuntfu waseNingizimu Afrika, sidzinga imvumo yakho kuloku lokulandzelako:",
+      "agreeAll": "Ngiyavuma kuko konkhe lokungenhla",
+      "start": "Calekela Kuvikela Umndeni Wami"
+    },
+    "dashboard": {
+      "overview": "Ticocelo",
+      "children": "Bantfwana",
+      "alerts": "Tixwayiso",
+      "location": "Indzawo",
+      "settings": "Tilungiselelo",
+      "allSafe": "Bantfwana bonkhe baphephile",
+      "needsAttention": "Tixwayiso tidzinga kunakwa kwakho",
+      "updated": "Isandza kuvuselelwa",
+      "yourChildren": "Bantfwana Bakho",
+      "manageChildren": "Lawula bantfwana",
+      "recentAlerts": "Tixwayiso Letisandza kwenteka",
+      "viewAll": "Buka konkhe",
+      "askLuna": "Buta Luna"
+    }
+  }
+}

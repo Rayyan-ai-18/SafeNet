@@ -1,0 +1,102 @@
+{
+  "translation": {
+    "nav": {
+      "features": "Dintlha",
+      "howItWorks": "E sebetsa joang",
+      "pricing": "Litheko",
+      "forSchools": "Bakeng sa Likolo",
+      "languages": "Lipuo",
+      "signIn": "Kena",
+      "protectMyChild": "Sireletsa Ngoana oa Ka",
+      "poweredBy": "E tsamaisoa ke Luna AI"
+    },
+    "hero": {
+      "badge": "E sireletsa malapa a Afrika Boroa · Mahala ho qala",
+      "headline": "Ngoana oa hau o sireletsehile inthaneteng. Re netefalitse seo.",
+      "subheadline": "Sethala se feletseng sa ts'ireletso sa dijithale se etselitsoeng malapa a Afrika Boroa. Se beha leihlo WhatsApp. Se bua Sezulu. Se lokile ka metsotso e 5.",
+      "cta": "Sireletsa Ngoana oa Ka",
+      "watchHow": "Sheba hore na e sebetsa joang →",
+      "trust": "E lumellana le POPIA · Ha ho karete ea mokitlane e hlokahalang · Hlakola neng kapa neng"
+    },
+    "trust": {
+      "internetUsers": "Basebelisi ba inthanete ba Afrika Boroa",
+      "languages": "Lipuo tsa molao",
+      "compliant": "E lumellana",
+      "partner": "Molekane",
+      "bornIn": "Afrika Boroa"
+    },
+    "problem": {
+      "title": "Lisebelisoa tsohle tsa ts'ireletso tsa lefatše li hahiloe bakeng sa bona. Eseng bakeng sa hau.",
+      "p1": "Ngoana oa hau o phela ho WhatsApp. Eseng ho iMessage. Eseng ho Snapchat.",
+      "p2": "Bark e ja R260 ka khoeli mme ha e beha leihlo WhatsApp. Qustodio ha e bue Seafrikanse. Google Family Link e ka fetloa ka metsotswana e 30.",
+      "p3": "SafeNet SA e hahiloe bakeng sa Soweto, Stellenbosch, Polokwane, le lelapa le leng le le leng le lipakeng."
+    },
+    "howItWorks": {
+      "label": "SafeNet SA e Sebetsa Joang",
+      "headline": "E behe ka metsotso e 5. Ts'ireletso e tšoarellang.",
+      "step1": "Khoasolla ebe u kena ka nomoro ea hau ea SA. Ha ho phasewete e hlokahalang.",
+      "step2": "Skene khoutu ea QR fonong ea ngoana oa hau. Metsotsoana e 60.",
+      "step3": "Luna AI e beha leihlo hang-hang. Litemoso ka puo ea hau."
+    },
+    "features": {
+      "headline": "Ntho e 'ngoe le e 'ngoe eo motsoali oa Afrika Boroa a e hlokang",
+      "whatsapp": "Ho beha leihlo WhatsApp. Sesebelisoa sa ngoana oa hau. Sephiri.",
+      "whatsappDesc": "Sethala se le seng se utloisisang litšokelo tsa WhatsApp ka Sezulu, Seafrikanse, Sesotho le Sexhosa. Ha se fetisoe. E sireletsehile ho POPIA."
+    },
+    "pricing": {
+      "headline": "Ts'ireletso bakeng sa lelapa le leng le le leng",
+      "monthly": "Khoeli le khoeli",
+      "annual": "Selemo le selemo",
+      "save": "Boloka 17%",
+      "free": "Mahala",
+      "guardian": "Mohlokomeli",
+      "sentinel": "Lebela",
+      "perMonth": "/khoeli",
+      "perYear": "/selemo",
+      "mostPopular": "E tsebahalang haholo"
+    },
+    "testimonials": {
+      "headline": "E tšeptjoa ke malapa a Afrika Boroa"
+    },
+    "cta": {
+      "headline": "Limilione tse 3.2 tsa malapa a Afrika Boroa a hloka sena. Oa hau ke o mong oa 'ona.",
+      "sub": "Qala ho sireletsa lelapa la hau kajeno. Mahala ho leka. E lumellana le POPIA. E lokile ka metsotso e 5."
+    },
+    "footer": {
+      "description": "Meralo ea ts'ireletso ea dijithale bakeng sa malapa a Afrika Boroa. E hlahile mona. E hahiloe mona.",
+      "allSafe": "Litsamaiso tsohle li sireletsehile",
+      "rights": "Litokelo tsohle li bolokiloe.",
+      "popia": "E lumellana le POPIA"
+    },
+    "auth": {
+      "welcome": "Rea u amohela ho SafeNet SA",
+      "phonePrompt": "Kenya nomoro ea hau ea mohala ea Afrika Boroa ho qala",
+      "phoneLabel": "Nomoro ea mohala",
+      "phoneHint": "Re tla u romela khoutu ea netefatso ea nako e le 'ngoe",
+      "sendCode": "Romela khoutu ea netefatso",
+      "verifyTitle": "Netefatsa nomoro ea hau",
+      "verifyHint": "Kenya khoutu ea linomoro tse 6 e rometsoeng ho +27",
+      "verify": "Netefatsa & Tsoela pele",
+      "resend": "Romela hape",
+      "consentTitle": "Tumello ea POPIA",
+      "consentDesc": "Tlas'a Molao oa Ts'ireletso ea Tlhahisoleseling ea Afrika Boroa, re hloka tumello ea hau bakeng sa tse latelang:",
+      "agreeAll": "Ke lumela ho tsohle tse kaholimo",
+      "start": "Qala ho Sireletsa Lelapa la Ka"
+    },
+    "dashboard": {
+      "overview": "Kakaretso",
+      "children": "Bana",
+      "alerts": "Litemoso",
+      "location": "Sebaka",
+      "settings": "Litlhophiso",
+      "allSafe": "Bana bohle ba sireletsehile",
+      "needsAttention": "Litemoso li hloka tlhokomelo ea hau",
+      "updated": "E sa tsoa ntlafatsoa",
+      "yourChildren": "Bana ba Hau",
+      "manageChildren": "Laola bana",
+      "recentAlerts": "Litemoso tsa Morao tjena",
+      "viewAll": "Bona tsohle",
+      "askLuna": "Botsa Luna"
+    }
+  }
+}
