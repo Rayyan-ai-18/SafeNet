@@ -10,6 +10,9 @@ const Child = lazy(() => import('./pages/Child'))
 const Alerts = lazy(() => import('./pages/Alerts'))
 const Location = lazy(() => import('./pages/Location'))
 const Settings = lazy(() => import('./pages/Settings'))
+const Luna = lazy(() => import('./pages/Luna'))
+const Demo = lazy(() => import('./pages/Demo'))
+const HowItWorks = lazy(() => import('./pages/HowItWorks'))
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -56,6 +59,9 @@ export default function App() {
             <Route path="/alerts" element={<PageWrapper><Alerts /></PageWrapper>} />
             <Route path="/location" element={<PageWrapper><Location /></PageWrapper>} />
             <Route path="/settings" element={<PageWrapper><Settings /></PageWrapper>} />
+            <Route path="/luna" element={<PageWrapper><Luna /></PageWrapper>} />
+            <Route path="/demo" element={<PageWrapper><Demo /></PageWrapper>} />
+            <Route path="/how-it-works" element={<PageWrapper><HowItWorks /></PageWrapper>} />
           </Routes>
         </AnimatePresence>
       </Suspense>
