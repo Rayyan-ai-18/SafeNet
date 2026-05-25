@@ -95,20 +95,17 @@ export default function Nav({ user }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-safenet-primary flex items-center justify-center">
+          <Link to="/" className="flex items-center gap-3 group">
+            <div className="w-8 h-8 rounded-lg bg-safenet-primary flex items-center justify-center transition-shadow group-hover:shadow-lg">
               <Shield className="w-5 h-5 text-white" />
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
               <span className="font-display text-xl text-safenet-text tracking-tight">SafeNet SA</span>
-              <span className="hidden sm:inline-flex items-center px-2 py-0.5 text-[10px] font-medium bg-safenet-primary-light text-safenet-primary rounded-full border border-safenet-primary/20">
-                {t.poweredBy}
-              </span>
             </div>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-10">
             {/* Landing anchor links */}
             {isLanding && navLinks.map((link, i) => (
               <a
@@ -130,7 +127,7 @@ export default function Nav({ user }) {
                   to={page.path}
                   className={`text-sm font-medium transition-colors ${
                     page.highlight
-                      ? 'inline-flex items-center gap-1.5 px-3 py-1.5 bg-safenet-primary-light text-safenet-primary rounded-full hover:bg-safenet-primary/20'
+                      ? 'inline-flex items-center gap-1.5 px-4 py-1.5 bg-safenet-primary-light text-safenet-primary rounded-full hover:bg-safenet-primary/20'
                       : isActive
                         ? 'text-safenet-primary'
                         : 'text-safenet-text-2 hover:text-safenet-text'
@@ -143,18 +140,17 @@ export default function Nav({ user }) {
             })}
           </nav>
 
-          {/* Language toggle */}
-          <button
-            onClick={toggleLang}
-            className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-safenet-surface border border-safenet-border text-xs font-medium text-safenet-text-2 hover:text-safenet-text transition-colors"
-            title="Toggle language"
-          >
-            <span className="text-base leading-none">🇿🇦</span>
-            {lang === 'en' ? 'EN' : 'ZU'}
-          </button>
-
           {/* Desktop actions */}
-          <div className="hidden lg:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-6 pl-2">
+            {/* Language toggle */}
+            <button
+              onClick={toggleLang}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-safenet-surface border border-safenet-border text-sm font-medium text-safenet-text-2 hover:text-safenet-text hover:bg-safenet-primary-light/50 transition-all duration-200"
+              title="Toggle language"
+            >
+              <span className="text-base leading-none">🇿🇦</span>
+              {lang === 'en' ? 'EN' : 'ZU'}
+            </button>
             {user ? (
               <Link to="/dashboard">
                 <Button variant="secondary" size="sm">Dashboard</Button>
@@ -211,6 +207,9 @@ export default function Nav({ user }) {
                 ))}
                 {/* Extra pages in mobile menu */}
                 <div className="pt-2 pb-2 border-b border-safenet-border space-y-2">
+                  <div className="px-2 pb-2">
+                    <span className="text-[10px] font-semibold text-safenet-text-3 uppercase tracking-widest">Pages</span>
+                  </div>
                   {extraPages.map((page) => {
                     const Icon = page.icon
                     return (
