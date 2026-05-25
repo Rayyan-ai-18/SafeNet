@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mic, MicOff, Sparkles, Globe, Shield, MessageCircle } from 'lucide-react'
+import { Mic, MicOff, Sparkles, Globe, Shield, MessageCircle, Activity } from 'lucide-react'
 import { gsap, ScrollTrigger } from '../lib/gsap'
 import SEO from '../components/seo/SEO'
 import Nav from '../components/layout/Nav'
@@ -29,6 +29,7 @@ export default function Luna() {
     state, transcript, interimTranscript, lunaResponse, language,
     showGenderChoice, conversationHistory, browserSupported, groqConfigured,
     startListening, stopListening, sendTextInput, setGenderPreference, toggleLanguage,
+    gender,
   } = useLunaVoice()
 
   const heroRef = useRef(null)
@@ -235,7 +236,7 @@ export default function Luna() {
             <div className="flex flex-wrap justify-center gap-3">
               {suggestedQuestions.map((q, i) => {
                 const text = language === 'zu' ? q.zu : q.en
-                const Icon = iconMap[text] || Sparkles
+                const Icon = iconMap[q.en] || Sparkles
                 return (
                   <button
                     key={i}

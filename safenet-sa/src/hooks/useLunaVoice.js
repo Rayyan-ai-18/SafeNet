@@ -197,7 +197,41 @@ export function useLunaVoice() {
     }
   }, [conversationHistory])
 
-  // Start listening
+  // Process user input (defined BEFORE startListening to avoid TDZ ReferenceError)
+  const processUserInput = useCallback(async (text) => {
+    if (!text.trim()) return
+
+    const detectedLang = detectLanguage(text)
+    setLanguage(detectedLang)
+    setState('thinking')
+
+    // Check voice setup
+    if (!isVoiceSetupDone()) {
+      setShowGenderChoice(true)
+      setConversationHistory(prev => [...prev, { role: 'user', text }])
+
+      const setupMessage = 'Hi, I\'m Luna. Do you prefer a male or female voice?'
+      setLunaResponse(setupMessage)
+      await speak(setupMessage, 'en', null)
+      setState('idle')
+      return
+    }
+
+    // Add user message to history
+    setConversationHistory(prev => [...prev, { role: 'user', text }])
+
+    // Call Groq
+    const { response } = await callGroq(text, detectedLang)
+    setLunaResponse(response)
+    setConversationHistory(prev => [...prev, { role: 'luna', text: response }])
+
+    // Speak response
+    const currentGender = getVoiceGender()
+    await speak(response, detectedLang, currentGender)
+    setState('idle')
+  }, [callGroq, speak])
+
+  // Start listening (references processUserInput which is now defined above)
   const startListening = useCallback(() => {
     if (!browserSupported) return
 
@@ -265,40 +299,6 @@ export function useLunaVoice() {
     recognitionRef.current = recognition
     recognition.start()
   }, [browserSupported, language, processUserInput])
-
-  // Process user input
-  const processUserInput = useCallback(async (text) => {
-    if (!text.trim()) return
-
-    const detectedLang = detectLanguage(text)
-    setLanguage(detectedLang)
-    setState('thinking')
-
-    // Check voice setup
-    if (!isVoiceSetupDone()) {
-      setShowGenderChoice(true)
-      setConversationHistory(prev => [...prev, { role: 'user', text }])
-
-      const setupMessage = 'Hi, I\'m Luna. Do you prefer a male or female voice?'
-      setLunaResponse(setupMessage)
-      await speak(setupMessage, 'en', null)
-      setState('idle')
-      return
-    }
-
-    // Add user message to history
-    setConversationHistory(prev => [...prev, { role: 'user', text }])
-
-    // Call Groq
-    const { response } = await callGroq(text, detectedLang)
-    setLunaResponse(response)
-    setConversationHistory(prev => [...prev, { role: 'luna', text: response }])
-
-    // Speak response
-    const currentGender = getVoiceGender()
-    await speak(response, detectedLang, currentGender)
-    setState('idle')
-  }, [callGroq, speak])
 
   // Set gender preference
   const setGenderPreference = useCallback(async (preferredGender) => {

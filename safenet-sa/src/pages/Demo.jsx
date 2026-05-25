@@ -322,7 +322,7 @@ export default function Demo() {
 
   const msgCountRef = useRef(0)
 
-  // Demo timeline
+  // Demo timeline - sets state only, no direct GSAP on refs (avoid null ref issues)
   const runTimeline = useCallback(() => {
     // Reset
     msgCountRef.current = 0
@@ -341,8 +341,7 @@ export default function Demo() {
       },
     })
 
-    // Entrance
-    tl.add(() => setScreenState('home'))
+    // Entrance - phone started hidden via CSS
     tl.to(phoneRef.current, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 0)
 
     // t=1.5s — Open WhatsApp
@@ -387,13 +386,10 @@ export default function Demo() {
       setScreenState('threat')
     }, 10.5)
 
-    // t=11.0s — Alert fires
+    // t=11.0s — Alert fires (set state only, useEffect handles GSAP)
     tl.add(() => {
       setShowBanner(true)
       setShowAlert(true)
-      if (alertRef.current) {
-        gsap.fromTo(alertRef.current, { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.4)' })
-      }
     }, 11.0)
 
     // t=13.5s — Return to green
@@ -401,14 +397,33 @@ export default function Demo() {
       setScreenState('blocked')
     }, 13.5)
 
-    // t=14.0s — Result text
+    // t=14.0s — Result text (set state only, useEffect handles GSAP)
     tl.add(() => {
       setShowResult(true)
+    }, 14.0)
+  }, [msgData])
+
+  // GSAP animation when alert appears (deferred after state update flushes)
+  useEffect(() => {
+    if (!showAlert) return
+    const timer = setTimeout(() => {
+      if (alertRef.current) {
+        gsap.fromTo(alertRef.current, { opacity: 0, x: 60 }, { opacity: 1, x: 0, duration: 0.5, ease: 'back.out(1.4)' })
+      }
+    }, 50)
+    return () => clearTimeout(timer)
+  }, [showAlert])
+
+  // GSAP animation when result appears
+  useEffect(() => {
+    if (!showResult) return
+    const timer = setTimeout(() => {
       if (resultRef.current) {
         gsap.fromTo(resultRef.current.children, { opacity: 0, y: 16 }, { opacity: 1, y: 0, stagger: 0.15, duration: 0.5, ease: 'power2.out' })
       }
-    }, 14.0)
-  }, [msgData])
+    }, 50)
+    return () => clearTimeout(timer)
+  }, [showResult])
 
   // Run timeline on mount and on language switch
   useEffect(() => {
@@ -416,7 +431,7 @@ export default function Demo() {
       runTimeline()
     }, 500)
     return () => clearTimeout(timer)
-  }, [replayKey, lang])
+  }, [replayKey, lang, runTimeline])
 
   // GSAP ScrollTrigger for entrance
   useEffect(() => {
