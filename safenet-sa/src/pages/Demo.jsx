@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Shield, RotateCcw, Globe, Check, Link as LinkIcon, Smartphone, MapPin, Languages, Mic } from 'lucide-react'
+import { Shield, RotateCcw, Globe, Check, Link as LinkIcon, Smartphone, MapPin, Languages, Mic, Bell, Phone as PhoneIcon } from 'lucide-react'
 import { gsap, ScrollTrigger } from '../lib/gsap'
 import SEO from '../components/seo/SEO'
 import Nav from '../components/layout/Nav'
@@ -31,6 +31,22 @@ const stats = [
   { value: '94', suffix: '%', label: 'On WhatsApp', description: 'SA smartphone users' },
   { value: '0.3', suffix: 's', label: 'Detection time', description: "Luna's average threat speed" },
   { value: '11', suffix: '', label: 'Languages', description: 'SA languages Luna speaks 🇿🇦' },
+]
+
+// Analysis stages shown during threat detection
+const analysisStages = [
+  { text: 'Scanning message content...', detail: 'Checking for harmful language patterns', dotColor: '#F59E0B' },
+  { text: 'Analyzing SA language context...', detail: 'Cross-referencing slang and cultural terms', dotColor: '#F97316' },
+  { text: 'Running threat detection model...', detail: 'Luna AI engine — on-device processing', dotColor: '#EF4444' },
+  { text: '✅ Threat confirmed at 94% confidence', detail: 'Cyberbullying detected — alerting parent', dotColor: '#EF4444' },
+]
+
+// Zulu analysis stages
+const analysisStagesZu = [
+  { text: 'Ihlola umlayezo...', detail: 'Ihlola izinkulumo ezinobungozi', dotColor: '#F59E0B' },
+  { text: 'Ihlola ulimi lwesiZulu...', detail: 'Ihlola izinkulumo zolimi lwaseNingizimu Afrika', dotColor: '#F97316' },
+  { text: 'Isebenzisa imodeli yokuthola izinsongo...', detail: 'I-Luna AI icubungula emshinini wengane', dotColor: '#EF4444' },
+  { text: '✅ Ingozi itholiwe', detail: 'Ukuxhashazwa kutholakele — ukwazisa umzali', dotColor: '#EF4444' },
 ]
 
 const PHONE_W = 280
@@ -83,12 +99,22 @@ function TypingDots({ letter }) {
   )
 }
 
-function PhoneScreen({ screenState, messages, showTypingAisha, showTypingThabo, flaggedMessageIndex, showBanner, isZu }) {
+function PhoneScreen({ screenState, messages, showTypingAisha, showTypingThabo, flaggedMessageIndex, showBanner, isZu, showAnalysis, analysisStage }) {
   const lunaDotRef = useRef(null)
 
   useEffect(() => {
     if (!lunaDotRef.current) return
-    if (showBanner) {
+    if (showAnalysis) {
+      const stages = isZu ? analysisStagesZu : analysisStages
+      const stage = stages[Math.min(analysisStage, stages.length - 1)]
+      gsap.to(lunaDotRef.current, {
+        backgroundColor: stage.dotColor,
+        boxShadow: `0 0 12px ${stage.dotColor}80`,
+        scale: 1.4,
+        duration: 0.4,
+        ease: 'power2.out',
+      })
+    } else if (showBanner) {
       gsap.to(lunaDotRef.current, {
         backgroundColor: '#EF4444',
         boxShadow: '0 0 8px rgba(239,68,68,0.6)',
@@ -104,7 +130,7 @@ function PhoneScreen({ screenState, messages, showTypingAisha, showTypingThabo, 
         duration: 0.3,
       })
     }
-  }, [showBanner])
+  }, [showBanner, showAnalysis, analysisStage, isZu])
 
   return (
     <div className="h-full flex flex-col bg-white rounded-[36px] overflow-hidden">
@@ -123,6 +149,73 @@ function PhoneScreen({ screenState, messages, showTypingAisha, showTypingThabo, 
           </div>
         </div>
       </div>
+
+      {/* Threat Analysis Overlay */}
+      {showAnalysis && screenState === 'whatsapp' && (
+        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center bg-black/40 backdrop-blur-sm" style={{ borderRadius: '36px' }}>
+          {/* Scan line animation */}
+          <div className="absolute inset-0 overflow-hidden" style={{ borderRadius: '36px' }}>
+            <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-safenet-primary to-transparent opacity-80 scan-line" />
+          </div>
+
+          <div className="bg-white/95 rounded-2xl px-6 py-5 mx-4 shadow-xl border border-safenet-border max-w-[240px] w-full">
+            {/* Scanner header */}
+            <div className="flex items-center gap-3 mb-3">
+              <div className="relative">
+                <div className="w-8 h-8 rounded-full bg-safenet-surface flex items-center justify-center">
+                  <Shield className="w-4 h-4 text-safenet-primary" />
+                </div>
+                <motion.div
+                  className="absolute -inset-1 rounded-full border-2 border-transparent border-t-safenet-primary"
+                  animate={{ rotate: 360 }}
+                  transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                />
+              </div>
+              <div>
+                <div className="text-xs font-bold text-safenet-text">Luna AI Analysis</div>
+                <div className="text-[9px] text-safenet-text-3">On-device processing</div>
+              </div>
+            </div>
+
+            {/* Progress bar */}
+            <div className="w-full h-1.5 bg-safenet-surface rounded-full mb-3 overflow-hidden">
+              <motion.div
+                className="h-full rounded-full bg-gradient-to-r from-amber-400 via-orange-400 to-red-500"
+                initial={{ width: '0%' }}
+                animate={{ width: `${((analysisStage + 1) / (analysisStages.length)) * 100}%` }}
+                transition={{ duration: 0.5, ease: 'easeOut' }}
+              />
+            </div>
+
+            {/* Stage text */}
+            <motion.div
+              key={analysisStage}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-1"
+            >
+              <div className="text-xs font-semibold text-safenet-text">
+                {isZu ? analysisStagesZu[Math.min(analysisStage, analysisStagesZu.length - 1)]?.text : analysisStages[Math.min(analysisStage, analysisStages.length - 1)]?.text}
+              </div>
+              <div className="text-[9px] text-safenet-text-3 mt-0.5">
+                {isZu ? analysisStagesZu[Math.min(analysisStage, analysisStagesZu.length - 1)]?.detail : analysisStages[Math.min(analysisStage, analysisStages.length - 1)]?.detail}
+              </div>
+            </motion.div>
+
+            {/* Dots indicator */}
+            <div className="flex items-center justify-center gap-1.5 mt-2">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <motion.div
+                  key={i}
+                  className={`w-1.5 h-1.5 rounded-full ${i <= analysisStage ? 'bg-safenet-primary' : 'bg-safenet-border'}`}
+                  animate={i === analysisStage && analysisStage < 3 ? { scale: [1, 1.5, 1] } : {}}
+                  transition={{ duration: 0.6, repeat: Infinity }}
+                />
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <AnimatePresence mode="wait">
         {screenState === 'home' && (
@@ -364,7 +457,6 @@ export default function Demo() {
   const [showResult, setShowResult] = useState(false)
   const [showCapabilities, setShowCapabilities] = useState(false)
   const [showConclusion, setShowConclusion] = useState(false)
-  const [showZuluBadge, setShowZuluBadge] = useState(false)
   const [showZuluDemo, setShowZuluDemo] = useState(false)
   const [showFinalCTA, setShowFinalCTA] = useState(false)
   const [scanCount, setScanCount] = useState(2847)
@@ -372,6 +464,12 @@ export default function Demo() {
   const [timelinePhase, setTimelinePhase] = useState('')
   const [demoStarted, setDemoStarted] = useState(false)
   const [initializing, setInitializing] = useState(true)
+
+  // Analysis state
+  const [showAnalysis, setShowAnalysis] = useState(false)
+  const [analysisStage, setAnalysisStage] = useState(0)
+  const [showParentNotification, setShowParentNotification] = useState(false)
+  const [showParentDashboard, setShowParentDashboard] = useState(false)
 
   const sectionRef = useRef(null)
   const headingRef = useRef(null)
@@ -382,6 +480,8 @@ export default function Demo() {
   const capabilitiesRef = useRef(null)
   const conclusionRef = useRef(null)
   const zuluDemoRef = useRef(null)
+  const parentNotifRef = useRef(null)
+  const parentPhoneRef = useRef(null)
   const scanIntervalRef = useRef(null)
 
   const isZu = lang === 'zu'
@@ -418,6 +518,10 @@ export default function Demo() {
     setShowZuluBadge(false)
     setShowZuluDemo(false)
     setShowFinalCTA(false)
+    setShowAnalysis(false)
+    setAnalysisStage(0)
+    setShowParentNotification(false)
+    setShowParentDashboard(false)
     setTimelinePhase('')
 
     const tl = gsap.timeline()
@@ -465,47 +569,71 @@ export default function Demo() {
       setFlaggedMessageIndex(newIdx)
     }, 10.0)
 
-    // Phase 5: Alert fires — banner + AlertCard (10.5s)
+    // Phase 4.5: Threat Analysis — show Luna scanning the flagged message (10.5s)
+    tl.add(() => {
+      setShowAnalysis(true)
+      setAnalysisStage(0)
+      setTimelinePhase('analyzing')
+    }, 10.3)
+
+    // Advance analysis stages with delays
+    tl.add(() => setAnalysisStage(1), 11.2)
+    tl.add(() => setAnalysisStage(2), 12.0)
+    tl.add(() => setAnalysisStage(3), 12.8)
+
+    // Phase 5: Alert fires — banner + AlertCard (13.5s)
     tl.add(() => {
       setShowBanner(true)
       setShowAlert(true)
+      setShowAnalysis(false)
       setTimelinePhase('alert')
-    }, 10.5)
+    }, 13.5)
 
-    // Phase 6: Phone transitions to Luna Power screen (14s)
+    // Phase 5.5: Parent receives push notification (14s)
+    tl.add(() => {
+      setShowParentNotification(true)
+      setTimelinePhase('parent-notified')
+    }, 14.5)
+
+    // Phase 5.7: Parent opens dashboard (15.5s)
+    tl.add(() => {
+      setShowParentDashboard(true)
+    }, 15.5)
+
+    // Phase 6: Phone transitions to Luna Power screen (16s)
     tl.add(() => {
       setScreenState('luna-power')
       setTimelinePhase('luna-power')
-    }, 14.0)
+    }, 16.0)
 
-    // Phase 7: Right side capabilities appear (16s-22s)
+    // Phase 7: Right side capabilities appear (18.5s)
     tl.add(() => {
       setShowCapabilities(true)
-    }, 16.5)
+    }, 18.5)
 
-    // Phase 8: Result text (22s)
+    // Phase 8: Result text (24s)
     tl.add(() => {
       setShowResult(true)
       setTimelinePhase('result')
-    }, 22.0)
+    }, 24.0)
 
-    // Phase 9: Zulu demo starts — show that Luna works in Zulu too (28s)
+    // Phase 9: Zulu demo starts — show that Luna works in Zulu too (30s)
     tl.add(() => {
       setShowZuluDemo(true)
       setTimelinePhase('zulu-demo')
-    }, 28.0)
+    }, 30.0)
 
-    // Phase 10: Bilingual conclusion (35s)
+    // Phase 10: Bilingual conclusion (37s)
     tl.add(() => {
       setShowConclusion(true)
       setTimelinePhase('conclusion')
-    }, 35.0)
+    }, 37.0)
 
-    // Phase 11: Final CTA buttons (42s)
+    // Phase 11: Final CTA buttons (44s)
     tl.add(() => {
       setShowFinalCTA(true)
       setTimelinePhase('complete')
-    }, 42.0)
+    }, 44.0)
   }, [lang])
 
   // GSAP animations that fire AFTER state changes flush to DOM
@@ -567,6 +695,30 @@ export default function Demo() {
     }, 80)
     return () => clearTimeout(timer)
   }, [showZuluDemo])
+
+  useEffect(() => {
+    if (!showParentNotification) return
+    const timer = setTimeout(() => {
+      if (parentNotifRef.current) {
+        gsap.fromTo(parentNotifRef.current, { opacity: 0, y: 30 }, {
+          opacity: 1, y: 0, duration: 0.5, ease: 'back.out(1.2)',
+        })
+      }
+    }, 80)
+    return () => clearTimeout(timer)
+  }, [showParentNotification])
+
+  useEffect(() => {
+    if (!showParentDashboard) return
+    const timer = setTimeout(() => {
+      if (parentPhoneRef.current) {
+        gsap.fromTo(parentPhoneRef.current, { opacity: 0, y: 40 }, {
+          opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
+        })
+      }
+    }, 80)
+    return () => clearTimeout(timer)
+  }, [showParentDashboard])
 
   // Run timeline on mount and on language switch
   useEffect(() => {
@@ -654,7 +806,9 @@ export default function Demo() {
                   <span className="w-1.5 h-1.5 rounded-full bg-safenet-primary animate-pulse" />
                   {timelinePhase === 'entrance' && 'Starting...'}
                   {timelinePhase === 'chat' && 'Chat loading...'}
+                  {timelinePhase === 'analyzing' && '🔍 Analyzing threat...'}
                   {timelinePhase === 'alert' && '⚡ Threat detected!'}
+                  {timelinePhase === 'parent-notified' && '📱 Parent alerted'}
                   {timelinePhase === 'luna-power' && '🛡️ Luna intercepted'}
                   {timelinePhase === 'result' && '✓ Threat blocked'}
                   {timelinePhase === 'zulu-demo' && '🇿🇦 Zulu detection'}
@@ -692,6 +846,8 @@ export default function Demo() {
                       showTypingThabo={showTypingThabo}
                       flaggedMessageIndex={flaggedMessageIndex}
                       showBanner={showBanner}
+                      showAnalysis={showAnalysis}
+                      analysisStage={analysisStage}
                       isZu={isZu}
                     />
                   </div>
@@ -777,6 +933,204 @@ export default function Demo() {
                   )}
                 </AnimatePresence>
               </div>
+
+              {/* Parent Phone Notification — appears after alert */}
+              <AnimatePresence>
+                {showParentNotification && !showParentDashboard && (
+                  <motion.div
+                    key="parent-notif"
+                    ref={parentNotifRef}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -20 }}
+                    transition={{ type: 'spring', stiffness: 200, damping: 18 }}
+                    className="bg-white rounded-card-lg shadow-safenet-md border border-safenet-border overflow-hidden"
+                  >
+                    <div className="bg-gradient-to-r from-safenet-primary/10 to-safenet-primary-light/30 px-4 py-2.5 border-b border-safenet-border/50 flex items-center gap-2">
+                      <PhoneIcon className="w-3.5 h-3.5 text-safenet-primary" />
+                      <span className="text-[10px] font-semibold text-safenet-text-2 uppercase tracking-wider">Parent's Phone</span>
+                    </div>
+
+                    {/* Android-style push notification */}
+                    <div className="p-4">
+                      <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: 0.2, duration: 0.4 }}
+                        className="bg-safenet-surface rounded-xl p-3 border-l-[3px] border-safenet-danger shadow-sm"
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className="w-8 h-8 rounded-full bg-gradient-to-br from-safenet-primary to-safenet-primary-dark flex items-center justify-center flex-shrink-0 shadow-sm">
+                            <Bell className="w-4 h-4 text-white" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center justify-between mb-0.5">
+                              <span className="text-[11px] font-bold text-safenet-text">SafeNet SA • Luna Alert</span>
+                              <span className="text-[9px] text-safenet-text-3">Just now</span>
+                            </div>
+                            <p className="text-[11px] text-safenet-text-2 leading-relaxed">
+                              <strong className="text-safenet-danger">Cyberbullying detected</strong> on Liam's WhatsApp
+                            </p>
+                            <p className="text-[10px] text-safenet-text-3 mt-1">
+                              Threat level: <span className="font-semibold text-safenet-danger">94%</span> — {isZu ? 'Ukuxhashazwa okulotholwe uLuna' : 'Grooming & bullying patterns detected'}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="mt-3 flex items-center gap-2 pt-2 border-t border-safenet-border/50">
+                          <div className="flex-1 h-7 bg-safenet-primary rounded-lg flex items-center justify-center">
+                            <span className="text-[10px] font-semibold text-white">View Alert</span>
+                          </div>
+                          <div className="flex-1 h-7 bg-white border border-safenet-border rounded-lg flex items-center justify-center">
+                            <span className="text-[10px] font-semibold text-safenet-text-2">Dismiss</span>
+                          </div>
+                        </div>
+                      </motion.div>
+
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5, duration: 0.3 }}
+                        className="flex items-center gap-1.5 mt-2 text-[10px] text-safenet-text-3"
+                      >
+                        <Check className="w-3 h-3 text-safenet-primary" />
+                        Alert sent via push notification — parent notified in 0.3s
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {/* Parent Dashboard — full phone mockup showing parent's view */}
+              <AnimatePresence>
+                {showParentDashboard && (
+                  <motion.div
+                    key="parent-dashboard"
+                    ref={parentPhoneRef}
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ type: 'spring', stiffness: 150, damping: 16 }}
+                    className="bg-white rounded-card-lg shadow-safenet-md border border-safenet-border overflow-hidden"
+                  >
+                    <div className="bg-gradient-to-r from-safenet-primary/10 to-safenet-primary-light/30 px-4 py-2.5 border-b border-safenet-border/50 flex items-center gap-2">
+                      <Smartphone className="w-3.5 h-3.5 text-safenet-primary" />
+                      <span className="text-[10px] font-semibold text-safenet-text-2 uppercase tracking-wider">Parent Dashboard</span>
+                    </div>
+
+                    <div className="p-4">
+                      {/* Parent dashboard preview */}
+                      <div className="bg-safenet-surface rounded-xl p-3 border border-safenet-border/50">
+                        {/* Header */}
+                        <div className="flex items-center justify-between mb-3">
+                          <div>
+                            <div className="text-[11px] font-bold text-safenet-primary">SafeNet SA</div>
+                            <div className="text-[9px] text-safenet-text-3">Parent Dashboard</div>
+                          </div>
+                          <div className="w-7 h-7 rounded-full bg-gradient-to-br from-safenet-primary to-safenet-primary-dark flex items-center justify-center text-white text-[10px] font-bold">M</div>
+                        </div>
+
+                        {/* Children cards */}
+                        <div className="space-y-2">
+                          {/* Liam — with active alert */}
+                          <motion.div
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.2 }}
+                            className="bg-white rounded-lg p-3 border-l-[3px] border-safenet-danger shadow-sm"
+                          >
+                            <div className="flex items-center gap-2.5">
+                              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-safenet-primary to-safenet-primary-dark flex items-center justify-center text-white text-xs font-bold flex-shrink-0">L</div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-[12px] font-semibold text-safenet-text">Liam</span>
+                                  <span className="text-[10px] font-bold text-safenet-danger flex items-center gap-1">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-safenet-danger animate-ping" />
+                                    ALERT
+                                  </span>
+                                </div>
+                                <div className="flex items-center gap-2 mt-0.5">
+                                  <span className="text-[9px] text-safenet-text-3">Online · 2h screen time</span>
+                                  <span className="text-[9px] text-safenet-text-3">·</span>
+                                  <span className="text-[9px] text-safenet-danger font-medium">WhatsApp</span>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Threat summary */}
+                            <div className="mt-2 pt-2 border-t border-safenet-border/50">
+                              <div className="flex items-center gap-1.5 text-[10px]">
+                                <span className="w-1.5 h-1.5 rounded-full bg-safenet-danger" />
+                                <span className="font-semibold text-safenet-text">Threat detected:</span>
+                                <span className="text-safenet-text-2">{isZu ? 'Ukuxhashazwa' : 'Cyberbullying'}</span>
+                              </div>
+                              <div className="flex items-center gap-2 mt-1.5">
+                                <div className="flex-1 h-1.5 bg-safenet-surface rounded-full overflow-hidden">
+                                  <div className="h-full w-[94%] bg-gradient-to-r from-amber-400 to-safenet-danger rounded-full" />
+                                </div>
+                                <span className="text-[9px] font-semibold text-safenet-danger">94%</span>
+                              </div>
+                              <div className="flex items-center justify-between mt-2 text-[9px] text-safenet-text-3">
+                                <span>⚠️ Sexual grooming language detected</span>
+                                <span>😢 Bullying patterns</span>
+                              </div>
+                            </div>
+                          </motion.div>
+
+                          {/* Other children (safe) */}
+                          <motion.div
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.4 }}
+                            className="bg-white rounded-lg p-3 border border-safenet-border/50 shadow-sm"
+                          >
+                            <div className="flex items-center gap-2.5">
+                              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">Z</div>
+                              <div className="flex-1">
+                                <div className="flex items-center justify-between">
+                                  <span className="text-[12px] font-semibold text-safenet-text">Zara</span>
+                                  <span className="text-[9px] font-medium text-safenet-primary flex items-center gap-1">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-safenet-primary" />
+                                    Safe
+                                  </span>
+                                </div>
+                                <span className="text-[9px] text-safenet-text-3">Offline · At school</span>
+                              </div>
+                            </div>
+                          </motion.div>
+                        </div>
+
+                        {/* Quick actions */}
+                        <div className="flex items-center gap-2 mt-3">
+                          {['Block App', 'Pause Internet', 'Call Liam'].map((action) => (
+                            <div
+                              key={action}
+                              className={`flex-1 text-[9px] font-semibold py-1.5 rounded-lg text-center ${
+                                action === 'Call Liam'
+                                  ? 'bg-safenet-danger text-white'
+                                  : 'bg-white border border-safenet-border text-safenet-text-2'
+                              }`}
+                            >
+                              {action}
+                            </div>
+                          ))}
+                        </div>
+
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.8, duration: 0.5 }}
+                          className="mt-3 text-center"
+                        >
+                          <span className="text-[9px] text-safenet-text-3">
+                            <Check className="w-3 h-3 text-safenet-primary inline-block mr-1" />
+                            Message content never transmitted. Only threat alerts sent to parent.
+                          </span>
+                        </motion.div>
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* Capabilities showcase — appears after alert */}
               <AnimatePresence>

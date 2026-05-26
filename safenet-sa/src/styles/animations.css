@@ -110,3 +110,18 @@
 .animate-slide-up {
   animation: slide-up 0.4s ease-out forwards;
 }
+
+/* Scan line for threat analysis overlay */
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(500%); }
+}
+
+.scan-line {
+  animation: scan-line 2.5s ease-in-out infinite;
+}
+
+/* Loading spin border */
+.border-3 {
+  border-width: 3px;
+}
