@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Shield, Smartphone, Link as LinkIcon, AlertTriangle, ThumbsUp, Sparkles } from 'lucide-react'
+import { ArrowRight, Shield, Smartphone, Link as LinkIcon, AlertTriangle, ThumbsUp, Sparkles, Languages } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { gsap, ScrollTrigger } from '../lib/gsap'
 import SEO from '../components/seo/SEO'
@@ -13,25 +13,26 @@ const steps = [
     icon: Smartphone,
     iconBg: 'bg-safenet-primary-light',
     iconColor: 'text-safenet-primary',
-    title: 'Install SafeNet in 30 seconds',
-    desc: 'Parent downloads the app from the Google Play Store or Apple App Store. Add your child\'s device by scanning a simple QR code. That\'s it — you\'re protected.',
+    title: { en: 'Parent installs SafeNet in 30 seconds', zu: 'Umzali ufaka i-SafeNet ngemizuzwana engu-30' },
+    desc: 'Download the app. Enter your SA phone number. Scan the QR code on your child\'s phone. Done.',
     side: 'left',
+    hasQRVisual: true,
   },
   {
     icon: Sparkles,
     iconBg: 'bg-safenet-primary-light',
     iconColor: 'text-safenet-primary',
-    title: 'Luna runs silently in the background',
-    desc: 'Your child uses their phone exactly as before — watching YouTube, chatting on WhatsApp, scrolling TikTok. They won\'t even know Luna is there. A small green dot in the status bar is the only sign.',
+    title: { en: 'Luna runs silently in the background', zu: 'ULuna usebenza buthule ngemuva' },
+    desc: 'A small green dot appears in your child\'s status bar. Luna is active. Your child uses their phone normally.',
     side: 'right',
     hasMiniPhone: true,
   },
   {
-    icon: Link,
+    icon: LinkIcon,
     iconBg: 'bg-safenet-accent-light',
     iconColor: 'text-safenet-accent',
-    title: 'Every link scanned before your child sees it',
-    desc: 'Phishing links, fake SASSA grant scams, adult content, malware download sites — Luna scans every single URL before your child can tap it. Safe links pass through instantly. Threats get blocked with a warning.',
+    title: { en: 'Every link and message scanned before your child sees it', zu: 'Zonke izixhumanisi nemilayezo kuhlolwa ngaphambi kokuba ingane yakho ibone' },
+    desc: 'Fake SASSA sites, phishing links, adult content — blocked instantly. Cyberbullying and grooming detected on-device.',
     side: 'left',
     hasScanAnimation: true,
   },
@@ -39,8 +40,8 @@ const steps = [
     icon: AlertTriangle,
     iconBg: 'bg-safenet-danger-light',
     iconColor: 'text-safenet-danger',
-    title: 'Threat detected — you know in under a second',
-    desc: 'Cyberbullying, harassment, dangerous messages — Luna reads WhatsApp, Instagram, and TikTok conversations in real time. The moment a threat is detected, you get an instant alert on your phone with the exact message and threat level.',
+    title: { en: 'Threat detected — you know in under a second', zu: 'Usongo lutholakele — wazi ngaphansi komzuzwana' },
+    desc: 'You receive a push notification with the threat type, severity, and culturally appropriate guidance in your language. Message content never leaves your child\'s device.',
     side: 'right',
     hasAlertCard: true,
   },
@@ -48,8 +49,8 @@ const steps = [
     icon: ThumbsUp,
     iconBg: 'bg-safenet-primary-light',
     iconColor: 'text-safenet-primary',
-    title: 'You decide what happens next',
-    desc: 'Block the offending app instantly. Call your child with one tap. Set screen time limits. Or simply stay informed with daily summaries. You\'re always in control — Luna is your guardian, not your replacement.',
+    title: { en: 'You decide what happens next', zu: 'Wena unquma okulandelayo' },
+    desc: 'Block the app. Pause the internet. Call your child. Or simply stay informed. SafeNet gives you the information — you make the decision.',
     side: 'left',
     hasActions: true,
   },
@@ -70,6 +71,8 @@ function StepCard({ step, index }) {
   }, [step.side])
 
   const Icon = step.icon
+  // Use English as default, showing zu in lang toggle context
+  const currentTitle = step.title.en
 
   return (
     <div
@@ -84,8 +87,13 @@ function StepCard({ step, index }) {
           </div>
           <span className="text-xs font-semibold text-safenet-text-3 tracking-wider uppercase">Step {index + 1}</span>
         </div>
-        <h3 className="font-display text-heading-lg text-safenet-text mb-4">{step.title}</h3>
+        <h3 className="font-display text-heading-lg text-safenet-text mb-4">{currentTitle}</h3>
         <p className="text-base text-safenet-text-2 leading-relaxed">{step.desc}</p>
+        {/* Zulu translation toggle hint */}
+        <div className="inline-flex items-center gap-1.5 mt-3 px-2.5 py-1 bg-safenet-primary-light/30 rounded-full text-[10px] text-safenet-text-3 border border-safenet-border/30">
+          <Languages className="w-3 h-3" />
+          <span>{step.title.zu}</span>
+        </div>
       </div>
 
       {/* Visual */}
@@ -103,6 +111,30 @@ function StepCard({ step, index }) {
               </div>
             </div>
             <p className="text-xs text-safenet-text-3 mt-3">Luna's green dot in the status bar — the only sign she's there.</p>
+          </div>
+        )}
+
+        {step.hasQRVisual && (
+          <div className="bg-white rounded-card-lg shadow-safenet-md border border-safenet-border p-8 flex items-center justify-center min-h-[180px]">
+            <div className="text-center">
+              <div className={`w-20 h-20 rounded-2xl ${step.iconBg} flex items-center justify-center mx-auto mb-3`}>
+                <Smartphone className={`w-10 h-10 ${step.iconColor}`} />
+              </div>
+              <div className="flex items-center justify-center gap-2">
+                <div className="w-16 h-16 bg-white border-2 border-safenet-border rounded-lg flex items-center justify-center">
+                  <div className="grid grid-cols-4 gap-0.5">
+                    {[...Array(16)].map((_, i) => (
+                      <div key={i} className={`w-2.5 h-2.5 rounded-sm ${Math.random() > 0.5 ? 'bg-safenet-text' : 'bg-white'}`} />
+                    ))}
+                  </div>
+                </div>
+                <ArrowRight className="w-5 h-5 text-safenet-primary" />
+                <div className="w-16 h-16 bg-white border-2 border-safenet-border rounded-lg flex items-center justify-center">
+                  <Shield className="w-8 h-8 text-safenet-primary" />
+                </div>
+              </div>
+              <p className="text-xs text-safenet-text-3 mt-3">Scan the QR code on your child's phone to link their device.</p>
+            </div>
           </div>
         )}
 
@@ -136,10 +168,10 @@ function StepCard({ step, index }) {
             </div>
             <div className="flex justify-center gap-4 mt-4">
               <span className="inline-flex items-center gap-1 text-xs text-green-600 font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500" /> Safe
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500" /> Safe — passes through
               </span>
               <span className="inline-flex items-center gap-1 text-xs text-safenet-danger font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-safenet-danger" /> Blocked
+                <span className="w-1.5 h-1.5 rounded-full bg-safenet-danger" /> Blocked — threat stopped
               </span>
             </div>
           </div>
@@ -152,7 +184,7 @@ function StepCard({ step, index }) {
                 <AlertTriangle className="w-4 h-4 text-safenet-danger" />
               </div>
               <div>
-                <div className="text-xs font-bold text-safenet-text uppercase tracking-wider mb-1">⚡ ALERT</div>
+                <div className="text-xs font-bold text-safenet-text uppercase tracking-wider mb-1">⚡ LUNA ALERT</div>
                 <p className="text-sm font-semibold text-safenet-text mb-1">Cyberbullying detected</p>
                 <p className="text-xs text-safenet-text-3">WhatsApp · Just now · Threat: 94%</p>
                 <div className="mt-2 w-full h-1.5 bg-safenet-surface rounded-full overflow-hidden">
@@ -163,6 +195,9 @@ function StepCard({ step, index }) {
                     className="h-full bg-safenet-danger rounded-full"
                   />
                 </div>
+                <p className="text-xs text-safenet-text-3 mt-2 italic leading-relaxed">
+                  Message content never leaves your child's device.
+                </p>
               </div>
             </div>
           </div>
@@ -172,8 +207,8 @@ function StepCard({ step, index }) {
           <div className="grid grid-cols-3 gap-2">
             {[
               { label: 'Block App', bg: 'bg-safenet-danger-light', color: 'text-safenet-danger', icon: Shield },
-              { label: 'Call Child', bg: 'bg-safenet-primary-light', color: 'text-safenet-primary', icon: Smartphone },
-              { label: 'Stay Informed', bg: 'bg-safenet-accent-light', color: 'text-safenet-accent', icon: AlertTriangle },
+              { label: 'Pause Internet', bg: 'bg-safenet-accent-light', color: 'text-safenet-accent', icon: Smartphone },
+              { label: 'Call Child', bg: 'bg-safenet-primary-light', color: 'text-safenet-primary', icon: AlertTriangle },
             ].map((action) => {
               const ActionIcon = action.icon
               return (
@@ -185,17 +220,6 @@ function StepCard({ step, index }) {
             })}
           </div>
         )}
-
-        {!step.hasMiniPhone && !step.hasScanAnimation && !step.hasAlertCard && !step.hasActions && (
-          <div className="bg-white rounded-card-lg shadow-safenet-md border border-safenet-border p-8 flex items-center justify-center min-h-[160px]">
-            <div className="text-center">
-              <div className={`w-16 h-16 rounded-full ${step.iconBg} flex items-center justify-center mx-auto mb-3`}>
-                <Icon className={`w-8 h-8 ${step.iconColor}`} />
-              </div>
-              <p className="text-sm text-safenet-text-3">Simple setup. Instant protection.</p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   )
@@ -205,6 +229,7 @@ export default function HowItWorks() {
   const sectionRef = useRef(null)
   const labelRef = useRef(null)
   const headlineRef = useRef(null)
+  const privacyRef = useRef(null)
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -215,6 +240,10 @@ export default function HowItWorks() {
           scrollTrigger: { trigger: sectionRef.current, start: 'top 85%', toggleActions: 'play none none none' },
         }
       )
+      gsap.fromTo(privacyRef.current, { opacity: 0, y: 16 }, {
+        opacity: 1, y: 0, duration: 0.5, delay: 0.3, ease: 'power2.out',
+        scrollTrigger: { trigger: privacyRef.current, start: 'top 90%', once: true },
+      })
     }, sectionRef)
     return () => ctx.revert()
   }, [])
@@ -245,12 +274,41 @@ export default function HowItWorks() {
             {/* Steps */}
             <div className="space-y-20 lg:space-y-28">
               {steps.map((step, i) => (
-                <StepCard key={step.title} step={step} index={i} />
+                <StepCard key={i} step={step} index={i} />
               ))}
             </div>
 
+            {/* Privacy Note */}
+            <div ref={privacyRef} className="mt-16 bg-white rounded-card-lg shadow-safenet-md border border-safenet-border p-6 lg:p-8">
+              <div className="flex items-start gap-4">
+                <div className="w-10 h-10 rounded-full bg-safenet-primary-light flex items-center justify-center flex-shrink-0">
+                  <Shield className="w-5 h-5 text-safenet-primary" />
+                </div>
+                <div>
+                  <h3 className="font-display text-heading-sm text-safenet-text mb-2">
+                    Your child's privacy is sacred
+                  </h3>
+                  <p className="text-sm text-safenet-text-2 leading-relaxed">
+                    SafeNet never reads or stores your child's messages. Luna's AI runs entirely on your child's device. 
+                    Only threat alerts — never message content — are sent to you. POPIA compliant by design.
+                  </p>
+                  <div className="flex flex-wrap gap-3 mt-3">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-safenet-primary-light/30 rounded-full text-[11px] text-safenet-primary font-medium">
+                      <span className="w-1.5 h-1.5 rounded-full bg-safenet-primary" /> Messages never leave the device
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-safenet-accent-light/30 rounded-full text-[11px] text-safenet-accent font-medium">
+                      <span className="w-1.5 h-1.5 rounded-full bg-safenet-accent" /> Threat alerts only
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-safenet-danger-light/30 rounded-full text-[11px] text-safenet-danger font-medium">
+                      <span className="w-1.5 h-1.5 rounded-full bg-safenet-danger" /> POPIA compliant
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {/* Final CTA */}
-            <div className="mt-20 text-center bg-white rounded-card-lg shadow-safenet-md border border-safenet-border p-10">
+            <div className="mt-10 text-center bg-white rounded-card-lg shadow-safenet-md border border-safenet-border p-10">
               <h2 className="font-display text-heading-lg text-safenet-text mb-4">
                 Start protecting your child today 🇿🇦
               </h2>

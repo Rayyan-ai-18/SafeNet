@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Shield, RotateCcw, Globe, AlertTriangle, Check, Link as LinkIcon, Smartphone, MapPin, Languages, Mic } from 'lucide-react'
+import { Shield, RotateCcw, Globe, Check, Link as LinkIcon, Smartphone, MapPin, Languages, Mic } from 'lucide-react'
 import { gsap, ScrollTrigger } from '../lib/gsap'
 import SEO from '../components/seo/SEO'
 import Nav from '../components/layout/Nav'
@@ -83,7 +83,7 @@ function TypingDots({ letter }) {
   )
 }
 
-function PhoneScreen({ screenState, messages, showTypingAisha, showTypingThabo, flaggedMessageIndex, showBanner, isZu, showLunaPower }) {
+function PhoneScreen({ screenState, messages, showTypingAisha, showTypingThabo, flaggedMessageIndex, showBanner, isZu }) {
   const lunaDotRef = useRef(null)
 
   useEffect(() => {
@@ -370,6 +370,8 @@ export default function Demo() {
   const [scanCount, setScanCount] = useState(2847)
   const [replayKey, setReplayKey] = useState(0)
   const [timelinePhase, setTimelinePhase] = useState('')
+  const [demoStarted, setDemoStarted] = useState(false)
+  const [initializing, setInitializing] = useState(true)
 
   const sectionRef = useRef(null)
   const headingRef = useRef(null)
@@ -383,7 +385,6 @@ export default function Demo() {
   const scanIntervalRef = useRef(null)
 
   const isZu = lang === 'zu'
-  const msgData = isZu ? zuMessages : enMessages
 
   // Scan counter ticker
   useEffect(() => {
@@ -397,8 +398,13 @@ export default function Demo() {
 
   // Demo timeline — uses state changes only (no direct GSAP on refs during timeline)
   const runTimeline = useCallback(() => {
+    const currentLang = lang
+    const currentMsgData = currentLang === 'zu' ? zuMessages : enMessages
+
     // Reset all state
     msgCountRef.current = 0
+    setDemoStarted(true)
+    setInitializing(false)
     setScreenState('home')
     setMessages([])
     setShowTypingAisha(false)
@@ -429,7 +435,7 @@ export default function Demo() {
     // Phase 3: Chat messages arrive (3-10s)
     tl.add(() => {
       msgCountRef.current++
-      setMessages(prev => [...prev, { from: 'Thabo', text: msgData[0].text }])
+      setMessages(prev => [...prev, { from: 'Thabo', text: currentMsgData[0].text }])
     }, 3.0)
 
     tl.add(() => setShowTypingAisha(true), 4.0)
@@ -437,7 +443,7 @@ export default function Demo() {
 
     tl.add(() => {
       msgCountRef.current++
-      setMessages(prev => [...prev, { from: 'Aisha', text: msgData[1].text }])
+      setMessages(prev => [...prev, { from: 'Aisha', text: currentMsgData[1].text }])
     }, 5.0)
 
     tl.add(() => setShowTypingThabo(true), 6.5)
@@ -445,7 +451,7 @@ export default function Demo() {
 
     tl.add(() => {
       msgCountRef.current++
-      setMessages(prev => [...prev, { from: 'Thabo', text: msgData[2].text }])
+      setMessages(prev => [...prev, { from: 'Thabo', text: currentMsgData[2].text }])
     }, 7.5)
 
     // Phase 4: The big bullying message + flagging (10s)
@@ -455,7 +461,7 @@ export default function Demo() {
     tl.add(() => {
       msgCountRef.current++
       const newIdx = msgCountRef.current - 1
-      setMessages(prev => [...prev, { from: 'Thabo', text: msgData[3].text }])
+      setMessages(prev => [...prev, { from: 'Thabo', text: currentMsgData[3].text }])
       setFlaggedMessageIndex(newIdx)
     }, 10.0)
 
@@ -500,7 +506,7 @@ export default function Demo() {
       setShowFinalCTA(true)
       setTimelinePhase('complete')
     }, 42.0)
-  }, [msgData])
+  }, [lang])
 
   // GSAP animations that fire AFTER state changes flush to DOM
   useEffect(() => {
@@ -564,6 +570,7 @@ export default function Demo() {
 
   // Run timeline on mount and on language switch
   useEffect(() => {
+    setInitializing(true)
     const timer = setTimeout(() => {
       runTimeline()
     }, 600)
@@ -604,6 +611,19 @@ export default function Demo() {
         <Nav />
 
         <main ref={sectionRef} className="pt-24 pb-16 px-4">
+          {/* Loading State */}
+          {initializing && !demoStarted && (
+            <div className="max-w-4xl mx-auto text-center mb-10">
+              <div className="flex flex-col items-center gap-4 py-20">
+                <div className="w-12 h-12 rounded-full border-3 border-safenet-primary/20 border-t-safenet-primary animate-spin" />
+                <p className="text-sm text-safenet-text-3">Loading Demo...</p>
+              </div>
+            </div>
+          )}
+
+          {/* Demo content (hidden until initialized) */}
+          <div style={{ display: initializing && !demoStarted ? 'none' : 'block' }}>
+
           {/* Header */}
           <div className="max-w-4xl mx-auto text-center mb-10">
             <h1 ref={headingRef} className="font-display text-display-sm sm:text-display-md text-safenet-text mb-4">
@@ -905,6 +925,8 @@ export default function Demo() {
                 />
               ))}
             </div>
+          </div>
+
           </div>
 
           {/* Bilingual Conclusion Section */}

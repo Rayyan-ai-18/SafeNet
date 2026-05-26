@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { Shield, ArrowRight } from 'lucide-react'
+import { Shield, ArrowRight, Sparkles, Mic } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { gsap } from '../../lib/gsap'
 import Button from '../ui/Button'
@@ -41,8 +41,9 @@ export default function Hero() {
   }, [])
 
   const headlineWords = [
-    'Your', 'child', 'is', 'safe', 'online.',
-    'We', 'made', 'certain', 'of', 'it.'
+    'SafeNet', 'is', 'the', 'bridge', 'between',
+    'South', 'African', "children's", 'digital',
+    'world', 'and', 'their', 'parents.'
   ]
 
   return (
@@ -60,7 +61,7 @@ export default function Hero() {
             {/* Badge */}
             <div ref={badgeRef} className="inline-flex items-center gap-2 px-3 py-1.5 bg-safenet-primary-light rounded-full text-sm text-safenet-primary mb-6">
               <span className="w-2 h-2 rounded-full bg-safenet-primary pulse-dot" />
-              <span className="text-xs font-medium">Now protecting SA families · Free to start</span>
+              <span className="text-xs font-medium">Speaking isiZulu · POPIA compliant · Free to start</span>
             </div>
 
             {/* Headline */}
@@ -72,33 +73,39 @@ export default function Hero() {
 
             {/* Subheadline */}
             <p ref={subRef} className="text-lg sm:text-xl text-safenet-text-2 max-w-[520px] leading-relaxed mb-8">
-              The only digital safety platform built for South African families.
-              Monitors WhatsApp. Speaks Zulu. Ready in 5 minutes.
+              Detect cyberbullying. Block grooming. Speak isiZulu. Built for South Africa.
             </p>
 
             {/* CTAs */}
             <div ref={ctaRef} className="flex flex-wrap items-center gap-4">
-              <Link to="/auth">
+              <Link to="/demo">
                 <Button variant="primary" size="lg" magnetic>
-                  <Shield className="w-5 h-5" />
-                  Protect My Child
+                  <Sparkles className="w-5 h-5" />
+                  Watch Live Demo
                 </Button>
               </Link>
-              <a href="#how-it-works" className="group inline-flex items-center gap-2 text-base font-medium text-safenet-text-2 hover:text-safenet-text transition-colors">
-                Watch how it works
+              <Link to="/luna" className="group inline-flex items-center gap-2 text-base font-medium text-safenet-text-2 hover:text-safenet-text transition-colors">
+                <Mic className="w-4 h-4" />
+                Talk to Luna
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-              </a>
+              </Link>
             </div>
 
-            {/* Trust line */}
-            <p ref={trustRef} className="text-sm text-safenet-text-3 mt-6">
-              POPIA compliant · No credit card required · Cancel anytime
-            </p>
-            <p className="text-sm text-safenet-text-3 mt-2">
-              <a href="#features" className="text-safenet-primary hover:underline">Explore all features</a>
-              {' · '}
-              <a href="#pricing" className="text-safenet-primary hover:underline">View pricing</a>
-            </p>
+            {/* Privacy Trust Badge */}
+            <div ref={trustRef} className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-safenet-text-3">
+              <span className="inline-flex items-center gap-1">
+                <Shield className="w-3.5 h-3.5 text-safenet-primary" />
+                Messages never leave your child's device
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-safenet-primary" />
+                POPIA compliant
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full bg-safenet-primary" />
+                Child dignity protected
+              </span>
+            </div>
           </div>
 
           {/* Right: Phone Mockup */}

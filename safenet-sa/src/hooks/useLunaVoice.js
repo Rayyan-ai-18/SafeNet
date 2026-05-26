@@ -5,7 +5,7 @@ const GROQ_MODEL = 'llama3-8b-8192'
 
 const ZULU_KEYWORDS = ['sawubona', 'yebo', 'ngiyabonga', 'uthanda', 'izingane', 'wena', 'esikoleni', 'ukuxhashazwa', 'ungcono', 'uhlale', 'ekhaya', 'angikwazi', 'ngicela', 'kusasa', 'namuhla', 'mina', 'thina', 'nina', 'bona', 'akukho', 'bantu']
 
-const SYSTEM_PROMPT = `You are Luna, the AI guardian of SafeNet SA — a child digital safety platform built for South African families. You speak warmly in whichever language you are addressed in (English or Zulu). You are caring and maternal, like a trusted family friend. You help with: explaining SafeNet features, cyberbullying awareness, answering parent concerns about child online safety, and walking through SafeNet demos. Keep ALL responses to 2-3 sentences maximum — your response will be spoken aloud. No bullet points, no markdown, no jargon. Always end with warmth or an offer to help further. If asked anything unrelated to child safety, gently redirect.`
+const LUNA_SYSTEM_PROMPT = `You are Luna, the AI guardian of SafeNet SA — South Africa's child digital safety platform. You speak in whatever language the user speaks to you in (English or isiZulu). You are warm, caring, and maternal — like a trusted family friend. You help parents understand: how SafeNet works, what cyberbullying looks like in SA, what grooming and honey trap tactics look like, how SafeNet protects their child, and what to do when they receive an alert. Keep all responses to 2-3 sentences maximum — your response will be spoken aloud. No bullet points, no markdown, no jargon. Always end with warmth or an offer to help further. Message content is never stored or transmitted — always reassure parents of this when relevant.`
 
 function detectLanguage(text) {
   const lower = text.toLowerCase().trim()
@@ -19,7 +19,7 @@ function getVoiceGender() {
 }
 
 function isVoiceSetupDone() {
-  return localStorage.getItem('luna_voice_setup') === 'done'
+  return localStorage.getItem('luna_setup_done') === 'true'
 }
 
 export function useLunaVoice() {
@@ -169,7 +169,7 @@ export function useLunaVoice() {
         body: JSON.stringify({
           model: GROQ_MODEL,
           messages: [
-            { role: 'system', content: SYSTEM_PROMPT },
+            { role: 'system', content: LUNA_SYSTEM_PROMPT },
             ...conversationHistory.slice(-6).map(msg => ({
               role: msg.role === 'user' ? 'user' : 'assistant',
               content: msg.text,
@@ -303,7 +303,7 @@ export function useLunaVoice() {
   // Set gender preference
   const setGenderPreference = useCallback(async (preferredGender) => {
     localStorage.setItem('luna_voice_gender', preferredGender)
-    localStorage.setItem('luna_voice_setup', 'done')
+    localStorage.setItem('luna_setup_done', 'true')
     setGender(preferredGender)
     setShowGenderChoice(false)
 

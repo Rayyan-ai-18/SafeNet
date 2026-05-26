@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mic, MicOff, Sparkles, Globe, Shield, MessageCircle, Activity } from 'lucide-react'
-import { gsap, ScrollTrigger } from '../lib/gsap'
+import { Mic, MicOff, Sparkles, Globe, Shield, MessageCircle, Activity, AlertTriangle } from 'lucide-react'
+import { gsap } from '../lib/gsap'
 import SEO from '../components/seo/SEO'
 import Nav from '../components/layout/Nav'
 import Footer from '../components/layout/Footer'
@@ -10,18 +10,20 @@ import { useLunaVoice } from '../hooks/useLunaVoice'
 
 const suggestedQuestions = [
   { en: 'How does SafeNet protect my child?', zu: 'I-SafeNet ivikela ingane yami kanjani?' },
+  { en: 'What is a honey trap?', zu: 'Uyini ugibe lwezinyosi?' },
   { en: 'What happens when Luna detects a threat?', zu: 'Kwenzekani uma uLuna ethola usongo?' },
-  { en: 'Is SafeNet right for my 10 year old?', zu: 'Ingabe i-SafeNet ilungele ingane yami eneminyaka eyi-10?' },
+  { en: 'Is my child\'s privacy protected?', zu: 'Ingabe ubumfihlo bengane yami buvikelekile?' },
   { en: 'Ngingakusebenzisa kanjani uSafeNet?', zu: 'Ngingakusebenzisa kanjani uSafeNet?' },
-  { en: 'What is cyberbullying?', zu: 'Uyini ukuxhashazwa ku-inthanethi?' },
+  { en: 'Ingane yami iphephile?', zu: 'Ingane yami iphephile?' },
 ]
 
 const iconMap = {
   'How does SafeNet protect my child?': Shield,
-  'What happens when Luna detects a threat?': Activity,
-  'Is SafeNet right for my 10 year old?': MessageCircle,
+  'What is a honey trap?': Activity,
+  'What happens when Luna detects a threat?': AlertTriangle,
+  'Is my child\'s privacy protected?': Shield,
   'Ngingakusebenzisa kanjani uSafeNet?': Globe,
-  'What is cyberbullying?': Sparkles,
+  'Ingane yami iphephile?': Sparkles,
 }
 
 export default function Luna() {
@@ -89,7 +91,7 @@ export default function Luna() {
               Meet Luna.
             </h1>
             <p ref={subRef} className="text-lg text-safenet-text-2 max-w-lg mx-auto">
-              Your child's AI guardian. Always watching. Always safe.
+              She watches so you don't have to.
             </p>
           </div>
 

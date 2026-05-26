@@ -80,13 +80,13 @@ export default function LunaOrb({ state = 'idle', size = 120 }) {
     }
   }, [state, controls])
 
-  // Rotate outer ring for thinking state
+  // Rotate outer ring for thinking state (1.2s per spec)
   useEffect(() => {
     if (!outerRingRef.current) return
     if (state === 'thinking') {
       gsap.to(outerRingRef.current, {
         rotation: 360,
-        duration: 3,
+        duration: 1.2,
         repeat: -1,
         ease: 'none',
       })
