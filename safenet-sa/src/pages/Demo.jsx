@@ -747,10 +747,6 @@ export default function Demo() {
     setReplayKey(k => k + 1)
   }
 
-  const toggleLang = () => {
-    setLang(prev => prev === 'en' ? 'zu' : 'en')
-  }
-
   return (
     <>
       <SEO
@@ -786,13 +782,31 @@ export default function Demo() {
 
             {/* Controls */}
             <div className="flex items-center justify-center gap-4 flex-wrap">
-              <button
-                onClick={toggleLang}
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-safenet-primary-light text-safenet-primary text-sm font-medium hover:bg-safenet-primary/20 transition-colors"
-              >
-                <Globe className="w-4 h-4" />
-                {isZu ? '🇿🇦 Watch in English' : '🇿🇦 Watch in Zulu'}
-              </button>
+              {/* Language switch - watch the SAME live detection in either language */}
+              <div className="inline-flex items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 text-sm text-safenet-text-3">
+                  <Globe className="w-4 h-4" />
+                  Detect in:
+                </span>
+                <div className="inline-flex items-center p-1 rounded-full bg-safenet-surface border border-safenet-border">
+                  <button
+                    onClick={() => setLang('en')}
+                    className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                      !isZu ? 'bg-safenet-primary text-white shadow-safenet-sm' : 'text-safenet-text-2 hover:text-safenet-text'
+                    }`}
+                  >
+                    English
+                  </button>
+                  <button
+                    onClick={() => setLang('zu')}
+                    className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                      isZu ? 'bg-safenet-primary text-white shadow-safenet-sm' : 'text-safenet-text-2 hover:text-safenet-text'
+                    }`}
+                  >
+                    🇿🇦 isiZulu
+                  </button>
+                </div>
+              </div>
               <button
                 onClick={handleReplay}
                 className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-white border border-safenet-border text-sm font-medium text-safenet-text-2 hover:text-safenet-text transition-colors shadow-safenet-sm"
