@@ -1,16 +1,24 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 
+// Luna voice hook - mirrors the Luna-AI pipeline so it works cross-browser
+// (incl. Safari/iOS): Silero VAD captures speech -> Groq Whisper STT
+// (/api/luna-stt) -> chat (/api/luna-chat) -> Deepgram voice (/api/luna-tts).
+// isiZulu replies use the browser voice (no isiZulu neural voice available).
+
 const ZULU_KEYWORDS = ['sawubona', 'yebo', 'ngiyabonga', 'uthanda', 'izingane', 'wena', 'esikoleni', 'ukuxhashazwa', 'ungcono', 'uhlale', 'ekhaya', 'angikwazi', 'ngicela', 'kusasa', 'namuhla', 'mina', 'thina', 'nina', 'bona', 'akukho', 'bantu']
 
 // Tiny silent WAV used to "unlock" audio playback on the first user gesture.
-// Safari/iOS block .play() unless an element was first played during a tap.
-const SILENT_WAV = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA='
+const SILENT_WAV = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQAAAAA='
+
+const VAD_SCRIPTS = [
+  'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.14.0/dist/ort.js',
+  'https://cdn.jsdelivr.net/npm/@ricky0123/vad-web@0.0.7/dist/bundle.min.js',
+]
 
 function detectLanguage(text) {
   const lower = text.toLowerCase().trim()
   const zuluScore = ZULU_KEYWORDS.filter(word => lower.includes(word)).length
-  if (zuluScore >= 1) return 'zu'
-  return 'en'
+  return zuluScore >= 1 ? 'zu' : 'en'
 }
 
 function getVoiceGender() {
@@ -21,10 +29,63 @@ function isVoiceSetupDone() {
   return localStorage.getItem('luna_setup_done') === 'true'
 }
 
+// Encode Float32 PCM (from VAD) into a 16kHz mono WAV blob -> base64
+function float32ToBase64Wav(samples, sampleRate = 16000) {
+  const buffer = new ArrayBuffer(44 + samples.length * 2)
+  const view = new DataView(buffer)
+  const writeStr = (offset, str) => {
+    for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i))
+  }
+  writeStr(0, 'RIFF')
+  view.setUint32(4, 36 + samples.length * 2, true)
+  writeStr(8, 'WAVE')
+  writeStr(12, 'fmt ')
+  view.setUint32(16, 16, true)
+  view.setUint16(20, 1, true)
+  view.setUint16(22, 1, true)
+  view.setUint32(24, sampleRate, true)
+  view.setUint32(28, sampleRate * 2, true)
+  view.setUint16(32, 2, true)
+  view.setUint16(34, 16, true)
+  writeStr(36, 'data')
+  view.setUint32(40, samples.length * 2, true)
+  const pcm = new Int16Array(buffer, 44)
+  for (let i = 0; i < samples.length; i++) {
+    pcm[i] = Math.max(-32768, Math.min(32767, samples[i] * 32768))
+  }
+  const bytes = new Uint8Array(buffer)
+  let binary = ''
+  for (let i = 0; i < bytes.byteLength; i++) binary += String.fromCharCode(bytes[i])
+  return btoa(binary)
+}
+
+let vadScriptsPromise = null
+function loadVadScripts() {
+  if (window.vad) return Promise.resolve()
+  if (vadScriptsPromise) return vadScriptsPromise
+  vadScriptsPromise = VAD_SCRIPTS.reduce(
+    (chain, src) => chain.then(() => new Promise((resolve, reject) => {
+      const existing = document.querySelector(`script[src="${src}"]`)
+      if (existing) { resolve(); return }
+      const el = document.createElement('script')
+      el.src = src
+      el.crossOrigin = 'anonymous'
+      el.onload = resolve
+      el.onerror = () => reject(new Error(`Failed to load ${src}`))
+      document.head.appendChild(el)
+    })),
+    Promise.resolve()
+  ).then(async () => {
+    for (let i = 0; i < 50 && !window.vad; i++) await new Promise(r => setTimeout(r, 100))
+    if (!window.vad) throw new Error('VAD library unavailable')
+  })
+  return vadScriptsPromise
+}
+
 export function useLunaVoice() {
-  const [state, setState] = useState('idle') // 'idle' | 'listening' | 'thinking' | 'speaking' | 'error'
+  const [state, setState] = useState('idle') // idle | listening | thinking | speaking
+  const [sessionActive, setSessionActive] = useState(false)
   const [transcript, setTranscript] = useState('')
-  const [interimTranscript, setInterimTranscript] = useState('')
   const [lunaResponse, setLunaResponse] = useState('')
   const [language, setLanguage] = useState('en')
   const [gender, setGender] = useState(null)
@@ -32,22 +93,30 @@ export function useLunaVoice() {
   const [conversationHistory, setConversationHistory] = useState([])
   const [browserSupported, setBrowserSupported] = useState(true)
 
-  const recognitionRef = useRef(null)
   const synthesisRef = useRef(window.speechSynthesis)
-  const utteranceRef = useRef(null)
   const audioRef = useRef(null)
   const audioUnlockedRef = useRef(false)
   const boundaryTimerRef = useRef(null)
-  const isListeningRef = useRef(false)
-  const mediaRecorderRef = useRef(null)
-  const mediaStreamRef = useRef(null)
-  const audioChunksRef = useRef([])
+  const vadRef = useRef(null)
+  const isProcessingRef = useRef(false)
+  const historyRef = useRef([])
+  const languageRef = useRef('en')
 
-  // Persistent audio element + unlock (must run inside a user gesture for Safari/iOS)
+  useEffect(() => {
+    const hasMic = !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia)
+    setBrowserSupported(hasMic)
+    const savedGender = getVoiceGender()
+    if (savedGender) setGender(savedGender)
+  }, [])
+
+  useEffect(() => { languageRef.current = language }, [language])
+
+  // ── Audio element + iOS/Safari unlock (must run during a user gesture) ──
   const getAudioEl = useCallback(() => {
     if (!audioRef.current) {
       audioRef.current = new Audio()
       audioRef.current.preload = 'auto'
+      audioRef.current.playsInline = true
     }
     return audioRef.current
   }, [])
@@ -57,428 +126,255 @@ export function useLunaVoice() {
     try {
       const el = getAudioEl()
       el.src = SILENT_WAV
+      el.volume = 0
       const p = el.play()
-      if (p && p.then) p.then(() => { el.pause(); el.currentTime = 0 }).catch(() => {})
-      // Prime speech synthesis voices too (Safari loads them lazily)
+      if (p && p.then) p.then(() => { el.pause(); el.currentTime = 0; el.volume = 1 }).catch(() => { el.volume = 1 })
       if (synthesisRef.current) synthesisRef.current.getVoices()
       audioUnlockedRef.current = true
-    } catch {
-      // ignore - playback will fall back to the browser voice
-    }
+    } catch { /* falls back to browser voice */ }
   }, [getAudioEl])
 
-  // Check browser support
-  useEffect(() => {
-    const hasSpeechRecognition = 'SpeechRecognition' in window || 'webkitSpeechRecognition' in window
-    const hasSpeechSynthesis = 'speechSynthesis' in window
-    setBrowserSupported(hasSpeechRecognition && hasSpeechSynthesis)
-
-    // Check existing gender preference
-    const savedGender = getVoiceGender()
-    if (savedGender) setGender(savedGender)
-    if (isVoiceSetupDone() && savedGender) {
-      setShowGenderChoice(false)
+  // ── Browser voice (isiZulu, and English fallback) ──
+  const findVoice = useCallback((lang) => new Promise((resolve) => {
+    const load = () => {
+      const voices = synthesisRef.current.getVoices()
+      if (!voices.length) { setTimeout(load, 200); return }
+      const naturalRe = /natural|neural|online|google|premium|enhanced/i
+      const score = (v) => {
+        let s = 0
+        if (v.lang.startsWith(lang)) s += 100
+        else if (lang === 'zu' && v.lang.startsWith('en')) s += 40
+        if (naturalRe.test(v.name)) s += 20
+        if (v.localService === false) s += 5
+        return s
+      }
+      resolve([...voices].sort((a, b) => score(b) - score(a))[0] || voices[0])
     }
-  }, [])
+    load()
+  }), [])
 
-  // Find the best, most natural-sounding browser voice for language + gender.
-  // Prefers higher-quality "Natural"/"Online"/Google voices over the default robotic ones.
-  const findVoice = useCallback((lang, preferredGender) => {
-    return new Promise((resolve) => {
-      const loadVoices = () => {
-        const voices = synthesisRef.current.getVoices()
-        if (!voices.length) {
-          setTimeout(loadVoices, 200)
-          return
-        }
-
-        const naturalRe = /natural|neural|online|google|premium|enhanced/i
-        const genderRe = preferredGender
-          ? (preferredGender === 'F' ? /female|leah|thando|aria|jenny|zira/i : /male|luke|themba|guy|david/i)
-          : null
-
-        // Rank candidates: same language first, then "natural" quality, then gender match.
-        const score = (v) => {
-          let s = 0
-          if (v.lang.startsWith(lang)) s += 100
-          else if (lang === 'zu' && v.lang.startsWith('en')) s += 40 // no isiZulu voice -> en fallback
-          if (naturalRe.test(v.name)) s += 20
-          if (genderRe && genderRe.test(v.name)) s += 10
-          if (v.localService === false) s += 5 // cloud voices tend to be more natural
-          return s
-        }
-
-        const best = [...voices].sort((a, b) => score(b) - score(a))[0]
-        resolve(best || voices[0])
-      }
-
-      loadVoices()
+  const speakBrowser = useCallback((text, lang) => new Promise((resolve) => {
+    if (!synthesisRef.current) { resolve(); return }
+    synthesisRef.current.cancel()
+    const u = new SpeechSynthesisUtterance(text)
+    u.rate = lang === 'zu' ? 0.9 : 1.0
+    findVoice(lang).then(voice => {
+      if (voice) u.voice = voice
+      u.lang = lang === 'zu' ? 'zu-ZA' : 'en-ZA'
+      u.onboundary = (e) => { if (e.name === 'word') window.dispatchEvent(new CustomEvent('luna-word-boundary')) }
+      u.onstart = () => setState('speaking')
+      u.onend = () => resolve()
+      u.onerror = () => resolve()
+      synthesisRef.current.speak(u)
     })
-  }, [])
+  }), [findVoice])
 
-  // Browser speech synthesis (used for isiZulu, and as English fallback)
-  const speakBrowser = useCallback(async (text, lang, preferredGender) => {
-    return new Promise((resolve) => {
-      if (!synthesisRef.current) {
-        resolve()
-        return
-      }
-
-      synthesisRef.current.cancel()
-
-      const utterance = new SpeechSynthesisUtterance(text)
-      utterance.rate = lang === 'zu' ? 0.9 : 1.0
-      utterance.pitch = 1.0
-
-      findVoice(lang, preferredGender).then(voice => {
-        if (voice) utterance.voice = voice
-        utterance.lang = lang === 'zu' ? 'zu-ZA' : 'en-ZA'
-
-        utterance.onboundary = (event) => {
-          if (event.name === 'word') {
-            window.dispatchEvent(new CustomEvent('luna-word-boundary'))
-          }
-        }
-
-        utterance.onstart = () => setState('speaking')
-        utterance.onend = () => { setState('idle'); resolve() }
-        utterance.onerror = () => { setState('idle'); resolve() }
-
-        utteranceRef.current = utterance
-        synthesisRef.current.speak(utterance)
-      })
-    })
-  }, [findVoice])
-
-  // Speak Luna's response. English uses the natural Deepgram "aura" voice
-  // (same as meet-luna-ai, via /api/luna-tts); isiZulu uses the browser voice.
-  const speak = useCallback(async (text, lang, preferredGender) => {
+  // ── Speak: English uses Deepgram (/api/luna-tts), isiZulu uses browser voice ──
+  const speak = useCallback(async (text, lang) => {
     if (!text || !text.trim()) return
+    setState('speaking')
 
-    if (lang === 'zu') {
-      await speakBrowser(text, lang, preferredGender)
-      return
-    }
+    if (lang === 'zu') { await speakBrowser(text, lang); return }
 
     try {
       const res = await fetch('/api/luna-tts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text, gender: preferredGender || 'F' }),
+        body: JSON.stringify({ text, gender: getVoiceGender() || 'F' }),
       })
       if (!res.ok) throw new Error(`TTS ${res.status}`)
-
       const { audio, format } = await res.json()
       if (!audio) throw new Error('No audio')
 
-      const mime = format === 'wav' ? 'audio/wav' : format === 'ogg' ? 'audio/ogg' : 'audio/mpeg'
+      const mime = format === 'wav' ? 'audio/wav' : 'audio/mpeg'
+      const bin = atob(audio)
+      const arr = new Uint8Array(bin.length)
+      for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i)
+      const url = URL.createObjectURL(new Blob([arr], { type: mime }))
 
       await new Promise((resolve, reject) => {
         const el = getAudioEl()
-        el.src = `data:${mime};base64,${audio}`
-
         const startPulse = () => {
           clearInterval(boundaryTimerRef.current)
-          boundaryTimerRef.current = setInterval(() => {
-            window.dispatchEvent(new CustomEvent('luna-word-boundary'))
-          }, 260)
+          boundaryTimerRef.current = setInterval(() => window.dispatchEvent(new CustomEvent('luna-word-boundary')), 260)
         }
-        const stopPulse = () => clearInterval(boundaryTimerRef.current)
-
-        el.onplay = () => { setState('speaking'); startPulse() }
-        el.onended = () => { stopPulse(); resolve() }
-        el.onerror = () => { stopPulse(); reject(new Error('audio decode/playback error')) }
-        el.play().catch((e) => { stopPulse(); reject(e) })
+        const stop = () => { clearInterval(boundaryTimerRef.current); URL.revokeObjectURL(url) }
+        el.onplay = () => startPulse()
+        el.onended = () => { stop(); resolve() }
+        el.onerror = () => { stop(); reject(new Error('audio error')) }
+        el.src = url
+        el.play().catch((e) => { stop(); reject(e) })
       })
-      setState('idle')
     } catch {
-      // Deepgram audio failed (decode/autoplay/network) - use browser voice instead
-      await speakBrowser(text, lang, preferredGender)
+      await speakBrowser(text, lang)
     }
-  }, [speakBrowser, getAudioEl])
+  }, [getAudioEl, speakBrowser])
 
-  // Ask Luna via the SafeNet serverless endpoint (Groq key stays server-side)
-  const callGroq = useCallback(async (message, lang) => {
+  // ── STT: isiZulu via Vulavula, English via Groq Whisper (both get WAV) ──
+  const transcribe = useCallback(async (float32) => {
+    const audio = float32ToBase64Wav(float32)
+    const isZulu = languageRef.current === 'zu'
+    const res = await fetch(isZulu ? '/api/luna-transcribe' : '/api/luna-stt', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: isZulu
+        ? JSON.stringify({ audio, mimeType: 'audio/wav', language: 'zu' })
+        : JSON.stringify({ audio }),
+    })
+    if (!res.ok) throw new Error(`STT ${res.status}`)
+    const data = await res.json()
+    return (data.text || '').trim()
+  }, [])
+
+  // ── Chat ──
+  const callChat = useCallback(async (message, lang) => {
     try {
       const res = await fetch('/api/luna-chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          message,
-          language: lang,
-          history: conversationHistory.slice(-6),
-        }),
+        body: JSON.stringify({ message, language: lang, history: historyRef.current.slice(-6) }),
       })
-
-      if (!res.ok) {
-        throw new Error(`Luna chat error: ${res.status}`)
-      }
-
+      if (!res.ok) throw new Error(`chat ${res.status}`)
       const data = await res.json()
-      return { response: data.reply || '' }
-    } catch (err) {
-      console.warn('Luna chat error:', err.message)
-      return {
-        response: lang === 'zu'
-          ? 'ULuna akakwazi ukuxhumana okwamanje. Sicela uzame futhi.'
-          : "Luna can't connect right now. Please try again.",
-      }
+      return data.reply || ''
+    } catch {
+      return lang === 'zu'
+        ? 'ULuna akakwazi ukuxhumana okwamanje. Sicela uzame futhi.'
+        : "Luna can't connect right now. Please try again."
     }
-  }, [conversationHistory])
+  }, [])
 
-  // Process user input (defined BEFORE startListening to avoid TDZ ReferenceError)
-  const processUserInput = useCallback(async (text, forcedLang) => {
-    if (!text.trim()) return
+  const pushHistory = useCallback((entry) => {
+    historyRef.current = [...historyRef.current, entry].slice(-12)
+    setConversationHistory(historyRef.current)
+  }, [])
 
-    const detectedLang = forcedLang || detectLanguage(text)
-    setLanguage(detectedLang)
+  // ── One full turn: transcript -> chat -> speak ──
+  const handleTurn = useCallback(async (text, forcedLang) => {
+    if (!text || text.length < 2) { setState(sessionActive ? 'listening' : 'idle'); return }
+    const lang = forcedLang || detectLanguage(text)
+    setLanguage(lang)
+    setTranscript(text)
+    pushHistory({ role: 'user', text })
+
     setState('thinking')
+    const reply = await callChat(text, lang)
+    setLunaResponse(reply)
+    pushHistory({ role: 'luna', text: reply })
 
-    // Check voice setup
-    if (!isVoiceSetupDone()) {
-      setShowGenderChoice(true)
-      setConversationHistory(prev => [...prev, { role: 'user', text }])
+    await speak(reply, lang)
+    setState(vadRef.current ? 'listening' : 'idle')
+  }, [callChat, pushHistory, speak, sessionActive])
 
-      const setupMessage = 'Hi, I\'m Luna. Do you prefer a male or female voice?'
-      setLunaResponse(setupMessage)
-      await speak(setupMessage, 'en', null)
-      setState('idle')
-      return
-    }
-
-    // Add user message to history
-    setConversationHistory(prev => [...prev, { role: 'user', text }])
-
-    // Call Groq
-    const { response } = await callGroq(text, detectedLang)
-    setLunaResponse(response)
-    setConversationHistory(prev => [...prev, { role: 'luna', text: response }])
-
-    // Speak response
-    const currentGender = getVoiceGender()
-    await speak(response, detectedLang, currentGender)
-    setState('idle')
-  }, [callGroq, speak])
-
-  // isiZulu: record mic audio and transcribe via Vulavula (Lelapa AI)
-  const startVulavulaRecording = useCallback(async () => {
+  // VAD callback: a chunk of speech ended
+  const onSpeechEnd = useCallback(async (float32) => {
+    if (isProcessingRef.current) return
+    isProcessingRef.current = true
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      mediaStreamRef.current = stream
+      setState('thinking')
+      const text = await transcribe(float32)
+      await handleTurn(text, languageRef.current === 'zu' ? 'zu' : undefined)
+    } catch (e) {
+      console.warn('Luna turn error:', e.message)
+      setState(vadRef.current ? 'listening' : 'idle')
+    } finally {
+      isProcessingRef.current = false
+    }
+  }, [transcribe, handleTurn])
 
-      const mimeType = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4', 'audio/ogg']
-        .find(t => window.MediaRecorder && MediaRecorder.isTypeSupported(t)) || ''
+  // ── Start / stop the hands-free conversation ──
+  const beginSession = useCallback(async () => {
+    unlockAudio()
+    try {
+      await loadVadScripts()
+      setState('thinking')
+      const myVad = await window.vad.MicVAD.new({
+        onSpeechStart: () => { if (!isProcessingRef.current) setState('listening') },
+        onSpeechEnd: (audio) => onSpeechEnd(audio),
+        positiveSpeechThreshold: 0.8,
+        negativeSpeechThreshold: 0.35,
+        minSpeechFrames: 5,
+      })
+      vadRef.current = myVad
+      await myVad.start()
+      setSessionActive(true)
 
-      const recorder = mimeType ? new MediaRecorder(stream, { mimeType }) : new MediaRecorder(stream)
-      audioChunksRef.current = []
-
-      recorder.ondataavailable = (e) => {
-        if (e.data && e.data.size > 0) audioChunksRef.current.push(e.data)
-      }
-
-      recorder.onstop = async () => {
-        isListeningRef.current = false
-        mediaStreamRef.current?.getTracks().forEach(t => t.stop())
-        mediaStreamRef.current = null
-
-        const blob = new Blob(audioChunksRef.current, { type: recorder.mimeType || 'audio/webm' })
-        if (!blob.size) { setState('idle'); return }
-
-        setState('thinking')
-        try {
-          const base64 = await new Promise((resolve, reject) => {
-            const reader = new FileReader()
-            reader.onloadend = () => resolve(String(reader.result).split(',')[1] || '')
-            reader.onerror = reject
-            reader.readAsDataURL(blob)
-          })
-
-          const res = await fetch('/api/luna-transcribe', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ audio: base64, mimeType: recorder.mimeType || 'audio/webm', language: 'zu' }),
-          })
-          if (!res.ok) throw new Error(`Transcribe ${res.status}`)
-          const { text } = await res.json()
-
-          if (text && text.trim()) {
-            setTranscript(text)
-            await processUserInput(text, 'zu')
-          } else {
-            setState('idle')
-          }
-        } catch (err) {
-          console.warn('Vulavula transcription failed:', err.message)
-          setState('idle')
-        }
-      }
-
-      isListeningRef.current = true
+      // Greeting
+      const greeting = languageRef.current === 'zu'
+        ? 'Sawubona, nginguLuna. Ngingakusiza kanjani ukugcina ingane yakho iphephile namuhla?'
+        : "Hi, I'm Luna. How can I help you keep your child safe today?"
+      setLunaResponse(greeting)
+      pushHistory({ role: 'luna', text: greeting })
+      await speak(greeting, languageRef.current)
       setState('listening')
-      setTranscript('')
-      setInterimTranscript('')
-      mediaRecorderRef.current = recorder
-      recorder.start()
-    } catch (err) {
-      console.warn('Mic access error:', err.message)
-      isListeningRef.current = false
+    } catch (e) {
+      console.warn('Luna session error:', e.message)
+      setSessionActive(false)
       setState('idle')
-    }
-  }, [processUserInput])
-
-  // Start listening: browser recognition for English, Vulavula recording for isiZulu
-  const startListening = useCallback(() => {
-    unlockAudio() // runs inside the tap gesture so Safari allows later playback
-
-    if (language === 'zu') {
-      startVulavulaRecording()
-      return
-    }
-
-    if (!browserSupported) return
-
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-    if (!SpeechRecognition) {
       setBrowserSupported(false)
-      return
     }
+  }, [unlockAudio, onSpeechEnd, pushHistory, speak])
 
-    const recognition = new SpeechRecognition()
-    recognition.continuous = false
-    recognition.interimResults = true
-    recognition.lang = language === 'zu' ? 'zu-ZA' : 'en-ZA'
+  const startListening = useCallback(() => {
+    unlockAudio()
+    if (sessionActive) return
+    if (!isVoiceSetupDone()) { setShowGenderChoice(true); return }
+    beginSession()
+  }, [unlockAudio, sessionActive, beginSession])
 
-    recognition.onstart = () => {
-      isListeningRef.current = true
-      setState('listening')
-      setTranscript('')
-      setInterimTranscript('')
+  const stopListening = useCallback(() => {
+    if (vadRef.current) {
+      try { vadRef.current.pause() } catch { /* noop */ }
+      try { vadRef.current.destroy?.() } catch { /* noop */ }
+      vadRef.current = null
     }
+    if (synthesisRef.current) synthesisRef.current.cancel()
+    if (audioRef.current) audioRef.current.pause()
+    clearInterval(boundaryTimerRef.current)
+    isProcessingRef.current = false
+    setSessionActive(false)
+    setState('idle')
+  }, [])
 
-    let finalTranscript = ''
+  // Cleanup on unmount
+  useEffect(() => () => {
+    try { vadRef.current?.destroy?.() } catch { /* noop */ }
+    try { synthesisRef.current?.cancel() } catch { /* noop */ }
+    clearInterval(boundaryTimerRef.current)
+  }, [])
 
-    recognition.onresult = (event) => {
-      let interim = ''
-      let final = ''
-
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        const result = event.results[i]
-        if (result.isFinal) {
-          final += result[0].transcript
-        } else {
-          interim += result[0].transcript
-        }
-      }
-
-      if (final) {
-        finalTranscript = final
-        setTranscript(final)
-        setInterimTranscript('')
-      } else {
-        setInterimTranscript(interim)
-      }
-    }
-
-    recognition.onend = () => {
-      isListeningRef.current = false
-      const text = finalTranscript
-      if (text.trim()) {
-        processUserInput(text)
-      } else {
-        setState('idle')
-      }
-    }
-
-    recognition.onerror = (event) => {
-      console.warn('Speech recognition error:', event.error)
-      isListeningRef.current = false
-      setState('idle')
-      if (event.error === 'not-allowed') {
-        setBrowserSupported(false)
-      }
-    }
-
-    recognitionRef.current = recognition
-    recognition.start()
-  }, [browserSupported, language, processUserInput, startVulavulaRecording, unlockAudio])
-
-  // Set gender preference
+  // ── Gender preference: chosen voice, then begin the session ──
   const setGenderPreference = useCallback(async (preferredGender) => {
     unlockAudio()
     localStorage.setItem('luna_voice_gender', preferredGender)
     localStorage.setItem('luna_setup_done', 'true')
     setGender(preferredGender)
     setShowGenderChoice(false)
+    beginSession()
+  }, [unlockAudio, beginSession])
 
-    const greeting = preferredGender === 'F' ? 'Wonderful! I\'ll use a female voice. How can I help you today?' : 'Great! I\'ll use a male voice. How can I help you today?'
-    setLunaResponse(greeting)
-    await speak(greeting, 'en', preferredGender)
-    setState('idle')
-  }, [speak, unlockAudio])
-
-  // Send text input (for suggested questions)
+  // ── Typed input (suggested questions) - no mic needed ──
   const sendTextInput = useCallback(async (text) => {
     if (!text.trim()) return
     unlockAudio()
-    setTranscript(text)
-
-    const detectedLang = detectLanguage(text)
-    setLanguage(detectedLang)
-    setState('thinking')
-
-    // Check voice setup first
     if (!isVoiceSetupDone()) {
-      setShowGenderChoice(true)
-      setConversationHistory(prev => [...prev, { role: 'user', text }])
-
-      const setupMessage = 'Hi, I\'m Luna. Do you prefer a male or female voice?'
-      setLunaResponse(setupMessage)
-      await speak(setupMessage, 'en', null)
-      setState('idle')
-      return
+      // default to a female voice so suggestions work without the mic flow
+      localStorage.setItem('luna_voice_gender', 'F')
+      localStorage.setItem('luna_setup_done', 'true')
+      setGender('F')
     }
+    await handleTurn(text, detectLanguage(text))
+  }, [unlockAudio, handleTurn])
 
-    setConversationHistory(prev => [...prev, { role: 'user', text }])
-
-    const { response } = await callGroq(text, detectedLang)
-    setLunaResponse(response)
-    setConversationHistory(prev => [...prev, { role: 'luna', text: response }])
-
-    const currentGender = getVoiceGender()
-    await speak(response, detectedLang, currentGender)
-    setState('idle')
-  }, [callGroq, speak, unlockAudio])
-
-  // Stop listening
-  const stopListening = useCallback(() => {
-    // isiZulu recording: stopping triggers the recorder's onstop -> transcription
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
-      mediaRecorderRef.current.stop()
-      return
-    }
-    if (recognitionRef.current && isListeningRef.current) {
-      recognitionRef.current.stop()
-      isListeningRef.current = false
-    }
-    if (synthesisRef.current) {
-      synthesisRef.current.cancel()
-    }
-    if (audioRef.current) {
-      audioRef.current.pause()
-    }
-    clearInterval(boundaryTimerRef.current)
-    setState('idle')
-  }, [])
-
-  // Toggle language
   const toggleLanguage = useCallback(() => {
-    setLanguage(prev => prev === 'en' ? 'zu' : 'en')
+    setLanguage(prev => (prev === 'en' ? 'zu' : 'en'))
   }, [])
 
   return {
     state,
+    sessionActive,
     transcript,
-    interimTranscript,
+    interimTranscript: '',
     lunaResponse,
     language,
     gender,

@@ -158,7 +158,7 @@ function LunaFAQSection() {
 
 export default function Luna() {
   const {
-    state, transcript, interimTranscript, lunaResponse, language,
+    state, sessionActive, transcript, interimTranscript, lunaResponse, language,
     showGenderChoice, conversationHistory, browserSupported,
     startListening, stopListening, sendTextInput, setGenderPreference, toggleLanguage,
     gender,
@@ -192,7 +192,7 @@ export default function Luna() {
   }, [conversationHistory])
 
   const handleMicClick = () => {
-    if (state === 'listening') {
+    if (sessionActive) {
       stopListening()
     } else {
       startListening()
@@ -324,12 +324,12 @@ export default function Luna() {
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors shadow-safenet-md ${
-                    state === 'listening'
+                    sessionActive
                       ? 'bg-safenet-danger text-white'
                       : 'bg-safenet-primary text-white'
                   }`}
                 >
-                  {state === 'listening' ? (
+                  {sessionActive ? (
                     <MicOff className="w-7 h-7" />
                   ) : (
                     <Mic className="w-7 h-7" />
