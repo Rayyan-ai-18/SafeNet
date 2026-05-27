@@ -1,19 +1,44 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Shield, Mail, Phone, MapPin } from 'lucide-react'
+import { Shield } from 'lucide-react'
 
+// Only real, resolvable destinations - no dead "#" links.
+// route = react-router page; hash = anchor on the landing page; ext = external; mail = mailto
 const footerLinks = {
-  Product: ['Features', 'How it works', 'Pricing', 'For Schools', 'FAQ'],
-  Company: ['About', 'Blog', 'Careers', 'Press', 'Partners'],
-  Legal: ['Privacy Policy', 'Terms of Service', 'POPIA Compliance', 'Cookie Policy'],
-  Support: ['Help Center', 'Contact Us', 'Status', 'Community'],
+  Product: [
+    { label: 'Features', href: '/#features', kind: 'hash' },
+    { label: 'How it works', href: '/how-it-works', kind: 'route' },
+    { label: 'Pricing', href: '/#pricing', kind: 'hash' },
+    { label: 'For Schools', href: '/#schools', kind: 'hash' },
+    { label: 'Live Demo', href: '/demo', kind: 'route' },
+    { label: 'Talk to Luna', href: '/luna', kind: 'route' },
+  ],
+  Company: [
+    { label: 'About', href: '/#about', kind: 'hash' },
+    { label: 'Team', href: '/#team', kind: 'hash' },
+    { label: 'Contact', href: '/#contact', kind: 'hash' },
+    { label: 'FAQ', href: '/#faq', kind: 'hash' },
+  ],
+  Connect: [
+    { label: 'hello@safenet-sa.co.za', href: 'mailto:hello@safenet-sa.co.za', kind: 'mail' },
+    { label: 'For investors', href: '/#contact', kind: 'hash' },
+    { label: 'POPIA compliance', href: 'https://popia.co.za', kind: 'ext' },
+  ],
+}
+
+function FooterLink({ link }) {
+  const cls = 'text-sm text-safenet-text-2 hover:text-safenet-primary transition-colors break-words'
+  if (link.kind === 'route') return <Link to={link.href} className={cls}>{link.label}</Link>
+  if (link.kind === 'ext') return <a href={link.href} target="_blank" rel="noopener noreferrer" className={cls}>{link.label}</a>
+  // hash + mail are plain anchors
+  return <a href={link.href} className={cls}>{link.label}</a>
 }
 
 export default function Footer() {
   return (
     <footer className="bg-white border-t border-safenet-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
@@ -39,13 +64,8 @@ export default function Footer() {
               <h4 className="text-xs font-semibold text-safenet-text uppercase tracking-wider mb-4">{title}</h4>
               <ul className="space-y-3">
                 {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-sm text-safenet-text-2 hover:text-safenet-primary transition-colors"
-                    >
-                      {link}
-                    </a>
+                  <li key={link.label}>
+                    <FooterLink link={link} />
                   </li>
                 ))}
               </ul>

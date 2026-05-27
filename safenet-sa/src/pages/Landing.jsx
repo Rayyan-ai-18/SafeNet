@@ -15,6 +15,8 @@ import ForSchools from '../components/marketing/ForSchools'
 import LanguagesSection from '../components/marketing/LanguagesSection'
 import Pricing from '../components/marketing/Pricing'
 import Testimonials from '../components/marketing/Testimonials'
+import TeamSection from '../components/marketing/TeamSection'
+import ContactSection from '../components/marketing/ContactSection'
 import FinalCTA from '../components/marketing/FinalCTA'
 import LunaOrb from '../components/ui/LunaOrb'
 import { useLunaVoice } from '../hooks/useLunaVoice'
@@ -64,7 +66,7 @@ function FAQSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="bg-white py-16 lg:py-20">
+    <section id="faq" ref={sectionRef} className="bg-white py-16 lg:py-20 scroll-mt-20">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <span className="inline-block text-xs font-semibold text-safenet-primary tracking-[0.2em] uppercase bg-safenet-primary-light px-4 py-1.5 rounded-full mb-4">
@@ -652,7 +654,7 @@ export default function Landing() {
         <PilotTarget />
 
         {/* Body text section for SEO depth */}
-        <section className="bg-white py-12 lg:py-16">
+        <section id="about" className="bg-white py-12 lg:py-16 scroll-mt-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-safenet-surface rounded-card-lg p-6 lg:p-8">
               <h2 className="font-display text-heading-lg text-safenet-text mb-4">About SafeNet SA - South Africa's Child Digital Safety Platform</h2>
@@ -675,15 +677,18 @@ export default function Landing() {
         <TrustBar />
         <Problem />
         <HowItWorks />
-        <FeaturesBento />
+        <div id="features" className="scroll-mt-20"><FeaturesBento /></div>
         <LunaShowcase />
-        <ForSchools />
+        <div id="schools" className="scroll-mt-20"><ForSchools /></div>
         <LanguagesSection />
-        <Pricing />
+        <div id="pricing" className="scroll-mt-20"><Pricing /></div>
         <Testimonials />
+        {/* Team & Contact - investor-facing */}
+        <TeamSection />
         <FinalCTA />
         {/* FAQ Section - boosts AEO/SEO with structured Q&A */}
         <FAQSection />
+        <ContactSection />
         <Footer />
       </div>
     </>
