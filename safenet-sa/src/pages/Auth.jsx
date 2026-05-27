@@ -176,7 +176,7 @@ export default function Auth() {
                   <div className="w-12 h-12 rounded-full bg-safenet-primary-light flex items-center justify-center mx-auto mb-4">
                     <Shield className="w-6 h-6 text-safenet-primary" />
                   </div>
-                  <h1 className="font-display text-display-sm text-safenet-text mb-2">Verify your number</h1>
+                  <h2 className="font-display text-display-sm text-safenet-text mb-2">Verify your number</h2>
                   <p className="text-sm text-safenet-text-2">Enter the 6-digit code sent to +27 {phone}</p>
                 </div>
 
@@ -221,7 +221,7 @@ export default function Auth() {
                   <div className="w-12 h-12 rounded-full bg-safenet-primary-light flex items-center justify-center mx-auto mb-4">
                     <Shield className="w-6 h-6 text-safenet-primary" />
                   </div>
-                  <h1 className="font-display text-display-sm text-safenet-text mb-2">POPIA Consent</h1>
+                  <h2 className="font-display text-display-sm text-safenet-text mb-2">POPIA Consent</h2>
                   <p className="text-sm text-safenet-text-2">
                     Under South Africa's Protection of Personal Information Act, we need your consent for the following:
                   </p>

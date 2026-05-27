@@ -141,37 +141,51 @@
   <body>
     <div id="root">
       <!--
-        Minimal loading state shown while React hydrates.
-        All SEO content (meta tags, JSON-LD, OG) is in <head> above.
-        The React app replaces this content when it loads.
+        Crawlable SEO/AEO fallback content (served in raw HTML for search engines
+        and AI crawlers that do not execute JavaScript). The React app replaces
+        this with the full interactive site once it loads.
       -->
-      <div style="
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+      <main style="
+        max-width: 760px;
+        margin: 0 auto;
         min-height: 100vh;
         min-height: 100dvh;
         background: #f8faf8;
         color: #1a1a2e;
         font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-        gap: 1.25rem;
-        padding: 2rem;
+        padding: 3rem 1.5rem;
+        line-height: 1.6;
       ">
-        <!-- Shield icon (single loading animation: gentle pulse) -->
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="animation: safenet-pulse 1.4s ease-in-out infinite;">
+        <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="animation: safenet-pulse 1.4s ease-in-out infinite;" aria-hidden="true">
           <path d="M24 4L6 12V22C6 34 14 40 24 44C34 40 42 34 42 22V12L24 4Z" fill="#0F7B4D" opacity="0.15"/>
           <path d="M24 4L6 12V22C6 34 14 40 24 44C34 40 42 34 42 22V12L24 4Z" stroke="#0F7B4D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M18 24L22 28L30 20" stroke="#0F7B4D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
 
-        <p style="
-          margin: 0;
-          font-size: 0.875rem;
-          color: #4a5568;
-          letter-spacing: 0.01em;
-        ">Loading SafeNet SA…</p>
-      </div>
+        <h1 style="font-size: 2rem; line-height: 1.2; margin: 1rem 0 0.5rem; color: #0f172a;">
+          Online safety for South African children &mdash; in the languages they speak
+        </h1>
+        <p style="font-size: 1.05rem; color: #334155; margin: 0 0 1.5rem;">
+          SafeNet SA is a digital child-safety platform built for South African families. Its AI guardian, Luna, detects cyberbullying, grooming and online scams on WhatsApp and social apps &mdash; and speaks both English and isiZulu.
+        </p>
+
+        <h2 style="font-size: 1.3rem; color: #0f172a; margin: 2rem 0 0.5rem;">Protection that understands South Africa</h2>
+        <p style="color: #334155; margin: 0 0 1rem;">
+          Most parental-control apps only scan for English keywords. SafeNet's Luna AI is trained on South African languages, slang and cultural context, so it catches cyberbullying in isiZulu, phishing in Afrikaans and grooming patterns specific to South Africa. Every link a child receives is checked before they tap it, blocking fake SASSA grant scams, phishing sites and adult content. When a threat is found, parents get a real-time alert &mdash; on average within 0.3 seconds &mdash; and can block the app, pause the internet, or call their child with one tap. You can <a href="/demo" style="color:#0F7B4D;font-weight:600;">watch the live demo</a> to see Luna catch a threat in real time, or <a href="/luna" style="color:#0F7B4D;font-weight:600;">talk to Luna</a> directly.
+        </p>
+
+        <h2 style="font-size: 1.3rem; color: #0f172a; margin: 2rem 0 0.5rem;">Private by design, POPIA-compliant</h2>
+        <p style="color: #334155; margin: 0 0 1rem;">
+          SafeNet runs its analysis on the child's device. Message content never leaves the phone and is never stored &mdash; parents see only threat alerts, never the chats themselves. This makes SafeNet POPIA-compliant by architecture, not as an afterthought. According to <a href="https://www.unicef.org/southafrica/reports" style="color:#0F7B4D;font-weight:600;">UNICEF South Africa</a>, one in three South African children face cyberbullying, and 94% of teens access the internet by smartphone. SafeNet is built in partnership with the guidance of <a href="https://www.childlinesa.org.za" style="color:#0F7B4D;font-weight:600;">Childline South Africa</a> and follows the <a href="https://popia.co.za" style="color:#0F7B4D;font-weight:600;">POPIA</a> framework for data protection.
+        </p>
+
+        <h2 style="font-size: 1.3rem; color: #0f172a; margin: 2rem 0 0.5rem;">Simple, affordable plans for SA families</h2>
+        <p style="color: #334155; margin: 0 0 1rem;">
+          SafeNet is free to start, with Guardian and Sentinel plans for families who need all 11 official languages, school integration and 24/7 support. Learn <a href="/how-it-works" style="color:#0F7B4D;font-weight:600;">how SafeNet works</a> or explore <a href="/#pricing" style="color:#0F7B4D;font-weight:600;">pricing and plans</a>. Built in South Africa, for South African families.
+        </p>
+
+        <p style="font-size: 0.85rem; color: #64748b; margin-top: 2rem;">Loading the full SafeNet SA experience&hellip;</p>
+      </main>
 
       <style>
         @keyframes safenet-pulse {
