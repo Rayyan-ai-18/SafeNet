@@ -9,6 +9,7 @@ import Footer from '../components/layout/Footer'
 import AlertCard from '../components/ui/AlertCard'
 import StatCard from '../components/ui/StatCard'
 import Button from '../components/ui/Button'
+import ProtectionShowcase from '../components/marketing/ProtectionShowcase'
 
 // English demo messages - extended with more context
 const enMessages = [
@@ -1278,6 +1279,9 @@ export default function Demo() {
               </motion.section>
             )}
           </AnimatePresence>
+
+          {/* Multi-platform protection, link blocking, and real-time alerts */}
+          <ProtectionShowcase />
 
           {/* About section for SEO depth */}
           <div className="max-w-4xl mx-auto mt-12 px-4">
