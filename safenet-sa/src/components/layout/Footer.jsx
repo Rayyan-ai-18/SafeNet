@@ -19,10 +19,15 @@ const footerLinks = {
     { label: 'Contact', href: '/#contact', kind: 'hash' },
     { label: 'FAQ', href: '/#faq', kind: 'hash' },
   ],
+  Legal: [
+    { label: 'Privacy Policy', href: '/privacy', kind: 'route' },
+    { label: 'Terms of Service', href: '/terms', kind: 'route' },
+    { label: 'POPIA Compliance', href: '/popia', kind: 'route' },
+  ],
   Connect: [
     { label: 'hello@safenet-sa.co.za', href: 'mailto:hello@safenet-sa.co.za', kind: 'mail' },
     { label: 'For investors', href: '/#contact', kind: 'hash' },
-    { label: 'POPIA compliance', href: 'https://popia.co.za', kind: 'ext' },
+    { label: 'Information Regulator', href: 'https://inforegulator.org.za', kind: 'ext' },
   ],
 }
 
@@ -38,7 +43,7 @@ export default function Footer() {
   return (
     <footer className="bg-white border-t border-safenet-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">

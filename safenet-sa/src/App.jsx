@@ -14,6 +14,9 @@ const Settings = lazy(() => import('./pages/Settings'))
 const Luna = lazy(() => import('./pages/Luna'))
 const Demo = lazy(() => import('./pages/Demo'))
 const HowItWorks = lazy(() => import('./pages/HowItWorks'))
+const Privacy = lazy(() => import('./pages/Privacy'))
+const Terms = lazy(() => import('./pages/Terms'))
+const Popia = lazy(() => import('./pages/Popia'))
 
 const pageVariants = {
   initial: { opacity: 0 },
@@ -79,6 +82,9 @@ export default function App() {
             <Route path="/luna" element={<PageWrapper><Luna /></PageWrapper>} />
             <Route path="/demo" element={<PageWrapper><Demo /></PageWrapper>} />
             <Route path="/how-it-works" element={<PageWrapper><HowItWorks /></PageWrapper>} />
+            <Route path="/privacy" element={<PageWrapper><Privacy /></PageWrapper>} />
+            <Route path="/terms" element={<PageWrapper><Terms /></PageWrapper>} />
+            <Route path="/popia" element={<PageWrapper><Popia /></PageWrapper>} />
           </Routes>
         </AnimatePresence>
       </Suspense>
