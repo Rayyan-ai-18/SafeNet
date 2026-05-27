@@ -234,8 +234,8 @@ export default function Luna() {
                 <LunaOrb state={state === 'thinking' || state === 'listening' || state === 'speaking' ? state : 'idle'} size={140} />
               </div>
 
-              {/* Status text */}
-              <div className="h-12 mb-4">
+              {/* Status indicator (short text only) */}
+              <div className="min-h-[1.5rem] mb-4 flex items-center justify-center">
                 <AnimatePresence mode="wait">
                   {state === 'idle' && !lunaResponse && (
                     <motion.p key="idle" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-sm text-safenet-text-3">
@@ -253,27 +253,41 @@ export default function Luna() {
                     </motion.p>
                   )}
                   {state === 'speaking' && (
-                    <motion.p key="speaking" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-sm text-safenet-text-2 leading-relaxed max-w-sm mx-auto">
-                      {lunaResponse}
-                    </motion.p>
-                  )}
-                  {state === 'idle' && lunaResponse && (
-                    <motion.p key="response" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-sm text-safenet-text leading-relaxed max-w-sm mx-auto">
-                      {lunaResponse}
+                    <motion.p key="speaking" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-sm font-medium text-safenet-primary">
+                      Speaking<span className="animate-pulse">...</span>
                     </motion.p>
                   )}
                 </AnimatePresence>
               </div>
 
-              {/* Live transcript */}
+              {/* Your transcript */}
               {(interimTranscript || transcript) && (
-                <div className="mb-4 px-4 py-2.5 bg-safenet-surface rounded-lg border border-safenet-border">
-                  <p className="text-sm text-safenet-text-2">
+                <div className="mb-3 px-4 py-3 bg-safenet-surface rounded-lg border border-safenet-border text-left">
+                  <p className="text-[11px] font-semibold uppercase tracking-wide text-safenet-text-3 mb-1">You</p>
+                  <p className="text-sm text-safenet-text-2 leading-relaxed break-words">
                     {transcript || interimTranscript}
                     {interimTranscript && !transcript && <span className="animate-pulse">|</span>}
                   </p>
                 </div>
               )}
+
+              {/* Luna's reply */}
+              <AnimatePresence>
+                {lunaResponse && (state === 'speaking' || state === 'idle') && (
+                  <motion.div
+                    key="luna-reply"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="mb-4 px-4 py-3 bg-safenet-primary-light/60 rounded-lg border border-safenet-primary/15 text-left"
+                  >
+                    <p className="text-[11px] font-semibold uppercase tracking-wide text-safenet-primary mb-1">Luna</p>
+                    <p className="text-sm text-safenet-text leading-relaxed break-words">
+                      {lunaResponse}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
 
               {/* Gender choice */}
               <AnimatePresence>
