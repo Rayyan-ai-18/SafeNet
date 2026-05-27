@@ -31,6 +31,8 @@ export function useLunaVoice() {
   const recognitionRef = useRef(null)
   const synthesisRef = useRef(window.speechSynthesis)
   const utteranceRef = useRef(null)
+  const audioRef = useRef(null)
+  const boundaryTimerRef = useRef(null)
   const isListeningRef = useRef(false)
   const mediaRecorderRef = useRef(null)
   const mediaStreamRef = useRef(null)
@@ -85,9 +87,8 @@ export function useLunaVoice() {
     })
   }, [])
 
-  // Speak Luna's response using the most natural browser voice available.
-  const speak = useCallback(async (text, lang, preferredGender) => {
-    if (!text || !text.trim()) return
+  // Browser speech synthesis (used for isiZulu, and as English fallback)
+  const speakBrowser = useCallback(async (text, lang, preferredGender) => {
     return new Promise((resolve) => {
       if (!synthesisRef.current) {
         resolve()
@@ -104,7 +105,6 @@ export function useLunaVoice() {
         if (voice) utterance.voice = voice
         utterance.lang = lang === 'zu' ? 'zu-ZA' : 'en-ZA'
 
-        // Track word boundaries for orb animation
         utterance.onboundary = (event) => {
           if (event.name === 'word') {
             window.dispatchEvent(new CustomEvent('luna-word-boundary'))
@@ -120,6 +120,50 @@ export function useLunaVoice() {
       })
     })
   }, [findVoice])
+
+  // Speak Luna's response. English uses the natural Deepgram "aura" voice
+  // (same as meet-luna-ai, via /api/luna-tts); isiZulu uses the browser voice.
+  const speak = useCallback(async (text, lang, preferredGender) => {
+    if (!text || !text.trim()) return
+
+    if (lang === 'zu') {
+      await speakBrowser(text, lang, preferredGender)
+      return
+    }
+
+    try {
+      const res = await fetch('/api/luna-tts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, gender: preferredGender || 'F' }),
+      })
+      if (!res.ok) throw new Error(`TTS ${res.status}`)
+
+      const { audio, format } = await res.json()
+      if (!audio) throw new Error('No audio')
+
+      await new Promise((resolve) => {
+        const el = new Audio(`data:audio/${format || 'mp3'};base64,${audio}`)
+        audioRef.current = el
+
+        const startPulse = () => {
+          clearInterval(boundaryTimerRef.current)
+          boundaryTimerRef.current = setInterval(() => {
+            window.dispatchEvent(new CustomEvent('luna-word-boundary'))
+          }, 260)
+        }
+        const stopPulse = () => clearInterval(boundaryTimerRef.current)
+
+        el.onplay = () => { setState('speaking'); startPulse() }
+        el.onended = () => { stopPulse(); setState('idle'); resolve() }
+        el.onerror = () => { stopPulse(); setState('idle'); resolve() }
+        el.play().catch(() => { stopPulse(); setState('idle'); resolve() })
+      })
+    } catch {
+      // Deepgram unavailable - fall back to browser voice
+      await speakBrowser(text, lang, preferredGender)
+    }
+  }, [speakBrowser])
 
   // Ask Luna via the SafeNet serverless endpoint (Groq key stays server-side)
   const callGroq = useCallback(async (message, lang) => {
@@ -383,6 +427,11 @@ export function useLunaVoice() {
     if (synthesisRef.current) {
       synthesisRef.current.cancel()
     }
+    if (audioRef.current) {
+      audioRef.current.pause()
+      audioRef.current = null
+    }
+    clearInterval(boundaryTimerRef.current)
     setState('idle')
   }, [])
 
