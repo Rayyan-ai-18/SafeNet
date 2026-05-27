@@ -142,8 +142,10 @@ export function useLunaVoice() {
       const { audio, format } = await res.json()
       if (!audio) throw new Error('No audio')
 
-      await new Promise((resolve) => {
-        const el = new Audio(`data:audio/${format || 'mp3'};base64,${audio}`)
+      const mime = format === 'wav' ? 'audio/wav' : format === 'ogg' ? 'audio/ogg' : 'audio/mpeg'
+
+      await new Promise((resolve, reject) => {
+        const el = new Audio(`data:${mime};base64,${audio}`)
         audioRef.current = el
 
         const startPulse = () => {
@@ -155,12 +157,13 @@ export function useLunaVoice() {
         const stopPulse = () => clearInterval(boundaryTimerRef.current)
 
         el.onplay = () => { setState('speaking'); startPulse() }
-        el.onended = () => { stopPulse(); setState('idle'); resolve() }
-        el.onerror = () => { stopPulse(); setState('idle'); resolve() }
-        el.play().catch(() => { stopPulse(); setState('idle'); resolve() })
+        el.onended = () => { stopPulse(); resolve() }
+        el.onerror = () => { stopPulse(); reject(new Error('audio decode/playback error')) }
+        el.play().catch((e) => { stopPulse(); reject(e) })
       })
+      setState('idle')
     } catch {
-      // Deepgram unavailable - fall back to browser voice
+      // Deepgram audio failed (decode/autoplay/network) - use browser voice instead
       await speakBrowser(text, lang, preferredGender)
     }
   }, [speakBrowser])
