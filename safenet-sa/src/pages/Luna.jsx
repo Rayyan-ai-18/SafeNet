@@ -159,7 +159,7 @@ function LunaFAQSection() {
 export default function Luna() {
   const {
     state, transcript, interimTranscript, lunaResponse, language,
-    showGenderChoice, conversationHistory, browserSupported, groqConfigured,
+    showGenderChoice, conversationHistory, browserSupported,
     startListening, stopListening, sendTextInput, setGenderPreference, toggleLanguage,
     gender,
   } = useLunaVoice()
@@ -328,16 +328,6 @@ export default function Luna() {
                 <p className="text-xs text-safenet-accent mb-3">
                   Best experienced in Chrome on desktop or Android.
                 </p>
-              )}
-
-              {/* Groq config note */}
-              {!groqConfigured && (
-                <div className="mb-3 px-3 py-2 bg-amber-50 border border-amber-200 rounded-lg">
-                  <p className="text-[11px] text-amber-700">
-                    Add your free Groq API key to <code className="bg-amber-100 px-1 rounded">.env</code> to activate Luna's brain.
-                    Get one at <a href="https://console.groq.com" target="_blank" rel="noopener noreferrer" className="underline">console.groq.com</a>
-                  </p>
-                </div>
               )}
 
               {/* Controls row */}

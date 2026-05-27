@@ -41,8 +41,8 @@ export default function Hero() {
   }, [])
 
   const headlineWords = [
-    'Protecting', 'SA', 'children.',
-    'Empowering', 'parents.'
+    'Your', 'child', 'is', 'safe.',
+    'We', 'made', 'sure', 'of', 'it.'
   ]
 
   return (

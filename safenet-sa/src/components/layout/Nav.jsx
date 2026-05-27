@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Shield } from 'lucide-react'
+import { Menu, X, Shield, Home } from 'lucide-react'
 import { gsap } from '../../lib/gsap'
 import Button from '../ui/Button'
 
@@ -12,6 +12,7 @@ const translations = {
     howItWorksPage: 'How It Works',
     getStarted: 'Get Started Free',
     dashboard: 'Dashboard',
+    home: 'Home',
   },
   zu: {
     liveDemo: 'Umbukiso',
@@ -19,6 +20,7 @@ const translations = {
     howItWorksPage: 'Isebenza Kanjani',
     getStarted: 'Qala Mahhala',
     dashboard: 'Ideshibhodi',
+    home: 'Ekhaya',
   },
 }
 
@@ -81,6 +83,15 @@ export default function Nav({ user }) {
 
           {/* Desktop nav - minimal */}
           <nav className="hidden lg:flex items-center gap-6">
+            {!isLanding && (
+              <Link
+                to="/"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-safenet-text-2 hover:text-safenet-text transition-colors"
+              >
+                <Home className="w-4 h-4" />
+                {t.home}
+              </Link>
+            )}
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path
               return (
@@ -156,6 +167,16 @@ export default function Nav({ user }) {
             className="lg:hidden bg-white border-b border-safenet-border overflow-hidden"
           >
             <div className="px-4 py-5 space-y-1">
+              {!isLanding && (
+                <Link
+                  to="/"
+                  onClick={() => setMobileOpen(false)}
+                  className="flex items-center gap-3 px-3 py-3 rounded-card-lg text-base font-medium text-safenet-text-2 hover:text-safenet-text hover:bg-safenet-surface transition-colors"
+                >
+                  <Home className="w-5 h-5" />
+                  {t.home}
+                </Link>
+              )}
               {navLinks.map((link) => {
                 return (
                   <Link

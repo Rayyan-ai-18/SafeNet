@@ -98,8 +98,9 @@ export default function DashboardShell({ children, user }) {
               <Menu className="w-5 h-5 text-safenet-text-2" />
             </button>
             <nav className="flex items-center gap-2 text-sm">
-              <Link to="/" className="text-safenet-text-3 hover:text-safenet-text transition-colors">
+              <Link to="/" className="inline-flex items-center gap-1.5 text-safenet-text-2 hover:text-safenet-text transition-colors font-medium">
                 <Home className="w-4 h-4" />
+                <span>Home</span>
               </Link>
               <span className="text-safenet-text-3">/</span>
               <span className="text-safenet-text font-medium">Dashboard</span>

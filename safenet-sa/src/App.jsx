@@ -36,8 +36,19 @@ function PageWrapper({ children }) {
 function LoadingFallback() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-safenet-bg">
-      <div className="flex flex-col items-center gap-4">
-        <div className="w-10 h-10 rounded-full border-3 border-safenet-primary/20 border-t-safenet-primary animate-spin" />
+      <div className="flex flex-col items-center gap-5">
+        <svg
+          width="48"
+          height="48"
+          viewBox="0 0 48 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="motion-safe:animate-[safenet-pulse_1.4s_ease-in-out_infinite]"
+        >
+          <path d="M24 4L6 12V22C6 34 14 40 24 44C34 40 42 34 42 22V12L24 4Z" fill="#0F7B4D" opacity="0.15" />
+          <path d="M24 4L6 12V22C6 34 14 40 24 44C34 40 42 34 42 22V12L24 4Z" stroke="#0F7B4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M18 24L22 28L30 20" stroke="#0F7B4D" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
         <p className="text-sm text-safenet-text-3 font-body">Loading SafeNet SA…</p>
       </div>
     </div>
