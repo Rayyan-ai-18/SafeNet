@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { Mic, Shield, ArrowRight, Sparkles, RotateCcw, Database, GraduationCap, Lock, ExternalLink, HelpCircle } from 'lucide-react'
@@ -18,6 +18,9 @@ import Testimonials from '../components/marketing/Testimonials'
 import FinalCTA from '../components/marketing/FinalCTA'
 import LunaOrb from '../components/ui/LunaOrb'
 import { useLunaVoice } from '../hooks/useLunaVoice'
+import { gsap, ScrollTrigger } from '../lib/gsap'
+import Button from '../components/ui/Button'
+import StatCard from '../components/ui/StatCard'
 
 const faqItems = [
   {
@@ -162,9 +165,7 @@ function AnswerRenderer({ text }) {
     </>
   )
 }
-import { gsap, ScrollTrigger } from '../lib/gsap'
-import Button from '../components/ui/Button'
-import StatCard from '../components/ui/StatCard'
+
 
 const faqSchema = {
   '@context': 'https://schema.org',

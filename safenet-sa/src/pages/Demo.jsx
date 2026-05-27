@@ -515,7 +515,6 @@ export default function Demo() {
     setShowResult(false)
     setShowCapabilities(false)
     setShowConclusion(false)
-    setShowZuluBadge(false)
     setShowZuluDemo(false)
     setShowFinalCTA(false)
     setShowAnalysis(false)

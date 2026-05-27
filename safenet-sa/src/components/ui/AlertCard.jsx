@@ -56,7 +56,7 @@ export default function AlertCard({
               <motion.div
                 initial={{ width: '0%' }}
                 animate={{ width: `${threatLevel}%` }}
-                transition={{ duration: 0.8, ease: 'power2.out' }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
                 className={`h-full rounded-full ${
                   threatLevel > 80 ? 'bg-safenet-danger' :
                   threatLevel > 50 ? 'bg-safenet-accent' : 'bg-safenet-primary'
