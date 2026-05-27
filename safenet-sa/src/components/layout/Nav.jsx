@@ -1,53 +1,30 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Shield, Bot } from 'lucide-react'
+import { Menu, X, Shield } from 'lucide-react'
 import { gsap } from '../../lib/gsap'
 import Button from '../ui/Button'
 
 const translations = {
   en: {
-    features: 'Features',
-    howItWorks: 'How it works',
-    pricing: 'Pricing',
-    forSchools: 'For Schools',
-    languages: 'Languages',
-    howItWorksPage: 'How It Works',
     liveDemo: 'Live Demo',
     talkToLuna: 'Talk to Luna',
-    signIn: 'Sign in',
-    protectMyChild: 'Protect My Child',
+    howItWorksPage: 'How It Works',
+    getStarted: 'Get Started Free',
     dashboard: 'Dashboard',
-    poweredBy: 'Powered by Luna AI',
   },
   zu: {
-    features: 'Izici',
-    howItWorks: 'Isebenza kanjani',
-    pricing: 'Intengo',
-    forSchools: 'Izikole',
-    languages: 'Izilimi',
-    howItWorksPage: 'Isebenza Kanjani',
     liveDemo: 'Umbukiso',
     talkToLuna: 'Khuluma noLuna',
-    signIn: 'Ngena ngemvume',
-    protectMyChild: 'Vikela Ingane Yami',
+    howItWorksPage: 'Isebenza Kanjani',
+    getStarted: 'Qala Mahhala',
     dashboard: 'Ideshibhodi',
-    poweredBy: 'Ixhaswe uLuna AI',
   },
 }
 
 const navLinks = [
-  { key: 'features', href: '#features' },
-  { key: 'howItWorks', href: '#how-it-works' },
-  { key: 'pricing', href: '#pricing' },
-  { key: 'forSchools', href: '#for-schools' },
-  { key: 'languages', href: '#languages' },
-]
-
-const extraPages = [
-  { key: 'howItWorksPage', path: '/how-it-works' },
   { key: 'liveDemo', path: '/demo', highlight: true },
-  { key: 'talkToLuna', path: '/luna', icon: Bot },
+  { key: 'howItWorksPage', path: '/how-it-works' },
 ]
 
 export default function Nav({ user }) {
@@ -93,100 +70,83 @@ export default function Nav({ user }) {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
+        <div className="flex items-center justify-between h-14 lg:h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-3 group">
-            <div className="w-8 h-8 rounded-lg bg-safenet-primary flex items-center justify-center transition-shadow group-hover:shadow-lg">
-              <Shield className="w-5 h-5 text-white" />
+          <Link to="/" className="flex items-center gap-2.5 group">
+            <div className="w-7 h-7 lg:w-8 lg:h-8 rounded-lg bg-safenet-primary flex items-center justify-center transition-shadow group-hover:shadow-lg">
+              <Shield className="w-4 h-4 lg:w-5 lg:h-5 text-white" />
             </div>
-            <div className="flex items-center gap-2">
-              <span className="font-display text-xl text-safenet-text tracking-tight">SafeNet SA</span>
-            </div>
+            <span className="font-display text-lg lg:text-xl text-safenet-text tracking-tight">SafeNet SA</span>
           </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-10">
-            {/* Landing anchor links */}
-            {isLanding && navLinks.map((link, i) => (
-              <a
-                key={link.key}
-                ref={el => linksRef.current[i] = el}
-                href={link.href}
-                className="text-sm font-medium text-safenet-text-2 hover:text-safenet-text transition-colors"
-              >
-                {t[link.key]}
-              </a>
-            ))}
-            {/* Extra pages */}
-            {extraPages.map((page) => {
-              const isActive = location.pathname === page.path
-              const Icon = page.icon
+          {/* Desktop nav — minimal */}
+          <nav className="hidden lg:flex items-center gap-6">
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.path
               return (
                 <Link
-                  key={page.key}
-                  to={page.path}
+                  key={link.key}
+                  to={link.path}
+                  ref={el => linksRef.current[navLinks.indexOf(link)] = el}
                   className={`text-sm font-medium transition-colors ${
-                    page.highlight
-                      ? 'inline-flex items-center gap-1.5 px-4 py-1.5 bg-safenet-primary-light text-safenet-primary rounded-full hover:bg-safenet-primary/20'
+                    link.highlight
+                      ? 'inline-flex items-center gap-1.5 px-3 py-1.5 bg-safenet-primary-light text-safenet-primary rounded-full hover:bg-safenet-primary/20'
                       : isActive
                         ? 'text-safenet-primary'
                         : 'text-safenet-text-2 hover:text-safenet-text'
                   }`}
                 >
-                  {Icon && <Icon className="w-4 h-4" />}
-                  {t[page.key]}
+                  {link.highlight && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-safenet-primary" />
+                  )}
+                  {t[link.key]}
                 </Link>
               )
             })}
           </nav>
 
           {/* Desktop actions */}
-          <div className="hidden lg:flex items-center gap-6 pl-2">
+          <div className="hidden lg:flex items-center gap-4">
             {/* Language toggle */}
             <button
               onClick={toggleLang}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-safenet-surface border border-safenet-border text-sm font-medium text-safenet-text-2 hover:text-safenet-text hover:bg-safenet-primary-light/50 transition-all duration-200"
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-safenet-surface border border-safenet-border text-[11px] font-medium text-safenet-text-2 hover:text-safenet-text hover:bg-safenet-primary-light/50 transition-all duration-200"
               title="Toggle language"
             >
-              <span className="text-base leading-none">🇿🇦</span>
+              <span className="text-xs leading-none">🇿🇦</span>
               {lang === 'en' ? 'EN' : 'ZU'}
             </button>
             {user ? (
               <Link to="/dashboard">
-                <Button variant="secondary" size="sm">Dashboard</Button>
+                <Button variant="secondary" size="sm">{t.dashboard}</Button>
               </Link>
             ) : (
-              <>
-                <Link to="/auth" className="text-sm font-medium text-safenet-text-2 hover:text-safenet-text transition-colors">
-                  {t.signIn}
-                </Link>
-                <Link to="/auth">
-                  <Button variant="primary" size="sm">{t.protectMyChild}</Button>
-                </Link>
-              </>
+              <Link to="/auth">
+                <Button variant="primary" size="sm" className="px-4">{t.getStarted}</Button>
+              </Link>
             )}
           </div>
 
-          {/* Mobile language toggle */}
-          <button
-            onClick={toggleLang}
-            className="lg:hidden p-2 rounded-lg hover:bg-safenet-surface transition-colors mr-1 text-xs font-medium text-safenet-text-2"
-          >
-            {lang === 'en' ? '🇿🇦 EN' : '🇿🇦 ZU'}
-          </button>
-
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 rounded-lg hover:bg-safenet-surface transition-colors"
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile actions */}
+          <div className="flex lg:hidden items-center gap-1">
+            <button
+              onClick={toggleLang}
+              className="px-2 py-1.5 rounded-lg hover:bg-safenet-surface transition-colors text-xs font-medium text-safenet-text-2"
+            >
+              🇿🇦
+            </button>
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="p-2 rounded-lg hover:bg-safenet-surface transition-colors"
+              aria-label="Toggle menu"
+            >
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile menu — clean, minimal */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
@@ -195,54 +155,35 @@ export default function Nav({ user }) {
             exit={{ opacity: 0, height: 0 }}
             className="lg:hidden bg-white border-b border-safenet-border overflow-hidden"
           >
-            <div className="px-4 py-6 space-y-4">              {navLinks.map((link) => (
-                  <a
+            <div className="px-4 py-5 space-y-1">
+              {navLinks.map((link) => {
+                return (
+                  <Link
                     key={link.key}
-                    href={link.href}
+                    to={link.path}
                     onClick={() => setMobileOpen(false)}
-                    className="block text-base font-medium text-safenet-text-2 hover:text-safenet-text py-2"
+                    className={`flex items-center gap-3 px-3 py-3 rounded-card-lg text-base font-medium transition-colors ${
+                      link.highlight
+                        ? 'bg-safenet-primary-light text-safenet-primary'
+                        : 'text-safenet-text-2 hover:text-safenet-text hover:bg-safenet-surface'
+                    }`}
                   >
                     {t[link.key]}
-                  </a>
-                ))}
-                {/* Extra pages in mobile menu */}
-                <div className="pt-2 pb-2 border-b border-safenet-border space-y-2">
-                  <div className="px-2 pb-2">
-                    <span className="text-[10px] font-semibold text-safenet-text-3 uppercase tracking-widest">Pages</span>
-                  </div>
-                  {extraPages.map((page) => {
-                    const Icon = page.icon
-                    return (
-                      <Link
-                        key={page.key}
-                        to={page.path}
-                        onClick={() => setMobileOpen(false)}
-                        className={`flex items-center gap-2 text-base font-medium py-2 ${
-                          page.highlight
-                            ? 'text-safenet-primary'
-                            : 'text-safenet-text-2 hover:text-safenet-text'
-                        }`}
-                      >
-                        {Icon && <Icon className="w-5 h-5" />}
-                        {t[page.key]}
-                      </Link>
-                    )
-                  })}
-                </div>
-              <div className="pt-4 border-t border-safenet-border space-y-3">
+                    {link.highlight && (
+                      <span className="ml-auto px-2 py-0.5 bg-safenet-primary text-white text-[9px] font-semibold rounded-full">Live</span>
+                    )}
+                  </Link>
+                )
+              })}
+              <div className="pt-2 mt-2 border-t border-safenet-border">
                 {user ? (
                   <Link to="/dashboard" onClick={() => setMobileOpen(false)}>
                     <Button variant="secondary" className="w-full">{t.dashboard}</Button>
                   </Link>
                 ) : (
-                  <>
-                    <Link to="/auth" onClick={() => setMobileOpen(false)}>
-                      <Button variant="ghost" className="w-full">{t.signIn}</Button>
-                    </Link>
-                    <Link to="/auth" onClick={() => setMobileOpen(false)}>
-                      <Button variant="primary" className="w-full">{t.protectMyChild}</Button>
-                    </Link>
-                  </>
+                  <Link to="/auth" onClick={() => setMobileOpen(false)}>
+                    <Button variant="primary" className="w-full">{t.getStarted}</Button>
+                  </Link>
                 )}
               </div>
             </div>

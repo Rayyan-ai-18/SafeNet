@@ -41,9 +41,8 @@ export default function Hero() {
   }, [])
 
   const headlineWords = [
-    'SafeNet', 'is', 'the', 'bridge', 'between',
-    'South', 'African', "children's", 'digital',
-    'world', 'and', 'their', 'parents.'
+    'Protecting', 'SA', 'children.',
+    'Empowering', 'parents.'
   ]
 
   return (
@@ -65,14 +64,14 @@ export default function Hero() {
             </div>
 
             {/* Headline */}
-            <h1 ref={headlineRef} className="font-display text-display sm:text-display-lg lg:text-display text-safenet-text mb-6 leading-[1.1]">
+            <h1 ref={headlineRef} className="font-display text-display sm:text-display-lg lg:text-display text-safenet-text mb-4 leading-[1.1]">
               {headlineWords.map((word, i) => (
-                <span key={i} className="hero-word inline-block mr-[0.3em]">{word}</span>
+                <span key={i} className="hero-word inline-block mr-[0.2em]">{word}</span>
               ))}
             </h1>
 
             {/* Subheadline */}
-            <p ref={subRef} className="text-lg sm:text-xl text-safenet-text-2 max-w-[520px] leading-relaxed mb-8">
+            <p ref={subRef} className="text-base sm:text-lg text-safenet-text-2 max-w-[480px] leading-relaxed mb-6">
               Detect cyberbullying. Block grooming. Speak isiZulu. Built for South Africa.
             </p>
 

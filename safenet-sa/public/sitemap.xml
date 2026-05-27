@@ -8,8 +8,24 @@
     <xhtml:link rel="alternate" hreflang="af" href="https://safenet-sa.co.za/" />
     <xhtml:link rel="alternate" hreflang="xh" href="https://safenet-sa.co.za/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://safenet-sa.co.za/" />
+    <lastmod>2026-05-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://safenet-sa.co.za/luna</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://safenet-sa.co.za/demo</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://safenet-sa.co.za/how-it-works</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://safenet-sa.co.za/auth</loc>

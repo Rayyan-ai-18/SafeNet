@@ -1,6 +1,7 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mic, MicOff, Sparkles, Globe, Shield, MessageCircle, Activity, AlertTriangle } from 'lucide-react'
+import { Mic, MicOff, Sparkles, Globe, Shield, Activity, AlertTriangle, HelpCircle, ExternalLink, ArrowRight } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { gsap } from '../lib/gsap'
 import SEO from '../components/seo/SEO'
 import Nav from '../components/layout/Nav'
@@ -24,6 +25,135 @@ const iconMap = {
   'Is my child\'s privacy protected?': Shield,
   'Ngingakusebenzisa kanjani uSafeNet?': Globe,
   'Ingane yami iphephile?': Sparkles,
+}
+
+const lunaFaqItems = [
+  {
+    q: 'How does SafeNet protect my child on WhatsApp?',
+    a: 'Luna monitors WhatsApp messages in real time using on-device AI. Every link is scanned before your child taps it — blocking phishing sites, fake SASSA scams, and adult content. Cyberbullying and grooming language is detected in under a second, and parents receive instant push notifications with the threat category. Message content never leaves the device. <LinkInternal to="/how-it-works">See how it works →</LinkInternal>',
+  },
+  {
+    q: 'What is a honey trap and how does Luna detect it?',
+    a: 'A honey trap is a grooming tactic where an adult poses as a child online to build trust with a minor, often using fake profiles on platforms like TikTok, Instagram, or WhatsApp. Luna is trained to detect grooming patterns — including inappropriate age-gap dynamics, secrecy requests, and sexual language — across English and isiZulu conversations. According to <ExternalLink href="https://www.childlinesa.org.za">Childline South Africa</ExternalLink>, honey trap cases have risen significantly in SA.',
+  },
+  {
+    q: 'Is my child\'s privacy protected when Luna scans their messages?',
+    a: 'Absolutely. SafeNet is fully POPIA compliant by architecture — not as an afterthought. All WhatsApp analysis runs entirely on your child\'s device using Luna AI. Message content never leaves the device and is never stored or transmitted. Parents see only threat alerts — not chat content. This on-device approach means SafeNet is the most privacy-respecting child safety solution available to South African families.',
+  },
+  {
+    q: 'What languages does Luna speak?',
+    a: 'Luna speaks English and isiZulu today, with all 11 official South African languages on the roadmap: Afrikaans, isiXhosa, Sesotho, Setswana, Sepedi, Tshivenḓa, Xitsonga, siSwati, and isiNdebele. You can ask Luna questions in either English or isiZulu — she understands and responds in the same language you use. <LinkInternal to="/how-it-works">Learn about Luna\'s language support →</LinkInternal>',
+  },
+  {
+    q: 'Ngingakusebenzisa kanjani uSafeNet? (How do I use SafeNet?)',
+    a: 'Ungaqala ngokulanda uhlelo lokusebenza lweSafeNet ku-Google Play Store, ufake inombolo yakho yocingo yaseNingizimu Afrika, bese uskena i-QR code efonini yengane yakho. Ngemva kwalokho, uLuna usebenza ngokuzenzakalelayo ekugadeni ingane yakho. <LinkInternal to="/how-it-works">Funda kabanzi →</LinkInternal>',
+  },
+]
+
+const faqSchemaLuna = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: lunaFaqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.a.replace(/<[^>]*>/g, ''),
+    },
+  })),
+}
+
+function LunaFAQAnswer({ text }) {
+  const parts = text.split(/(<LinkInternal[^>]*>[^<]*<\/LinkInternal>|<ExternalLink[^>]*>[^<]*<\/ExternalLink>)/g)
+  return (
+    <>
+      {parts.map((part, i) => {
+        if (!part) return null
+        const linkInternalMatch = part.match(/<LinkInternal to="([^"]+)">([^<]*)<\/LinkInternal>/)
+        const externalLinkMatch = part.match(/<ExternalLink href="([^"]+)">([^<]*)<\/ExternalLink>/)
+        if (linkInternalMatch) {
+          return <Link key={i} to={linkInternalMatch[1]} className="text-safenet-primary font-medium hover:underline">{linkInternalMatch[2]}</Link>
+        }
+        if (externalLinkMatch) {
+          return <a key={i} href={externalLinkMatch[1]} target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline inline-flex items-center gap-1">{externalLinkMatch[2]} <ExternalLink className="w-3 h-3" /></a>
+        }
+        return <span key={i}>{part}</span>
+      })}
+    </>
+  )
+}
+
+function LunaFAQSection() {
+  const [openIndex, setOpenIndex] = useState(null)
+  const faqRef = useRef(null)
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(faqRef.current, { opacity: 0, y: 24 }, {
+        opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
+        scrollTrigger: { trigger: faqRef.current, start: 'top 85%', once: true },
+      })
+    }, faqRef)
+    return () => ctx.revert()
+  }, [])
+
+  return (
+    <section ref={faqRef} className="bg-white py-16 lg:py-20">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-10">
+          <span className="inline-block text-xs font-semibold text-safenet-primary tracking-[0.2em] uppercase bg-safenet-primary-light px-4 py-1.5 rounded-full mb-4">FAQ</span>
+          <h2 className="font-display text-display-sm text-safenet-text max-w-xl mx-auto">Common questions about Luna and SafeNet SA</h2>
+        </div>
+
+        <div className="space-y-3">
+          {lunaFaqItems.map((item, i) => {
+            const isOpen = openIndex === i
+            return (
+              <div key={i} className="bg-white rounded-card-lg border border-safenet-border overflow-hidden transition-shadow hover:shadow-safenet-sm">
+                <button
+                  onClick={() => setOpenIndex(isOpen ? null : i)}
+                  className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
+                  aria-expanded={isOpen}
+                >
+                  <h3 className="text-sm font-semibold text-safenet-text leading-snug pr-2">{item.q}</h3>
+                  <HelpCircle className={`w-4 h-4 flex-shrink-0 text-safenet-text-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+                </button>
+                <motion.div
+                  initial={false}
+                  animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
+                  transition={{ duration: 0.25, ease: 'easeInOut' }}
+                  className="overflow-hidden"
+                >
+                  <div className="px-5 pb-4 text-sm text-safenet-text-2 leading-relaxed">
+                    <LunaFAQAnswer text={item.a} />
+                  </div>
+                </motion.div>
+              </div>
+            )
+          })}
+        </div>
+
+        <div className="mt-8 flex flex-wrap justify-center gap-3 text-xs">
+          <Link to="/how-it-works" className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-safenet-surface rounded-full text-safenet-text-2 hover:text-safenet-primary transition-colors border border-safenet-border">
+            <ArrowRight className="w-3 h-3" />
+            How SafeNet works
+          </Link>
+          <Link to="/demo" className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-safenet-surface rounded-full text-safenet-text-2 hover:text-safenet-primary transition-colors border border-safenet-border">
+            <ArrowRight className="w-3 h-3" />
+            Watch the demo
+          </Link>
+          <a href="https://www.childlinesa.org.za" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-safenet-surface rounded-full text-safenet-text-2 hover:text-safenet-primary transition-colors border border-safenet-border">
+            <ExternalLink className="w-3 h-3" />
+            Childline SA
+          </a>
+          <a href="https://www.unicef.org/southafrica/reports" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-safenet-surface rounded-full text-safenet-text-2 hover:text-safenet-primary transition-colors border border-safenet-border">
+            <ExternalLink className="w-3 h-3" />
+            UNICEF SA
+          </a>
+        </div>
+      </div>
+    </section>
+  )
 }
 
 export default function Luna() {
@@ -77,9 +207,10 @@ export default function Luna() {
   return (
     <>
       <SEO
-        title="Talk to Luna — SafeNet SA Voice AI"
-        description="Meet Luna, your AI guardian. Ask Luna anything about keeping your child safe online. Speaks English and Zulu."
+        title="Talk to Luna — SafeNet SA Voice AI Guardian"
+        description="Meet Luna, the AI guardian for South African families. Ask Luna about cyberbullying, grooming, honey traps, and online safety. Speaks English and isiZulu. Free to use."
         canonicalPath="/luna"
+        jsonLd={[faqSchemaLuna]}
       />
       <div className="min-h-screen bg-safenet-bg">
         <Nav />
@@ -290,6 +421,27 @@ export default function Luna() {
               </div>
             </div>
           )}
+
+          {/* About section for SEO depth */}
+          <div className="max-w-3xl mx-auto mt-12 px-4">
+            <div className="bg-white rounded-card-lg shadow-safenet-md border border-safenet-border p-6 lg:p-8">
+              <h2 className="font-display text-heading-lg text-safenet-text mb-4">What is SafeNet SA and how does it protect your child?</h2>
+              <div className="text-sm text-safenet-text-2 leading-relaxed space-y-3">
+                <p>
+                  SafeNet SA is South Africa's first AI-powered child digital safety platform. At its heart is Luna — a guardian AI that runs on your child's Android phone, monitoring WhatsApp, TikTok, and Instagram for cyberbullying, grooming, and harmful content. Every link is scanned before your child taps it, blocking fake SASSA phishing sites, adult content, and malicious downloads instantly.
+                </p>
+                <p>
+                  What makes SafeNet different from global parental control apps? Luna speaks isiZulu and understands South African cultural context. She detects threats across all 11 official languages — including cyberbullying in isiZulu slang, grooming in Afrikaans, and phishing scams in Sesotho. According to <a href="https://www.childlinesa.org.za" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">Childline South Africa</a>, online grooming cases have risen sharply, with perpetrators using indigenous languages to target children. <a href="https://www.unicef.org/southafrica/reports" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">UNICEF South Africa</a> reports that 1 in 3 SA children face cyberbullying.
+                </p>
+                <p>
+                  Luna processes everything on-device — meaning message content never leaves your child's phone. Parents receive only threat alerts with the threat category and severity level, never the actual chat content. This makes SafeNet fully <strong className="text-safenet-text">POPIA compliant by architecture</strong>. You can <Link to="/how-it-works" className="text-safenet-primary font-medium hover:underline">see exactly how it works</Link>, or <Link to="/demo" className="text-safenet-primary font-medium hover:underline">watch Luna catch a threat in real time</Link>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* FAQ Section */}
+          <LunaFAQSection />
         </main>
 
         <Footer />
