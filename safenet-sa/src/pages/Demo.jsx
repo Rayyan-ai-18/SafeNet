@@ -466,6 +466,19 @@ export default function Demo() {
   const [demoStarted, setDemoStarted] = useState(false)
   const [initializing, setInitializing] = useState(true)
 
+  // Demo-only parent action confirmation (simulated)
+  const [demoAction, setDemoAction] = useState(null)
+  const demoActionTimer = useRef(null)
+  const triggerDemoAction = (label) => {
+    clearTimeout(demoActionTimer.current)
+    const msg = label === 'Call Liam' ? 'Calling Liam…'
+      : label === 'Block App' ? 'App blocked ✓'
+      : label === 'Pause Internet' ? 'Internet paused ✓'
+      : 'Opening alert…'
+    setDemoAction(msg)
+    demoActionTimer.current = setTimeout(() => setDemoAction(null), 2800)
+  }
+
   // Analysis state
   const [showAnalysis, setShowAnalysis] = useState(false)
   const [analysisStage, setAnalysisStage] = useState(0)
@@ -939,8 +952,8 @@ export default function Demo() {
                         threatLevel={94}
                         threatText={isZu ? '"Ungcono uhlale ekhaya ungabonakali"' : '"...stay home and disappear"'}
                         actions={[
-                          { label: 'Review', variant: 'primary', onClick: () => {} },
-                          { label: 'Call Liam', variant: 'secondary', onClick: () => {} },
+                          { label: 'Review', variant: 'primary', onClick: () => triggerDemoAction('Review') },
+                          { label: 'Call Liam', variant: 'secondary', onClick: () => triggerDemoAction('Call Liam') },
                         ]}
                       />
                     </div>
@@ -1116,30 +1129,46 @@ export default function Demo() {
                         {/* Quick actions */}
                         <div className="flex items-center gap-2 mt-3">
                           {['Block App', 'Pause Internet', 'Call Liam'].map((action) => (
-                            <div
+                            <button
                               key={action}
-                              className={`flex-1 text-[9px] font-semibold py-1.5 rounded-lg text-center ${
+                              onClick={() => triggerDemoAction(action)}
+                              className={`flex-1 text-[9px] font-semibold py-1.5 rounded-lg text-center transition active:scale-95 ${
                                 action === 'Call Liam'
-                                  ? 'bg-safenet-danger text-white'
-                                  : 'bg-white border border-safenet-border text-safenet-text-2'
+                                  ? 'bg-safenet-danger text-white hover:opacity-90'
+                                  : 'bg-white border border-safenet-border text-safenet-text-2 hover:bg-safenet-surface'
                               }`}
                             >
                               {action}
-                            </div>
+                            </button>
                           ))}
                         </div>
 
-                        <motion.div
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 0.8, duration: 0.5 }}
-                          className="mt-3 text-center"
-                        >
-                          <span className="text-[9px] text-safenet-text-3">
-                            <Check className="w-3 h-3 text-safenet-primary inline-block mr-1" />
-                            Message content never transmitted. Only threat alerts sent to parent.
-                          </span>
-                        </motion.div>
+                        <div className="mt-3 text-center min-h-[16px]">
+                          <AnimatePresence mode="wait">
+                            {demoAction ? (
+                              <motion.span
+                                key={demoAction}
+                                initial={{ opacity: 0, y: 4 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -4 }}
+                                className="text-[9px] font-semibold text-safenet-primary inline-flex items-center gap-1"
+                              >
+                                <Check className="w-3 h-3" />
+                                {demoAction}
+                              </motion.span>
+                            ) : (
+                              <motion.span
+                                key="privacy"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="text-[9px] text-safenet-text-3"
+                              >
+                                <Check className="w-3 h-3 text-safenet-primary inline-block mr-1" />
+                                Message content never transmitted. Only threat alerts sent to parent.
+                              </motion.span>
+                            )}
+                          </AnimatePresence>
+                        </div>
                       </div>
                     </div>
                   </motion.div>

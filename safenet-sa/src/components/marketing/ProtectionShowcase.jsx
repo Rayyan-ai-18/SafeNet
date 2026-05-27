@@ -1,8 +1,9 @@
-import React from 'react'
-import { motion } from 'framer-motion'
+import React, { useState, useRef, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import {
   MessageCircle, Instagram, Music2, MessageSquare, Ghost,
   ShieldCheck, BellRing, Link as LinkIcon, Lock, Clock, Phone, Check,
+  Ban, WifiOff, PhoneCall, PhoneOff, X,
 } from 'lucide-react'
 
 const platforms = [
@@ -39,6 +40,30 @@ const fadeUp = {
 }
 
 export default function ProtectionShowcase() {
+  // Demo-only parent actions (simulated; wired to the real app later)
+  const [feedback, setFeedback] = useState(null) // { Icon, text }
+  const [callStage, setCallStage] = useState(null) // 'ringing' | 'connected' | null
+  const timersRef = useRef([])
+
+  const clearTimers = () => { timersRef.current.forEach(clearTimeout); timersRef.current = [] }
+  useEffect(() => () => clearTimers(), [])
+
+  const flash = (Icon, text) => {
+    clearTimers()
+    setFeedback({ Icon, text })
+    timersRef.current.push(setTimeout(() => setFeedback(null), 3500))
+  }
+
+  const handleBlock = () => flash(Ban, 'TikTok blocked on Liam’s phone')
+  const handlePause = () => flash(WifiOff, 'Internet paused for Liam')
+  const handleCall = () => {
+    clearTimers()
+    setFeedback(null)
+    setCallStage('ringing')
+    timersRef.current.push(setTimeout(() => setCallStage('connected'), 1600))
+  }
+  const endCall = () => { clearTimers(); setCallStage(null) }
+
   return (
     <section className="max-w-6xl mx-auto mt-16 px-4">
       {/* Header */}
@@ -146,7 +171,7 @@ export default function ProtectionShowcase() {
             whileInView="show"
             viewport={{ once: true, margin: '-60px' }}
             variants={fadeUp}
-            className="bg-white rounded-card-lg shadow-safenet-md border border-safenet-border p-5"
+            className="relative bg-white rounded-card-lg shadow-safenet-md border border-safenet-border p-5"
           >
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-sm font-semibold text-safenet-text">Parent gets a real-time alert</h3>
@@ -172,18 +197,68 @@ export default function ProtectionShowcase() {
               </div>
             </div>
 
-            {/* Quick actions */}
+            {/* Quick actions (simulated for the demo) */}
             <div className="grid grid-cols-3 gap-2 mt-3">
-              <button className="inline-flex items-center justify-center gap-1.5 py-2 rounded-btn bg-safenet-primary text-white text-xs font-medium">
-                <ShieldCheck className="w-3.5 h-3.5" /> Review
+              <button
+                onClick={handleBlock}
+                className="inline-flex items-center justify-center gap-1.5 py-2 rounded-btn bg-safenet-surface border border-safenet-border text-safenet-text text-xs font-medium hover:bg-safenet-surface-2 active:scale-[0.97] transition"
+              >
+                <Ban className="w-3.5 h-3.5" /> Block app
               </button>
-              <button className="inline-flex items-center justify-center gap-1.5 py-2 rounded-btn bg-safenet-surface border border-safenet-border text-safenet-text text-xs font-medium">
-                <Phone className="w-3.5 h-3.5" /> Call
+              <button
+                onClick={handlePause}
+                className="inline-flex items-center justify-center gap-1.5 py-2 rounded-btn bg-safenet-surface border border-safenet-border text-safenet-text text-xs font-medium hover:bg-safenet-surface-2 active:scale-[0.97] transition"
+              >
+                <WifiOff className="w-3.5 h-3.5" /> Pause net
               </button>
-              <button className="inline-flex items-center justify-center gap-1.5 py-2 rounded-btn bg-safenet-surface border border-safenet-border text-safenet-text text-xs font-medium">
-                <BellRing className="w-3.5 h-3.5" /> Pause
+              <button
+                onClick={handleCall}
+                className="inline-flex items-center justify-center gap-1.5 py-2 rounded-btn bg-safenet-primary text-white text-xs font-medium hover:bg-safenet-primary-dark active:scale-[0.97] transition"
+              >
+                <Phone className="w-3.5 h-3.5" /> Call Liam
               </button>
             </div>
+
+            {/* Action confirmation */}
+            <AnimatePresence>
+              {feedback && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  className="mt-3 inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-safenet-primary-light text-safenet-primary text-xs font-medium w-full"
+                >
+                  <feedback.Icon className="w-4 h-4 flex-shrink-0" />
+                  <span>{feedback.text}</span>
+                  <Check className="w-4 h-4 ml-auto" />
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Simulated call overlay */}
+            <AnimatePresence>
+              {callStage && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute inset-0 z-10 rounded-card-lg bg-safenet-text/95 flex flex-col items-center justify-center text-white p-5"
+                >
+                  <div className="w-16 h-16 rounded-full bg-safenet-primary flex items-center justify-center text-2xl font-bold mb-3">L</div>
+                  <p className="text-base font-semibold">Liam</p>
+                  <p className="text-xs text-white/70 mb-1">{callStage === 'ringing' ? 'Calling…' : 'Connected'}</p>
+                  {callStage === 'ringing'
+                    ? <PhoneCall className="w-5 h-5 text-safenet-primary-light mb-5 animate-pulse" />
+                    : <span className="text-[11px] text-safenet-primary-light mb-5 tabular-nums">00:03</span>}
+                  <button
+                    onClick={endCall}
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-safenet-danger text-white text-sm font-medium hover:opacity-90 active:scale-95 transition"
+                  >
+                    <PhoneOff className="w-4 h-4" /> End call
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.div>
 
           {/* Link blocking */}
