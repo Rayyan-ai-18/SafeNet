@@ -1,4 +1,4 @@
-// Luna TTS — Deepgram Aura with SSML for natural prosody
+// Luna TTS - Deepgram Aura with SSML for natural prosody
 // Handles [laugh] [chuckle] [giggle] [sigh] [cough] tags from the LLM
 // and adds <break> pauses at sentence boundaries for human-like rhythm.
 
@@ -49,7 +49,7 @@ module.exports = async function handler(req, res) {
   if (!text) return res.status(400).json({ error: 'Missing text' });
 
   const dgKey = process.env.DEEPGRAM_API_KEY;
-  if (!dgKey) return res.status(500).json({ error: 'TTS unavailable — DEEPGRAM_API_KEY not set' });
+  if (!dgKey) return res.status(500).json({ error: 'TTS unavailable - DEEPGRAM_API_KEY not set' });
 
   const selectedVoice = voice || DEFAULT_VOICE;
   const ssml = buildSsml(text);
@@ -73,10 +73,10 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    // SSML rejected — fall through to plain-text retry
-    console.warn('Deepgram SSML failed:', dgRes.status, '— retrying as plain text');
+    // SSML rejected - fall through to plain-text retry
+    console.warn('Deepgram SSML failed:', dgRes.status, '- retrying as plain text');
   } catch (e) {
-    console.warn('Deepgram SSML error:', e.message, '— retrying as plain text');
+    console.warn('Deepgram SSML error:', e.message, '- retrying as plain text');
   }
 
   // ── Plain-text fallback (strips all tags) ────────────────────────────────

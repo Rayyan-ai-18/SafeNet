@@ -1,4 +1,4 @@
-// Luna AI Extension — Content Script
+// Luna AI Extension - Content Script
 // Runs on every page. Injects a minimal warning banner for high-risk sites.
 
 (function () {

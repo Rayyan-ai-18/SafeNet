@@ -330,7 +330,7 @@ input, textarea { font-family: inherit; }
   pointer-events: none;
 }
 
-/* Eyes — whites */
+/* Eyes - whites */
 .sphere-eye {
   position: absolute;
   top: 44%;
@@ -347,7 +347,7 @@ input, textarea { font-family: inherit; }
 .sphere-eye.left-eye  { left: 24%; transform: translateX(-50%) translateY(-50%); }
 .sphere-eye.right-eye { left: 64%; transform: translateX(-50%) translateY(-50%); }
 
-/* Pupils — moved by JS */
+/* Pupils - moved by JS */
 .pupil {
   width: 14px;
   height: 14px;
@@ -475,7 +475,7 @@ input, textarea { font-family: inherit; }
   .hero-cta { padding: 10px 22px; font-size: 14px; }
 }
 
-/* ── API Pill — anchored to bottom of hero ── */
+/* ── API Pill - anchored to bottom of hero ── */
 .api-pill {
   position: absolute;
   bottom: 48px;
@@ -555,7 +555,7 @@ input, textarea { font-family: inherit; }
   width: 220px; height: 220px;
   opacity: 0;
   pointer-events: none;
-  /* hidden by default — only animate when speaking */
+  /* hidden by default - only animate when speaking */
   animation: none;
 }
 
@@ -1561,7 +1561,7 @@ input, textarea { font-family: inherit; }
   /* ── Mobile: hero bg text size ── */
   .hero-bg-text { font-size: clamp(160px, 42vw, 260px); letter-spacing: -0.03em; }
 
-  /* ── Mobile: chat bubble — pinned below navbar, uses 50vw to avoid doc-width offset ── */
+  /* ── Mobile: chat bubble - pinned below navbar, uses 50vw to avoid doc-width offset ── */
   #luna-bubble {
     bottom: auto !important;
     top: 72px !important;
@@ -1601,7 +1601,7 @@ input, textarea { font-family: inherit; }
     text-overflow: ellipsis;
   }
 
-  /* ── Mobile: Luna API pill — hide on small screens ── */
+  /* ── Mobile: Luna API pill - hide on small screens ── */
   .api-pill { display: none; }
 
   /* ── Mobile: tab panel card ── */
@@ -2596,7 +2596,7 @@ body.is-auth .hero-cta {
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   GUARD — improved result cards
+   GUARD - improved result cards
 ══════════════════════════════════════════════════════════════════════════ */
 .guard-loading p { animation: guard-pulse 1.4s ease-in-out infinite; }
 @keyframes guard-pulse { 0%,100% { opacity:.5 } 50% { opacity:1 } }
@@ -2714,7 +2714,7 @@ body.is-auth .hero-cta {
 .history-empty p, .monitor-empty p { margin: 0; font-size: 14px; }
 
 /* ══════════════════════════════════════════════════════════════════════════
-   MOBILE RESPONSIVENESS — sphere + panels
+   MOBILE RESPONSIVENESS - sphere + panels
 ══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 768px) {
   /* Sphere: shrink on mobile */

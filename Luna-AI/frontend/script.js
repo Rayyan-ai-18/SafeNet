@@ -269,7 +269,7 @@
   }
 
   /* ════════════════════════════════════════════════════════════════
-     STT  — Groq Whisper Large V3 Turbo via /api/transcribe
+     STT  - Groq Whisper Large V3 Turbo via /api/transcribe
   ════════════════════════════════════════════════════════════════ */
   async function transcribeAudio(float32Array) {
     const wav         = float32ToWav(float32Array);
@@ -289,11 +289,11 @@
   }
 
   /* ════════════════════════════════════════════════════════════════
-     LLM  — Groq Llama 3.3 via /api/chat (sentiment injected server-side)
+     LLM  - Groq Llama 3.3 via /api/chat (sentiment injected server-side)
   ════════════════════════════════════════════════════════════════ */
   async function callGroq(sentiment) {
     const scanContext = window._lunaLastScan
-      ? `\n\nRecent scan of ${window._lunaLastScan.url}: Score ${window._lunaLastScan.score}/100 (${window._lunaLastScan.verdict}). Findings: ${window._lunaLastScan.findings.map(f => `${f.name}: ${f.status}${f.detail ? ' — ' + f.detail : ''}`).join('; ')}.`
+      ? `\n\nRecent scan of ${window._lunaLastScan.url}: Score ${window._lunaLastScan.score}/100 (${window._lunaLastScan.verdict}). Findings: ${window._lunaLastScan.findings.map(f => `${f.name}: ${f.status}${f.detail ? ' - ' + f.detail : ''}`).join('; ')}.`
       : null;
 
     const res = await fetch('/api/chat', {
@@ -307,7 +307,7 @@
   }
 
   /* ════════════════════════════════════════════════════════════════
-     TTS  — Deepgram Aura via /api/tts with user-selected voice
+     TTS  - Deepgram Aura via /api/tts with user-selected voice
   ════════════════════════════════════════════════════════════════ */
   async function synthesizeSpeech(text, exaggeration = 0.6) {
     const res = await fetch('/api/tts', {
@@ -320,7 +320,7 @@
   }
 
   // Called once inside acquireMicAndStart() which runs during a user gesture.
-  // iOS tracks unlocked Audio elements — the same element can play() from async
+  // iOS tracks unlocked Audio elements - the same element can play() from async
   // contexts forever after being activated during a gesture.
   function initAudioElement() {
     lunaAudio = new Audio();
@@ -396,7 +396,7 @@
 
       showBubble(`<span style="color:#9ca3af;font-size:13px;">You</span><br/>"${transcript}"`);
 
-      // 2. Sentiment (fast — keyword then ML)
+      // 2. Sentiment (fast - keyword then ML)
       const sentiment = await detectSentiment(transcript);
 
       // 3. Add to history and call LLM
@@ -414,7 +414,7 @@
       const cleanText = rawResponse.replace(/\[.*?\]/g, '').trim();
       showBubble(`<span style="color:#60a5fa;font-size:13px;font-weight:600;">Luna</span><br/>${cleanText}`);
 
-      // 4. TTS — send raw response WITH tags to Chatterbox (it renders them natively)
+      // 4. TTS - send raw response WITH tags to Chatterbox (it renders them natively)
       setState('speaking');
       updateVoiceStatus('Speaking…');
       const exaggeration = sentiment === 'excited' ? 0.75 : sentiment === 'stressed' ? 0.45 : 0.6;
@@ -439,7 +439,7 @@
   async function greet() {
     const lines = [
       "Hey! I'm Luna, your AI security buddy. What's on your mind?",
-      "Oh hey, finally someone to talk to. I'm Luna — ask me anything.",
+      "Oh hey, finally someone to talk to. I'm Luna - ask me anything.",
       "You called? I'm Luna. Cybersecurity, small talk, and the occasional terrible joke.",
     ];
     const line = lines[Math.floor(Math.random() * lines.length)];
@@ -454,7 +454,7 @@
       await playBase64Audio(ttsData.audio, ttsData.format);
       updateVoiceStatus(getVoiceName(getSelectedVoice()) + ' ✓');
     } catch {
-      // If TTS fails on greeting, the bubble text is still visible — carry on
+      // If TTS fails on greeting, the bubble text is still visible - carry on
     }
 
     setState('wake');
@@ -463,7 +463,7 @@
   }
 
   /* ════════════════════════════════════════════════════════════════
-     VAD  — Silero VAD via @ricky0123/vad-web CDN
+     VAD  - Silero VAD via @ricky0123/vad-web CDN
   ════════════════════════════════════════════════════════════════ */
   async function initVAD() {
     // Wait for CDN script to make window.vad available
@@ -506,14 +506,14 @@
       updateVoiceStatus('Ready');
     } catch (err) {
       console.error('Luna: VAD failed:', err.message);
-      updateVoiceStatus('Voice error — please refresh');
+      updateVoiceStatus('Voice error - please refresh');
       showBubble('Could not start voice detection. Please refresh and allow microphone access.', 6000);
       setState('stopped');
       showBadge(false);
       return;
     }
 
-    // Load sentiment model in background — don't block
+    // Load sentiment model in background - don't block
     initSentiment();
 
     // Greet
@@ -562,7 +562,7 @@
   }
 
   /* ════════════════════════════════════════════════════════════════
-     SPHERE CLICK  — interrupt / re-activate
+     SPHERE CLICK  - interrupt / re-activate
   ════════════════════════════════════════════════════════════════ */
   sphereWrap.addEventListener('click', (e) => {
     if (['lp-allow', 'lp-deny'].includes(e.target.id)) return;
@@ -599,7 +599,7 @@
   ════════════════════════════════════════════════════════════════ */
   function init() {
     warmUpTTS();
-    updateVoiceStatus(getVoiceName(getSelectedVoice()) + ' — click to change');
+    updateVoiceStatus(getVoiceName(getSelectedVoice()) + ' - click to change');
 
     if (localStorage.getItem('luna_mic_ok') === '1') {
       showBadge(true);
@@ -610,14 +610,14 @@
           } else if (p.state === 'denied') {
             localStorage.removeItem('luna_mic_ok');
             showBadge(false);
-            updateVoiceStatus('Mic blocked — check browser settings');
+            updateVoiceStatus('Mic blocked - check browser settings');
             showBubble('Mic access is blocked. Allow it in browser settings then refresh.', 6000);
           }
           // 'prompt' → wait for click (general click handler handles state === 'setup')
           p.onchange = () => {
             if (p.state === 'granted' && state === 'setup') acquireMicAndStart();
           };
-        }).catch(() => { /* permissions API unsupported — wait for click */ });
+        }).catch(() => { /* permissions API unsupported - wait for click */ });
       }
       // If no permissions API: click handler will fire showPermissionModal via state === 'setup'
     }
@@ -816,7 +816,7 @@
 
 
 /* ════════════════════════════════════════════════════════════════
-   SUPABASE — Auth + Scan History
+   SUPABASE - Auth + Scan History
 ════════════════════════════════════════════════════════════════ */
 let _supabase   = null;
 let _currentUser = null;
@@ -1076,7 +1076,7 @@ function showHistoryModal() {
 
         const score = document.createElement('span');
         score.className = 'history-score';
-        score.textContent = `${scan.score ?? '—'}/100`;
+        score.textContent = `${scan.score ?? '-'}/100`;
         score.style.color = verdictColor[scan.verdict] || '#9ca3af';
 
         top.append(badge, score);
@@ -1169,7 +1169,7 @@ function showToast(message, type = 'success') {
         amount: data.amount,
         currency: data.currency,
         name: 'Luna AI',
-        description: 'Guardian Shield — ₹999/month',
+        description: 'Guardian Shield - ₹999/month',
         order_id: data.orderId,
         prefill: { email: _currentUser?.email },
         theme: { color: '#2563eb' },
@@ -1559,7 +1559,7 @@ function startLiveScan(url, type, resultsContainer, btn, btnOriginal) {
       verdict: verdict.label,
       findings: Array.from(findings.values()).filter(f => f.status !== 'scanning'),
     };
-    updateVoiceStatus('Scan analyzed — ask me anything');
+    updateVoiceStatus('Scan analyzed - ask me anything');
 
     // Save to Supabase if logged in
     _saveScan(url, type, score, verdict.label, findings);
@@ -1578,7 +1578,7 @@ function startLiveScan(url, type, resultsContainer, btn, btnOriginal) {
   sse.onerror = () => {
     sse.close();
     statusBadge.className   = 'scan-status-badge scan-status-badge--error';
-    statusBadge.textContent = 'Error — could not reach scan engine';
+    statusBadge.textContent = 'Error - could not reach scan engine';
     btn.textContent         = btnOriginal;
     btn.style.background    = '';
     btn.disabled            = false;

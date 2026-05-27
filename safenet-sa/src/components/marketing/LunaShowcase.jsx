@@ -78,7 +78,7 @@ export default function LunaShowcase() {
           {/* Left: Copy */}
           <div className="flex-1 max-w-lg">
             <p ref={copyRef} className="text-lg text-safenet-text-2 leading-relaxed mb-8">
-              Luna is not a vendor. Not a third-party API. Not a white-label. We built Luna from the ground up. Every model. Every pipeline. Every insight. It belongs to us — which means it belongs to you.
+              Luna is not a vendor. Not a third-party API. Not a white-label. We built Luna from the ground up. Every model. Every pipeline. Every insight. It belongs to us - which means it belongs to you.
             </p>
 
             {/* Capability pills */}

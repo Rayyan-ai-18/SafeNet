@@ -38,7 +38,7 @@ const consentItems = [
 const authSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: 'SafeNet SA — Sign Up & POPIA Consent',
+  name: 'SafeNet SA - Sign Up & POPIA Consent',
   description: 'Create your SafeNet SA account. South African phone verification with full POPIA compliance consent.',
   url: 'https://safenet-sa.co.za/auth',
   isPartOf: {
@@ -94,7 +94,7 @@ export default function Auth() {
   return (
     <div className="min-h-screen bg-white">
       <SEO
-        title="SafeNet SA — Sign Up & POPIA Consent"
+        title="SafeNet SA - Sign Up & POPIA Consent"
         description="Create your SafeNet SA account. South African phone verification with full POPIA compliance consent."
         canonicalPath="/auth"
         jsonLd={authSchema}

@@ -331,7 +331,7 @@
   }
 
   /* ════════════════════════════════════════════════════════════════
-     STT  — Groq Whisper Large V3 Turbo via /api/transcribe
+     STT  - Groq Whisper Large V3 Turbo via /api/transcribe
   ════════════════════════════════════════════════════════════════ */
   async function transcribeAudio(float32Array) {
     const wav = float32ToWav(float32Array);
@@ -351,7 +351,7 @@
   }
 
   /* ════════════════════════════════════════════════════════════════
-     LLM  — Groq Llama 3.3 via /api/chat (sentiment injected server-side)
+     LLM  - Groq Llama 3.3 via /api/chat (sentiment injected server-side)
   ════════════════════════════════════════════════════════════════ */
   async function callGroq(sentiment) {
     // Rich structured scan context so LLM can reason about it properly
@@ -359,7 +359,7 @@
     if (window._lunaLastScan) {
       const s = window._lunaLastScan;
       const vulns = s.findings.filter(f => f.status === 'vulnerable').map(f => f.detail);
-      scanContext = `ACTIVE SCAN RESULT — ${s.url}\nRisk Score: ${s.score}/100 | Verdict: ${s.verdict}\nVulnerabilities found: ${vulns.length > 0 ? vulns.join('; ') : 'none'}\nScan type: ${s.type}`;
+      scanContext = `ACTIVE SCAN RESULT - ${s.url}\nRisk Score: ${s.score}/100 | Verdict: ${s.verdict}\nVulnerabilities found: ${vulns.length > 0 ? vulns.join('; ') : 'none'}\nScan type: ${s.type}`;
     }
 
     const res = await fetch('/api/chat', {
@@ -373,7 +373,7 @@
   }
 
   /* ════════════════════════════════════════════════════════════════
-     LUNA AGENCY — Execute UI commands from LLM <CMD> responses
+     LUNA AGENCY - Execute UI commands from LLM <CMD> responses
   ════════════════════════════════════════════════════════════════ */
   function executeLunaCommand(cmd) {
     const TAB_MAP = { phishing: 0, websec: 1, code: 2, api: 3, sentinel: 4, autopilot: 5 };
@@ -425,7 +425,7 @@
   }
 
   /* ════════════════════════════════════════════════════════════════
-     TTS  — Deepgram Aura via /api/tts with user-selected voice
+     TTS  - Deepgram Aura via /api/tts with user-selected voice
   ════════════════════════════════════════════════════════════════ */
   // Returns the voice ID adjusted for current threat context
   // User's chosen voice is always respected for non-threat responses
@@ -453,7 +453,7 @@
   }
 
   // Called once inside acquireMicAndStart() which runs during a user gesture.
-  // iOS tracks unlocked Audio elements — the same element can play() from async
+  // iOS tracks unlocked Audio elements - the same element can play() from async
   // contexts forever after being activated during a gesture.
   function initAudioElement() {
     lunaAudio = new Audio();
@@ -635,7 +635,7 @@
   async function greet() {
     const lines = [
       "Hey! I'm Luna, your AI security buddy. What's on your mind?",
-      "Oh hey, finally someone to talk to. I'm Luna — ask me anything.",
+      "Oh hey, finally someone to talk to. I'm Luna - ask me anything.",
       "You called? I'm Luna. Cybersecurity, small talk, and the occasional terrible joke.",
     ];
     const line = lines[Math.floor(Math.random() * lines.length)];
@@ -651,7 +651,7 @@
       await playBase64Audio(ttsData.audio, ttsData.format);
       updateVoiceStatus(getVoiceName(getSelectedVoice()) + ' ✓');
     } catch {
-      // If TTS fails on greeting, the bubble text is still visible — carry on
+      // If TTS fails on greeting, the bubble text is still visible - carry on
     }
 
     setState('wake');
@@ -660,7 +660,7 @@
   }
 
   /* ════════════════════════════════════════════════════════════════
-     VAD  — Silero VAD via @ricky0123/vad-web CDN
+     VAD  - Silero VAD via @ricky0123/vad-web CDN
   ════════════════════════════════════════════════════════════════ */
   async function initVAD() {
     // Wait for CDN script to make window.vad available
@@ -704,14 +704,14 @@
       updateVoiceStatus(getIdleVoiceStatus());
     } catch (err) {
       console.error('Luna: VAD failed:', err.message);
-      updateVoiceStatus('Voice error — please refresh');
+      updateVoiceStatus('Voice error - please refresh');
       showBubble('Could not start voice detection. Please refresh and allow microphone access.', 6000);
       setState('stopped');
       showBadge(false);
       return;
     }
 
-    // Load sentiment model in background — don't block
+    // Load sentiment model in background - don't block
     initSentiment();
 
     // Greet
@@ -760,7 +760,7 @@
   }
 
   /* ════════════════════════════════════════════════════════════════
-     SPHERE CLICK  — interrupt / re-activate
+     SPHERE CLICK  - interrupt / re-activate
   ════════════════════════════════════════════════════════════════ */
   sphereWrap.addEventListener('click', (e) => {
     if (['lp-allow', 'lp-deny'].includes(e.target.id)) return;
@@ -808,14 +808,14 @@
           } else if (p.state === 'denied') {
             localStorage.removeItem('luna_mic_ok');
             showBadge(false);
-            updateVoiceStatus('Mic blocked — check browser settings');
+            updateVoiceStatus('Mic blocked - check browser settings');
             showBubble('Mic access is blocked. Allow it in browser settings then refresh.', 6000);
           }
           // 'prompt' → wait for click (general click handler handles state === 'setup')
           p.onchange = () => {
             if (p.state === 'granted' && state === 'setup') acquireMicAndStart();
           };
-        }).catch(() => { /* permissions API unsupported — wait for click */ });
+        }).catch(() => { /* permissions API unsupported - wait for click */ });
       }
       // If no permissions API: click handler will fire showPermissionModal via state === 'setup'
     }
@@ -1084,7 +1084,7 @@
 
 
 /* ════════════════════════════════════════════════════════════════
-   SUPABASE — Auth + Scan History
+   SUPABASE - Auth + Scan History
 ════════════════════════════════════════════════════════════════ */
 let _supabase = null;
 let _currentUser = null;
@@ -1195,7 +1195,7 @@ function _refreshPricingState(user, plan = _currentPlan) {
   if (!user) {
     if (eyebrow) eyebrow.style.display = 'none';
     title.textContent = 'Plans Built for Every Need';
-    sub.textContent = 'Flexible pricing to safeguard your business—tailored for startups, enterprises, and innovators alike.';
+    sub.textContent = 'Flexible pricing to safeguard your business-tailored for startups, enterprises, and innovators alike.';
     if (buttonMap.guardian) {
       buttonMap.guardian.textContent = 'Choose Plan';
       buttonMap.guardian.disabled = false;
@@ -1392,7 +1392,7 @@ function _setUser(user) {
         .limit(20)
         .then(({ data }) => {
           if (data && data.length > 0) {
-            // Rows come newest-first — reverse to get chronological order
+            // Rows come newest-first - reverse to get chronological order
             const loaded = data.reverse().map(r => ({ role: r.role, content: r.content }));
             // Merge with localStorage (localStorage may have unsaved guest messages)
             const guestHistory = loadHistory().filter(m =>
@@ -1404,7 +1404,7 @@ function _setUser(user) {
         });
     }
 
-    // Voice onboarding — greet once per session on first sign-in
+    // Voice onboarding - greet once per session on first sign-in
     if (!wasLoggedIn && !_greeted) {
       _greeted = true;
       const name = _getUserFirstName(user);
@@ -1453,7 +1453,7 @@ async function _saveMessage(role, content) {
       role,
       content,
     });
-    // Prune old messages — keep latest 100 per user (fire-and-forget)
+    // Prune old messages - keep latest 100 per user (fire-and-forget)
     _supabase
       .from('conversations')
       .select('id, created_at')
@@ -1838,7 +1838,7 @@ function showHistoryModal() {
         tBadge.textContent = lastScan.verdict || 'Unknown';
         const tScore = document.createElement('span');
         tScore.className = 'history-score';
-        tScore.textContent = `${lastScan.score ?? '—'}/100`;
+        tScore.textContent = `${lastScan.score ?? '-'}/100`;
         tRow.append(tBadge, tScore);
         const tUrl = document.createElement('p');
         tUrl.className = 'history-url';
@@ -1907,7 +1907,7 @@ function showHistoryModal() {
 
         const score = document.createElement('span');
         score.className = 'history-score';
-        score.textContent = `${scan.score ?? '—'}/100`;
+        score.textContent = `${scan.score ?? '-'}/100`;
         score.style.color = verdictColor[scan.verdict] || '#9ca3af';
 
         top.append(badge, score);
@@ -2000,7 +2000,7 @@ function showToast(message, type = 'success') {
         amount: data.amount,
         currency: data.currency,
         name: 'Luna AI',
-        description: 'Guardian Shield — ₹999/month',
+        description: 'Guardian Shield - ₹999/month',
         order_id: data.orderId,
         prefill: { email: _currentUser?.email },
         theme: { color: '#2563eb' },
@@ -2064,7 +2064,7 @@ document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(() => {
         inp.value = sharedScan;
         inp.focus();
-        showToast('Shared scan loaded — click Scan Now to run it', 'success');
+        showToast('Shared scan loaded - click Scan Now to run it', 'success');
       });
     }
     setTimeout(() => applySharedScan(0), 400);
@@ -2424,7 +2424,7 @@ function startLiveScan(url, type, resultsContainer, btn, btnOriginal) {
       }
     });
 
-    // Share button — copies a pre-filled URL with scan target to clipboard
+    // Share button - copies a pre-filled URL with scan target to clipboard
     const shareBtn = document.createElement('button');
     shareBtn.type = 'button';
     shareBtn.className = 'btn-pdf';
@@ -2452,7 +2452,7 @@ function startLiveScan(url, type, resultsContainer, btn, btnOriginal) {
       verdict: verdict.label,
       findings: Array.from(findings.values()).filter(f => f.status !== 'scanning'),
     };
-    updateVoiceStatus('Scan analyzed — ask me anything');
+    updateVoiceStatus('Scan analyzed - ask me anything');
 
     // Save to Supabase if logged in
     _saveScan(url, type, score, verdict.label, findings);
@@ -2472,7 +2472,7 @@ function startLiveScan(url, type, resultsContainer, btn, btnOriginal) {
   sse.onerror = () => {
     sse.close();
     statusBadge.className = 'scan-status-badge scan-status-badge--error';
-    statusBadge.textContent = 'Error — could not reach scan engine';
+    statusBadge.textContent = 'Error - could not reach scan engine';
     btn.textContent = btnOriginal;
     btn.style.background = '';
     btn.disabled = false;
@@ -2882,7 +2882,7 @@ function startLiveScan(url, type, resultsContainer, btn, btnOriginal) {
               ? `I found ${critCount} critical issue${critCount > 1 ? 's' : ''} in your code. Please review them immediately.`
               : warnCount > 0
                 ? `Code looks mostly okay but I spotted ${warnCount} warning${warnCount > 1 ? 's' : ''} worth reviewing.`
-                : `Great news — your code passed the security audit with no issues found!`;
+                : `Great news - your code passed the security audit with no issues found!`;
             if (typeof speak === 'function') speak(summary);
           } else {
             throw new Error(data.error || 'Audit failed');
@@ -2932,7 +2932,7 @@ function startLiveScan(url, type, resultsContainer, btn, btnOriginal) {
             // Luna speaks summary
             const vulnCount = data.findings.filter(f => f.isVulnerable).length;
             const summary = vulnCount === 0
-              ? 'All your dependencies look clean — no known vulnerabilities found.'
+              ? 'All your dependencies look clean - no known vulnerabilities found.'
               : `Heads up! I found ${vulnCount} vulnerable package${vulnCount > 1 ? 's' : ''}. Update them as soon as possible.`;
             if (typeof speak === 'function') speak(summary);
           } else {
@@ -3027,7 +3027,7 @@ function startLiveScan(url, type, resultsContainer, btn, btnOriginal) {
 
 
 /* ════════════════════════════════════════════════════════════════
-   SENTINEL EDGE — Billing + Real Monitoring Dashboard
+   SENTINEL EDGE - Billing + Real Monitoring Dashboard
 ════════════════════════════════════════════════════════════════ */
 
 // ── Sentinel Edge Razorpay checkout ─────────────────────────────
@@ -3054,7 +3054,7 @@ function startLiveScan(url, type, resultsContainer, btn, btnOriginal) {
         amount: data.amount,
         currency: data.currency,
         name: 'Luna AI',
-        description: data.description || 'Sentinel Edge — ₹19,999/month',
+        description: data.description || 'Sentinel Edge - ₹19,999/month',
         order_id: data.orderId,
         prefill: { email: _currentUser?.email },
         theme: { color: '#2563eb' },
@@ -3087,7 +3087,7 @@ function startLiveScan(url, type, resultsContainer, btn, btnOriginal) {
 })();
 
 
-// ── Sentinel Dashboard — init ────────────────────────────────────
+// ── Sentinel Dashboard - init ────────────────────────────────────
 async function initSentinelDashboard(plan) {
   const locked = document.getElementById('sentinel-locked');
   const active = document.getElementById('sentinel-active');
@@ -3144,8 +3144,8 @@ function renderMonitors(monitors) {
 
   monitors.forEach(mon => {
     const online = mon.last_status >= 200 && mon.last_status < 500;
-    const uptime = mon.uptime_pct != null ? parseFloat(mon.uptime_pct).toFixed(1) : '—';
-    const ttfb = mon.last_ttfb ? `${mon.last_ttfb}ms` : '—';
+    const uptime = mon.uptime_pct != null ? parseFloat(mon.uptime_pct).toFixed(1) : '-';
+    const ttfb = mon.last_ttfb ? `${mon.last_ttfb}ms` : '-';
     const checked = mon.last_checked
       ? new Date(mon.last_checked).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       : 'Never';
@@ -3313,7 +3313,7 @@ async function removeMonitor(id, row) {
 
     const title = document.createElement('h2');
     title.className = 'auth-modal-title';
-    title.textContent = 'Fortress Prime — Enterprise';
+    title.textContent = 'Fortress Prime - Enterprise';
 
     const sub = document.createElement('p');
     sub.className = 'auth-modal-sub';
@@ -3400,7 +3400,7 @@ async function removeMonitor(id, row) {
 })();
 
 /* ══════════════════════════════════════════════════════════════════════════
-   ONBOARDING — first visit welcome callout
+   ONBOARDING - first visit welcome callout
 ══════════════════════════════════════════════════════════════════════════ */
 (function initOnboarding() {
   if (localStorage.getItem('luna_visited')) return;
@@ -3453,7 +3453,7 @@ async function removeMonitor(id, row) {
 })();
 
 /* ════════════════════════════════════════════════════════════════
-   LUNA AUTOPILOT — Bulk URL Scanner
+   LUNA AUTOPILOT - Bulk URL Scanner
 ════════════════════════════════════════════════════════════════ */
 (function () {
   const runBtn = document.getElementById('autopilot-run-btn');
@@ -3545,7 +3545,7 @@ async function removeMonitor(id, row) {
     const susp = autopilotData.filter(r => r.score > 0 && r.score <= 55).length;
     const summary = document.createElement('div');
     summary.style.cssText = 'margin-top:14px;padding:12px 16px;border-radius:10px;background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);font-size:13px;color:#e2e8f0;text-align:center;';
-    summary.innerHTML = `Autopilot complete — <span style="color:#22c55e;font-weight:600;">${safe} safe</span> · <span style="color:#f59e0b;font-weight:600;">${susp} suspicious</span> · <span style="color:#ef4444;font-weight:600;">${risky} dangerous</span>`;
+    summary.innerHTML = `Autopilot complete - <span style="color:#22c55e;font-weight:600;">${safe} safe</span> · <span style="color:#f59e0b;font-weight:600;">${susp} suspicious</span> · <span style="color:#ef4444;font-weight:600;">${risky} dangerous</span>`;
     results.appendChild(summary);
 
     runBtn.disabled = false;

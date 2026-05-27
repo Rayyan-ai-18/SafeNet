@@ -13,7 +13,7 @@ import { useApp } from '../context/AppContext'
 const dashboardSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: 'SafeNet SA — Parent Dashboard',
+  name: 'SafeNet SA - Parent Dashboard',
   description: 'Monitor your children\'s digital safety in real-time. View alerts, screen time, location, and safe zones from your SafeNet SA dashboard.',
   url: 'https://safenet-sa.co.za/dashboard',
   isPartOf: {
@@ -34,7 +34,7 @@ export default function Dashboard() {
   return (
     <DashboardShell>
       <SEO
-        title="SafeNet SA — Parent Dashboard"
+        title="SafeNet SA - Parent Dashboard"
         description="Monitor your children's digital safety in real-time. View alerts, screen time, location, and safe zones from your SafeNet SA dashboard."
         canonicalPath="/dashboard"
         jsonLd={dashboardSchema}

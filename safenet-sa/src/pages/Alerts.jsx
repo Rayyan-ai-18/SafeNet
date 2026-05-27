@@ -21,7 +21,7 @@ const allAlerts = [
 const alertsSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: 'SafeNet SA — Security Alerts & Threat History',
+  name: 'SafeNet SA - Security Alerts & Threat History',
   description: 'View all security events across your family. Filter by severity, search alerts, and review Luna AI\'s threat detection history.',
   url: 'https://safenet-sa.co.za/alerts',
   isPartOf: {
@@ -51,7 +51,7 @@ export default function Alerts() {
   return (
     <DashboardShell>
       <SEO
-        title="SafeNet SA — Security Alerts & Threat History"
+        title="SafeNet SA - Security Alerts & Threat History"
         description="View all security events across your family. Filter by severity, search alerts, and review Luna AI's threat detection history."
         canonicalPath="/alerts"
         jsonLd={alertsSchema}

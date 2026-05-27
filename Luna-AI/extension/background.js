@@ -1,4 +1,4 @@
-// Luna AI Extension — Background Service Worker
+// Luna AI Extension - Background Service Worker
 // Handles tab scanning, badge updates, and notifications
 
 const LUNA_API = 'https://meet-luna-ai.vercel.app/api/scan';
@@ -185,7 +185,7 @@ async function handleNavigation(tabId, url) {
     return;
   }
 
-  // Skip Luna itself — restore purple
+  // Skip Luna itself - restore purple
   if (url.includes('meet-luna-ai.vercel.app')) {
     setBadge(tabId, 'scanning'); // purple
     return;

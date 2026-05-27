@@ -19,7 +19,7 @@ const schoolFeatures = [
   {
     icon: Shield,
     title: 'Luna AI for Schools',
-    desc: 'AI-powered threat detection tuned for school environments — bullying detection, suspicious contact alerts.',
+    desc: 'AI-powered threat detection tuned for school environments - bullying detection, suspicious contact alerts.',
   },
   {
     icon: Users,
@@ -100,7 +100,7 @@ export default function ForSchools() {
         </h2>
         <p className="text-center text-safenet-text-2 text-base max-w-2xl mx-auto mb-12">
           Extend SafeNet SA protection across your entire school. From classroom device management 
-          to emergency broadcasts — built for South African schools, compliant with POPIA.
+          to emergency broadcasts - built for South African schools, compliant with POPIA.
         </p>
 
         {/* Stats row */}

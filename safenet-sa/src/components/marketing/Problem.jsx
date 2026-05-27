@@ -77,7 +77,7 @@ export default function Problem() {
             <div ref={bodyRef} className="space-y-5">
               <p className="text-lg text-safenet-text-2 leading-relaxed">
                 Your child lives on WhatsApp. Not iMessage. Not Snapchat.
-                WhatsApp — where the real threats in South Africa happen every day.
+                WhatsApp - where the real threats in South Africa happen every day.
                 According to{' '}
                 <a
                   href="https://businesstech.co.za/news/internet/758979/cybercrime-in-sa-phishing-attacks-now-targeting-whatsapp-users/"
@@ -139,7 +139,7 @@ export default function Problem() {
                 href="#pricing"
                 className="inline-flex items-center gap-2 text-sm font-medium text-safenet-primary hover:text-safenet-primary-dark transition-colors group"
               >
-                See our affordable plans — starting at free
+                See our affordable plans - starting at free
                 <span className="transition-transform group-hover:translate-x-1">→</span>
               </a>
             </div>

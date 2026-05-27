@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Developer Docs — Luna AI</title>
+  <title>Developer Docs - Luna AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
@@ -152,7 +152,7 @@
     <!-- Introduction -->
     <section id="introduction">
       <h1>Luna AI API</h1>
-      <p class="lead">Autonomous security scanning via a simple REST API. Detect vulnerabilities, scan dependencies, and monitor uptime — all from your CI/CD pipeline or application.</p>
+      <p class="lead">Autonomous security scanning via a simple REST API. Detect vulnerabilities, scan dependencies, and monitor uptime - all from your CI/CD pipeline or application.</p>
       <p>The Luna AI API is built on Vercel serverless functions and uses <strong>Server-Sent Events (SSE)</strong> for real-time streaming of scan results. Results are delivered progressively as Luna analyzes each vulnerability, so you can display findings as they arrive.</p>
       <div class="callout">
         <strong>Base URL:</strong> <span class="inline-code">https://meet-luna-ai.vercel.app</span>
@@ -171,7 +171,7 @@
       <p>1. Sign in at <a href="https://meet-luna-ai.vercel.app">meet-luna-ai.vercel.app</a><br>
          2. Open the <strong>Developer API</strong> panel<br>
          3. Click <strong>Generate Key</strong><br>
-         4. Copy and store your key securely — it won't be shown again</p>
+         4. Copy and store your key securely - it won't be shown again</p>
     </section>
 
     <!-- Endpoints -->
@@ -380,7 +380,7 @@ print(res.json())</code></pre>
     <!-- Response Format -->
     <section id="response-format">
       <h2>Response Format</h2>
-      <p>Scan endpoints (<span class="inline-code">/api/scan</span>, <span class="inline-code">/api/dep-scan</span>) return <strong>Server-Sent Events (SSE)</strong> — a streaming text format where each event is a line starting with <span class="inline-code">data: </span> followed by JSON.</p>
+      <p>Scan endpoints (<span class="inline-code">/api/scan</span>, <span class="inline-code">/api/dep-scan</span>) return <strong>Server-Sent Events (SSE)</strong> - a streaming text format where each event is a line starting with <span class="inline-code">data: </span> followed by JSON.</p>
 
       <h3>SSE Event Types</h3>
       <div class="sse-flow">
@@ -429,7 +429,7 @@ data: <span class="str">{"type":"status","message":"complete"}</span></code></pr
 </div>
 
 <footer>
-  <a href="https://meet-luna-ai.vercel.app">Luna AI</a> — Autonomous Security Sentinel &nbsp;·&nbsp; <a href="https://meet-luna-ai.vercel.app">Back to App</a>
+  <a href="https://meet-luna-ai.vercel.app">Luna AI</a> - Autonomous Security Sentinel &nbsp;·&nbsp; <a href="https://meet-luna-ai.vercel.app">Back to App</a>
 </footer>
 
 <script>

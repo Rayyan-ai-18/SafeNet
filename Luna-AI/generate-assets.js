@@ -147,7 +147,7 @@ function createOGImage() {
   // Background: #060610
   fillRect(pixels, width, 0, 0, width, height, 6, 6, 16, 255);
 
-  // Subtle gradient overlay — lighter center
+  // Subtle gradient overlay - lighter center
   for (let y = 0; y < height; y++) {
     for (let x = 0; x < width; x++) {
       const dx = x - width * 0.38;

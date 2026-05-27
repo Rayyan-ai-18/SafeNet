@@ -24,7 +24,7 @@ export async function scanUrl(url) {
     const res = await callLuna(`${endpoint}?url=${encodeURIComponent(url)}&type=phishing`, {
       headers: { Accept: 'text/event-stream' },
     })
-    // SSE response — parse events
+    // SSE response - parse events
     const text = await res.text()
     const events = text.split('\n\n').filter(Boolean)
     const findings = events

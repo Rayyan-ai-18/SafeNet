@@ -1,5 +1,5 @@
-// Luna AI — Real SSE Scan Engine
-// Every module performs live network checks — no fake/random results.
+// Luna AI - Real SSE Scan Engine
+// Every module performs live network checks - no fake/random results.
 //
 // Phishing scan modules: URL Patterns, Domain Age, SSL Cert, Redirect Chain, Info Disclosure
 // Web security scan modules: Security Headers, SSL/TLS Config, Response Timing, Info Disclosure
@@ -58,7 +58,7 @@ function fetchWithTimeout(url, opts = {}, ms = 8000) {
 //  SCAN MODULES
 // ══════════════════════════════════════════════════════════════════════════
 
-// 1. URL Pattern Analysis — pure JS, no network, instant
+// 1. URL Pattern Analysis - pure JS, no network, instant
 function runUrlPatterns(targetUrl) {
   try {
     const url    = new URL(targetUrl);
@@ -72,7 +72,7 @@ function runUrlPatterns(targetUrl) {
     if (parts.length > 4) {
       issues.push('Excessive subdomain depth (common phishing pattern)');
     }
-    // Legitimate root domains for each brand — no false positives
+    // Legitimate root domains for each brand - no false positives
     const brandDomains = {
       'google':    ['google.com', 'google.co.in', 'google.co.uk', 'googleapis.com', 'gstatic.com', 'youtube.com'],
       'microsoft': ['microsoft.com', 'microsoftonline.com', 'live.com', 'outlook.com', 'bing.com', 'azure.com'],
@@ -98,13 +98,13 @@ function runUrlPatterns(targetUrl) {
       issues.push(`Unusually long URL (${targetUrl.length} chars)`);
     }
     if (targetUrl.includes('@')) {
-      issues.push('@ symbol in URL — credential spoofing risk');
+      issues.push('@ symbol in URL - credential spoofing risk');
     }
     if (/%2f%2f/i.test(targetUrl)) {
-      issues.push('URL-encoded double-slash — obfuscation detected');
+      issues.push('URL-encoded double-slash - obfuscation detected');
     }
     if ((host.match(/-/g) || []).length >= 4) {
-      issues.push('Excessive hyphens in domain — typosquatting indicator');
+      issues.push('Excessive hyphens in domain - typosquatting indicator');
     }
 
     if (issues.length > 0) {
@@ -140,23 +140,23 @@ async function runDomainAge(targetUrl) {
     const ageDays = Math.floor(ageMs / 86400000);
 
     if (ageDays < 30) {
-      return { status: 'vulnerable', detail: `Very new domain — only ${ageDays} days old (high risk)` };
+      return { status: 'vulnerable', detail: `Very new domain - only ${ageDays} days old (high risk)` };
     }
     if (ageDays < 180) {
-      return { status: 'vulnerable', detail: `Young domain — ${Math.floor(ageDays / 30)} months old` };
+      return { status: 'vulnerable', detail: `Young domain - ${Math.floor(ageDays / 30)} months old` };
     }
     const years = (ageDays / 365).toFixed(1);
-    return { status: 'safe', detail: `Established domain — ${years} years old` };
+    return { status: 'safe', detail: `Established domain - ${years} years old` };
   } catch {
     return { status: 'safe', detail: 'Domain age check skipped (lookup timed out)' };
   }
 }
 
-// 3. SSL Certificate — real TLS handshake
+// 3. SSL Certificate - real TLS handshake
 async function runSSL(targetUrl) {
   try {
     if (!targetUrl.startsWith('https')) {
-      return { status: 'vulnerable', detail: 'Site does not use HTTPS — all traffic unencrypted' };
+      return { status: 'vulnerable', detail: 'Site does not use HTTPS - all traffic unencrypted' };
     }
 
     const { hostname } = new URL(targetUrl);
@@ -194,7 +194,7 @@ async function runSSL(targetUrl) {
             return resolve({ status: 'vulnerable', detail: 'Certificate has expired' });
           }
           if (daysLeft < 30) {
-            return resolve({ status: 'vulnerable', detail: `Cert expires in ${daysLeft} days — renew now` });
+            return resolve({ status: 'vulnerable', detail: `Cert expires in ${daysLeft} days - renew now` });
           }
           if (protocol === 'TLSv1' || protocol === 'TLSv1.1') {
             return resolve({ status: 'vulnerable', detail: `Outdated protocol: ${protocol} (upgrade to TLS 1.2+)` });
@@ -252,7 +252,7 @@ async function runRedirects(targetUrl) {
   }
 }
 
-// 5. Security Headers — real HEAD request
+// 5. Security Headers - real HEAD request
 async function runHeaders(targetUrl) {
   try {
     const res = await fetchWithTimeout(targetUrl, { method: 'HEAD', redirect: 'follow' }, 8000);
@@ -316,7 +316,7 @@ async function runInfoDisclosure(targetUrl) {
   }
 }
 
-// 7. Response Timing — performance + availability signal
+// 7. Response Timing - performance + availability signal
 async function runResponseTime(targetUrl) {
   try {
     const start = Date.now();
@@ -326,11 +326,11 @@ async function runResponseTime(targetUrl) {
     if (!res.ok && res.status !== 405) {
       return { status: 'vulnerable', detail: `Server returned ${res.status}` };
     }
-    if (ttfb > 5000) return { status: 'vulnerable', detail: `Very slow TTFB: ${ttfb}ms — possible overload` };
-    if (ttfb > 2500) return { status: 'vulnerable', detail: `Slow TTFB: ${ttfb}ms — review server capacity` };
-    return { status: 'safe', detail: `TTFB: ${ttfb}ms — response healthy` };
+    if (ttfb > 5000) return { status: 'vulnerable', detail: `Very slow TTFB: ${ttfb}ms - possible overload` };
+    if (ttfb > 2500) return { status: 'vulnerable', detail: `Slow TTFB: ${ttfb}ms - review server capacity` };
+    return { status: 'safe', detail: `TTFB: ${ttfb}ms - response healthy` };
   } catch {
-    return { status: 'vulnerable', detail: 'Target did not respond — possibly down' };
+    return { status: 'vulnerable', detail: 'Target did not respond - possibly down' };
   }
 }
 
@@ -592,19 +592,19 @@ module.exports = async function handler(req, res) {
   const { url, type = 'phishing' } = req.query;
   if (!url) return res.status(400).json({ error: 'Missing url parameter' });
 
-  // Basic URL validation — must be http(s)
+  // Basic URL validation - must be http(s)
   let targetUrl;
   try {
     targetUrl = new URL(url);
     if (!['http:', 'https:'].includes(targetUrl.protocol)) throw new Error('bad protocol');
-    // SSRF guard — block private/loopback ranges
+    // SSRF guard - block private/loopback ranges
     const host = targetUrl.hostname;
     if (/^(localhost|127\.|10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(host)) {
       return res.status(400).json({ error: 'Private/loopback targets are not allowed' });
     }
     targetUrl = targetUrl.href;
   } catch {
-    return res.status(400).json({ error: 'Invalid URL — must start with http:// or https://' });
+    return res.status(400).json({ error: 'Invalid URL - must start with http:// or https://' });
   }
 
   // Rate limit

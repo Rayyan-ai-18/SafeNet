@@ -10,7 +10,7 @@ import AlertCard from '../components/ui/AlertCard'
 import StatCard from '../components/ui/StatCard'
 import Button from '../components/ui/Button'
 
-// English demo messages — extended with more context
+// English demo messages - extended with more context
 const enMessages = [
   { from: 'Thabo', text: 'yo guys did u see sipho presentation lmao 😭', delay: 1.5 },
   { from: 'Aisha', text: 'hahaha it was SO bad 💀💀', delay: 3.5 },
@@ -37,8 +37,8 @@ const stats = [
 const analysisStages = [
   { text: 'Scanning message content...', detail: 'Checking for harmful language patterns', dotColor: '#F59E0B' },
   { text: 'Analyzing SA language context...', detail: 'Cross-referencing slang and cultural terms', dotColor: '#F97316' },
-  { text: 'Running threat detection model...', detail: 'Luna AI engine — on-device processing', dotColor: '#EF4444' },
-  { text: '✅ Threat confirmed at 94% confidence', detail: 'Cyberbullying detected — alerting parent', dotColor: '#EF4444' },
+  { text: 'Running threat detection model...', detail: 'Luna AI engine - on-device processing', dotColor: '#EF4444' },
+  { text: '✅ Threat confirmed at 94% confidence', detail: 'Cyberbullying detected - alerting parent', dotColor: '#EF4444' },
 ]
 
 // Zulu analysis stages
@@ -46,7 +46,7 @@ const analysisStagesZu = [
   { text: 'Ihlola umlayezo...', detail: 'Ihlola izinkulumo ezinobungozi', dotColor: '#F59E0B' },
   { text: 'Ihlola ulimi lwesiZulu...', detail: 'Ihlola izinkulumo zolimi lwaseNingizimu Afrika', dotColor: '#F97316' },
   { text: 'Isebenzisa imodeli yokuthola izinsongo...', detail: 'I-Luna AI icubungula emshinini wengane', dotColor: '#EF4444' },
-  { text: '✅ Ingozi itholiwe', detail: 'Ukuxhashazwa kutholakele — ukwazisa umzali', dotColor: '#EF4444' },
+  { text: '✅ Ingozi itholiwe', detail: 'Ukuxhashazwa kutholakele - ukwazisa umzali', dotColor: '#EF4444' },
 ]
 
 const PHONE_W = 280
@@ -496,7 +496,7 @@ export default function Demo() {
 
   const msgCountRef = useRef(0)
 
-  // Demo timeline — uses state changes only (no direct GSAP on refs during timeline)
+  // Demo timeline - uses state changes only (no direct GSAP on refs during timeline)
   const runTimeline = useCallback(() => {
     const currentLang = lang
     const currentMsgData = currentLang === 'zu' ? zuMessages : enMessages
@@ -568,7 +568,7 @@ export default function Demo() {
       setFlaggedMessageIndex(newIdx)
     }, 10.0)
 
-    // Phase 4.5: Threat Analysis — show Luna scanning the flagged message (10.5s)
+    // Phase 4.5: Threat Analysis - show Luna scanning the flagged message (10.5s)
     tl.add(() => {
       setShowAnalysis(true)
       setAnalysisStage(0)
@@ -580,7 +580,7 @@ export default function Demo() {
     tl.add(() => setAnalysisStage(2), 12.0)
     tl.add(() => setAnalysisStage(3), 12.8)
 
-    // Phase 5: Alert fires — banner + AlertCard (13.5s)
+    // Phase 5: Alert fires - banner + AlertCard (13.5s)
     tl.add(() => {
       setShowBanner(true)
       setShowAlert(true)
@@ -616,7 +616,7 @@ export default function Demo() {
       setTimelinePhase('result')
     }, 24.0)
 
-    // Phase 9: Zulu demo starts — show that Luna works in Zulu too (30s)
+    // Phase 9: Zulu demo starts - show that Luna works in Zulu too (30s)
     tl.add(() => {
       setShowZuluDemo(true)
       setTimelinePhase('zulu-demo')
@@ -754,7 +754,7 @@ export default function Demo() {
   return (
     <>
       <SEO
-        title="Live Demo — SafeNet SA Threat Detection in Action"
+        title="Live Demo - SafeNet SA Threat Detection in Action"
         description="Watch Luna detect and block cyberbullying on WhatsApp in real time. See SafeNet SA's AI threat detection with alert notifications and parent dashboard. English and isiZulu."
         canonicalPath="/demo"
       />
@@ -781,7 +781,7 @@ export default function Demo() {
               See Luna in Action
             </h1>
             <p className="text-base text-safenet-text-2 max-w-lg mx-auto mb-6">
-              Watch how Luna detects and blocks cyberbullying on WhatsApp — in under a second. Then see everything else Luna can do.
+              Watch how Luna detects and blocks cyberbullying on WhatsApp - in under a second. Then see everything else Luna can do.
             </p>
 
             {/* Controls */}
@@ -881,7 +881,7 @@ export default function Demo() {
                   <div className="flex items-center gap-2">
                     <span className="text-sm">🟢</span>
                     <span className="text-sm font-medium text-safenet-text">Active</span>
-                    <span className="text-sm text-safenet-text-3">— watching WhatsApp</span>
+                    <span className="text-sm text-safenet-text-3">- watching WhatsApp</span>
                   </div>
                 </div>
 
@@ -933,7 +933,7 @@ export default function Demo() {
                 </AnimatePresence>
               </div>
 
-              {/* Parent Phone Notification — appears after alert */}
+              {/* Parent Phone Notification - appears after alert */}
               <AnimatePresence>
                 {showParentNotification && !showParentDashboard && (
                   <motion.div
@@ -971,7 +971,7 @@ export default function Demo() {
                               <strong className="text-safenet-danger">Cyberbullying detected</strong> on Liam's WhatsApp
                             </p>
                             <p className="text-[10px] text-safenet-text-3 mt-1">
-                              Threat level: <span className="font-semibold text-safenet-danger">94%</span> — {isZu ? 'Ukuxhashazwa okulotholwe uLuna' : 'Grooming & bullying patterns detected'}
+                              Threat level: <span className="font-semibold text-safenet-danger">94%</span> - {isZu ? 'Ukuxhashazwa okulotholwe uLuna' : 'Grooming & bullying patterns detected'}
                             </p>
                           </div>
                         </div>
@@ -992,14 +992,14 @@ export default function Demo() {
                         className="flex items-center gap-1.5 mt-2 text-[10px] text-safenet-text-3"
                       >
                         <Check className="w-3 h-3 text-safenet-primary" />
-                        Alert sent via push notification — parent notified in 0.3s
+                        Alert sent via push notification - parent notified in 0.3s
                       </motion.div>
                     </div>
                   </motion.div>
                 )}
               </AnimatePresence>
 
-              {/* Parent Dashboard — full phone mockup showing parent's view */}
+              {/* Parent Dashboard - full phone mockup showing parent's view */}
               <AnimatePresence>
                 {showParentDashboard && (
                   <motion.div
@@ -1030,7 +1030,7 @@ export default function Demo() {
 
                         {/* Children cards */}
                         <div className="space-y-2">
-                          {/* Liam — with active alert */}
+                          {/* Liam - with active alert */}
                           <motion.div
                             initial={{ opacity: 0, x: -10 }}
                             animate={{ opacity: 1, x: 0 }}
@@ -1131,7 +1131,7 @@ export default function Demo() {
                 )}
               </AnimatePresence>
 
-              {/* Capabilities showcase — appears after alert */}
+              {/* Capabilities showcase - appears after alert */}
               <AnimatePresence>
                 {showCapabilities && (
                   <motion.div
@@ -1151,7 +1151,7 @@ export default function Demo() {
                         </div>
                         <div>
                           <h4 className="text-sm font-semibold text-safenet-text">Link Scanner</h4>
-                          <p className="text-xs text-safenet-text-3">Scans every URL before your child taps — phishing, scams, blocked.</p>
+                          <p className="text-xs text-safenet-text-3">Scans every URL before your child taps - phishing, scams, blocked.</p>
                         </div>
                       </div>
 
@@ -1217,8 +1217,8 @@ export default function Demo() {
                           Luna speaks isiZulu too
                         </h3>
                         <p className="text-base text-safenet-text-2 leading-relaxed mb-4">
-                          Luna understands and detects threats in all 11 official South African languages — not just English. 
-                          Cyberbullying in isiZulu, phishing in Afrikaans, scams in Sesotho — Luna catches them all.
+                          Luna understands and detects threats in all 11 official South African languages - not just English. 
+                          Cyberbullying in isiZulu, phishing in Afrikaans, scams in Sesotho - Luna catches them all.
                         </p>
                         <div className="flex flex-wrap justify-center lg:justify-start gap-2">
                           {['English', 'isiZulu', 'Afrikaans', 'isiXhosa', 'Sesotho', 'Setswana', 'Sepedi', 'Tshivenḓa', 'Xitsonga', 'siSwati', 'isiNdebele'].map((langName) => (
@@ -1271,16 +1271,16 @@ export default function Demo() {
               <h2 className="font-display text-heading-lg text-safenet-text mb-4">Luna threat detection in action: what you'll see in this demo</h2>
               <div className="text-sm text-safenet-text-2 leading-relaxed space-y-3">
                 <p>
-                  This live demo shows exactly how SafeNet SA protects your child from cyberbullying, grooming, and online threats on WhatsApp. You'll watch Luna AI intercept a bullying message in real time — detecting harmful language, analyzing the threat in its South African cultural context, and alerting the parent within 0.3 seconds. The demo works in both English and isiZulu, reflecting SafeNet's ability to monitor threats across all 11 official South African languages.
+                  This live demo shows exactly how SafeNet SA protects your child from cyberbullying, grooming, and online threats on WhatsApp. You'll watch Luna AI intercept a bullying message in real time - detecting harmful language, analyzing the threat in its South African cultural context, and alerting the parent within 0.3 seconds. The demo works in both English and isiZulu, reflecting SafeNet's ability to monitor threats across all 11 official South African languages.
                 </p>
                 <p>
-                  After Luna flags the threat, you'll see the <strong className="text-safenet-text">threat analysis overlay</strong> — a 4-stage scan process that shows exactly how Luna evaluates message content: scanning, analyzing SA language context, running the threat detection model, and confirming the threat at 94% confidence. All processing happens on-device, meaning no message content is ever transmitted or stored.
+                  After Luna flags the threat, you'll see the <strong className="text-safenet-text">threat analysis overlay</strong> - a 4-stage scan process that shows exactly how Luna evaluates message content: scanning, analyzing SA language context, running the threat detection model, and confirming the threat at 94% confidence. All processing happens on-device, meaning no message content is ever transmitted or stored.
                 </p>
                 <p>
                   Next, you'll see the <strong className="text-safenet-text">parent alert flow</strong>: a push notification sent to the parent's phone, followed by the parent dashboard view showing Liam's active alert alongside other children's safety status. Parents can then block the app, pause the internet, or call their child directly. According to <a href="https://www.childlinesa.org.za" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">Childline South Africa</a>, cyberbullying and online grooming have become the fastest-growing threats to SA children. <a href="https://www.unicef.org/southafrica/reports" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">UNICEF SA</a> reports that 1 in 3 children in South Africa face cyberbullying.
                 </p>
                 <p>
-                  SafeNet SA is fully POPIA compliant — message content never leaves your child's device. Parents see only threat alerts, never chat content. <Link to="/how-it-works" className="text-safenet-primary font-medium hover:underline">Learn how SafeNet works →</Link> or <Link to="/luna" className="text-safenet-primary font-medium hover:underline">talk to Luna</Link> to ask about your child's safety.
+                  SafeNet SA is fully POPIA compliant - message content never leaves your child's device. Parents see only threat alerts, never chat content. <Link to="/how-it-works" className="text-safenet-primary font-medium hover:underline">Learn how SafeNet works →</Link> or <Link to="/luna" className="text-safenet-primary font-medium hover:underline">talk to Luna</Link> to ask about your child's safety.
                 </p>
               </div>
             </div>
@@ -1325,7 +1325,7 @@ export default function Demo() {
                         <span className="text-safenet-primary">Always protecting.</span>
                       </h2>
                       <p className="text-base text-safenet-text-2 max-w-lg mx-auto leading-relaxed mb-6">
-                        From cyberbullying to phishing links, screen time to location safety — 
+                        From cyberbullying to phishing links, screen time to location safety - 
                         Luna is your family's complete digital guardian. 
                         <strong className="text-safenet-text"> Free to start. Ready in 5 minutes.</strong>
                       </p>
@@ -1372,7 +1372,7 @@ export default function Demo() {
                       </h2>
                       <p className="text-base text-safenet-text-2 max-w-lg mx-auto leading-relaxed mb-6">
                         Kusukela ekuxhashazweni ku-inthanethi kuya kuzixhumanisi eziyingozi, 
-                        isikhathi sesikrini nokuphepha kwendawo — uLuna ungumqaphi wakho ophelele. 
+                        isikhathi sesikrini nokuphepha kwendawo - uLuna ungumqaphi wakho ophelele. 
                         <strong className="text-safenet-text"> Mahhala ukuqala. Ilungile ngemizuzu emi-5.</strong>
                       </p>
                       {showFinalCTA && (

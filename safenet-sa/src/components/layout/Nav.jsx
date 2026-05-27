@@ -79,7 +79,7 @@ export default function Nav({ user }) {
             <span className="font-display text-lg lg:text-xl text-safenet-text tracking-tight">SafeNet SA</span>
           </Link>
 
-          {/* Desktop nav — minimal */}
+          {/* Desktop nav - minimal */}
           <nav className="hidden lg:flex items-center gap-6">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path
@@ -146,7 +146,7 @@ export default function Nav({ user }) {
         </div>
       </div>
 
-      {/* Mobile menu — clean, minimal */}
+      {/* Mobile menu - clean, minimal */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div

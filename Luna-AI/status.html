@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>Status — Luna AI</title>
+  <title>Status - Luna AI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <style>
@@ -42,7 +42,7 @@
   <div class="main">
     <div id="content"><div class="loading">Loading status…</div></div>
   </div>
-  <div class="footer">Powered by <a href="https://meet-luna-ai.vercel.app">Luna AI</a> — Autonomous Security Sentinel</div>
+  <div class="footer">Powered by <a href="https://meet-luna-ai.vercel.app">Luna AI</a> - Autonomous Security Sentinel</div>
   <script>
     const id = location.pathname.replace(/^\/status\/?/, '').replace(/\/$/, '');
     if (!id) {
@@ -55,8 +55,8 @@
           const cls = online ? 'online' : data.last_status ? 'offline' : 'unknown';
           const emoji = online ? '✅' : data.last_status ? '🔴' : '❓';
           const label = online ? 'All Systems Operational' : data.last_status ? 'Outage Detected' : 'Status Unknown';
-          const uptime = data.uptime_pct != null ? parseFloat(data.uptime_pct).toFixed(1) + '%' : '—';
-          const ttfb = data.last_ttfb ? data.last_ttfb + 'ms' : '—';
+          const uptime = data.uptime_pct != null ? parseFloat(data.uptime_pct).toFixed(1) + '%' : '-';
+          const ttfb = data.last_ttfb ? data.last_ttfb + 'ms' : '-';
           const checked = data.last_checked ? new Date(data.last_checked).toLocaleString() : 'Never';
           document.getElementById('content').innerHTML = `
             <div class="status-card">
@@ -66,12 +66,12 @@
               <div class="stats-row">
                 <div class="stat-box"><div class="stat-val">${uptime}</div><div class="stat-key">Uptime</div></div>
                 <div class="stat-box"><div class="stat-val">${ttfb}</div><div class="stat-key">Response</div></div>
-                <div class="stat-box"><div class="stat-val">${data.last_status || '—'}</div><div class="stat-key">HTTP Status</div></div>
+                <div class="stat-box"><div class="stat-val">${data.last_status || '-'}</div><div class="stat-key">HTTP Status</div></div>
               </div>
               <div class="last-checked">Last checked: ${checked}</div>
               <div class="monitor-url">${data.url || ''}</div>
             </div>`;
-          document.title = (data.label || 'Monitor') + ' Status — Luna AI';
+          document.title = (data.label || 'Monitor') + ' Status - Luna AI';
         })
         .catch(err => {
           document.getElementById('content').innerHTML = err === 404

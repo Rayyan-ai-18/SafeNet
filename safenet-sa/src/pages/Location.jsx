@@ -58,7 +58,7 @@ function MapController({ center }) {
 const locationSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: 'SafeNet SA — Real-Time GPS Location Tracking',
+  name: 'SafeNet SA - Real-Time GPS Location Tracking',
   description: 'Track your children\'s real-time GPS location. View location history, set safe zones (geofences), and receive arrival and departure alerts.',
   url: 'https://safenet-sa.co.za/location',
   isPartOf: {
@@ -86,7 +86,7 @@ export default function Location() {
   return (
     <DashboardShell>
       <SEO
-        title="SafeNet SA — Real-Time GPS Location Tracking"
+        title="SafeNet SA - Real-Time GPS Location Tracking"
         description="Track your children's real-time GPS location. View location history, set safe zones (geofences), and receive arrival and departure alerts."
         canonicalPath="/location"
         jsonLd={locationSchema}

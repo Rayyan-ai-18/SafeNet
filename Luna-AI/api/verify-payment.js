@@ -57,7 +57,7 @@ module.exports = async function handler(req, res) {
       if (!profileRes.ok) {
         const err = await profileRes.text();
         console.error('Luna: profile upsert failed:', err);
-        // Don't fail the response — payment is verified, profile update is best-effort
+        // Don't fail the response - payment is verified, profile update is best-effort
       }
     } catch (e) {
       console.error('Luna: profile upsert error:', e.message);

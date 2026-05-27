@@ -1,4 +1,4 @@
-// Luna AI Extension — Luna Website Bridge
+// Luna AI Extension - Luna Website Bridge
 // Runs only on meet-luna-ai.vercel.app
 // Listens for proactive threat alerts from the extension background
 // and triggers Luna's voice without the user having to say anything.
@@ -15,9 +15,9 @@
 
     let body;
     if (vulns && vulns.length > 0) {
-      body = `The site you just visited — ${domain} — is flagging as ${verdict}. ${vulns[0]}.`;
+      body = `The site you just visited - ${domain} - is flagging as ${verdict}. ${vulns[0]}.`;
     } else {
-      body = `The site you just visited — ${domain} — scored ${score} out of 100. That's ${verdict}.`;
+      body = `The site you just visited - ${domain} - scored ${score} out of 100. That's ${verdict}.`;
     }
 
     const cta = isDangerous
@@ -35,7 +35,7 @@
     const message = buildAlertMessage(score, verdict, domain, vulns);
 
     // Store the alert so Luna's voice pipeline can pick it up
-    // We dispatch a custom DOM event — script.js listens for this
+    // We dispatch a custom DOM event - script.js listens for this
     window.dispatchEvent(new CustomEvent('luna:proactive', {
       detail: { message, score, verdict, domain }
     }));

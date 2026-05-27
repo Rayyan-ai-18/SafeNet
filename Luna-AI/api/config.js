@@ -1,4 +1,4 @@
-// Returns only the Supabase anon key — safe to expose, protected by RLS.
+// Returns only the Supabase anon key - safe to expose, protected by RLS.
 // NEVER return SUPABASE_SERVICE_KEY or SUPABASE_SERVICE_ROLE_KEY here.
 module.exports = async function handler(req, res) {
   res.setHeader('Cache-Control', 'public, max-age=300');

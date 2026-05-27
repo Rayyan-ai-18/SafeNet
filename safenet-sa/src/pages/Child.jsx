@@ -11,7 +11,7 @@ import PauseToggle from '../components/dashboard/PauseToggle'
 const childSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: 'SafeNet SA — Child Profile & Device Controls',
+  name: 'SafeNet SA - Child Profile & Device Controls',
   description: 'Manage your child\'s SafeNet SA profile. View screen time, block apps, set bedtime, and control internet access from one place.',
   url: 'https://safenet-sa.co.za/child',
   isPartOf: {
@@ -35,7 +35,7 @@ export default function Child() {
   return (
     <DashboardShell>
       <SEO
-        title="SafeNet SA — Child Profile & Device Controls"
+        title="SafeNet SA - Child Profile & Device Controls"
         description="Manage your child's SafeNet SA profile. View screen time, block apps, set bedtime, and control internet access from one place."
         canonicalPath="/child"
         jsonLd={childSchema}

@@ -21,7 +21,7 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  // Never intercept API calls — always go to network
+  // Never intercept API calls - always go to network
   if (e.request.url.includes('/api/')) return;
 
   // Always prefer network for HTML navigations to avoid stale shell

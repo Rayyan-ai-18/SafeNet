@@ -26,12 +26,12 @@ const capabilities = [
   {
     icon: Ear,
     title: 'Voice Alerts',
-    desc: 'Luna speaks to you in your language — real-time voice notifications with natural SA accents.',
+    desc: 'Luna speaks to you in your language - real-time voice notifications with natural SA accents.',
   },
   {
     icon: Volume2,
     title: 'Voice Commands',
-    desc: 'Ask Luna questions in any SA language. "Ingane yami ikuphephi?" — your child safe? Yes, in isiZulu.',
+    desc: 'Ask Luna questions in any SA language. "Ingane yami ikuphephi?" - your child safe? Yes, in isiZulu.',
   },
   {
     icon: Languages,

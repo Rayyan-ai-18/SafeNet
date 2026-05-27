@@ -1,4 +1,4 @@
-// Luna AI Extension — Popup Script
+// Luna AI Extension - Popup Script
 
 const LUNA_URL = 'https://meet-luna-ai.vercel.app';
 
@@ -16,7 +16,7 @@ function renderScanning(url) {
       <div class="verdict-top">
         <span class="verdict-icon">🔍</span>
         <span class="verdict-label">Scanning</span>
-        <span class="score-pill">—</span>
+        <span class="score-pill">-</span>
       </div>
       <div class="verdict-url">${truncateUrl(url)}</div>
     </div>
@@ -39,7 +39,7 @@ function renderUnknown(url) {
       <div class="verdict-top">
         <span class="verdict-icon">🔒</span>
         <span class="verdict-label">Not Scanned</span>
-        <span class="score-pill">—</span>
+        <span class="score-pill">-</span>
       </div>
       <div class="verdict-url">${truncateUrl(url || 'No active page')}</div>
     </div>
@@ -211,7 +211,7 @@ async function init() {
     }
     const result = res?.result;
     if (!result) {
-      // No result yet — trigger scan and poll
+      // No result yet - trigger scan and poll
       renderScanning(currentTabUrl);
       chrome.runtime.sendMessage({ type: 'RESCAN', tabId: tab.id, url: currentTabUrl });
       pollForResult(tab.id);

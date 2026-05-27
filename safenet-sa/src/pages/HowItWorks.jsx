@@ -32,7 +32,7 @@ const steps = [
     iconBg: 'bg-safenet-accent-light',
     iconColor: 'text-safenet-accent',
     title: { en: 'Every link and message scanned before your child sees it', zu: 'Zonke izixhumanisi nemilayezo kuhlolwa ngaphambi kokuba ingane yakho ibone' },
-    desc: 'Fake SASSA sites, phishing links, adult content — blocked instantly. Cyberbullying and grooming detected on-device.',
+    desc: 'Fake SASSA sites, phishing links, adult content - blocked instantly. Cyberbullying and grooming detected on-device.',
     side: 'left',
     hasScanAnimation: true,
   },
@@ -40,7 +40,7 @@ const steps = [
     icon: AlertTriangle,
     iconBg: 'bg-safenet-danger-light',
     iconColor: 'text-safenet-danger',
-    title: { en: 'Threat detected — you know in under a second', zu: 'Usongo lutholakele — wazi ngaphansi komzuzwana' },
+    title: { en: 'Threat detected - you know in under a second', zu: 'Usongo lutholakele - wazi ngaphansi komzuzwana' },
     desc: 'You receive a push notification with the threat type, severity, and culturally appropriate guidance in your language. Message content never leaves your child\'s device.',
     side: 'right',
     hasAlertCard: true,
@@ -50,7 +50,7 @@ const steps = [
     iconBg: 'bg-safenet-primary-light',
     iconColor: 'text-safenet-primary',
     title: { en: 'You decide what happens next', zu: 'Wena unquma okulandelayo' },
-    desc: 'Block the app. Pause the internet. Call your child. Or simply stay informed. SafeNet gives you the information — you make the decision.',
+    desc: 'Block the app. Pause the internet. Call your child. Or simply stay informed. SafeNet gives you the information - you make the decision.',
     side: 'left',
     hasActions: true,
   },
@@ -110,7 +110,7 @@ function StepCard({ step, index }) {
                 <span className="text-[8px] text-safenet-text-3">●●●●</span>
               </div>
             </div>
-            <p className="text-xs text-safenet-text-3 mt-3">Luna's green dot in the status bar — the only sign she's there.</p>
+            <p className="text-xs text-safenet-text-3 mt-3">Luna's green dot in the status bar - the only sign she's there.</p>
           </div>
         )}
 
@@ -168,10 +168,10 @@ function StepCard({ step, index }) {
             </div>
             <div className="flex justify-center gap-4 mt-4">
               <span className="inline-flex items-center gap-1 text-xs text-green-600 font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500" /> Safe — passes through
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500" /> Safe - passes through
               </span>
               <span className="inline-flex items-center gap-1 text-xs text-safenet-danger font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-safenet-danger" /> Blocked — threat stopped
+                <span className="w-1.5 h-1.5 rounded-full bg-safenet-danger" /> Blocked - threat stopped
               </span>
             </div>
           </div>
@@ -232,7 +232,7 @@ const faqItems = [
   },
   {
     q: 'Can Luna detect threats in isiZulu and other SA languages?',
-    a: 'Yes. Luna is trained on South African language data including isiZulu, Afrikaans, isiXhosa, Sesotho, and all 11 official languages. Cyberbullying in isiZulu, phishing scams in Afrikaans, grooming in Sesotho — Luna understands the cultural context and slang. This is what makes SafeNet different from any global parental control app. <ExternalLink href="https://www.childlinesa.org.za">Childline SA</ExternalLink> confirms that online grooming in indigenous languages is rising sharply in South Africa.',
+    a: 'Yes. Luna is trained on South African language data including isiZulu, Afrikaans, isiXhosa, Sesotho, and all 11 official languages. Cyberbullying in isiZulu, phishing scams in Afrikaans, grooming in Sesotho - Luna understands the cultural context and slang. This is what makes SafeNet different from any global parental control app. <ExternalLink href="https://www.childlinesa.org.za">Childline SA</ExternalLink> confirms that online grooming in indigenous languages is rising sharply in South Africa.',
   },
   {
     q: 'What happens when Luna detects a threat?',
@@ -240,11 +240,11 @@ const faqItems = [
   },
   {
     q: 'Is SafeNet SA compliant with South African privacy laws?',
-    a: 'Absolutely. SafeNet is POPIA compliant by architecture — not as an afterthought. All WhatsApp analysis runs entirely on the child\'s device using on-device AI. Message content is never transmitted or stored. Parents see only threat alerts — never chat content. According to <ExternalLink href="https://popia.co.za">POPIA legislation</ExternalLink>, on-device processing of personal information is the gold standard for compliance.',
+    a: 'Absolutely. SafeNet is POPIA compliant by architecture - not as an afterthought. All WhatsApp analysis runs entirely on the child\'s device using on-device AI. Message content is never transmitted or stored. Parents see only threat alerts - never chat content. According to <ExternalLink href="https://popia.co.za">POPIA legislation</ExternalLink>, on-device processing of personal information is the gold standard for compliance.',
   },
   {
     q: 'How is SafeNet SA different from other parental control apps?',
-    a: 'SafeNet is the only child safety platform purpose-built for South African families. It speaks isiZulu, understands SA cultural context, and runs on the R1,500 Samsung A-series phones that most SA families use. Unlike global apps that scan for English keywords only, Luna detects threats across all 11 official languages. And unlike apps that upload chat data to the cloud, SafeNet processes everything on-device — making it fully POPIA compliant.',
+    a: 'SafeNet is the only child safety platform purpose-built for South African families. It speaks isiZulu, understands SA cultural context, and runs on the R1,500 Samsung A-series phones that most SA families use. Unlike global apps that scan for English keywords only, Luna detects threats across all 11 official languages. And unlike apps that upload chat data to the cloud, SafeNet processes everything on-device - making it fully POPIA compliant.',
   },
 ]
 
@@ -395,7 +395,7 @@ export default function HowItWorks() {
   return (
     <>
       <SEO
-        title="How SafeNet SA Works — Digital Safety for South African Families"
+        title="How SafeNet SA Works - Digital Safety for South African Families"
         description="See how SafeNet SA protects your child online. Install in 30 seconds. Luna AI monitors WhatsApp, blocks threats, and alerts parents instantly. POPIA compliant. Speaks isiZulu."
         canonicalPath="/how-it-works"
         jsonLd={[howItWorksSchema, faqSchema]}
@@ -435,7 +435,7 @@ export default function HowItWorks() {
                   </h3>
                   <p className="text-sm text-safenet-text-2 leading-relaxed">
                     SafeNet never reads or stores your child's messages. Luna's AI runs entirely on your child's device. 
-                    Only threat alerts — never message content — are sent to you. POPIA compliant by design.
+                    Only threat alerts - never message content - are sent to you. POPIA compliant by design.
                   </p>
                   <div className="flex flex-wrap gap-3 mt-3">
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-safenet-primary-light/30 rounded-full text-[11px] text-safenet-primary font-medium">
@@ -460,10 +460,10 @@ export default function HowItWorks() {
                   Every day, South African children face unique online dangers that global parental control apps weren't designed to catch. A phishing link promising a fake SASSA grant. A grooming message in isiZulu slang. Cyberbullying on WhatsApp that an English-only AI would miss completely. SafeNet SA was built from the ground up for these realities.
                 </p>
                 <p>
-                  According to <a href="https://www.unicef.org/southafrica/reports" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">UNICEF South Africa</a>, 1 in 3 children in South Africa face cyberbullying, and 94% of SA teens access the internet via smartphone — almost exclusively on Android devices. SafeNet runs on the R1,500 Samsung A-series that most SA families use, not a Silicon Valley prototype. <a href="https://www.childlinesa.org.za" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">Childline SA</a> reports that online grooming cases have risen significantly, with perpetrators increasingly using indigenous languages to evade detection.
+                  According to <a href="https://www.unicef.org/southafrica/reports" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">UNICEF South Africa</a>, 1 in 3 children in South Africa face cyberbullying, and 94% of SA teens access the internet via smartphone - almost exclusively on Android devices. SafeNet runs on the R1,500 Samsung A-series that most SA families use, not a Silicon Valley prototype. <a href="https://www.childlinesa.org.za" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">Childline SA</a> reports that online grooming cases have risen significantly, with perpetrators increasingly using indigenous languages to evade detection.
                 </p>
                 <p>
-                  SafeNet's Luna AI is the only child safety AI trained specifically on South African language data — isiZulu, Afrikaans, isiXhosa, Sesotho, and all 11 official languages. It processes everything on-device, meaning message content never leaves your child's phone. Parents see only threat alerts, never chat content. This makes SafeNet not just more effective than global alternatives, but fully <strong className="text-safenet-text">POPIA compliant by architecture</strong>.
+                  SafeNet's Luna AI is the only child safety AI trained specifically on South African language data - isiZulu, Afrikaans, isiXhosa, Sesotho, and all 11 official languages. It processes everything on-device, meaning message content never leaves your child's phone. Parents see only threat alerts, never chat content. This makes SafeNet not just more effective than global alternatives, but fully <strong className="text-safenet-text">POPIA compliant by architecture</strong>.
                 </p>
                 <p>
                   Ready to get started? <Link to="/auth" className="text-safenet-primary font-medium hover:underline">Create your free account in 30 seconds →</Link> Or <Link to="/demo" className="text-safenet-primary font-medium hover:underline">watch the live demo</Link> to see Luna catch a threat in real time.

@@ -1,4 +1,4 @@
-// Luna AI — Sentinel Monitoring API
+// Luna AI - Sentinel Monitoring API
 // GET  /api/monitor?action=list          → list user's monitored domains
 // POST /api/monitor  { action:'add',    url }  → add domain
 // POST /api/monitor  { action:'remove', id  }  → remove domain

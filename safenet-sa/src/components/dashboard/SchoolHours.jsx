@@ -109,7 +109,7 @@ export default function SchoolHours() {
                       <div className="text-sm font-medium text-safenet-text">{child.name}</div>
                       <div className="text-xs text-safenet-text-3">
                         {effectiveStatus
-                          ? 'Devices silenced — school hours'
+                          ? 'Devices silenced - school hours'
                           : isPaused
                             ? 'Override: excluded from schedule'
                             : 'Normal mode'

@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async'
 
 const SITE_URL = 'https://safenet-sa.co.za'
 const DEFAULT_OG_IMAGE = '/og-image.png'
-const DEFAULT_TITLE = 'SafeNet SA — Digital Safety for South African Families'
+const DEFAULT_TITLE = 'SafeNet SA - Digital Safety for South African Families'
 const DEFAULT_DESC =
   'The only digital safety platform built for South African families. Monitors WhatsApp. Speaks Zulu. POPIA compliant. Ready in 5 minutes.'
 

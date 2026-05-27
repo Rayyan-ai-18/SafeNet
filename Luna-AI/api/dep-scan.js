@@ -1,4 +1,4 @@
-// Luna AI — Real Dependency CVE Scanner
+// Luna AI - Real Dependency CVE Scanner
 // Queries OSV.dev (free, no API key needed) for known vulnerabilities.
 // Accepts: { dependencies: ["lodash@4.17.15", "axios@1.0.0", ...] }
 
@@ -13,7 +13,7 @@ module.exports = async function handler(req, res) {
   // Clamp to 30 packages to avoid timeout
   const deps = dependencies.slice(0, 30);
 
-  // Parse "name@version" — also handle "name": "version" style lines pasted raw
+  // Parse "name@version" - also handle "name": "version" style lines pasted raw
   function parseDep(str) {
     str = str.trim().replace(/^["']|["']$/g, '').replace(/,$/, '').trim();
     const atIdx = str.lastIndexOf('@');

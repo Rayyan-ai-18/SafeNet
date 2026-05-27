@@ -87,7 +87,7 @@ function encodePNG(width, height, pixels) {
   ihdr[9] = 6;  // RGBA
   ihdr[10] = 0; ihdr[11] = 0; ihdr[12] = 0;
 
-  // IDAT — raw scanlines with filter byte 0
+  // IDAT - raw scanlines with filter byte 0
   const raw = [];
   for (let y = 0; y < height; y++) {
     raw.push(0); // filter type: None

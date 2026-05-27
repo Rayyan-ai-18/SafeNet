@@ -174,7 +174,7 @@ export default function GeofenceEditor({ open, onClose, editZone = null }) {
                 {/* Radius slider */}
                 <div>
                   <label className="block text-xs font-semibold text-safenet-text-2 uppercase tracking-wider mb-1.5">
-                    Radius — {radius}m
+                    Radius - {radius}m
                   </label>
                   <div className="flex items-center gap-3">
                     <Sliders className="w-4 h-4 text-safenet-text-3 flex-shrink-0" />

@@ -28,7 +28,7 @@ const languages = [
 const settingsSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebPage',
-  name: 'SafeNet SA — Account & Privacy Settings',
+  name: 'SafeNet SA - Account & Privacy Settings',
   description: 'Manage your SafeNet SA account, language preferences, subscription plan, and POPIA privacy settings.',
   url: 'https://safenet-sa.co.za/settings',
   isPartOf: {
@@ -212,7 +212,7 @@ export default function Settings() {
   return (
     <DashboardShell>
       <SEO
-        title="SafeNet SA — Account & Privacy Settings"
+        title="SafeNet SA - Account & Privacy Settings"
         description="Manage your SafeNet SA account, language preferences, subscription plan, and POPIA privacy settings."
         canonicalPath="/settings"
         jsonLd={settingsSchema}

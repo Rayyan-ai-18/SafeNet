@@ -12,8 +12,8 @@ module.exports = async function handler(req, res) {
 
   const { plan } = req.body;
   const PLANS = {
-    guardian: { amount: 99900,    label: 'Guardian Shield — ₹999/month'     },
-    sentinel: { amount: 1999900,  label: 'Sentinel Edge — ₹19,999/month'   },
+    guardian: { amount: 99900,    label: 'Guardian Shield - ₹999/month'     },
+    sentinel: { amount: 1999900,  label: 'Sentinel Edge - ₹19,999/month'   },
   };
   if (!PLANS[plan]) {
     return res.status(400).json({ error: 'Invalid plan' });
