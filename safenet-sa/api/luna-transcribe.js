@@ -5,7 +5,7 @@
 
 const TRANSCRIBE_URL =
   process.env.VULAVULA_TRANSCRIBE_URL ||
-  'https://vulavula-services.lelapa.ai/api/v2alpha/transcribe/sync/file'
+  'https://api.lelapa.ai/v1/transcribe/sync'
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
