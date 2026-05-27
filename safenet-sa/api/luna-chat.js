@@ -1,5 +1,5 @@
 // Serverless chat endpoint for SafeNet SA's Luna voice guardian.
-// Keeps the Groq API key server-side (set GROQ_API_KEY in Vercel env).
+// Uses OpenRouter, key kept server-side (set OPENROUTER_API_KEY in Vercel env).
 // Replies in the language the parent is speaking (English or isiZulu).
 
 const LUNA_SYSTEM_PROMPT = `You are Luna, the AI guardian of SafeNet SA - South Africa's child digital safety platform. You are warm, caring, and maternal - like a trusted family friend. You help parents understand: how SafeNet works, what cyberbullying looks like in SA, what grooming and honey trap tactics look like, how SafeNet protects their child, and what to do when they receive an alert. Keep all responses to 2-3 sentences maximum - your response will be spoken aloud. No bullet points, no markdown, no jargon. Always end with warmth or an offer to help further. Message content is never stored or transmitted - always reassure parents of this when relevant.`
@@ -14,7 +14,7 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid request' })
   }
 
-  const key = process.env.GROQ_API_KEY
+  const key = process.env.OPENROUTER_API_KEY
   if (!key) {
     return res.status(500).json({ error: 'Service unavailable' })
   }
@@ -30,15 +30,19 @@ module.exports = async function handler(req, res) {
       }))
     : []
 
+  const model = process.env.OPENROUTER_MODEL || 'meta-llama/llama-3.3-70b-instruct'
+
   try {
-    const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    const orRes = await fetch('https://openrouter.ai/api/v1/chat/completions', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${key}`,
         'Content-Type': 'application/json',
+        'HTTP-Referer': 'https://safe-net-murex.vercel.app',
+        'X-Title': 'SafeNet SA Luna',
       },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
+        model,
         messages: [
           { role: 'system', content: LUNA_SYSTEM_PROMPT },
           { role: 'system', content: languageDirective },
@@ -50,12 +54,12 @@ module.exports = async function handler(req, res) {
       }),
     })
 
-    if (!groqRes.ok) {
-      const err = await groqRes.text()
-      return res.status(groqRes.status).json({ error: err })
+    if (!orRes.ok) {
+      const err = await orRes.text()
+      return res.status(orRes.status).json({ error: err })
     }
 
-    const data = await groqRes.json()
+    const data = await orRes.json()
     const reply = data.choices?.[0]?.message?.content ?? ''
     return res.status(200).json({ reply })
   } catch (e) {
