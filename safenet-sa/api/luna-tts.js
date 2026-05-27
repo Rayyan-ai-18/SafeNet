@@ -3,6 +3,8 @@
 // reuses Luna-AI's DEEPGRAM_API_KEY, so no extra key is needed here.
 // isiZulu is handled by the browser voice on the client.
 
+import { guard } from './_guard.js'
+
 const UPSTREAM = process.env.LUNA_TTS_UPSTREAM || 'https://meet-luna-ai.vercel.app/api/tts'
 
 const VOICES = { F: 'aura-asteria-en', M: 'aura-orion-en' }
@@ -11,9 +13,10 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
+  if (!guard(req, res, { maxBodyBytes: 20_000 })) return
 
   const { text, gender = 'F' } = req.body || {}
-  if (!text || typeof text !== 'string') {
+  if (!text || typeof text !== 'string' || text.length > 2000) {
     return res.status(400).json({ error: 'Invalid request' })
   }
 

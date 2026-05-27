@@ -3,6 +3,8 @@
 // Receives { audio: base64, mimeType, language } and returns { text }.
 // English uses the browser's own recognition; this is used for isiZulu.
 
+import { guard } from './_guard.js'
+
 const TRANSCRIBE_URL =
   process.env.VULAVULA_TRANSCRIBE_URL ||
   'https://api.lelapa.ai/v1/transcribe/sync'
@@ -11,6 +13,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
+  if (!guard(req, res, { maxBodyBytes: 4_000_000 })) return
 
   const { audio, mimeType = 'audio/webm', language = 'zu' } = req.body || {}
   if (!audio || typeof audio !== 'string') {

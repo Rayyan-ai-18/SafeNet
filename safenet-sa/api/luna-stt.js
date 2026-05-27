@@ -3,12 +3,15 @@
 // Luna-AI's GROQ_API_KEY, so no extra key is needed here.
 // Accepts { audio: base64Wav } and returns { text }.
 
+import { guard } from './_guard.js'
+
 const UPSTREAM = process.env.LUNA_STT_UPSTREAM || 'https://meet-luna-ai.vercel.app/api/transcribe'
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
+  if (!guard(req, res, { maxBodyBytes: 4_000_000 })) return
 
   const { audio } = req.body || {}
   if (!audio || typeof audio !== 'string') {

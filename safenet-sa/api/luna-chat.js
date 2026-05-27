@@ -1,6 +1,7 @@
 // Serverless chat endpoint for SafeNet SA's Luna voice guardian.
 // Uses OpenRouter, key kept server-side (set OPENROUTER_API_KEY in Vercel env).
 // Replies in the language the parent is speaking (English or isiZulu).
+import { guard } from './_guard.js'
 
 const LUNA_SYSTEM_PROMPT = `You are Luna, the AI guardian of SafeNet SA - South Africa's child digital safety platform. You are warm, caring, and maternal - like a trusted family friend. You help parents understand: how SafeNet works, what cyberbullying looks like in SA, what grooming and honey trap tactics look like, how SafeNet protects their child, and what to do when they receive an alert. Keep all responses to 2-3 sentences maximum - your response will be spoken aloud. No bullet points, no markdown, no jargon. Always end with warmth or an offer to help further. Message content is never stored or transmitted - always reassure parents of this when relevant.`
 
@@ -8,9 +9,10 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' })
   }
+  if (!guard(req, res, { maxBodyBytes: 20_000 })) return
 
   const { message, history = [], language = 'en' } = req.body || {}
-  if (!message || typeof message !== 'string') {
+  if (!message || typeof message !== 'string' || message.length > 2000) {
     return res.status(400).json({ error: 'Invalid request' })
   }
 
