@@ -1,7 +1,8 @@
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy, useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AppProvider } from './context/AppContext'
+import { trackPageview } from './lib/analytics'
 
 const Landing = lazy(() => import('./pages/Landing'))
 const Auth = lazy(() => import('./pages/Auth'))
@@ -57,6 +58,11 @@ function LoadingFallback() {
 
 export default function App() {
   const location = useLocation()
+
+  // Capture a pageview on every route change (SPA navigation)
+  useEffect(() => {
+    trackPageview(location.pathname)
+  }, [location.pathname])
 
   return (
     <AppProvider>

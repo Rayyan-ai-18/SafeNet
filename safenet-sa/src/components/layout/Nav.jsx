@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Shield, Home } from 'lucide-react'
 import { gsap } from '../../lib/gsap'
 import Button from '../ui/Button'
+import { track } from '../../lib/analytics'
 
 const translations = {
   en: {
@@ -132,7 +133,7 @@ export default function Nav({ user }) {
                 <Button variant="secondary" size="sm">{t.dashboard}</Button>
               </Link>
             ) : (
-              <Link to="/auth">
+              <Link to="/auth" onClick={() => track('cta_click', { cta: 'get_started', location: 'nav' })}>
                 <Button variant="primary" size="sm" className="px-4">{t.getStarted}</Button>
               </Link>
             )}

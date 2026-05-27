@@ -9,6 +9,9 @@ import './styles/animations.css'
 import './lib/lenis'
 import './lib/gsap'
 import './i18n'
+import { initAnalytics } from './lib/analytics'
+
+initAnalytics()
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

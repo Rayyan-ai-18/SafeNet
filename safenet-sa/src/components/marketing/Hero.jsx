@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 import { gsap } from '../../lib/gsap'
 import Button from '../ui/Button'
 import PhoneMockup from '../ui/PhoneMockup'
+import { track } from '../../lib/analytics'
 
 export default function Hero() {
   const headlineRef = useRef(null)
@@ -77,13 +78,17 @@ export default function Hero() {
 
             {/* CTAs */}
             <div ref={ctaRef} className="flex flex-wrap items-center gap-4">
-              <Link to="/demo">
+              <Link to="/demo" onClick={() => track('cta_click', { cta: 'watch_demo', location: 'hero' })}>
                 <Button variant="primary" size="lg" magnetic>
                   <Sparkles className="w-5 h-5" />
                   Watch Live Demo
                 </Button>
               </Link>
-              <Link to="/luna" className="group inline-flex items-center gap-2 text-base font-medium text-safenet-text-2 hover:text-safenet-text transition-colors">
+              <Link
+                to="/luna"
+                onClick={() => track('cta_click', { cta: 'talk_to_luna', location: 'hero' })}
+                className="group inline-flex items-center gap-2 text-base font-medium text-safenet-text-2 hover:text-safenet-text transition-colors"
+              >
                 <Mic className="w-4 h-4" />
                 Talk to Luna
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
