@@ -2,6 +2,10 @@ import { useState, useRef, useCallback, useEffect } from 'react'
 
 const ZULU_KEYWORDS = ['sawubona', 'yebo', 'ngiyabonga', 'uthanda', 'izingane', 'wena', 'esikoleni', 'ukuxhashazwa', 'ungcono', 'uhlale', 'ekhaya', 'angikwazi', 'ngicela', 'kusasa', 'namuhla', 'mina', 'thina', 'nina', 'bona', 'akukho', 'bantu']
 
+// Tiny silent WAV used to "unlock" audio playback on the first user gesture.
+// Safari/iOS block .play() unless an element was first played during a tap.
+const SILENT_WAV = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA='
+
 function detectLanguage(text) {
   const lower = text.toLowerCase().trim()
   const zuluScore = ZULU_KEYWORDS.filter(word => lower.includes(word)).length
@@ -32,11 +36,36 @@ export function useLunaVoice() {
   const synthesisRef = useRef(window.speechSynthesis)
   const utteranceRef = useRef(null)
   const audioRef = useRef(null)
+  const audioUnlockedRef = useRef(false)
   const boundaryTimerRef = useRef(null)
   const isListeningRef = useRef(false)
   const mediaRecorderRef = useRef(null)
   const mediaStreamRef = useRef(null)
   const audioChunksRef = useRef([])
+
+  // Persistent audio element + unlock (must run inside a user gesture for Safari/iOS)
+  const getAudioEl = useCallback(() => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio()
+      audioRef.current.preload = 'auto'
+    }
+    return audioRef.current
+  }, [])
+
+  const unlockAudio = useCallback(() => {
+    if (audioUnlockedRef.current) return
+    try {
+      const el = getAudioEl()
+      el.src = SILENT_WAV
+      const p = el.play()
+      if (p && p.then) p.then(() => { el.pause(); el.currentTime = 0 }).catch(() => {})
+      // Prime speech synthesis voices too (Safari loads them lazily)
+      if (synthesisRef.current) synthesisRef.current.getVoices()
+      audioUnlockedRef.current = true
+    } catch {
+      // ignore - playback will fall back to the browser voice
+    }
+  }, [getAudioEl])
 
   // Check browser support
   useEffect(() => {
@@ -145,8 +174,8 @@ export function useLunaVoice() {
       const mime = format === 'wav' ? 'audio/wav' : format === 'ogg' ? 'audio/ogg' : 'audio/mpeg'
 
       await new Promise((resolve, reject) => {
-        const el = new Audio(`data:${mime};base64,${audio}`)
-        audioRef.current = el
+        const el = getAudioEl()
+        el.src = `data:${mime};base64,${audio}`
 
         const startPulse = () => {
           clearInterval(boundaryTimerRef.current)
@@ -166,7 +195,7 @@ export function useLunaVoice() {
       // Deepgram audio failed (decode/autoplay/network) - use browser voice instead
       await speakBrowser(text, lang, preferredGender)
     }
-  }, [speakBrowser])
+  }, [speakBrowser, getAudioEl])
 
   // Ask Luna via the SafeNet serverless endpoint (Groq key stays server-side)
   const callGroq = useCallback(async (message, lang) => {
@@ -299,6 +328,8 @@ export function useLunaVoice() {
 
   // Start listening: browser recognition for English, Vulavula recording for isiZulu
   const startListening = useCallback(() => {
+    unlockAudio() // runs inside the tap gesture so Safari allows later playback
+
     if (language === 'zu') {
       startVulavulaRecording()
       return
@@ -369,10 +400,11 @@ export function useLunaVoice() {
 
     recognitionRef.current = recognition
     recognition.start()
-  }, [browserSupported, language, processUserInput, startVulavulaRecording])
+  }, [browserSupported, language, processUserInput, startVulavulaRecording, unlockAudio])
 
   // Set gender preference
   const setGenderPreference = useCallback(async (preferredGender) => {
+    unlockAudio()
     localStorage.setItem('luna_voice_gender', preferredGender)
     localStorage.setItem('luna_setup_done', 'true')
     setGender(preferredGender)
@@ -382,11 +414,12 @@ export function useLunaVoice() {
     setLunaResponse(greeting)
     await speak(greeting, 'en', preferredGender)
     setState('idle')
-  }, [speak])
+  }, [speak, unlockAudio])
 
   // Send text input (for suggested questions)
   const sendTextInput = useCallback(async (text) => {
     if (!text.trim()) return
+    unlockAudio()
     setTranscript(text)
 
     const detectedLang = detectLanguage(text)
@@ -414,7 +447,7 @@ export function useLunaVoice() {
     const currentGender = getVoiceGender()
     await speak(response, detectedLang, currentGender)
     setState('idle')
-  }, [callGroq, speak])
+  }, [callGroq, speak, unlockAudio])
 
   // Stop listening
   const stopListening = useCallback(() => {
@@ -432,7 +465,6 @@ export function useLunaVoice() {
     }
     if (audioRef.current) {
       audioRef.current.pause()
-      audioRef.current = null
     }
     clearInterval(boundaryTimerRef.current)
     setState('idle')
