@@ -140,125 +140,53 @@
   </head>
   <body>
     <div id="root">
-      <!-- =============================================
-           STATIC FALLBACK CONTENT
-           This content is visible to AI crawlers and
-           search engines that do not execute JavaScript.
-           The React app replaces this content when loaded.
-           ============================================= -->
-      <div style="max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; font-family: system-ui, -apple-system, sans-serif; color: #1a1a2e; line-height: 1.6;">
-        <header style="margin-bottom: 3rem; text-align: center;">
-          <h1 style="font-size: 2.5rem; font-weight: 700; color: #0F7B4D; margin-bottom: 0.5rem;">SafeNet SA</h1>
-          <p style="font-size: 1.25rem; color: #4a5568;">Digital Safety for South African Families</p>
-        </header>
+      <!--
+        Minimal loading state shown while React hydrates.
+        All SEO content (meta tags, JSON-LD, OG) is in <head> above.
+        The React app replaces this content when it loads.
+      -->
+      <div style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        min-height: 100dvh;
+        background: #f8faf8;
+        color: #1a1a2e;
+        font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+        gap: 1.25rem;
+        padding: 2rem;
+      ">
+        <!-- Shield icon -->
+        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 4L6 12V22C6 34 14 40 24 44C34 40 42 34 42 22V12L24 4Z" fill="#0F7B4D" opacity="0.15"/>
+          <path d="M24 4L6 12V22C6 34 14 40 24 44C34 40 42 34 42 22V12L24 4Z" stroke="#0F7B4D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18 24L22 28L30 20" stroke="#0F7B4D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
 
-        <main>
-          <!-- Hero content -->
-          <section style="margin-bottom: 3rem; text-align: center;">
-            <h2 style="font-size: 2rem; color: #1a1a2e; margin-bottom: 1rem;">Your child is safe online. We made certain of it.</h2>
-            <p style="font-size: 1.125rem; color: #4a5568; max-width: 42rem; margin: 0 auto 1.5rem;">
-              SafeNet SA is the only digital safety platform built for South African families. 
-              It monitors WhatsApp for phishing and grooming threats using on-device AI, 
-              speaks all 11 official South African languages, and is fully POPIA compliant.
-              Setup takes just 5 minutes.
-            </p>
-            <p style="font-size: 1rem; color: #718096;">
-              POPIA compliant · No credit card required · Cancel anytime
-            </p>
-          </section>
+        <div style="
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          border: 3px solid #0F7B4D20;
+          border-top-color: #0F7B4D;
+          animation: safenet-spin 0.8s linear infinite;
+        "></div>
 
-          <!-- Key features -->
-          <section style="margin-bottom: 3rem;">
-            <h2 style="font-size: 1.75rem; color: #1a1a2e; margin-bottom: 1rem;">Features</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
-              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
-                <h3 style="font-size: 1.25rem; color: #0F7B4D; margin-bottom: 0.5rem;">WhatsApp Monitoring</h3>
-                <p style="color: #4a5568;">The only platform that monitors WhatsApp threats in Zulu, Afrikaans, Sotho, and Xhosa. All analysis happens on-device — nothing is transmitted or stored.</p>
-              </div>
-              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
-                <h3 style="font-size: 1.25rem; color: #0F7B4D; margin-bottom: 0.5rem;">Luna AI Alerts</h3>
-                <p style="color: #4a5568;">Real-time threat detection powered by Luna AI. Block phishing links, detect grooming attempts, and receive instant alerts in your preferred language.</p>
-              </div>
-              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
-                <h3 style="font-size: 1.25rem; color: #0F7B4D; margin-bottom: 0.5rem;">GPS Location Tracking</h3>
-                <p style="color: #4a5568;">Real-time GPS tracking with geofencing. Set safe zones around home, school, and other trusted locations. Get notified when your child arrives or leaves.</p>
-              </div>
-              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
-                <h3 style="font-size: 1.25rem; color: #0F7B4D; margin-bottom: 0.5rem;">Screen Time Management</h3>
-                <p style="color: #4a5568;">Daily and weekly reports on app usage. Set time limits per app or category. Pause the internet with one tap across all connected devices.</p>
-              </div>
-              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
-                <h3 style="font-size: 1.25rem; color: #0F7B4D; margin-bottom: 0.5rem;">11 Language Support</h3>
-                <p style="color: #4a5568;">Full support for all South African languages. Alerts, voice notifications, and the entire dashboard available in isiZulu, Afrikaans, isiXhosa, Sesotho, Setswana, Sepedi, Tshivenḓa, Xitsonga, siSwati, and isiNdebele.</p>
-              </div>
-              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
-                <h3 style="font-size: 1.25rem; color: #0F7B4D; margin-bottom: 0.5rem;">Anti-Uninstall Protection</h3>
-                <p style="color: #4a5568;">Device admin privileges prevent children from removing the app. If an uninstall is attempted, parents are alerted immediately and the attempt is blocked.</p>
-              </div>
-            </div>
-          </section>
-
-          <!-- Why SafeNet SA -->
-          <section style="margin-bottom: 3rem;">
-            <h2 style="font-size: 1.75rem; color: #1a1a2e; margin-bottom: 1rem;">Why South African parents choose SafeNet SA</h2>
-            <p style="color: #4a5568; margin-bottom: 1rem;">
-              Every global safety tool was built for them, not for you. Bark costs R260 per month and does not monitor WhatsApp. 
-              Qustodio does not speak Afrikaans. Google Family Link can be bypassed in 30 seconds.
-            </p>
-            <p style="color: #4a5568; margin-bottom: 1rem;">
-              According to <a href="https://businesstech.co.za/news/internet/758979/cybercrime-in-sa-phishing-attacks-now-targeting-whatsapp-users/" style="color: #0F7B4D;" rel="noopener noreferrer">BusinessTech</a>, 
-              phishing attacks targeting WhatsApp users in South Africa have surged dramatically. 
-              <a href="https://www.childlinesa.org.za/" style="color: #0F7B4D;" rel="noopener noreferrer">Childline South Africa</a> reports 
-              that online grooming and cyberbullying cases have risen significantly. 
-              <a href="https://www.unicef.org/southafrica/press-releases/children-increasingly-targeted-online-south-africa" style="color: #0F7B4D;" rel="noopener noreferrer">UNICEF South Africa</a> 
-              reports that 1 in 3 children in SA have been exposed to harmful content online. 
-              The <a href="https://www.saps.gov.za/resource_centre/publications/cybercrime_report.php" style="color: #0F7B4D;" rel="noopener noreferrer">South African Police Service</a> 
-              has reported a significant rise in cybercrimes targeting minors through WhatsApp and social media.
-            </p>
-            <p style="color: #4a5568;">
-              SafeNet SA was built for Soweto, Stellenbosch, Polokwane, and every family in between.
-            </p>
-          </section>
-
-          <!-- Pricing -->
-          <section style="margin-bottom: 3rem;">
-            <h2 style="font-size: 1.75rem; color: #1a1a2e; margin-bottom: 1rem;">Pricing</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
-              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
-                <h3 style="font-size: 1.25rem; color: #0F7B4D;">Free</h3>
-                <p style="font-size: 1.5rem; font-weight: 700; color: #1a1a2e;">R0/month</p>
-                <p style="color: #4a5568;">Basic WhatsApp monitoring, Luna AI alerts, basic location tracking, email support.</p>
-              </div>
-              <div style="background: #f0fff4; padding: 1.5rem; border-radius: 12px; border: 2px solid #0F7B4D;">
-                <h3 style="font-size: 1.25rem; color: #0F7B4D;">Guardian</h3>
-                <p style="font-size: 1.5rem; font-weight: 700; color: #1a1a2e;">R89/month</p>
-                <p style="color: #4a5568;">Up to 4 children, all 11 languages, voice alerts, weekly digest, priority support.</p>
-              </div>
-              <div style="background: #f7fafc; padding: 1.5rem; border-radius: 12px; border: 1px solid #e2e8f0;">
-                <h3 style="font-size: 1.25rem; color: #0F7B4D;">Sentinel</h3>
-                <p style="font-size: 1.5rem; font-weight: 700; color: #1a1a2e;">R149/month</p>
-                <p style="color: #4a5568;">Unlimited children, School Shield integration, ISP billing, 24/7 phone support.</p>
-              </div>
-            </div>
-          </section>
-
-          <!-- Internal navigation links -->
-          <nav style="margin-bottom: 2rem; text-align: center;">
-            <p style="color: #4a5568;">
-              <a href="https://safenet-sa.co.za/" style="color: #0F7B4D;">Home</a> · 
-              <a href="https://safenet-sa.co.za/auth" style="color: #0F7B4D;">Sign Up</a> · 
-              <a href="https://safenet-sa.co.za/dashboard" style="color: #0F7B4D;">Dashboard</a> · 
-              <a href="https://safenet-sa.co.za/alerts" style="color: #0F7B4D;">Alerts</a> · 
-              <a href="https://safenet-sa.co.za/location" style="color: #0F7B4D;">Location</a> · 
-              <a href="https://safenet-sa.co.za/settings" style="color: #0F7B4D;">Settings</a>
-            </p>
-          </nav>
-        </main>
-
-        <footer style="border-top: 1px solid #e2e8f0; padding-top: 1.5rem; text-align: center; color: #718096; font-size: 0.875rem;">
-          <p>&copy; 2026 SafeNet SA. All rights reserved. POPIA compliant. Made in South Africa.</p>
-        </footer>
+        <p style="
+          margin: 0;
+          font-size: 0.875rem;
+          color: #4a5568;
+          letter-spacing: 0.01em;
+        ">Loading SafeNet SA…</p>
       </div>
+
+      <style>
+        @keyframes safenet-spin {
+          to { transform: rotate(360deg); }
+        }
+      </style>
     </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
