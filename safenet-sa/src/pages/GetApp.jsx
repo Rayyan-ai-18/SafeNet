@@ -29,6 +29,8 @@ export default function GetApp() {
   const [deferredPrompt, setDeferredPrompt] = useState(null)
   const [installed, setInstalled] = useState(false)
   const [ios, setIos] = useState(false)
+  const [platform, setPlatform] = useState('android') // 'ios' | 'android'
+  const [needsSafari, setNeedsSafari] = useState(false) // iOS opened outside Safari
   const [previewPath, setPreviewPath] = useState('/dashboard')
   const [reloadKey, setReloadKey] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
@@ -40,7 +42,16 @@ export default function GetApp() {
     // Real public deploy: use its own origin. Local dev: fall back to the
     // canonical site so the on-screen QR is always scannable from a phone.
     setInstallUrl(`${isLocal ? SITE : origin}/app`)
-    setIos(isIOS())
+    const onIOS = isIOS()
+    setIos(onIOS)
+    setPlatform(onIOS ? 'ios' : 'android')
+    // Add to Home Screen only works in Safari. If an iPhone opens this inside
+    // an in-app webview (WhatsApp/Instagram/etc.) or another browser, there's
+    // no Share toolbar, so we nudge them to reopen in Safari.
+    const ua = navigator.userAgent
+    const inApp = /FBAN|FBAV|Instagram|Line\/|Twitter|WhatsApp|; wv\)|GSA\/|FxiOS|CriOS|EdgiOS/i.test(ua)
+    const isSafari = /^((?!chrome|crios|fxios|edgios|android).)*safari/i.test(ua)
+    setNeedsSafari(onIOS && (inApp || !isSafari))
     // The QR + "point your camera at the code" pitch only makes sense on a
     // desktop screen. A visitor who scanned the code is already on their phone,
     // so we show them the install action directly instead of another QR.
@@ -164,20 +175,55 @@ export default function GetApp() {
                       <div className="inline-flex items-center gap-2 text-safenet-primary font-medium">
                         <Check className="w-5 h-5" /> Installed. Check your home screen.
                       </div>
-                    ) : deferredPrompt ? (
-                      <Button variant="primary" className="w-full" onClick={handleInstall} magnetic>
-                        <Download className="w-4 h-4" /> Install SafeNet
-                      </Button>
                     ) : (
-                      <div className="text-sm text-safenet-text-2">
-                        <p className="font-medium text-safenet-text mb-2">On this device:</p>
-                        {ios ? (
-                          <ol className="space-y-1.5">
-                            <li className="flex items-center gap-2"><Share className="w-4 h-4 text-safenet-primary" /> Tap the Share button</li>
-                            <li className="flex items-center gap-2"><Plus className="w-4 h-4 text-safenet-primary" /> Choose "Add to Home Screen"</li>
-                          </ol>
+                      <div>
+                        {/* Pick your phone, the install path differs per platform. */}
+                        <div className="flex gap-1.5 mb-4" role="tablist" aria-label="Choose your phone">
+                          {[
+                            { key: 'ios', label: 'iPhone' },
+                            { key: 'android', label: 'Android' },
+                          ].map((p) => (
+                            <button
+                              key={p.key}
+                              role="tab"
+                              aria-selected={platform === p.key}
+                              onClick={() => { setPlatform(p.key); track('app_install_platform', { platform: p.key }) }}
+                              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-colors ${
+                                platform === p.key
+                                  ? 'bg-safenet-primary text-white shadow-safenet-sm'
+                                  : 'bg-white border border-safenet-border text-safenet-text-2 hover:text-safenet-text'
+                              }`}
+                            >
+                              <Smartphone className="w-3.5 h-3.5" /> {p.label}
+                            </button>
+                          ))}
+                        </div>
+
+                        {platform === 'android' ? (
+                          deferredPrompt ? (
+                            <Button variant="primary" className="w-full" onClick={handleInstall} magnetic>
+                              <Download className="w-4 h-4" /> Install SafeNet
+                            </Button>
+                          ) : (
+                            <ol className="text-sm text-safenet-text-2 space-y-1.5">
+                              <li className="flex items-start gap-2"><span className="font-semibold text-safenet-primary">1.</span> Open this page in <span className="font-medium text-safenet-text">Chrome</span></li>
+                              <li className="flex items-start gap-2"><span className="font-semibold text-safenet-primary">2.</span> Tap the <span className="font-medium text-safenet-text">⋮ menu</span> (top right)</li>
+                              <li className="flex items-start gap-2"><span className="font-semibold text-safenet-primary">3.</span> Tap <span className="font-medium text-safenet-text">"Install app"</span> or <span className="font-medium text-safenet-text">"Add to Home screen"</span></li>
+                            </ol>
+                          )
                         ) : (
-                          <p>Open your browser menu and choose <span className="font-medium text-safenet-text">"Install app"</span> or <span className="font-medium text-safenet-text">"Add to Home screen"</span>.</p>
+                          <div className="text-sm text-safenet-text-2">
+                            {needsSafari && (
+                              <p className="mb-3 p-2.5 rounded-lg bg-safenet-primary-light text-safenet-text text-[13px] leading-snug">
+                                iPhone installs only work in <span className="font-semibold">Safari</span>. Tap the <span className="font-semibold">⋯</span> menu and choose <span className="font-semibold">"Open in Safari"</span> first.
+                              </p>
+                            )}
+                            <ol className="space-y-1.5">
+                              <li className="flex items-start gap-2"><Share className="w-4 h-4 text-safenet-primary shrink-0 mt-0.5" /> Tap the <span className="font-medium text-safenet-text">Share</span> icon (box with an up-arrow) at the bottom of Safari</li>
+                              <li className="flex items-start gap-2"><Plus className="w-4 h-4 text-safenet-primary shrink-0 mt-0.5" /> Scroll down and tap <span className="font-medium text-safenet-text">"Add to Home Screen"</span></li>
+                              <li className="flex items-start gap-2"><Check className="w-4 h-4 text-safenet-primary shrink-0 mt-0.5" /> Tap <span className="font-medium text-safenet-text">"Add"</span>, SafeNet is now on your home screen</li>
+                            </ol>
+                          </div>
                         )}
                       </div>
                     )}
