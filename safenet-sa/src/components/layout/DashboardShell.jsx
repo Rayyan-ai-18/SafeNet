@@ -6,6 +6,10 @@ import {
   ChevronDown, LogOut, Menu, X, Bot, Home
 } from 'lucide-react'
 import LunaWidget from '../dashboard/LunaWidget'
+import { useAuth } from '../../context/AuthContext'
+import { useApp } from '../../context/AppContext'
+import { PLANS, planOf } from '../../lib/entitlements'
+import { priceFor } from '../../lib/billing'
 
 const sidebarItems = [
   { icon: LayoutDashboard, label: 'Overview', path: '/dashboard' },
@@ -19,8 +23,16 @@ export default function DashboardShell({ children, user }) {
   const location = useLocation()
   const navigate = useNavigate()
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [userMenuOpen, setUserMenuOpen] = useState(false)
+  const { user: authUser, signOut } = useAuth()
+  const { family } = useApp()
+  const currentUser = user || authUser
+  const planKey = planOf(family)
+  const planPrice = planKey === 'free' ? 0 : priceFor(planKey, family?.billing_cycle || 'monthly')
+  const planCycleLabel = { weekly: '/week', monthly: '/month', annual: '/year' }[family?.billing_cycle || 'monthly']
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
+    await signOut()
     navigate('/')
   }
 
@@ -80,8 +92,8 @@ export default function DashboardShell({ children, user }) {
         {/* Plan badge */}
         <div className="absolute bottom-4 left-3 right-3">
           <div className="bg-safenet-primary-light rounded-card-lg p-3">
-            <div className="text-xs font-semibold text-safenet-primary mb-0.5">Guardian Plan</div>
-            <div className="text-[10px] text-safenet-text-3">R89/month</div>
+            <div className="text-xs font-semibold text-safenet-primary mb-0.5">{PLANS[planKey].label} Plan</div>
+            <div className="text-[10px] text-safenet-text-3">{planPrice ? `R${planPrice}${planCycleLabel}` : 'Free'}</div>
           </div>
         </div>
       </aside>
@@ -121,12 +133,36 @@ export default function DashboardShell({ children, user }) {
             </button>
 
             {/* User menu */}
-            <button className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-safenet-surface transition-colors">
-              <div className="w-7 h-7 rounded-full bg-safenet-primary flex items-center justify-center text-white text-xs font-bold">
-                {user?.displayName?.[0] || 'P'}
-              </div>
-              <ChevronDown className="w-3.5 h-3.5 text-safenet-text-3 hidden sm:block" />
-            </button>
+            <div className="relative">
+              <button
+                onClick={() => setUserMenuOpen((o) => !o)}
+                className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-safenet-surface transition-colors"
+              >
+                <div className="w-7 h-7 rounded-full bg-safenet-primary flex items-center justify-center text-white text-xs font-bold">
+                  {currentUser?.displayName?.[0] || currentUser?.phone?.slice(-1) || 'P'}
+                </div>
+                <ChevronDown className="w-3.5 h-3.5 text-safenet-text-3 hidden sm:block" />
+              </button>
+              <AnimatePresence>
+                {userMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    transition={{ duration: 0.15 }}
+                    className="absolute right-0 mt-2 w-44 bg-white border border-safenet-border rounded-card-lg shadow-safenet-lg py-1 z-50"
+                  >
+                    <button
+                      onClick={() => { setUserMenuOpen(false); handleSignOut() }}
+                      className="flex items-center gap-2.5 w-full px-3 py-2.5 text-sm font-medium text-safenet-text-2 hover:bg-safenet-surface hover:text-safenet-text transition-colors"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sign out
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </header>
 

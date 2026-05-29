@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState, useCallback } from 'react'
+import React, { createContext, useContext, useState, useCallback, useEffect } from 'react'
+import { loadFamilySnapshot } from '../lib/db'
 
 const AppContext = createContext(null)
 
@@ -47,6 +48,22 @@ export function AppProvider({ children }) {
   const [schoolHours, setSchoolHours] = useState(initialSchoolHours)
   const [alerts, setAlerts] = useState(initialAlerts)
   const [zoneAlerts, setZoneAlerts] = useState(initialZoneAlerts)
+  const [family, setFamily] = useState({ plan: 'free' })
+  const [isLive, setIsLive] = useState(false)
+
+  // Hydrate from Supabase when configured + signed in; otherwise keep demo data.
+  useEffect(() => {
+    let cancelled = false
+    loadFamilySnapshot().then((snap) => {
+      if (cancelled || !snap) return
+      if (snap.children?.length) setChildrenList(snap.children)
+      if (snap.zones?.length) setZones(snap.zones)
+      if (snap.alerts?.length) setAlerts(snap.alerts)
+      if (snap.family) setFamily(snap.family)
+      setIsLive(true)
+    }).catch(() => { /* stay on demo data */ })
+    return () => { cancelled = true }
+  }, [])
 
   const toggleInternetPause = useCallback((childId) => {
     setChildrenList(prev => prev.map(c =>
@@ -106,6 +123,8 @@ export function AppProvider({ children }) {
     schoolHours,
     alerts,
     zoneAlerts,
+    family,
+    isLive,
     toggleInternetPause,
     updateScreenTime,
     addZone,

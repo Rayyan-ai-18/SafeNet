@@ -1,11 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Shield, Phone, ArrowRight, Check, ChevronLeft } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import SEO from '../components/seo/SEO'
 import Nav from '../components/layout/Nav'
 import Footer from '../components/layout/Footer'
 import Button from '../components/ui/Button'
+import { useAuth } from '../context/AuthContext'
+import { saveConsents } from '../lib/db'
+import { track } from '../lib/analytics'
 
 const consentItems = [
   {
@@ -59,28 +62,44 @@ export default function Auth() {
   const [otp, setOtp] = useState('')
   const [consent, setConsent] = useState({})
   const [allAgreed, setAllAgreed] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
   const formRef = useRef(null)
+  const navigate = useNavigate()
+  const { sendOtp, verifyOtp } = useAuth()
 
-  useEffect(() => {
-    if (formRef.current) {
-      const inputs = formRef.current.querySelectorAll('input, button')
-      if (inputs.length) {
-        // Simple entrance
-      }
-    }
-  }, [step])
-
-  const handleSendOTP = () => {
-    if (phone.length >= 10) setStep('otp')
+  const handleSendOTP = async () => {
+    if (phone.length < 9 || busy) return
+    setError('')
+    setBusy(true)
+    const res = await sendOtp(phone)
+    setBusy(false)
+    // When Supabase isn't configured we keep the original demo flow so the
+    // showcase works with zero backend.
+    if (res.configured && !res.ok) { setError(res.error || 'Could not send code. Try again.'); return }
+    track('auth_otp_sent', { live: !!res.configured })
+    setStep('otp')
   }
 
-  const handleVerifyOTP = () => {
-    if (otp.length >= 4) setStep('consent')
+  const handleVerifyOTP = async () => {
+    if (otp.length < 4 || busy) return
+    setError('')
+    setBusy(true)
+    const res = await verifyOtp(phone, otp)
+    setBusy(false)
+    if (res.configured && !res.ok) { setError(res.error || 'Invalid code. Try again.'); return }
+    track('auth_verified', { live: !!res.configured })
+    setStep('consent')
   }
 
-  const handleComplete = () => {
-    // Navigate to dashboard
-    window.location.href = '/dashboard'
+  const handleComplete = async () => {
+    if (busy) return
+    setBusy(true)
+    // Persist POPIA consent when signed in; no-op in demo mode.
+    await saveConsents(consentItems.map((i) => i.title)).catch(() => {})
+    track('auth_consent_granted')
+    setBusy(false)
+    navigate('/dashboard')
   }
 
   const toggleConsent = (title) => {
@@ -154,12 +173,13 @@ export default function Auth() {
                     className="w-full"
                     size="lg"
                     onClick={handleSendOTP}
-                    disabled={phone.length < 9}
+                    disabled={phone.length < 9 || busy}
                     magnetic
                   >
-                    Send verification code
+                    {busy ? 'Sending…' : 'Send verification code'}
                     <ArrowRight className="w-4 h-4" />
                   </Button>
+                  {error && <p className="text-xs text-safenet-danger text-center">{error}</p>}
                 </div>
               </motion.div>
             )}
@@ -196,12 +216,13 @@ export default function Auth() {
                     className="w-full"
                     size="lg"
                     onClick={handleVerifyOTP}
-                    disabled={otp.length < 4}
+                    disabled={otp.length < 4 || busy}
                     magnetic
                   >
-                    Verify & Continue
+                    {busy ? 'Verifying…' : 'Verify & Continue'}
                     <ArrowRight className="w-4 h-4" />
                   </Button>
+                  {error && <p className="text-xs text-safenet-danger text-center">{error}</p>}
                   <p className="text-center text-xs text-safenet-text-3">
                     Didn't receive it? <button className="text-safenet-primary font-medium hover:underline">Resend</button>
                   </p>
@@ -285,10 +306,10 @@ export default function Auth() {
                     className="w-full"
                     size="lg"
                     onClick={handleComplete}
-                    disabled={!allAgreed}
+                    disabled={!allAgreed || busy}
                     magnetic
                   >
-                    Start Protecting My Family
+                    {busy ? 'Setting up…' : 'Start Protecting My Family'}
                     <Shield className="w-4 h-4" />
                   </Button>
                 </div>

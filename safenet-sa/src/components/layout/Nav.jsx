@@ -5,11 +5,15 @@ import { Menu, X, Shield, Home } from 'lucide-react'
 import { gsap } from '../../lib/gsap'
 import Button from '../ui/Button'
 import { track } from '../../lib/analytics'
+import { isEmbedded } from '../../lib/embed'
+import { useAuth } from '../../context/AuthContext'
 
 const translations = {
   en: {
     liveDemo: 'Live Demo',
     talkToLuna: 'Talk to Luna',
+    linkChecker: 'Link Checker',
+    getApp: 'Get the App',
     howItWorksPage: 'How It Works',
     getStarted: 'Get Started Free',
     dashboard: 'Dashboard',
@@ -18,6 +22,8 @@ const translations = {
   zu: {
     liveDemo: 'Umbukiso',
     talkToLuna: 'Khuluma noLuna',
+    linkChecker: 'Hlola I-link',
+    getApp: 'Thola Uhlelo',
     howItWorksPage: 'Isebenza Kanjani',
     getStarted: 'Qala Mahhala',
     dashboard: 'Ideshibhodi',
@@ -27,10 +33,14 @@ const translations = {
 
 const navLinks = [
   { key: 'liveDemo', path: '/demo', highlight: true },
+  { key: 'getApp', path: '/app' },
+  { key: 'linkChecker', path: '/scan' },
   { key: 'howItWorksPage', path: '/how-it-works' },
 ]
 
-export default function Nav({ user }) {
+export default function Nav({ user: userProp }) {
+  const { user: authUser } = useAuth()
+  const user = userProp || authUser
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [lang, setLang] = useState(() => localStorage.getItem('safenet_lang') || 'en')
@@ -64,6 +74,8 @@ export default function Nav({ user }) {
   }, [])
 
   const t = translations[lang] || translations.en
+
+  if (isEmbedded()) return null
 
   return (
     <header

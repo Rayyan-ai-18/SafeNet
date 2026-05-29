@@ -1,0 +1,21 @@
+{
+  "name": "SafeNet SA — Family Digital Safety",
+  "short_name": "SafeNet SA",
+  "description": "Keep your children safe online. Monitors WhatsApp, blocks scams, speaks 11 SA languages. POPIA compliant.",
+  "start_url": "/dashboard?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F4F6F5",
+  "theme_color": "#0F7B4D",
+  "lang": "en-ZA",
+  "categories": ["education", "parenting", "security", "utilities"],
+  "icons": [
+    { "src": "/app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Link Checker", "short_name": "Scan", "url": "/scan", "description": "Check if a link is safe" },
+    { "name": "Alerts", "short_name": "Alerts", "url": "/alerts", "description": "View safety alerts" }
+  ]
+}

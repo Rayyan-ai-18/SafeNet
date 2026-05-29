@@ -2,6 +2,7 @@ import React, { Suspense, lazy, useEffect } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { AppProvider } from './context/AppContext'
+import { AuthProvider } from './context/AuthContext'
 import { trackPageview } from './lib/analytics'
 
 const Landing = lazy(() => import('./pages/Landing'))
@@ -13,6 +14,8 @@ const Location = lazy(() => import('./pages/Location'))
 const Settings = lazy(() => import('./pages/Settings'))
 const Luna = lazy(() => import('./pages/Luna'))
 const Demo = lazy(() => import('./pages/Demo'))
+const LinkScanner = lazy(() => import('./pages/LinkScanner'))
+const GetApp = lazy(() => import('./pages/GetApp'))
 const HowItWorks = lazy(() => import('./pages/HowItWorks'))
 const Privacy = lazy(() => import('./pages/Privacy'))
 const Terms = lazy(() => import('./pages/Terms'))
@@ -68,6 +71,7 @@ export default function App() {
   }, [location.pathname])
 
   return (
+    <AuthProvider>
     <AppProvider>
       <Suspense fallback={<LoadingFallback />}>
         <AnimatePresence mode="wait">
@@ -81,6 +85,8 @@ export default function App() {
             <Route path="/settings" element={<PageWrapper><Settings /></PageWrapper>} />
             <Route path="/luna" element={<PageWrapper><Luna /></PageWrapper>} />
             <Route path="/demo" element={<PageWrapper><Demo /></PageWrapper>} />
+            <Route path="/scan" element={<PageWrapper><LinkScanner /></PageWrapper>} />
+            <Route path="/app" element={<PageWrapper><GetApp /></PageWrapper>} />
             <Route path="/how-it-works" element={<PageWrapper><HowItWorks /></PageWrapper>} />
             <Route path="/privacy" element={<PageWrapper><Privacy /></PageWrapper>} />
             <Route path="/terms" element={<PageWrapper><Terms /></PageWrapper>} />
@@ -89,5 +95,6 @@ export default function App() {
         </AnimatePresence>
       </Suspense>
     </AppProvider>
+    </AuthProvider>
   )
 }

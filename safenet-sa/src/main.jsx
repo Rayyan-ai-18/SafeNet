@@ -13,6 +13,14 @@ import { initAnalytics } from './lib/analytics'
 
 initAnalytics()
 
+// Register the PWA service worker in production so SafeNet is installable
+// (Add to Home Screen) on Android + iOS and opens offline.
+if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => { /* non-fatal */ })
+  })
+}
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <HelmetProvider>

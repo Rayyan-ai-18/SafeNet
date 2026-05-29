@@ -3,6 +3,10 @@ import { motion } from 'framer-motion'
 import { Settings as SettingsIcon, User, Globe, CreditCard, Shield, Check, ChevronRight } from 'lucide-react'
 import SEO from '../components/seo/SEO'
 import DashboardShell from '../components/layout/DashboardShell'
+import { useApp } from '../context/AppContext'
+import { useAuth } from '../context/AuthContext'
+import { PLANS, planOf } from '../lib/entitlements'
+import { PRICING, priceFor, startCheckout } from '../lib/billing'
 
 const tabs = [
   { id: 'account', label: 'Account', icon: User },
@@ -42,9 +46,37 @@ const settingsSchema = {
   },
 }
 
+const PLAN_FEATURES = {
+  free: ['1 child', 'Luna AI alerts', 'Basic location tracking', 'Email support'],
+  guardian: ['Up to 4 children', '11 language support', 'Voice alerts', 'Weekly digest', 'Priority support'],
+  sentinel: ['Unlimited children', 'School Shield', 'Voice alerts', 'Weekly digest', 'Dedicated account manager'],
+}
+
 export default function Settings() {
   const [activeTab, setActiveTab] = useState('account')
   const [selectedLang, setSelectedLang] = useState('en')
+  const [cycle, setCycle] = useState('monthly')
+  const [billingBusy, setBillingBusy] = useState('')
+  const [billingMsg, setBillingMsg] = useState('')
+  const { family } = useApp()
+  const { user, configured } = useAuth()
+
+  const currentPlan = planOf(family)
+
+  const handleUpgrade = async (plan) => {
+    setBillingMsg('')
+    setBillingBusy(plan)
+    const res = await startCheckout({ plan, cycle, email: user?.email })
+    setBillingBusy('')
+    if (res.ok && res.url) { window.location.href = res.url; return }
+    if (res.reason === 'not_configured') {
+      setBillingMsg('Payments aren’t enabled in this preview. Connect Paystack to go live.')
+    } else if (res.reason === 'not_signed_in') {
+      setBillingMsg('Please sign in to upgrade your plan.')
+    } else {
+      setBillingMsg('Could not start checkout. Please try again.')
+    }
+  }
 
   const renderContent = () => {
     switch (activeTab) {
@@ -128,21 +160,24 @@ export default function Settings() {
           </div>
         )
 
-      case 'plan':
+      case 'plan': {
+        const currentPrice = currentPlan === 'free' ? 0 : priceFor(currentPlan, family?.billing_cycle || 'monthly')
+        const cycleLabel = { weekly: '/week', monthly: '/month', annual: '/year' }[family?.billing_cycle || 'monthly']
+        const upgradeTargets = ['guardian', 'sentinel'].filter((p) => p !== currentPlan && PRICING[p])
         return (
           <div className="space-y-6">
             <div className="bg-white rounded-card-lg p-6 border border-safenet-border shadow-safenet-sm">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h3 className="font-display text-heading-sm text-safenet-text">Current Plan</h3>
-                  <p className="text-sm text-safenet-text-2">You are on the Guardian plan</p>
+                  <p className="text-sm text-safenet-text-2">You are on the {PLANS[currentPlan].label} plan</p>
                 </div>
                 <span className="px-3 py-1 bg-safenet-primary-light text-safenet-primary rounded-full text-xs font-semibold">
-                  R89/month
+                  {currentPrice ? `R${currentPrice}${cycleLabel}` : 'Free'}
                 </span>
               </div>
               <div className="space-y-2">
-                {['Up to 4 children', '11 language support', 'Voice alerts', 'Weekly digest', 'Priority support'].map(f => (
+                {(PLAN_FEATURES[currentPlan] || PLAN_FEATURES.free).map(f => (
                   <div key={f} className="flex items-center gap-2 text-sm text-safenet-text-2">
                     <Check className="w-4 h-4 text-safenet-primary" />
                     {f}
@@ -151,24 +186,71 @@ export default function Settings() {
               </div>
             </div>
 
+            {upgradeTargets.length > 0 && (
+              <div className="bg-white rounded-card-lg p-6 border border-safenet-border shadow-safenet-sm">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="font-display text-heading-sm text-safenet-text">Upgrade</h3>
+                  {/* Billing cycle selector — weekly enables SA prepaid/airtime budgets */}
+                  <div className="flex items-center gap-1 bg-safenet-surface rounded-full p-0.5">
+                    {['weekly', 'monthly', 'annual'].map((c) => (
+                      <button
+                        key={c}
+                        onClick={() => setCycle(c)}
+                        className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                          cycle === c ? 'bg-safenet-primary text-white' : 'text-safenet-text-2 hover:text-safenet-text'
+                        }`}
+                      >
+                        {c.charAt(0).toUpperCase() + c.slice(1)}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <div className="space-y-3">
+                  {upgradeTargets.map((plan) => (
+                    <div key={plan} className="flex items-center justify-between p-4 bg-safenet-surface rounded-card-lg">
+                      <div>
+                        <div className="text-sm font-semibold text-safenet-text">{PLANS[plan].label}</div>
+                        <div className="text-xs text-safenet-text-3">R{priceFor(plan, cycle)} / {cycle}</div>
+                      </div>
+                      <button
+                        onClick={() => handleUpgrade(plan)}
+                        disabled={billingBusy === plan}
+                        className="px-5 py-2.5 bg-safenet-primary text-white rounded-btn text-sm font-medium hover:bg-safenet-primary-dark transition-colors disabled:opacity-60"
+                      >
+                        {billingBusy === plan ? 'Starting…' : `Upgrade to ${PLANS[plan].label}`}
+                      </button>
+                    </div>
+                  ))}
+                </div>
+                {billingMsg && <p className="text-xs text-safenet-text-3 mt-3">{billingMsg}</p>}
+              </div>
+            )}
+
             <div className="bg-white rounded-card-lg p-6 border border-safenet-border shadow-safenet-sm">
               <h3 className="font-display text-heading-sm text-safenet-text mb-4">Billing</h3>
               <div className="space-y-3">
                 <div className="flex items-center justify-between p-3 bg-safenet-surface rounded-card-lg">
                   <span className="text-sm text-safenet-text">Next payment</span>
-                  <span className="text-sm font-medium text-safenet-text">R89 on 1 July 2026</span>
+                  <span className="text-sm font-medium text-safenet-text">
+                    {family?.plan_renews_at
+                      ? `R${currentPrice} on ${new Date(family.plan_renews_at).toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' })}`
+                      : currentPlan === 'free' ? 'No active subscription' : '—'}
+                  </span>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-safenet-surface rounded-card-lg">
                   <span className="text-sm text-safenet-text">Payment method</span>
-                  <span className="text-sm font-medium text-safenet-text">Visa ···· 4242</span>
+                  <span className="text-sm font-medium text-safenet-text">
+                    {family?.billing_provider === 'telco' ? 'Airtime / prepaid' : family?.billing_provider === 'paystack' ? 'Card · Paystack' : '—'}
+                  </span>
                 </div>
-                <button className="text-sm text-safenet-primary font-medium hover:underline">
-                  Manage billing →
-                </button>
+                {!configured && (
+                  <p className="text-xs text-safenet-text-3">Connect Paystack + Supabase to enable live billing.</p>
+                )}
               </div>
             </div>
           </div>
         )
+      }
 
       case 'privacy':
         return (

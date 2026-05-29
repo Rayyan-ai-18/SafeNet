@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Shield } from 'lucide-react'
+import { isEmbedded } from '../../lib/embed'
 
 // Only real, resolvable destinations - no dead "#" links.
 // route = react-router page; hash = anchor on the landing page; ext = external; mail = mailto
@@ -40,6 +41,7 @@ function FooterLink({ link }) {
 }
 
 export default function Footer() {
+  if (isEmbedded()) return null
   return (
     <footer className="bg-white border-t border-safenet-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
