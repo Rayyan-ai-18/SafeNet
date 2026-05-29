@@ -7,9 +7,9 @@ import Footer from '../components/layout/Footer'
 import Button from '../components/ui/Button'
 import { track } from '../lib/analytics'
 
-// Canonical public site. The QR must point here, never at a dev/localhost
-// origin (a phone scanning the screen can't reach the developer's machine).
-const SITE = 'https://safenet-sa.co.za'
+// Live public deploy. The QR must point at a host a phone can actually reach,
+// never a dev/localhost origin. Swap to the custom domain once it's connected.
+const SITE = 'https://safe-net-murex.vercel.app'
 
 // Routes the visitor can tap through inside the live phone preview.
 const PREVIEW_ROUTES = [
