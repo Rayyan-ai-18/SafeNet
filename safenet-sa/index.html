@@ -2,6 +2,16 @@
 <html lang="en-ZA">
   <head>
     <meta charset="UTF-8" />
+    <!-- Runs before paint: marks JS-capable clients so the crawlable text
+         fallback is hidden from humans (who get the loader + React app) while
+         non-JS crawlers still receive the full content below. -->
+    <script>document.documentElement.classList.add('js')</script>
+    <style>
+      @keyframes safenet-pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.08); opacity: 0.65; } }
+      #app-loader { display: none; }
+      .js #app-loader { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; min-height: 100dvh; background: #F4F6F5; }
+      .js #seo-fallback { display: none; }
+    </style>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="SafeNet SA - The only digital safety platform built for South African families. Monitors WhatsApp. Speaks Zulu. POPIA compliant. Ready in 5 minutes." />
@@ -148,12 +158,23 @@
   </head>
   <body>
     <div id="root">
+      <!-- Clean branded loader shown to human (JS-enabled) visitors while the
+           React bundle loads, so they never see the raw SEO text below. -->
+      <div id="app-loader" aria-hidden="true">
+        <svg width="56" height="56" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style="animation: safenet-pulse 1.4s ease-in-out infinite;">
+          <path d="M24 4L6 12V22C6 34 14 40 24 44C34 40 42 34 42 22V12L24 4Z" fill="#0F7B4D" opacity="0.15"/>
+          <path d="M24 4L6 12V22C6 34 14 40 24 44C34 40 42 34 42 22V12L24 4Z" stroke="#0F7B4D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M18 24L22 28L30 20" stroke="#0F7B4D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <p style="margin: 1rem 0 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; color: #0F7B4D; font-weight: 600; letter-spacing: 0.02em;">SafeNet SA</p>
+      </div>
+
       <!--
         Crawlable SEO/AEO fallback content (served in raw HTML for search engines
-        and AI crawlers that do not execute JavaScript). The React app replaces
-        this with the full interactive site once it loads.
+        and AI crawlers that do not execute JavaScript). Hidden from JS-enabled
+        humans via the .js rule above; the React app replaces it once it loads.
       -->
-      <main style="
+      <main id="seo-fallback" style="
         max-width: 760px;
         margin: 0 auto;
         min-height: 100vh;
@@ -194,13 +215,6 @@
 
         <p style="font-size: 0.85rem; color: #64748b; margin-top: 2rem;">Loading the full SafeNet SA experience&hellip;</p>
       </main>
-
-      <style>
-        @keyframes safenet-pulse {
-          0%, 100% { transform: scale(1); opacity: 1; }
-          50% { transform: scale(1.08); opacity: 0.65; }
-        }
-      </style>
     </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
