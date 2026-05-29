@@ -31,6 +31,7 @@ export default function GetApp() {
   const [ios, setIos] = useState(false)
   const [previewPath, setPreviewPath] = useState('/dashboard')
   const [reloadKey, setReloadKey] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
   const iframeRef = useRef(null)
 
   useEffect(() => {
@@ -40,12 +41,20 @@ export default function GetApp() {
     // canonical site so the on-screen QR is always scannable from a phone.
     setInstallUrl(`${isLocal ? SITE : origin}/app`)
     setIos(isIOS())
+    // The QR + "point your camera at the code" pitch only makes sense on a
+    // desktop screen. A visitor who scanned the code is already on their phone,
+    // so we show them the install action directly instead of another QR.
+    const mq = window.matchMedia('(max-width: 1023px)')
+    const sync = () => setIsMobile(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
 
     const onPrompt = (e) => { e.preventDefault(); setDeferredPrompt(e) }
     const onInstalled = () => { setInstalled(true); track('pwa_installed') }
     window.addEventListener('beforeinstallprompt', onPrompt)
     window.addEventListener('appinstalled', onInstalled)
     return () => {
+      mq.removeEventListener('change', sync)
       window.removeEventListener('beforeinstallprompt', onPrompt)
       window.removeEventListener('appinstalled', onInstalled)
     }
@@ -137,11 +146,17 @@ export default function GetApp() {
             {/* Install panel */}
             <div className="space-y-6">
               <div className="bg-white rounded-card-lg shadow-safenet-md border border-safenet-border p-6">
-                <h2 className="font-display text-heading-md text-safenet-text mb-1">Install on your phone</h2>
-                <p className="text-sm text-safenet-text-2 mb-6">Point your phone camera at the code, and it opens SafeNet, ready to add to your home screen.</p>
+                <h2 className="font-display text-heading-md text-safenet-text mb-1">
+                  {isMobile ? 'Add SafeNet to your home screen' : 'Install on your phone'}
+                </h2>
+                <p className="text-sm text-safenet-text-2 mb-6">
+                  {isMobile
+                    ? "You're on your phone, one tap and SafeNet lives on your home screen, just like an app store app but it installs instantly."
+                    : 'Point your phone camera at the code, and it opens SafeNet, ready to add to your home screen.'}
+                </p>
 
                 <div className="flex flex-col sm:flex-row items-center gap-6">
-                  <div className="p-3 bg-white rounded-card-lg border border-safenet-border shadow-safenet-sm">
+                  <div className="hidden lg:block p-3 bg-white rounded-card-lg border border-safenet-border shadow-safenet-sm">
                     <QRCodeSVG value={installUrl} size={148} fgColor="#0F2A1E" bgColor="#FFFFFF" level="M" />
                   </div>
                   <div className="flex-1 w-full">
