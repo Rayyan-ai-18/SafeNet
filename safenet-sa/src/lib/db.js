@@ -14,14 +14,14 @@ async function getClient() {
   return _clientPromise
 }
 
-// Public accessor — AuthContext needs the live client to subscribe to auth state.
+// Public accessor. AuthContext needs the live client to subscribe to auth state.
 // Returns null when Supabase isn't configured (demo/showcase build).
 export async function getSupabaseClient() {
   return getClient()
 }
 
 // First sign-in bootstrap: make sure the signed-in user has a parent row and a
-// family. Idempotent — safe to call on every successful verification.
+// family. Idempotent, safe to call on every successful verification.
 export async function ensureFamilyForUser(user, { fullName } = {}) {
   const supabase = await getClient()
   if (!supabase || !user) return null
@@ -105,7 +105,7 @@ export async function captureLead({ contact, channel = 'link_scanner', meta = {}
   }
 }
 
-// Anonymous scan telemetry — powers the live "scans today" counter and lets us
+// Anonymous scan telemetry. Powers the live "scans today" counter and lets us
 // measure free-tier COGS. Best-effort; never throws.
 export async function logScan({ verdict, score, hasUrl }) {
   const supabase = await getClient()

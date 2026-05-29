@@ -1,4 +1,4 @@
-# SafeNet SA — robots.txt
+# SafeNet SA robots.txt
 # https://safenet-sa.co.za/robots.txt
 
 User-agent: *

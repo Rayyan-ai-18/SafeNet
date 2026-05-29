@@ -7,6 +7,10 @@ import Footer from '../components/layout/Footer'
 import Button from '../components/ui/Button'
 import { track } from '../lib/analytics'
 
+// Canonical public site. The QR must point here, never at a dev/localhost
+// origin (a phone scanning the screen can't reach the developer's machine).
+const SITE = 'https://safenet-sa.co.za'
+
 // Routes the visitor can tap through inside the live phone preview.
 const PREVIEW_ROUTES = [
   { path: '/dashboard', label: 'Dashboard' },
@@ -21,7 +25,7 @@ function isIOS() {
 }
 
 export default function GetApp() {
-  const [installUrl, setInstallUrl] = useState('https://safenet-sa.co.za/')
+  const [installUrl, setInstallUrl] = useState(`${SITE}/app`)
   const [deferredPrompt, setDeferredPrompt] = useState(null)
   const [installed, setInstalled] = useState(false)
   const [ios, setIos] = useState(false)
@@ -30,7 +34,11 @@ export default function GetApp() {
   const iframeRef = useRef(null)
 
   useEffect(() => {
-    setInstallUrl(window.location.origin + '/')
+    const origin = window.location.origin
+    const isLocal = /localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\]/.test(origin)
+    // Real public deploy: use its own origin. Local dev: fall back to the
+    // canonical site so the on-screen QR is always scannable from a phone.
+    setInstallUrl(`${isLocal ? SITE : origin}/app`)
     setIos(isIOS())
 
     const onPrompt = (e) => { e.preventDefault(); setDeferredPrompt(e) }
@@ -56,8 +64,8 @@ export default function GetApp() {
   return (
     <>
       <SEO
-        title="Get the SafeNet SA App — Install on Android & iPhone"
-        description="Install SafeNet SA on your phone in seconds — no app store needed. Scan the QR code or tap install. Try the real app live right here in your browser."
+        title="Get the SafeNet SA App: Install on Android & iPhone"
+        description="Install SafeNet SA on your phone in seconds, no app store needed. Scan the QR code or tap install. Try the real app live right here in your browser."
         canonicalPath="/app"
       />
       <div className="min-h-screen bg-[#F4F6F5]">
@@ -71,7 +79,7 @@ export default function GetApp() {
               SafeNet, in your pocket
             </h1>
             <p className="text-base text-safenet-text-2 max-w-xl mx-auto">
-              This isn't a video or a mockup — it's the real SafeNet app running below. Tap through it,
+              This isn't a video or a mockup. It's the real SafeNet app running below. Tap through it,
               then install it on your phone in seconds. No app store, no waiting.
             </p>
           </div>
@@ -130,7 +138,7 @@ export default function GetApp() {
             <div className="space-y-6">
               <div className="bg-white rounded-card-lg shadow-safenet-md border border-safenet-border p-6">
                 <h2 className="font-display text-heading-md text-safenet-text mb-1">Install on your phone</h2>
-                <p className="text-sm text-safenet-text-2 mb-6">Point your phone camera at the code — it opens SafeNet, ready to add to your home screen.</p>
+                <p className="text-sm text-safenet-text-2 mb-6">Point your phone camera at the code, and it opens SafeNet, ready to add to your home screen.</p>
 
                 <div className="flex flex-col sm:flex-row items-center gap-6">
                   <div className="p-3 bg-white rounded-card-lg border border-safenet-border shadow-safenet-sm">
@@ -139,7 +147,7 @@ export default function GetApp() {
                   <div className="flex-1 w-full">
                     {installed ? (
                       <div className="inline-flex items-center gap-2 text-safenet-primary font-medium">
-                        <Check className="w-5 h-5" /> Installed — check your home screen.
+                        <Check className="w-5 h-5" /> Installed. Check your home screen.
                       </div>
                     ) : deferredPrompt ? (
                       <Button variant="primary" className="w-full" onClick={handleInstall} magnetic>
@@ -177,7 +185,7 @@ export default function GetApp() {
 
               <div className="bg-safenet-primary-light rounded-card-lg p-5 text-sm text-safenet-text-2">
                 <span className="font-medium text-safenet-text">Why no app store?</span> SafeNet installs straight from the
-                web, so updates are instant and there's nothing to wait for. One codebase, one secure backend — the same
+                web, so updates are instant and there's nothing to wait for. One codebase, one secure backend, the same
                 app on every phone.
               </div>
             </div>

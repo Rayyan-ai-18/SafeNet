@@ -190,7 +190,7 @@ export default function Settings() {
               <div className="bg-white rounded-card-lg p-6 border border-safenet-border shadow-safenet-sm">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="font-display text-heading-sm text-safenet-text">Upgrade</h3>
-                  {/* Billing cycle selector — weekly enables SA prepaid/airtime budgets */}
+                  {/* Billing cycle selector. Weekly enables SA prepaid/airtime budgets */}
                   <div className="flex items-center gap-1 bg-safenet-surface rounded-full p-0.5">
                     {['weekly', 'monthly', 'annual'].map((c) => (
                       <button
@@ -234,13 +234,13 @@ export default function Settings() {
                   <span className="text-sm font-medium text-safenet-text">
                     {family?.plan_renews_at
                       ? `R${currentPrice} on ${new Date(family.plan_renews_at).toLocaleDateString('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' })}`
-                      : currentPlan === 'free' ? 'No active subscription' : '—'}
+                      : currentPlan === 'free' ? 'No active subscription' : 'Not scheduled'}
                   </span>
                 </div>
                 <div className="flex items-center justify-between p-3 bg-safenet-surface rounded-card-lg">
                   <span className="text-sm text-safenet-text">Payment method</span>
                   <span className="text-sm font-medium text-safenet-text">
-                    {family?.billing_provider === 'telco' ? 'Airtime / prepaid' : family?.billing_provider === 'paystack' ? 'Card · Paystack' : '—'}
+                    {family?.billing_provider === 'telco' ? 'Airtime / prepaid' : family?.billing_provider === 'paystack' ? 'Card · Paystack' : 'Not set'}
                   </span>
                 </div>
                 {!configured && (

@@ -15,7 +15,7 @@ const t = {
   en: {
     eyebrow: 'Free tool · No sign-up',
     title: 'Is this link safe?',
-    subtitle: 'Paste any link or suspicious WhatsApp message. Luna checks it for phishing, scams and SASSA / bank impersonation — in seconds, in your language.',
+    subtitle: 'Paste any link or suspicious WhatsApp message. Luna checks it for phishing, scams and SASSA / bank impersonation, in seconds, in your language.',
     placeholder: 'Paste a link or message here…  e.g. "SASSA: your R350 grant is ready, verify at http://sassa-verify.tk"',
     scan: 'Check it',
     scanning: 'Luna is checking…',
@@ -29,13 +29,13 @@ const t = {
     signals: 'What Luna noticed',
     confidence: 'Threat score',
     protect: 'Protect your whole family',
-    protectSub: 'SafeNet SA checks every link your child receives, automatically — across WhatsApp and the web.',
+    protectSub: 'SafeNet SA checks every link your child receives, automatically, across WhatsApp and the web.',
     disclaimer: 'This is a guidance tool, not a guarantee. When in doubt, contact the company directly using a number you already trust.',
     share: 'Warn your family on WhatsApp',
     notifyLabel: 'Get a free safety tip each week',
     notifyPlaceholder: 'Email or cellphone number',
     notifyCta: 'Send me tips',
-    notifyDone: "You're on the list — stay safe out there.",
+    notifyDone: "You're on the list. Stay safe out there.",
     shareText: "I just checked a link with SafeNet SA's free safety scanner. Check yours here:",
   },
   zu: {
@@ -61,7 +61,7 @@ const t = {
     notifyLabel: 'Thola iseluleko sokuphepha mahhala masonto onke',
     notifyPlaceholder: 'I-imeyili noma inombolo yeselula',
     notifyCta: 'Ngithumele amathiphu',
-    notifyDone: 'Usohlwini manje — hlala uphephile.',
+    notifyDone: 'Usohlwini manje. Hlala uphephile.',
     shareText: 'Ngisanda kuhlola i-link nge-SafeNet SA. Hlola eyakho lapha:',
   },
 }
@@ -145,7 +145,7 @@ export default function LinkScanner() {
   return (
     <>
       <SEO
-        title="Free Link Safety Checker — Is This Link Safe? | SafeNet SA"
+        title="Free Link Safety Checker: Is This Link Safe? | SafeNet SA"
         description="Paste any link or WhatsApp message and check it for phishing, scams and SASSA / bank impersonation in seconds. Free, no sign-up, built for South African families."
         canonicalPath="/scan"
         jsonLd={{

@@ -1,4 +1,4 @@
-// Supabase client — the single source of truth for SafeNet SA, shared with the
+// Supabase client. The single source of truth for SafeNet SA, shared with the
 // Luna-AI product. Inert until env is set (mirrors firebase.js / analytics.js),
 // so dev, demo and builds never break when credentials are absent.
 import { createClient } from '@supabase/supabase-js'

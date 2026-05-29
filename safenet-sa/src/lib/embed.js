@@ -7,6 +7,6 @@ export function isEmbedded() {
     if (new URLSearchParams(window.location.search).get('embed') === '1') return true
     return window.self !== window.top
   } catch {
-    return true // cross-origin framing throws — treat as embedded
+    return true // cross-origin framing throws, treat as embedded
   }
 }

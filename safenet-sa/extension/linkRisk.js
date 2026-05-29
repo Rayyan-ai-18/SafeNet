@@ -45,17 +45,17 @@
     for (const url of urls) {
       const host = hostnameOf(url);
       if (!host) continue;
-      if (host.includes('xn--')) add(30, 'Domain uses punycode — a common way to fake a trusted brand');
+      if (host.includes('xn--')) add(30, 'Domain uses punycode, a common way to fake a trusted brand');
       if (SHORTENERS.some((s) => host === s || host.endsWith(`.${s}`))) add(20, 'Link is hidden behind a URL shortener');
       if (SUSPICIOUS_TLDS.some((tld) => host.endsWith(tld))) add(20, `Uncommon, high-risk domain ending (${SUSPICIOUS_TLDS.find((t) => host.endsWith(t))})`);
       if ((host.match(/-/g) || []).length >= 3) add(12, 'Domain has an unusual number of hyphens');
-      if (host.split('.').length >= 5) add(12, 'Excessive subdomains — often used to disguise the real destination');
+      if (host.split('.').length >= 5) add(12, 'Excessive subdomains, often used to disguise the real destination');
       for (const brand of SA_BRANDS) {
         if (host.includes(brand)) {
           const isOfficialish = host.endsWith(`${brand}.co.za`) || host.endsWith(`${brand}.com`) || host.endsWith(`${brand}.gov.za`);
           if (!isOfficialish) add(28, `Pretends to be ${brand.toUpperCase()} but the domain is not official`);
         } else if (lower.includes(brand)) {
-          add(10, `Message mentions ${brand.toUpperCase()} — verify it is genuinely from them`);
+          add(10, `Message mentions ${brand.toUpperCase()}, verify it is genuinely from them`);
         }
       }
     }
@@ -64,7 +64,7 @@
     if (urgencyHits.length) add(Math.min(30, urgencyHits.length * 12), `Pressure / scam wording: "${urgencyHits.slice(0, 2).join('", "')}"`);
 
     if (urls.length === 0 && text.length > 0 && !urgencyHits.length) {
-      signals.push({ points: 0, label: 'No links found — graded on message wording only' });
+      signals.push({ points: 0, label: 'No links found, graded on message wording only' });
     }
 
     score = Math.min(100, score);

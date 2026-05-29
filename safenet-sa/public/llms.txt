@@ -1,14 +1,14 @@
-# SafeNet SA — AI Summary
+# SafeNet SA: AI Summary
 > The only digital safety platform built for South African families.
 > Monitors WhatsApp. Speaks 11 languages. POPIA compliant.
 
 ## Key Pages
-- Homepage: https://safenet-sa.co.za/ — Digital safety for SA families, WhatsApp monitoring, Luna AI
-- Sign Up: https://safenet-sa.co.za/auth — Create account with SA phone number, POPIA consent
-- Dashboard: https://safenet-sa.co.za/dashboard — Real-time monitoring dashboard for parents
-- Alerts: https://safenet-sa.co.za/alerts — Security alert history and threat detection
-- Location: https://safenet-sa.co.za/location — GPS tracking and geofencing
-- Settings: https://safenet-sa.co.za/settings — Account, language, plan, and privacy settings
+- Homepage: https://safenet-sa.co.za/ - Digital safety for SA families, WhatsApp monitoring, Luna AI
+- Sign Up: https://safenet-sa.co.za/auth - Create account with SA phone number, POPIA consent
+- Dashboard: https://safenet-sa.co.za/dashboard - Real-time monitoring dashboard for parents
+- Alerts: https://safenet-sa.co.za/alerts - Security alert history and threat detection
+- Location: https://safenet-sa.co.za/location - GPS tracking and geofencing
+- Settings: https://safenet-sa.co.za/settings - Account, language, plan, and privacy settings
 
 ## About
 SafeNet SA is a South African digital safety platform that protects children online. It monitors WhatsApp messages using on-device AI (Luna), supports all 11 official South African languages, and is fully POPIA compliant. The platform offers real-time threat detection, GPS location tracking, screen time management, app blocking, internet pause controls, and school integration features.
