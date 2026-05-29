@@ -83,6 +83,19 @@ export default function Location() {
   const child = children.find(c => c.id === selectedChild) || children[0]
   const mapCenter = child ? [child.lat, child.lng] : [-26.2041, 28.0473]
 
+  // Recent GPS breadcrumb trail leading to the child's current position.
+  // (Demo trail until live history is wired; prevents the map from rendering
+  //  an undefined polyline, which previously crashed the whole page.)
+  const locationHistory = child
+    ? [
+        [child.lat - 0.0045, child.lng - 0.0062],
+        [child.lat - 0.0028, child.lng - 0.0031],
+        [child.lat - 0.0014, child.lng - 0.0016],
+        [child.lat - 0.0006, child.lng - 0.0005],
+        [child.lat, child.lng],
+      ]
+    : []
+
   return (
     <DashboardShell>
       <SEO
@@ -236,7 +249,7 @@ export default function Location() {
               <div className="space-y-2.5">
                 <div className="flex items-center gap-2.5">
                   <MapPin className="w-4 h-4 text-safenet-primary flex-shrink-0" />
-                  <span className="text-sm text-safenet-text-2">{child.address}</span>
+                  <span className="text-sm text-safenet-text-2">{child?.address || 'No location yet'}</span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <Clock className="w-4 h-4 text-safenet-text-3 flex-shrink-0" />
@@ -248,7 +261,7 @@ export default function Location() {
                     <span className="text-[9px] text-safenet-text-3">Live</span>
                   </div>
                   <div className="text-[11px] text-safenet-text-2 font-mono">
-                    {child.lat.toFixed(6)}, {child.lng.toFixed(6)}
+                    {child ? `${child.lat.toFixed(6)}, ${child.lng.toFixed(6)}` : 'Not available'}
                   </div>
                 </div>
               </div>

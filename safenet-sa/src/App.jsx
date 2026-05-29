@@ -8,6 +8,7 @@ import { trackPageview } from './lib/analytics'
 const Landing = lazy(() => import('./pages/Landing'))
 const Auth = lazy(() => import('./pages/Auth'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
+const Children = lazy(() => import('./pages/Children'))
 const Child = lazy(() => import('./pages/Child'))
 const Alerts = lazy(() => import('./pages/Alerts'))
 const Location = lazy(() => import('./pages/Location'))
@@ -79,6 +80,7 @@ export default function App() {
             <Route path="/" element={<PageWrapper><Landing /></PageWrapper>} />
             <Route path="/auth" element={<PageWrapper><Auth /></PageWrapper>} />
             <Route path="/dashboard" element={<PageWrapper><Dashboard /></PageWrapper>} />
+            <Route path="/children" element={<PageWrapper><Children /></PageWrapper>} />
             <Route path="/child/:childId" element={<PageWrapper><Child /></PageWrapper>} />
             <Route path="/alerts" element={<PageWrapper><Alerts /></PageWrapper>} />
             <Route path="/location" element={<PageWrapper><Location /></PageWrapper>} />

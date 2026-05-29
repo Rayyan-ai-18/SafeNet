@@ -72,7 +72,7 @@ export default function Dashboard() {
               <Users className="w-5 h-5 text-safenet-primary" />
               Your Children
             </h2>
-            <Link to="/dashboard" className="text-sm text-safenet-primary font-medium hover:underline">
+            <Link to="/children" className="text-sm text-safenet-primary font-medium hover:underline">
               Manage children
             </Link>
           </div>

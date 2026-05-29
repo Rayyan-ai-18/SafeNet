@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard, Users, Bell, MapPin, Settings, Shield,
-  ChevronDown, LogOut, Menu, X, Bot, Home
+  ChevronDown, LogOut, Menu, X, Bot, Home, UserCog
 } from 'lucide-react'
 import LunaWidget from '../dashboard/LunaWidget'
 import { useAuth } from '../../context/AuthContext'
@@ -13,7 +13,7 @@ import { priceFor } from '../../lib/billing'
 
 const sidebarItems = [
   { icon: LayoutDashboard, label: 'Overview', path: '/dashboard' },
-  { icon: Users, label: 'Children', path: '/dashboard', sub: true },
+  { icon: Users, label: 'Children', path: '/children' },
   { icon: Bell, label: 'Alerts', path: '/alerts' },
   { icon: MapPin, label: 'Location', path: '/location' },
   { icon: Settings, label: 'Settings', path: '/settings' },
@@ -25,8 +25,9 @@ export default function DashboardShell({ children, user }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [userMenuOpen, setUserMenuOpen] = useState(false)
   const { user: authUser, signOut } = useAuth()
-  const { family } = useApp()
+  const { family, alerts } = useApp()
   const currentUser = user || authUser
+  const unreadAlerts = (alerts || []).filter((a) => !a.isRead && a.severity !== 'safe').length
   const planKey = planOf(family)
   const planPrice = planKey === 'free' ? 0 : priceFor(planKey, family?.billing_cycle || 'monthly')
   const planCycleLabel = { weekly: '/week', monthly: '/month', annual: '/year' }[family?.billing_cycle || 'monthly']
@@ -115,7 +116,9 @@ export default function DashboardShell({ children, user }) {
                 <span>Home</span>
               </Link>
               <span className="text-safenet-text-3">/</span>
-              <span className="text-safenet-text font-medium">Dashboard</span>
+              <span className="text-safenet-text font-medium">
+                {sidebarItems.find((i) => i.path === location.pathname)?.label || 'Dashboard'}
+              </span>
             </nav>
           </div>
 
@@ -126,10 +129,18 @@ export default function DashboardShell({ children, user }) {
               Ask Luna
             </button>
 
-            {/* Notification bell */}
-            <button className="relative p-2 rounded-lg hover:bg-safenet-surface transition-colors">
+            {/* Notification bell -> Alerts */}
+            <button
+              onClick={() => navigate('/alerts')}
+              aria-label={unreadAlerts ? `${unreadAlerts} unread alerts` : 'Alerts'}
+              className="relative p-2 rounded-lg hover:bg-safenet-surface transition-colors"
+            >
               <Bell className="w-5 h-5 text-safenet-text-2" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-safenet-danger" />
+              {unreadAlerts > 0 && (
+                <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-1 flex items-center justify-center rounded-full bg-safenet-danger text-white text-[10px] font-bold leading-none">
+                  {unreadAlerts > 9 ? '9+' : unreadAlerts}
+                </span>
+              )}
             </button>
 
             {/* User menu */}
@@ -150,8 +161,25 @@ export default function DashboardShell({ children, user }) {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute right-0 mt-2 w-44 bg-white border border-safenet-border rounded-card-lg shadow-safenet-lg py-1 z-50"
+                    className="absolute right-0 mt-2 w-52 bg-white border border-safenet-border rounded-card-lg shadow-safenet-lg py-1 z-50"
                   >
+                    {/* Signed-in identity */}
+                    <div className="px-3 py-2.5 border-b border-safenet-border">
+                      <div className="text-sm font-semibold text-safenet-text truncate">
+                        {currentUser?.displayName || currentUser?.fullName || 'Your account'}
+                      </div>
+                      {currentUser?.phone && (
+                        <div className="text-xs text-safenet-text-3 truncate">{currentUser.phone}</div>
+                      )}
+                    </div>
+                    <Link
+                      to="/settings"
+                      onClick={() => setUserMenuOpen(false)}
+                      className="flex items-center gap-2.5 w-full px-3 py-2.5 text-sm font-medium text-safenet-text-2 hover:bg-safenet-surface hover:text-safenet-text transition-colors"
+                    >
+                      <UserCog className="w-4 h-4" />
+                      Profile &amp; settings
+                    </Link>
                     <button
                       onClick={() => { setUserMenuOpen(false); handleSignOut() }}
                       className="flex items-center gap-2.5 w-full px-3 py-2.5 text-sm font-medium text-safenet-text-2 hover:bg-safenet-surface hover:text-safenet-text transition-colors"
