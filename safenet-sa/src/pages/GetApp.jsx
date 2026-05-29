@@ -85,7 +85,7 @@ export default function GetApp() {
     <>
       <SEO
         title="Get the SafeNet SA App: Install on Android & iPhone"
-        description="Install SafeNet SA on your phone in seconds, no app store needed. Scan the QR code or tap install. Try the real app live right here in your browser."
+        description="Install SafeNet SA on your phone in seconds, no app store needed. Scan the QR code or follow the quick install steps. Try the real app live right here in your browser."
         canonicalPath="/app"
       />
       <div className="min-h-screen bg-[#F4F6F5]">
@@ -161,9 +161,11 @@ export default function GetApp() {
                   {isMobile ? 'Add SafeNet to your home screen' : 'Install on your phone'}
                 </h2>
                 <p className="text-sm text-safenet-text-2 mb-6">
-                  {isMobile
-                    ? "You're on your phone, one tap and SafeNet lives on your home screen, just like an app store app but it installs instantly."
-                    : 'Point your phone camera at the code, and it opens SafeNet, ready to add to your home screen.'}
+                  {!isMobile
+                    ? 'Point your phone camera at the code, and it opens SafeNet, ready to add to your home screen.'
+                    : platform === 'ios'
+                      ? 'A few quick taps in Safari and SafeNet lives on your home screen, no app store, no download wait.'
+                      : 'One tap and SafeNet lives on your home screen, no app store, no download wait.'}
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center gap-6">
