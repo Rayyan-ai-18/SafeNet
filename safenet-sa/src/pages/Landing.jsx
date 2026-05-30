@@ -194,7 +194,7 @@ const faqSchema = {
       name: 'Does SafeNet work in South African languages?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes. Luna speaks English and Zulu today, with all 11 official South African languages on the roadmap including Afrikaans, isiXhosa, Sesotho, Setswana, Sepedi, Tshivenḓa, Xitsonga, siSwati, and isiNdebele.',
+        text: 'Yes. Luna speaks English and Zulu today, with all 11 official South African languages on the roadmap including Afrikaans, Xhosa, Sesotho, Setswana, Sepedi, Tshivenḓa, Xitsonga, Swati, and Ndebele.',
       },
     },
     {
@@ -245,8 +245,8 @@ const softwareSchema = {
     description: 'Free tier available; Guardian plan R89/month; Sentinel plan R149/month',
   },
   availableLanguage: [
-    'English', 'Zulu', 'Afrikaans', 'isiXhosa', 'Sesotho',
-    'Setswana', 'Sepedi', 'Tshivenḓa', 'Xitsonga', 'siSwati', 'isiNdebele',
+    'English', 'Zulu', 'Afrikaans', 'Xhosa', 'Sesotho',
+    'Setswana', 'Sepedi', 'Tshivenḓa', 'Xitsonga', 'Swati', 'Ndebele',
   ],
 }
 
@@ -660,7 +660,7 @@ export default function Landing() {
               <h2 className="font-display text-heading-lg text-safenet-text mb-4">About SafeNet SA - South Africa's Child Digital Safety Platform</h2>
               <div className="text-sm text-safenet-text-2 leading-relaxed space-y-3">
                 <p>
-                  SafeNet SA is the first AI-powered child digital safety platform built specifically for South African families. While global parental control apps scan for English keywords only, SafeNet's Luna AI detects cyberbullying, grooming, phishing, and adult content across all 11 official South African languages - including Zulu, Afrikaans, isiXhosa, and Sesotho. This is possible because SafeNet's threat database is trained on South African language data, slang, and cultural context, built with guidance from <a href="https://www.childlinesa.org.za" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">Childline South Africa</a>.
+                  SafeNet SA is the first AI-powered child digital safety platform built specifically for South African families. While global parental control apps scan for English keywords only, SafeNet's Luna AI detects cyberbullying, grooming, phishing, and adult content across all 11 official South African languages - including Zulu, Afrikaans, Xhosa, and Sesotho. This is possible because SafeNet's threat database is trained on South African language data, slang, and cultural context, built with guidance from <a href="https://www.childlinesa.org.za" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">Childline South Africa</a>.
                 </p>
                 <p>
                   According to <a href="https://www.unicef.org/southafrica/reports" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">UNICEF South Africa</a>, 1 in 3 children in South Africa face cyberbullying, and 94% of SA teens access the internet via smartphone - almost exclusively Android. SafeNet is optimised for the R1,500 Samsung A-series devices that most SA families use, running entirely on-device so that message content never leaves the child's phone. Parents receive only threat alerts - never chat content - making SafeNet fully POPIA compliant by architecture, not as an afterthought.

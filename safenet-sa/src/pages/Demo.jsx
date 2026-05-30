@@ -1265,7 +1265,7 @@ export default function Demo() {
                           Cyberbullying in Zulu, phishing in Afrikaans, scams in Sesotho - Luna catches them all.
                         </p>
                         <div className="flex flex-wrap justify-center lg:justify-start gap-2">
-                          {['English', 'Zulu', 'Afrikaans', 'isiXhosa', 'Sesotho', 'Setswana', 'Sepedi', 'Tshivenḓa', 'Xitsonga', 'siSwati', 'isiNdebele'].map((langName) => (
+                          {['English', 'Zulu', 'Afrikaans', 'Xhosa', 'Sesotho', 'Setswana', 'Sepedi', 'Tshivenḓa', 'Xitsonga', 'Swati', 'Ndebele'].map((langName) => (
                             <span key={langName} className="inline-flex items-center gap-1 px-2.5 py-1 bg-white rounded-full text-[11px] font-medium text-safenet-text-2 border border-safenet-border/50 shadow-sm">
                               ✓ {langName}
                             </span>

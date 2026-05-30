@@ -95,14 +95,14 @@ export default function Footer() {
               <option value="en">English</option>
               <option value="af">Afrikaans</option>
               <option value="zu">Zulu</option>
-              <option value="xh">isiXhosa</option>
+              <option value="xh">Xhosa</option>
               <option value="st">Sesotho</option>
               <option value="tn">Setswana</option>
               <option value="nso">Sepedi</option>
               <option value="ve">Tshivenḓa</option>
               <option value="ts">Xitsonga</option>
-              <option value="ss">siSwati</option>
-              <option value="nr">isiNdebele</option>
+              <option value="ss">Swati</option>
+              <option value="nr">Ndebele</option>
             </select>
           </div>
         </div>
