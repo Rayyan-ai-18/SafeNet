@@ -61,7 +61,7 @@ export default function Hero() {
             {/* Badge */}
             <div ref={badgeRef} className="inline-flex items-center gap-2 px-3 py-1.5 bg-safenet-primary-light rounded-full text-sm text-safenet-primary mb-6">
               <span className="w-2 h-2 rounded-full bg-safenet-primary pulse-dot" />
-              <span className="text-xs font-medium">Speaking isiZulu · POPIA compliant · Free to start</span>
+              <span className="text-xs font-medium">Speaking Zulu · POPIA compliant · Free to start</span>
             </div>
 
             {/* Headline */}
@@ -73,7 +73,7 @@ export default function Hero() {
 
             {/* Subheadline */}
             <p ref={subRef} className="text-base sm:text-lg text-safenet-text-2 max-w-[480px] leading-relaxed mb-6">
-              Detect cyberbullying. Block grooming. Speak isiZulu. Built for South Africa.
+              Detect cyberbullying. Block grooming. Speak Zulu. Built for South Africa.
             </p>
 
             {/* CTAs */}

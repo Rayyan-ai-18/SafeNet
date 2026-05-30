@@ -16,7 +16,7 @@ SafeNet SA is a South African digital safety platform that protects children onl
 ## Key Features
 - **WhatsApp Monitoring**: On-device analysis of WhatsApp messages for phishing, grooming, and harmful content. No message content is transmitted or stored.
 - **Luna AI**: Proprietary AI that detects threats in real-time. Understands South African slang and context. Sends alerts in the parent's preferred language.
-- **11 Language Support**: Full support for all South African official languages including isiZulu, Afrikaans, isiXhosa, Sesotho, Setswana, Sepedi, Tshivenḓa, Xitsonga, siSwati, and isiNdebele.
+- **11 Language Support**: Full support for all South African official languages including Zulu, Afrikaans, isiXhosa, Sesotho, Setswana, Sepedi, Tshivenḓa, Xitsonga, siSwati, and isiNdebele.
 - **GPS Location Tracking**: Real-time location monitoring with geofencing. Receive alerts when children arrive at or leave safe zones.
 - **Screen Time Management**: Daily and weekly reports on app usage. Set time limits per app or category.
 - **Internet Pause**: One-tap internet pause across all connected devices.

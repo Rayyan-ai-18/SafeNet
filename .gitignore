@@ -7,3 +7,4 @@ __pycache__/
 .env.local
 .DS_Store
 .claude/
+.codegraph/

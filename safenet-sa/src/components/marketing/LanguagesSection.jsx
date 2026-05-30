@@ -5,7 +5,7 @@ import { gsap, ScrollTrigger } from '../../lib/gsap'
 
 const languages = [
   { name: 'English', native: 'English', speakers: '1.5M', flag: '🇿🇦' },
-  { name: 'isiZulu', native: 'isiZulu', speakers: '12M', flag: '🇿🇦' },
+  { name: 'Zulu', native: 'Zulu', speakers: '12M', flag: '🇿🇦' },
   { name: 'Afrikaans', native: 'Afrikaans', speakers: '6.5M', flag: '🇿🇦' },
   { name: 'isiXhosa', native: 'isiXhosa', speakers: '8.2M', flag: '🇿🇦' },
   { name: 'Sesotho', native: 'Sesotho', speakers: '3.8M', flag: '🇿🇦' },
@@ -31,7 +31,7 @@ const capabilities = [
   {
     icon: Volume2,
     title: 'Voice Commands',
-    desc: 'Ask Luna questions in any SA language. "Ingane yami ikuphephi?" - your child safe? Yes, in isiZulu.',
+    desc: 'Ask Luna questions in any SA language. "Ingane yami ikuphephi?" - your child safe? Yes, in Zulu.',
   },
   {
     icon: Languages,

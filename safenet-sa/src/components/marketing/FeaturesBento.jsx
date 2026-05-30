@@ -49,7 +49,7 @@ const bentoCards = [
     icon: Languages,
     span: 'lg:col-span-2 lg:row-span-1',
     variant: 'surface',
-    languages: ['English', 'isiZulu', 'Afrikaans', 'isiXhosa', 'Sesotho', 'Setswana', 'Sepedi', 'Tshivenḓa', 'Xitsonga', 'siSwati', 'isiNdebele'],
+    languages: ['English', 'Zulu', 'Afrikaans', 'isiXhosa', 'Sesotho', 'Setswana', 'Sepedi', 'Tshivenḓa', 'Xitsonga', 'siSwati', 'isiNdebele'],
   },
   {
     title: 'Screen Time Reports',

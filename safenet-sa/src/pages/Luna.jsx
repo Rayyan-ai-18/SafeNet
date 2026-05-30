@@ -34,7 +34,7 @@ const lunaFaqItems = [
   },
   {
     q: 'What is a honey trap and how does Luna detect it?',
-    a: 'A honey trap is a grooming tactic where an adult poses as a child online to build trust with a minor, often using fake profiles on platforms like TikTok, Instagram, or WhatsApp. Luna is trained to detect grooming patterns - including inappropriate age-gap dynamics, secrecy requests, and sexual language - across English and isiZulu conversations. According to <ExternalLink href="https://www.childlinesa.org.za">Childline South Africa</ExternalLink>, honey trap cases have risen significantly in SA.',
+    a: 'A honey trap is a grooming tactic where an adult poses as a child online to build trust with a minor, often using fake profiles on platforms like TikTok, Instagram, or WhatsApp. Luna is trained to detect grooming patterns - including inappropriate age-gap dynamics, secrecy requests, and sexual language - across English and Zulu conversations. According to <ExternalLink href="https://www.childlinesa.org.za">Childline South Africa</ExternalLink>, honey trap cases have risen significantly in SA.',
   },
   {
     q: 'Is my child\'s privacy protected when Luna scans their messages?',
@@ -42,7 +42,7 @@ const lunaFaqItems = [
   },
   {
     q: 'What languages does Luna speak?',
-    a: 'Luna speaks English and isiZulu today, with all 11 official South African languages on the roadmap: Afrikaans, isiXhosa, Sesotho, Setswana, Sepedi, Tshivenḓa, Xitsonga, siSwati, and isiNdebele. You can ask Luna questions in either English or isiZulu - she understands and responds in the same language you use. <LinkInternal to="/how-it-works">Learn about Luna\'s language support →</LinkInternal>',
+    a: 'Luna speaks English and Zulu today, with all 11 official South African languages on the roadmap: Afrikaans, isiXhosa, Sesotho, Setswana, Sepedi, Tshivenḓa, Xitsonga, siSwati, and isiNdebele. You can ask Luna questions in either English or Zulu - she understands and responds in the same language you use. <LinkInternal to="/how-it-works">Learn about Luna\'s language support →</LinkInternal>',
   },
   {
     q: 'Ngingakusebenzisa kanjani uSafeNet? (How do I use SafeNet?)',
@@ -208,7 +208,7 @@ export default function Luna() {
     <>
       <SEO
         title="Talk to Luna - SafeNet SA Voice AI Guardian"
-        description="Meet Luna, the AI guardian for South African families. Ask Luna about cyberbullying, grooming, honey traps, and online safety. Speaks English and isiZulu. Free to use."
+        description="Meet Luna, the AI guardian for South African families. Ask Luna about cyberbullying, grooming, honey traps, and online safety. Speaks English and Zulu. Free to use."
         canonicalPath="/luna"
         jsonLd={[faqSchemaLuna]}
       />
@@ -435,7 +435,7 @@ export default function Luna() {
                   SafeNet SA is South Africa's first AI-powered child digital safety platform. At its heart is Luna - a guardian AI that runs on your child's Android phone, monitoring WhatsApp, TikTok, and Instagram for cyberbullying, grooming, and harmful content. Every link is scanned before your child taps it, blocking fake SASSA phishing sites, adult content, and malicious downloads instantly.
                 </p>
                 <p>
-                  What makes SafeNet different from global parental control apps? Luna speaks isiZulu and understands South African cultural context. She detects threats across all 11 official languages - including cyberbullying in isiZulu slang, grooming in Afrikaans, and phishing scams in Sesotho. According to <a href="https://www.childlinesa.org.za" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">Childline South Africa</a>, online grooming cases have risen sharply, with perpetrators using indigenous languages to target children. <a href="https://www.unicef.org/southafrica/reports" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">UNICEF South Africa</a> reports that 1 in 3 SA children face cyberbullying.
+                  What makes SafeNet different from global parental control apps? Luna speaks Zulu and understands South African cultural context. She detects threats across all 11 official languages - including cyberbullying in Zulu slang, grooming in Afrikaans, and phishing scams in Sesotho. According to <a href="https://www.childlinesa.org.za" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">Childline South Africa</a>, online grooming cases have risen sharply, with perpetrators using indigenous languages to target children. <a href="https://www.unicef.org/southafrica/reports" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">UNICEF South Africa</a> reports that 1 in 3 SA children face cyberbullying.
                 </p>
                 <p>
                   Luna processes everything on-device - meaning message content never leaves your child's phone. Parents receive only threat alerts with the threat category and severity level, never the actual chat content. This makes SafeNet fully <strong className="text-safenet-text">POPIA compliant by architecture</strong>. You can <Link to="/how-it-works" className="text-safenet-primary font-medium hover:underline">see exactly how it works</Link>, or <Link to="/demo" className="text-safenet-primary font-medium hover:underline">watch Luna catch a threat in real time</Link>.

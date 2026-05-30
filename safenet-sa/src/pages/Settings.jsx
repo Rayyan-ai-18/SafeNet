@@ -18,7 +18,7 @@ const tabs = [
 const languages = [
   { code: 'en', name: 'English', native: 'English', speakers: '1.5M' },
   { code: 'af', name: 'Afrikaans', native: 'Afrikaans', speakers: '6.5M' },
-  { code: 'zu', name: 'isiZulu', native: 'isiZulu', speakers: '12M' },
+  { code: 'zu', name: 'Zulu', native: 'Zulu', speakers: '12M' },
   { code: 'xh', name: 'isiXhosa', native: 'isiXhosa', speakers: '8.2M' },
   { code: 'st', name: 'Sesotho', native: 'Sesotho', speakers: '3.8M' },
   { code: 'tn', name: 'Setswana', native: 'Setswana', speakers: '4.1M' },
