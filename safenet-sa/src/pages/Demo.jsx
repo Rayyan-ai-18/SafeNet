@@ -31,7 +31,7 @@ const stats = [
   { value: '1 in 3', label: 'Face cyberbullying', description: 'South African children affected' },
   { value: '94', suffix: '%', label: 'On WhatsApp', description: 'SA smartphone users' },
   { value: '0.3', suffix: 's', label: 'Detection time', description: "Luna's average threat speed" },
-  { value: '11', suffix: '', label: 'Languages', description: 'SA languages Luna speaks 🇿🇦' },
+  { value: '11', suffix: '', label: 'Languages', description: 'SA languages Luna supports 🇿🇦' },
 ]
 
 // Analysis stages shown during threat detection
