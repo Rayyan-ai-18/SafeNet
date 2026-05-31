@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Shield, RotateCcw, Globe, Check, Link as LinkIcon, Smartphone, MapPin, Languages, Mic, Bell, Phone as PhoneIcon } from 'lucide-react'
+import { Shield, RotateCcw, Globe, Check, Link as LinkIcon, Smartphone, MapPin, Languages, Mic, Bell, Phone as PhoneIcon, Volume2 } from 'lucide-react'
 import { gsap, ScrollTrigger } from '../lib/gsap'
 import SEO from '../components/seo/SEO'
 import Nav from '../components/layout/Nav'
@@ -1281,16 +1281,39 @@ export default function Demo() {
                           Cyberbullying in Zulu, phishing in Afrikaans, scams in Sesotho - Luna catches them all.
                         </p>
                         <div className="flex flex-wrap justify-center lg:justify-start gap-2">
-                          {['English', 'Zulu', 'Afrikaans', 'Xhosa', 'Sesotho', 'Setswana', 'Sepedi', 'Tshivenḓa', 'Xitsonga', 'Swati', 'Ndebele'].map((langName) => (
-                            <span key={langName} className="inline-flex items-center gap-1 px-2.5 py-1 bg-white rounded-full text-[11px] font-medium text-safenet-text-2 border border-safenet-border/50 shadow-sm">
-                              ✓ {langName}
-                            </span>
+                          {[
+                            { name: 'English', speaks: true }, { name: 'Zulu', speaks: true },
+                            { name: 'Afrikaans' }, { name: 'Xhosa' }, { name: 'Sesotho' },
+                            { name: 'Setswana' }, { name: 'Sepedi' }, { name: 'Tshivenḓa' },
+                            { name: 'Xitsonga' }, { name: 'Swati' }, { name: 'Ndebele' },
+                          ].map((l, i) => (
+                            <motion.span
+                              key={l.name}
+                              initial={{ opacity: 0, y: 8 }}
+                              whileInView={{ opacity: 1, y: 0 }}
+                              viewport={{ once: true }}
+                              transition={{ delay: i * 0.04, duration: 0.3, ease: 'easeOut' }}
+                              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-semibold border shadow-safenet-sm transition-transform duration-200 hover:-translate-y-0.5 ${
+                                l.speaks
+                                  ? 'bg-safenet-primary text-white border-safenet-primary'
+                                  : 'bg-white text-safenet-text-2 border-safenet-border/60'
+                              }`}
+                            >
+                              {l.speaks
+                                ? <Volume2 className="w-3 h-3" />
+                                : <Check className="w-3 h-3 text-safenet-primary" />}
+                              {l.name}
+                            </motion.span>
                           ))}
+                        </div>
+                        <div className="mt-3 flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-1 text-[11px] text-safenet-text-3">
+                          <span className="inline-flex items-center gap-1.5"><Volume2 className="w-3 h-3 text-safenet-primary" /> Speaks today (more on the way)</span>
+                          <span className="inline-flex items-center gap-1.5"><Check className="w-3 h-3 text-safenet-primary" /> Understands &amp; detects all 11</span>
                         </div>
                       </div>
 
                       {/* Right: Mini phone with Zulu messages */}
-                      <div className="flex-shrink-0">
+                      <div className="flex-shrink-0 flex flex-col items-center gap-3">
                         <div className="relative" style={{ width: 180, height: 340 }}>
                           <div className="absolute inset-0 bg-[#F0F2F1] rounded-[28px]" style={{ boxShadow: '0 0 0 2px #D1D5DB, 0 12px 40px rgba(0,0,0,0.12)' }}>
                             <div className="absolute top-[8px] left-1/2 -translate-x-1/2 w-[80px] h-[24px] bg-[#1A1A1A] rounded-[14px] z-20" />
@@ -1316,6 +1339,11 @@ export default function Demo() {
                               </div>
                             </div>
                           </div>
+                        </div>
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-safenet-border shadow-safenet-sm">
+                          <Shield className="w-3.5 h-3.5 text-safenet-primary" />
+                          <span className="text-[11px] font-semibold text-safenet-text">Flagged in Zulu</span>
+                          <span className="text-[10px] text-safenet-text-3">· 0.3s</span>
                         </div>
                       </div>
                     </div>
