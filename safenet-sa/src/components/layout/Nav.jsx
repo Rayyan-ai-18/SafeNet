@@ -31,9 +31,11 @@ const translations = {
   },
 }
 
+// "Talk to Luna" (/luna) is intentionally NOT a top-nav item: it overlapped
+// with "Live Demo". Luna stays reachable via the PWA shortcut, the floating
+// Luna widget, the footer, and links inside the demo.
 const navLinks = [
   { key: 'liveDemo', path: '/demo', highlight: true },
-  { key: 'talkToLuna', path: '/luna' },
   { key: 'getApp', path: '/app' },
   { key: 'linkChecker', path: '/scan' },
   { key: 'howItWorksPage', path: '/how-it-works' },
