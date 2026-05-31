@@ -33,6 +33,7 @@ const translations = {
 
 const navLinks = [
   { key: 'liveDemo', path: '/demo', highlight: true },
+  { key: 'talkToLuna', path: '/luna' },
   { key: 'getApp', path: '/app' },
   { key: 'linkChecker', path: '/scan' },
   { key: 'howItWorksPage', path: '/how-it-works' },

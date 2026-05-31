@@ -1,7 +1,7 @@
 {
   "name": "SafeNet SA: Family Digital Safety",
   "short_name": "SafeNet SA",
-  "description": "Keep your children safe online. Monitors WhatsApp, blocks scams, speaks 11 SA languages. POPIA compliant.",
+  "description": "Keep your children safe online. Monitors WhatsApp, blocks scams, supports 11 SA languages. POPIA compliant.",
   "start_url": "/dashboard?source=pwa",
   "scope": "/",
   "display": "standalone",
@@ -17,6 +17,7 @@
     { "src": "/app-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
   ],
   "shortcuts": [
+    { "name": "Talk to Luna", "short_name": "Luna", "url": "/luna", "description": "Ask Luna about keeping your child safe" },
     { "name": "Link Checker", "short_name": "Scan", "url": "/scan", "description": "Check if a link is safe" },
     { "name": "Alerts", "short_name": "Alerts", "url": "/alerts", "description": "View safety alerts" }
   ]

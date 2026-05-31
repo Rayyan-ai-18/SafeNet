@@ -10,3 +10,5 @@ __pycache__/
 .codegraph/
 voice-lab/.venv/
 voice-lab/samples/
+voice-lab/samples-toucan/
+voice-lab/IMS-Toucan/
