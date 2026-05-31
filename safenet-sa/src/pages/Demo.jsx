@@ -499,6 +499,8 @@ export default function Demo() {
   const scanIntervalRef = useRef(null)
 
   const isZu = lang === 'zu'
+  // Apps Luna watches, rotated by the live scan ticker to convey real-time monitoring.
+  const MONITORED = ['WhatsApp', 'TikTok', 'Instagram', 'Chrome', 'YouTube', 'Messenger']
 
   // Scan counter ticker
   useEffect(() => {
@@ -790,9 +792,23 @@ export default function Demo() {
             <h1 ref={headingRef} className="font-display text-display-sm sm:text-display-md text-safenet-text mb-4">
               See Luna in Action
             </h1>
-            <p className="text-base text-safenet-text-2 max-w-lg mx-auto mb-6">
+            <p className="text-base text-safenet-text-2 max-w-lg mx-auto mb-5">
               Watch how Luna detects and blocks cyberbullying on WhatsApp - in under a second. Then see everything else Luna can do.
             </p>
+
+            {/* Luna live guardian: reinforces the real-time, always-watching narrative */}
+            <div className="inline-flex items-center gap-2.5 mb-6 px-4 py-2 rounded-full bg-safenet-primary-light border border-safenet-primary/20">
+              <span className="relative flex h-2.5 w-2.5" aria-hidden="true">
+                <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-safenet-primary opacity-60" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-safenet-primary" />
+              </span>
+              <span className="text-xs sm:text-sm font-medium text-safenet-primary">
+                Luna is live, watching {MONITORED[scanCount % MONITORED.length]} in real time
+              </span>
+              <span className="hidden sm:inline text-xs text-safenet-primary/70 tabular-nums">
+                · {(1240 + scanCount).toLocaleString()} checks today
+              </span>
+            </div>
 
             {/* Controls */}
             <div className="flex items-center justify-center gap-4 flex-wrap">
