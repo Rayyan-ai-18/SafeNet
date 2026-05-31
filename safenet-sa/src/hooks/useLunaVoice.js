@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
+import { fetchToucanAudioUrl, isToucanApproved } from '../lib/voiceRouter'
 
 // Luna voice hook - mirrors the Luna-AI pipeline so it works cross-browser
 // (incl. Safari/iOS): Silero VAD captures speech -> Groq Whisper STT
@@ -169,13 +170,47 @@ export function useLunaVoice() {
     })
   }), [findVoice])
 
-  // ── Speak: English uses Deepgram (/api/luna-tts), isiZulu uses browser voice ──
+  // ── Play an audio URL through the managed element, pulsing the avatar mouth.
+  // Used by both the Deepgram (English) and Toucan (SA langs) paths so the
+  // visualizer + iOS audio unlock behave identically. Rejects on audio error. ──
+  const playUrlWithPulse = useCallback((url, { revoke = false } = {}) => new Promise((resolve, reject) => {
+    const el = getAudioEl()
+    const startPulse = () => {
+      clearInterval(boundaryTimerRef.current)
+      boundaryTimerRef.current = setInterval(() => window.dispatchEvent(new CustomEvent('luna-word-boundary')), 260)
+    }
+    const stop = () => { clearInterval(boundaryTimerRef.current); if (revoke) URL.revokeObjectURL(url) }
+    el.onplay = () => startPulse()
+    el.onended = () => { stop(); resolve() }
+    el.onerror = () => { stop(); reject(new Error('audio error')) }
+    el.src = url
+    el.play().catch((e) => { stop(); reject(e) })
+  }), [getAudioEl])
+
+  // ── Speak: English -> Deepgram (/api/luna-tts). Other SA languages -> Toucan
+  // service when that language is approved + configured, else browser voice.
+  // Ndebele has no voice model anywhere, so it stays text-only. ──
   const speak = useCallback(async (text, lang) => {
     if (!text || !text.trim()) return
     setState('speaking')
 
-    if (lang === 'zu') { await speakBrowser(text, lang); return }
+    // Ndebele: no neural voice exists; the UI shows the text reply.
+    if (lang === 'nbl' || lang === 'nr') return
 
+    // Non-English SA languages: Toucan if approved, otherwise browser voice.
+    if (lang && lang !== 'en') {
+      if (isToucanApproved(lang)) {
+        const url = await fetchToucanAudioUrl(text, lang)
+        if (url) {
+          try { await playUrlWithPulse(url, { revoke: true }); return }
+          catch { /* service hiccup: fall through to browser voice */ }
+        }
+      }
+      await speakBrowser(text, lang)
+      return
+    }
+
+    // English (or unspecified): Deepgram, exactly as before.
     try {
       const res = await fetch('/api/luna-tts', {
         method: 'POST',
@@ -191,24 +226,11 @@ export function useLunaVoice() {
       const arr = new Uint8Array(bin.length)
       for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i)
       const url = URL.createObjectURL(new Blob([arr], { type: mime }))
-
-      await new Promise((resolve, reject) => {
-        const el = getAudioEl()
-        const startPulse = () => {
-          clearInterval(boundaryTimerRef.current)
-          boundaryTimerRef.current = setInterval(() => window.dispatchEvent(new CustomEvent('luna-word-boundary')), 260)
-        }
-        const stop = () => { clearInterval(boundaryTimerRef.current); URL.revokeObjectURL(url) }
-        el.onplay = () => startPulse()
-        el.onended = () => { stop(); resolve() }
-        el.onerror = () => { stop(); reject(new Error('audio error')) }
-        el.src = url
-        el.play().catch((e) => { stop(); reject(e) })
-      })
+      await playUrlWithPulse(url, { revoke: true })
     } catch {
       await speakBrowser(text, lang)
     }
-  }, [getAudioEl, speakBrowser])
+  }, [playUrlWithPulse, speakBrowser])
 
   // ── STT: isiZulu via Vulavula, English via Groq Whisper (both get WAV) ──
   const transcribe = useCallback(async (float32) => {

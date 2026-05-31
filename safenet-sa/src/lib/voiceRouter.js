@@ -14,6 +14,39 @@ const TOUCAN_URL = import.meta.env.VITE_TOUCAN_TTS_URL || ''
 // Languages the Toucan service can voice (Ndebele 'nbl' excluded by design).
 export const TOUCAN_LANGS = ['zu', 'xh', 'af', 'st', 'tn', 'nso', 've', 'ts', 'ss']
 
+// Languages actually turned ON in the live app. A language goes here only after
+// BOTH gates pass: (1) signed off by ear (listen to voice-lab/samples-toucan/
+// <lang>-*.wav with a speaker of that language) AND (2) confirmed the live
+// service synthesizes it in prod. English is never gated here; it always uses
+// Deepgram. All 9 Toucan SA voices signed off (Ndebele has no model -> text).
+export const APPROVED_TOUCAN_LANGS = [...TOUCAN_LANGS]
+
+// True when `lang` should be voiced via the Toucan service right now.
+export function isToucanApproved(lang) {
+  return Boolean(TOUCAN_URL) && APPROVED_TOUCAN_LANGS.includes(lang)
+}
+
+// Fetch Toucan audio for an SA language and return a playable object-URL
+// (or null on any failure). The caller plays it through its OWN audio element
+// so the avatar mouth pulse + iOS audio unlock keep working, and so a failure
+// can fall back to the browser voice. Remember to URL.revokeObjectURL when done.
+export async function fetchToucanAudioUrl(text, lang) {
+  if (!TOUCAN_URL || !TOUCAN_LANGS.includes(lang)) return null
+  try {
+    const res = await fetch(`${TOUCAN_URL.replace(/\/$/, '')}/tts`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text, lang }),
+    })
+    if (!res.ok) return null
+    const blob = await res.blob()
+    if (!blob || !blob.size) return null
+    return URL.createObjectURL(blob)
+  } catch {
+    return null
+  }
+}
+
 function playAudio(src) {
   return new Promise((resolve) => {
     try {

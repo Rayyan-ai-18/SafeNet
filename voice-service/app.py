@@ -22,6 +22,7 @@ import os
 import sys
 import wave
 import hashlib
+import traceback
 from functools import lru_cache
 
 from fastapi import FastAPI, HTTPException
@@ -74,7 +75,10 @@ def tts(req: TTSRequest):
     try:
         wav_bytes = _synth_cached(req.text, iso)
     except Exception as e:  # pragma: no cover
-        raise HTTPException(500, f"synthesis failed: {type(e).__name__}")
+        # Log the full traceback to stderr (visible in the HF Space "Logs" tab)
+        # and surface a short reason so failures are diagnosable, not opaque.
+        traceback.print_exc()
+        raise HTTPException(500, f"synthesis failed: {type(e).__name__}: {e}")
     return Response(content=wav_bytes, media_type="audio/wav",
                     headers={"Cache-Control": "public, max-age=31536000"})
 

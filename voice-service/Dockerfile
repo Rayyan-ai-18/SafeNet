@@ -6,7 +6,12 @@ FROM python:3.11-slim
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential cmake pkg-config git \
     espeak-ng libsndfile1 ffmpeg \
+    libportaudio2 \
     && rm -rf /var/lib/apt/lists/*
+# libportaudio2: IMS-Toucan imports `sounddevice` (PortAudio bindings) even for
+# file-only synthesis; without the system lib it raises
+# "OSError: PortAudio library not found" at first /tts. No audio device needed,
+# just the shared library must be present on this headless box.
 
 WORKDIR /srv
 
@@ -23,9 +28,16 @@ RUN git clone --depth 1 -b MassiveScaleToucan https://github.com/DigitalPhonetic
 
 ENV TOUCAN_REPO=/srv/IMS-Toucan
 ENV TOUCAN_DEVICE=cpu
-# HF Spaces run as a non-root user (UID 1000); keep caches writable.
+# HF Spaces run as a non-root user (UID 1000) and site-packages is read-only.
+# Route EVERY library's cache/scratch to a writable path or model load throws a
+# bare OSError: HF hub, torch.hub, numba (via librosa), and matplotlib all try
+# to write next to their modules by default. HOME points at writable /srv too.
+ENV HOME=/srv
 ENV HF_HOME=/srv/.cache/hf
 ENV XDG_CACHE_HOME=/srv/.cache
+ENV TORCH_HOME=/srv/.cache/torch
+ENV NUMBA_CACHE_DIR=/tmp/numba
+ENV MPLCONFIGDIR=/tmp/mpl
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
@@ -33,7 +45,8 @@ COPY app.py .
 
 # Model downloads on first request (keeps the build light enough for free tier).
 # Make caches + model dir writable by any runtime UID.
-RUN mkdir -p /srv/.cache/hf /srv/IMS-Toucan/Models && chmod -R 777 /srv
+RUN mkdir -p /srv/.cache/hf /srv/.cache/torch /srv/IMS-Toucan/Models /tmp/numba /tmp/mpl \
+    && chmod -R 777 /srv /tmp/numba /tmp/mpl
 
 EXPOSE 8080
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
