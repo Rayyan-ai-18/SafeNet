@@ -5,17 +5,39 @@ languages** for Luna's voice alerts. Not part of the deployed app.
 
 ## TL;DR (verified finding)
 
-We tested Meta's open **MMS-TTS** as a free path to all 11 languages.
-**It only covers 2 of the 11: English and Tsonga.** The other nine
-(Zulu, Xhosa, Afrikaans, Sotho, Tswana, Pedi, Venda, Swati, Ndebele) have
-**no MMS-TTS model at all**, confirmed against the full set of 1,141
-`facebook/mms-tts-*` models on Hugging Face.
+We compared three open engines for SA's 11 languages. **IMS Toucan is the
+winner: it covers 10 of 11 (all except Southern Ndebele) and is Apache-2.0,
+so commercially usable.** MMS covers only 2; OmniVoice ~6 but with a
+restrictive license and heavy GPU-studio infra.
 
-So MMS is *not* the "11 languages, free" answer we hoped for. There is, today,
-**no single free (or even paid) off-the-shelf TTS that cleanly covers all 11
-SA languages well** — the low-resource ones (Venda, Swati, Ndebele) are the
-gap everywhere. This is a real constraint of low-resource languages, not a
-SafeNet limitation.
+## Engine comparison (verified by grepping each project's own language list)
+
+| Engine | SA coverage | License | Fit |
+|---|---|---|---|
+| **IMS Toucan** | **10/11** (missing only Ndebele/nbl) | Apache-2.0 (commercial OK) | Best: model, can run as batched service |
+| OmniVoice (k2-fsa) | ~6/11 (Eng, Zulu, Xhosa, Afrikaans, Tswana, Pedi) | model unclear; Studio app is FSL non-commercial | GPU desktop studio, poor fit for serverless |
+| Meta MMS-TTS | 2/11 (English, Tsonga) | CC-BY-NC (non-commercial) | Only Tsonga useful for us |
+
+Per-language: Toucan has Zulu, Xhosa, Afrikaans, Sotho, Tswana, Pedi, Venda,
+Tsonga, Swati (+ English). **Only Southern Ndebele (nbl) has no model in any
+engine** — it would need commissioned/recorded audio.
+
+Coverage means a model exists; **per-language audio quality still needs a
+listen test** (next step: install Toucan, generate samples for the 9, judge
+quality). Toucan is massively-multilingual via phonetic features, so quality
+varies by language and should be verified before shipping each voice.
+
+## MMS-TTS coverage for SA (empirically verified)
+
+| Language | MMS model | Status |
+|---|---|---|
+| English | `facebook/mms-tts-eng` | ✅ works (sample generated) |
+| Tsonga (Xitsonga) | `facebook/mms-tts-tso` | ✅ works (sample generated) |
+| Zulu | `mms-tts-zul` | ❌ does not exist |
+| Xhosa | `mms-tts-xho` | ❌ does not exist |
+| Afrikaans | `mms-tts-afr` | ❌ does not exist |
+| Sotho (Sesotho) | `mms-tts-sot` | ❌ does not exist |
+| Tswana | `mms-tts-tsn` | ❌ does not exist |
 
 ## MMS-TTS coverage for SA (empirically verified)
 
@@ -36,19 +58,20 @@ SafeNet limitation.
 (MMS-TTS *does* cover many other African languages: Swahili, Yoruba, Hausa,
 Shona, Nyanja, Kinyarwanda, Luganda, etc. The SA Bantu set just isn't in it.)
 
-## Recommended free-first routing (per language)
+## Recommended routing (per language)
 
-| Language | Best free option today | Quality |
+| Language | Best option | Notes |
 |---|---|---|
-| English | **Deepgram Aura** (already wired in `api/luna-tts.js`) | Excellent — keep |
-| Tsonga | **MMS-TTS** (`tso`) | Good, free |
-| Afrikaans | Browser Web Speech (`af-ZA`, present on most Android/Google TTS) | OK |
-| Zulu | Browser Web Speech (`zu-ZA` where available) | Varies by device |
-| Xhosa, Sotho, Tswana, Pedi, Venda, Swati, Ndebele | **No good free TTS exists yet** | — |
+| English | **Deepgram Aura** (already wired in `api/luna-tts.js`) | Excellent, keep as-is |
+| Zulu, Xhosa, Afrikaans, Sotho, Tswana, Pedi, Venda, Tsonga, Swati | **IMS Toucan** | Apache-2.0, model exists; verify per-language quality, then wire as a batched service |
+| Ndebele (nbl) | No model anywhere | Ship **text alert** (we have the i18n) until a voice is recorded/commissioned |
 
-For the seven with no free TTS: ship **text alerts** in-language first (we
-already have translations in `src/i18n/languages/`), and treat voice for those
-as a later, paid/commissioned effort.
+Architecture: keep Deepgram for English, run Toucan as a small batched
+inference service for the other 9 (generate once, cache the audio so we don't
+pay per request), and fall back to in-language **text** for Ndebele.
+
+For any not-yet-wired voice: ship **text alerts** in-language first (we already
+have translations in `src/i18n/languages/`).
 
 ## Honest options to actually get all 11 (later, mostly paid/effort)
 

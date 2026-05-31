@@ -26,12 +26,12 @@ const capabilities = [
   {
     icon: Ear,
     title: 'Voice Alerts',
-    desc: 'Luna speaks to you in your language - real-time voice notifications with natural SA accents.',
+    desc: 'Luna speaks alerts aloud in English and Zulu today, with more SA languages on the way.',
   },
   {
     icon: Volume2,
     title: 'Voice Commands',
-    desc: 'Ask Luna questions in any SA language. "Ingane yami ikuphephi?" - your child safe? Yes, in Zulu.',
+    desc: 'Ask Luna by voice in English or Zulu. "Ingane yami ikuphephi?" (is my child safe?), answered in Zulu.',
   },
   {
     icon: Languages,
@@ -94,8 +94,8 @@ export default function LanguagesSection() {
           11 languages. One mission: keeping your family safe
         </h2>
         <p className="text-center text-safenet-text-2 text-base max-w-2xl mx-auto mb-16">
-          SafeNet SA is the only child safety platform that speaks every South African language. 
-          Every alert, voice notification, and dashboard is available in your language.
+          SafeNet SA understands all 11 official South African languages.
+          Every alert and the full dashboard are available in your language, with Luna's voice in English and Zulu today and more on the way.
         </p>
 
         {/* Language grid */}
