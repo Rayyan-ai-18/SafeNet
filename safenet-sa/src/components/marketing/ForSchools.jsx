@@ -38,11 +38,12 @@ const schoolFeatures = [
   },
 ]
 
+// Honest, pilot-stage credibility (no fabricated adoption numbers).
 const stats = [
-  { value: '50+', label: 'Schools enrolled' },
-  { value: '12,000+', label: 'Students protected' },
-  { value: '94%', label: 'Parent satisfaction' },
-  { value: '99.9%', label: 'Threats blocked' },
+  { value: '11', label: 'Official SA languages' },
+  { value: 'POPIA', label: 'Compliant by design' },
+  { value: '0', label: 'Messages ever stored' },
+  { value: 'Pilot', label: 'In active pilot' },
 ]
 
 export default function ForSchools() {

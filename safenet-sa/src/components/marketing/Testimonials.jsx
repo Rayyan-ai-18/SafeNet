@@ -1,25 +1,23 @@
 import React, { useRef, useEffect } from 'react'
-import { Star } from 'lucide-react'
 import { gsap, ScrollTrigger } from '../../lib/gsap'
 
-const testimonials = [
+// Pre-launch: honest, sourced reasons SafeNet exists, not fabricated
+// customer testimonials. Replace with real pilot quotes once we have them.
+const pillars = [
   {
-    name: 'Nomsa M.',
-    location: 'Soweto',
-    quote: 'Finally something that works on WhatsApp. My daughter spends hours there and now I can actually know she\'s safe without being on her shoulder.',
-    rating: 5,
+    stat: '1 in 3',
+    text: 'South African children have been exposed to cyberbullying or harmful content online, most of it on WhatsApp.',
+    source: 'UNICEF South Africa',
   },
   {
-    name: 'Johan V.',
-    location: 'Stellenbosch',
-    quote: 'My son tried to uninstall it three times. Still there. Still protecting him. The factory reset protection alone is worth the price.',
-    rating: 5,
+    stat: '11 languages',
+    text: 'Threats arrive in a child\'s home language, where English-only filters miss them. Luna is built to understand and detect across all 11.',
+    source: 'Why we built SafeNet',
   },
   {
-    name: 'Thandi N.',
-    location: 'Durban',
-    quote: 'Luna sent the alert in Zulu. I understood exactly what was happening. My child was safe because I understood the threat immediately.',
-    rating: 5,
+    stat: 'On-device',
+    text: 'Message content never leaves the phone and is never stored. Parents see threat alerts, never the chats. POPIA compliant by design.',
+    source: 'How SafeNet works',
   },
 ]
 
@@ -58,37 +56,34 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={labelRef} className="text-center mb-4">
           <span className="inline-block text-xs font-semibold text-safenet-primary tracking-[0.2em] uppercase bg-safenet-primary-light px-4 py-1.5 rounded-full">
-            Testimonials
+            Why SafeNet
           </span>
         </div>
 
         <h2 ref={headlineRef} className="font-display text-display-sm sm:text-display-md text-center text-safenet-text mb-16 max-w-2xl mx-auto">
-          Trusted by South African families
+          Built for South African families
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-          {testimonials.map((testimonial, i) => (
+          {pillars.map((pillar, i) => (
             <div
-              key={testimonial.name}
+              key={pillar.source}
               ref={el => cardsRef.current[i] = el}
               className="bg-white rounded-card-lg p-6 lg:p-8 shadow-safenet-sm border border-safenet-border"
             >
-              {/* Stars */}
-              <div className="flex items-center gap-1 mb-4">
-                {Array.from({ length: testimonial.rating }).map((_, si) => (
-                  <Star key={si} className="w-4 h-4 fill-safenet-accent text-safenet-accent" />
-                ))}
+              {/* Stat */}
+              <div className="font-display text-display-sm text-safenet-primary mb-3 tabular-nums">
+                {pillar.stat}
               </div>
 
-              {/* Quote */}
+              {/* Statement */}
               <p className="text-sm text-safenet-text-2 leading-relaxed mb-6">
-                "{testimonial.quote}"
+                {pillar.text}
               </p>
 
-              {/* Author */}
-              <div>
-                <div className="font-semibold text-safenet-text text-sm">{testimonial.name}</div>
-                <div className="text-xs text-safenet-text-3">{testimonial.location}</div>
+              {/* Source */}
+              <div className="text-[11px] font-semibold text-safenet-text-3 uppercase tracking-wider">
+                {pillar.source}
               </div>
             </div>
           ))}
