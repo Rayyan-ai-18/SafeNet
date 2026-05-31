@@ -12,3 +12,5 @@ voice-lab/.venv/
 voice-lab/samples/
 voice-lab/samples-toucan/
 voice-lab/IMS-Toucan/
+voice-service/.venv/
+voice-service/IMS-Toucan/

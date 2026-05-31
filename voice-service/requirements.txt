@@ -1,0 +1,7 @@
+# Service layer only. IMS-Toucan's own requirements are installed separately
+# in the Dockerfile (cloned from the repo, with gradio removed and setuptools
+# pinned <81 so librosa's pkg_resources import works).
+fastapi>=0.110
+uvicorn[standard]>=0.29
+pydantic>=2
+setuptools<81
