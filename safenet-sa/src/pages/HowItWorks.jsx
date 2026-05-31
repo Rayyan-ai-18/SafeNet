@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useState } from 'react'
+import React, { useRef, useEffect } from 'react'
 import { motion } from 'framer-motion'
-import { ArrowRight, Shield, Smartphone, Link as LinkIcon, AlertTriangle, ThumbsUp, Sparkles, Languages, HelpCircle, ExternalLink } from 'lucide-react'
+import { ArrowRight, Shield, Smartphone, Link as LinkIcon, AlertTriangle, ThumbsUp, Sparkles, Languages } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { gsap, ScrollTrigger } from '../lib/gsap'
 import SEO from '../components/seo/SEO'
@@ -225,42 +225,6 @@ function StepCard({ step, index }) {
   )
 }
 
-const faqItems = [
-  {
-    q: 'How does SafeNet SA work on my child\'s phone?',
-    a: 'SafeNet SA installs in under 30 seconds. Download the app from the Google Play Store, enter your South African phone number, and scan the QR code on your child\'s phone to link their device. Once paired, Luna runs silently in the background, monitoring WhatsApp, TikTok, and Instagram for cyberbullying, grooming, and harmful content. You can see the full protection flow on the <LinkInternal to="/demo">live demo page</LinkInternal>.',
-  },
-  {
-    q: 'Can Luna detect threats in Zulu and other SA languages?',
-    a: 'Yes. Luna is trained on South African language data including Zulu, Afrikaans, isiXhosa, Sesotho, and all 11 official languages. Cyberbullying in Zulu, phishing scams in Afrikaans, grooming in Sesotho - Luna understands the cultural context and slang. This is what makes SafeNet different from any global parental control app. <ExternalLink href="https://www.childlinesa.org.za">Childline SA</ExternalLink> confirms that online grooming in indigenous languages is rising sharply in South Africa.',
-  },
-  {
-    q: 'What happens when Luna detects a threat?',
-    a: 'Within 0.3 seconds of detecting a threat, Luna sends a push notification to your phone with the threat category (cyberbullying, grooming, phishing, or adult content), severity level, and culturally appropriate guidance in your preferred language. You can then block the app, pause the internet, call your child, or simply stay informed. Message content never leaves your child\'s device. <LinkInternal to="/demo">Watch the demo →</LinkInternal>',
-  },
-  {
-    q: 'Is SafeNet SA compliant with South African privacy laws?',
-    a: 'Absolutely. SafeNet is POPIA compliant by architecture - not as an afterthought. All WhatsApp analysis runs entirely on the child\'s device using on-device AI. Message content is never transmitted or stored. Parents see only threat alerts - never chat content. According to <ExternalLink href="https://popia.co.za">POPIA legislation</ExternalLink>, on-device processing of personal information is the gold standard for compliance.',
-  },
-  {
-    q: 'How is SafeNet SA different from other parental control apps?',
-    a: 'SafeNet is the only child safety platform purpose-built for South African families. It speaks Zulu, understands SA cultural context, and runs on the R1,500 Samsung A-series phones that most SA families use. Unlike global apps that scan for English keywords only, Luna detects threats across all 11 official languages. And unlike apps that upload chat data to the cloud, SafeNet processes everything on-device - making it fully POPIA compliant.',
-  },
-]
-
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: faqItems.map((item) => ({
-    '@type': 'Question',
-    name: item.q,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: item.a.replace(/<[^>]*>/g, ''),
-    },
-  })),
-}
-
 const howItWorksSchema = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
@@ -273,100 +237,6 @@ const howItWorksSchema = {
     name: step.title.en,
     text: step.desc,
   })),
-}
-
-function FAQSection() {
-  const [openIndex, setOpenIndex] = useState(null)
-  const faqRef = useRef(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(faqRef.current, { opacity: 0, y: 24 }, {
-        opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
-        scrollTrigger: { trigger: faqRef.current, start: 'top 85%', once: true },
-      })
-    }, faqRef)
-    return () => ctx.revert()
-  }, [])
-
-  return (
-    <section ref={faqRef} className="bg-white py-16 lg:py-20">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
-          <span className="inline-block text-xs font-semibold text-safenet-primary tracking-[0.2em] uppercase bg-safenet-primary-light px-4 py-1.5 rounded-full mb-4">FAQ</span>
-          <h2 className="font-display text-display-sm text-safenet-text max-w-xl mx-auto">Frequently asked questions about SafeNet SA</h2>
-        </div>
-
-        <div className="space-y-3">
-          {faqItems.map((item, i) => {
-            const isOpen = openIndex === i
-            return (
-              <div key={i} className="bg-white rounded-card-lg border border-safenet-border overflow-hidden transition-shadow hover:shadow-safenet-sm">
-                <button
-                  onClick={() => setOpenIndex(isOpen ? null : i)}
-                  className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left"
-                  aria-expanded={isOpen}
-                >
-                  <h3 className="text-sm font-semibold text-safenet-text leading-snug pr-2">{item.q}</h3>
-                  <HelpCircle className={`w-4 h-4 flex-shrink-0 text-safenet-text-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
-                </button>
-                <motion.div
-                  initial={false}
-                  animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
-                  transition={{ duration: 0.25, ease: 'easeInOut' }}
-                  className="overflow-hidden"
-                >
-                  <div className="px-5 pb-4 text-sm text-safenet-text-2 leading-relaxed">
-                    <FAQAnswer text={item.a} />
-                  </div>
-                </motion.div>
-              </div>
-            )
-          })}
-        </div>
-
-        {/* Internal & External links in context */}
-        <div className="mt-8 flex flex-wrap justify-center gap-3 text-xs">
-          <Link to="/demo" className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-safenet-surface rounded-full text-safenet-text-2 hover:text-safenet-primary transition-colors border border-safenet-border">
-            <ArrowRight className="w-3 h-3" />
-            Watch the live demo
-          </Link>
-          <Link to="/luna" className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-safenet-surface rounded-full text-safenet-text-2 hover:text-safenet-primary transition-colors border border-safenet-border">
-            <ArrowRight className="w-3 h-3" />
-            Talk to Luna
-          </Link>
-          <a href="https://www.childlinesa.org.za" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-safenet-surface rounded-full text-safenet-text-2 hover:text-safenet-primary transition-colors border border-safenet-border">
-            <ExternalLink className="w-3 h-3" />
-            Childline SA
-          </a>
-          <a href="https://www.unicef.org/southafrica/reports" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-safenet-surface rounded-full text-safenet-text-2 hover:text-safenet-primary transition-colors border border-safenet-border">
-            <ExternalLink className="w-3 h-3" />
-            UNICEF SA Reports
-          </a>
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function FAQAnswer({ text }) {
-  const parts = text.split(/(<LinkInternal[^>]*>[^<]*<\/LinkInternal>|<ExternalLink[^>]*>[^<]*<\/ExternalLink>)/g)
-  return (
-    <>
-      {parts.map((part, i) => {
-        if (!part) return null
-        const linkInternalMatch = part.match(/<LinkInternal to="([^"]+)">([^<]*)<\/LinkInternal>/)
-        const externalLinkMatch = part.match(/<ExternalLink href="([^"]+)">([^<]*)<\/ExternalLink>/)
-        if (linkInternalMatch) {
-          return <Link key={i} to={linkInternalMatch[1]} className="text-safenet-primary font-medium hover:underline">{linkInternalMatch[2]}</Link>
-        }
-        if (externalLinkMatch) {
-          return <a key={i} href={externalLinkMatch[1]} target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline inline-flex items-center gap-1">{externalLinkMatch[2]} <ExternalLink className="w-3 h-3" /></a>
-        }
-        return <span key={i}>{part}</span>
-      })}
-    </>
-  )
 }
 
 export default function HowItWorks() {
@@ -398,7 +268,7 @@ export default function HowItWorks() {
         title="How SafeNet SA Works - Digital Safety for South African Families"
         description="See how SafeNet SA protects your child online. Install in 30 seconds. Luna AI monitors WhatsApp, blocks threats, and alerts parents instantly. POPIA compliant. Speaks Zulu."
         canonicalPath="/how-it-works"
-        jsonLd={[howItWorksSchema, faqSchema]}
+        jsonLd={howItWorksSchema}
       />
       <div className="min-h-screen bg-[#F4F6F5]">
         <Nav />
@@ -452,25 +322,6 @@ export default function HowItWorks() {
               </div>
             </div>
 
-            {/* Contextual body text for SEO depth */}
-            <div className="mt-10 bg-white rounded-card-lg shadow-safenet-md border border-safenet-border p-6 lg:p-8">
-              <h2 className="font-display text-heading-lg text-safenet-text mb-4">Why South African parents choose SafeNet</h2>
-              <div className="text-sm text-safenet-text-2 leading-relaxed space-y-3">
-                <p>
-                  Every day, South African children face unique online dangers that global parental control apps weren't designed to catch. A phishing link promising a fake SASSA grant. A grooming message in Zulu slang. Cyberbullying on WhatsApp that an English-only AI would miss completely. SafeNet SA was built from the ground up for these realities.
-                </p>
-                <p>
-                  According to <a href="https://www.unicef.org/southafrica/reports" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">UNICEF South Africa</a>, 1 in 3 children in South Africa face cyberbullying, and 94% of SA teens access the internet via smartphone - almost exclusively on Android devices. SafeNet runs on the R1,500 Samsung A-series that most SA families use, not a Silicon Valley prototype. <a href="https://www.childlinesa.org.za" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">Childline SA</a> reports that online grooming cases have risen significantly, with perpetrators increasingly using indigenous languages to evade detection.
-                </p>
-                <p>
-                  SafeNet's Luna AI is the only child safety AI trained specifically on South African language data - Zulu, Afrikaans, isiXhosa, Sesotho, and all 11 official languages. It processes everything on-device, meaning message content never leaves your child's phone. Parents see only threat alerts, never chat content. This makes SafeNet not just more effective than global alternatives, but fully <strong className="text-safenet-text">POPIA compliant by architecture</strong>.
-                </p>
-                <p>
-                  Ready to get started? <Link to="/auth" className="text-safenet-primary font-medium hover:underline">Create your free account in 30 seconds →</Link> Or <Link to="/demo" className="text-safenet-primary font-medium hover:underline">watch the live demo</Link> to see Luna catch a threat in real time.
-                </p>
-              </div>
-            </div>
-
             {/* Final CTA */}
             <div className="mt-10 text-center bg-white rounded-card-lg shadow-safenet-md border border-safenet-border p-10">
               <h2 className="font-display text-heading-lg text-safenet-text mb-4">
@@ -488,9 +339,6 @@ export default function HowItWorks() {
             </div>
           </div>
         </main>
-
-        {/* FAQ Section */}
-        <FAQSection />
 
         <Footer />
       </div>

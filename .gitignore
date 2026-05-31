@@ -8,3 +8,5 @@ __pycache__/
 .DS_Store
 .claude/
 .codegraph/
+voice-lab/.venv/
+voice-lab/samples/

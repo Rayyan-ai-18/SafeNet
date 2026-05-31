@@ -19,14 +19,14 @@ const languages = [
   { code: 'en', name: 'English', native: 'English', speakers: '1.5M' },
   { code: 'af', name: 'Afrikaans', native: 'Afrikaans', speakers: '6.5M' },
   { code: 'zu', name: 'Zulu', native: 'Zulu', speakers: '12M' },
-  { code: 'xh', name: 'isiXhosa', native: 'isiXhosa', speakers: '8.2M' },
+  { code: 'xh', name: 'Xhosa', native: 'Xhosa', speakers: '8.2M' },
   { code: 'st', name: 'Sesotho', native: 'Sesotho', speakers: '3.8M' },
   { code: 'tn', name: 'Setswana', native: 'Setswana', speakers: '4.1M' },
   { code: 'nso', name: 'Sepedi', native: 'Sepedi', speakers: '4.6M' },
   { code: 've', name: 'Tshivenḓa', native: 'Tshivenḓa', speakers: '1.3M' },
   { code: 'ts', name: 'Xitsonga', native: 'Xitsonga', speakers: '2.3M' },
-  { code: 'ss', name: 'siSwati', native: 'siSwati', speakers: '1.3M' },
-  { code: 'nr', name: 'isiNdebele', native: 'isiNdebele', speakers: '1.1M' },
+  { code: 'ss', name: 'Swati', native: 'Swati', speakers: '1.3M' },
+  { code: 'nr', name: 'Ndebele', native: 'Ndebele', speakers: '1.1M' },
 ]
 
 const settingsSchema = {
