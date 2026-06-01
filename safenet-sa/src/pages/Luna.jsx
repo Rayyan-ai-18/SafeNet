@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Mic, MicOff, Sparkles, Globe, Shield, Activity, AlertTriangle } from 'lucide-react'
+import { Mic, MicOff, Sparkles, Globe, Shield, Activity, AlertTriangle, Check, ChevronDown } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { gsap } from '../lib/gsap'
 import SEO from '../components/seo/SEO'
@@ -8,33 +8,24 @@ import Nav from '../components/layout/Nav'
 import Footer from '../components/layout/Footer'
 import LunaOrb from '../components/ui/LunaOrb'
 import { useLunaVoice } from '../hooks/useLunaVoice'
+import { LUNA_LANGUAGES, getLanguage, canMic } from '../lib/lunaLanguages'
+import { LUNA_SUGGESTIONS, getSuggestion } from '../data/lunaSuggestions'
 
-const suggestedQuestions = [
-  { en: 'How does SafeNet protect my child?', zu: 'I-SafeNet ivikela ingane yami kanjani?' },
-  { en: 'What is a honey trap?', zu: 'Uyini ugibe lwezinyosi?' },
-  { en: 'What happens when Luna detects a threat?', zu: 'Kwenzekani uma uLuna ethola usongo?' },
-  { en: 'Is my child\'s privacy protected?', zu: 'Ingabe ubumfihlo bengane yami buvikelekile?' },
-  { en: 'Ngingakusebenzisa kanjani uSafeNet?', zu: 'Ngingakusebenzisa kanjani uSafeNet?' },
-  { en: 'Ingane yami iphephile?', zu: 'Ingane yami iphephile?' },
-]
-
-const iconMap = {
-  'How does SafeNet protect my child?': Shield,
-  'What is a honey trap?': Activity,
-  'What happens when Luna detects a threat?': AlertTriangle,
-  'Is my child\'s privacy protected?': Shield,
-  'Ngingakusebenzisa kanjani uSafeNet?': Globe,
-  'Ingane yami iphephile?': Sparkles,
-}
+const iconMap = { Shield, Activity, AlertTriangle, Globe, Sparkles }
 
 
 export default function Luna() {
   const {
     state, sessionActive, transcript, interimTranscript, lunaResponse, language,
     showGenderChoice, conversationHistory, browserSupported,
-    startListening, stopListening, sendTextInput, setGenderPreference, toggleLanguage,
+    startListening, stopListening, sendTextInput, setGenderPreference, setLanguageCode,
     gender,
   } = useLunaVoice()
+
+  const [langOpen, setLangOpen] = useState(false)
+  const langRef = useRef(null)
+  const micEnabled = canMic(language)
+  const activeLang = getLanguage(language)
 
   const heroRef = useRef(null)
   const headingRef = useRef(null)
@@ -72,15 +63,29 @@ export default function Luna() {
   }
 
   const handleSuggestedClick = (question) => {
-    const text = language === 'zu' ? question.zu : question.en
-    sendTextInput(text)
+    sendTextInput(getSuggestion(question, language))
   }
+
+  const handleLanguageSelect = (code) => {
+    setLanguageCode(code)
+    setLangOpen(false)
+  }
+
+  // Close the language menu on outside click / Escape
+  useEffect(() => {
+    if (!langOpen) return
+    const onClick = (e) => { if (langRef.current && !langRef.current.contains(e.target)) setLangOpen(false) }
+    const onKey = (e) => { if (e.key === 'Escape') setLangOpen(false) }
+    document.addEventListener('mousedown', onClick)
+    document.addEventListener('keydown', onKey)
+    return () => { document.removeEventListener('mousedown', onClick); document.removeEventListener('keydown', onKey) }
+  }, [langOpen])
 
   return (
     <>
       <SEO
         title="Talk to Luna - SafeNet SA Voice AI Guardian"
-        description="Meet Luna, the AI guardian for South African families. Ask Luna about cyberbullying, grooming, honey traps, and online safety. Speaks English and Zulu. Free to use."
+        description="Meet Luna, the AI guardian for South African families. Ask Luna about cyberbullying, grooming, honey traps, and online safety. Speaks English plus 9 SA languages including Zulu, Xhosa, Afrikaans, and Sesotho. Free to use."
         canonicalPath="/luna"
       />
       <div className="min-h-screen bg-safenet-bg">
@@ -188,28 +193,34 @@ export default function Luna() {
                 )}
               </AnimatePresence>
 
-              {/* Mic button */}
-              <div className="flex justify-center mb-4">
-                <motion.button
-                  onClick={handleMicClick}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors shadow-safenet-md ${
-                    sessionActive
-                      ? 'bg-safenet-danger text-white'
-                      : 'bg-safenet-primary text-white'
-                  }`}
-                >
-                  {sessionActive ? (
-                    <MicOff className="w-7 h-7" />
-                  ) : (
-                    <Mic className="w-7 h-7" />
-                  )}
-                </motion.button>
-              </div>
+              {/* Mic button (only for languages we can transcribe: English, isiZulu) */}
+              {micEnabled ? (
+                <div className="flex justify-center mb-4">
+                  <motion.button
+                    onClick={handleMicClick}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`w-16 h-16 rounded-full flex items-center justify-center transition-colors shadow-safenet-md ${
+                      sessionActive
+                        ? 'bg-safenet-danger text-white'
+                        : 'bg-safenet-primary text-white'
+                    }`}
+                  >
+                    {sessionActive ? (
+                      <MicOff className="w-7 h-7" />
+                    ) : (
+                      <Mic className="w-7 h-7" />
+                    )}
+                  </motion.button>
+                </div>
+              ) : (
+                <p className="text-sm text-safenet-text-3 mb-4">
+                  Type or tap a question below. Luna replies in {activeLang.native}.
+                </p>
+              )}
 
               {/* Browser support note */}
-              {!browserSupported && (
+              {micEnabled && !browserSupported && (
                 <p className="text-xs text-safenet-accent mb-3">
                   Best experienced in Chrome on desktop or Android.
                 </p>
@@ -217,14 +228,50 @@ export default function Luna() {
 
               {/* Controls row */}
               <div className="flex items-center justify-center gap-3">
-                {/* Language toggle */}
-                <button
-                  onClick={toggleLanguage}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-safenet-surface border border-safenet-border text-xs font-medium text-safenet-text-2 hover:text-safenet-text transition-colors"
-                >
-                  <span className="text-base leading-none">{language === 'en' ? '🇿🇦' : '🇿🇦'}</span>
-                  {language === 'en' ? 'EN' : 'ZU'}
-                </button>
+                {/* Language picker */}
+                <div ref={langRef} className="relative">
+                  <button
+                    onClick={() => setLangOpen((o) => !o)}
+                    aria-haspopup="listbox"
+                    aria-expanded={langOpen}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-safenet-surface border border-safenet-border text-xs font-medium text-safenet-text-2 hover:text-safenet-text transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-safenet-primary/40"
+                  >
+                    <Globe className="w-3.5 h-3.5" />
+                    {activeLang.native}
+                    <ChevronDown className={`w-3.5 h-3.5 transition-transform ${langOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                  <AnimatePresence>
+                    {langOpen && (
+                      <motion.ul
+                        role="listbox"
+                        initial={{ opacity: 0, y: 6, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 6, scale: 0.98 }}
+                        transition={{ duration: 0.16, ease: 'easeOut' }}
+                        className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-44 max-h-72 overflow-y-auto bg-white rounded-card border border-safenet-border shadow-safenet-lg py-1.5 z-20"
+                      >
+                        {LUNA_LANGUAGES.map((l) => (
+                          <li key={l.code} role="option" aria-selected={l.code === language}>
+                            <button
+                              onClick={() => handleLanguageSelect(l.code)}
+                              className={`w-full flex items-center justify-between gap-2 px-3 py-2 text-left text-sm transition-colors hover:bg-safenet-primary-light ${
+                                l.code === language ? 'text-safenet-primary font-semibold' : 'text-safenet-text-2'
+                              }`}
+                            >
+                              <span className="flex items-center gap-1.5">
+                                {l.native}
+                                {!l.canVoice && (
+                                  <span className="text-[10px] font-medium text-safenet-text-3 uppercase tracking-wide">text</span>
+                                )}
+                              </span>
+                              {l.code === language && <Check className="w-4 h-4 flex-shrink-0" />}
+                            </button>
+                          </li>
+                        ))}
+                      </motion.ul>
+                    )}
+                  </AnimatePresence>
+                </div>
 
                 {/* Gender indicator */}
                 {gender && (
@@ -242,12 +289,12 @@ export default function Luna() {
               Try asking Luna
             </p>
             <div className="flex flex-wrap justify-center gap-3">
-              {suggestedQuestions.map((q, i) => {
-                const text = language === 'zu' ? q.zu : q.en
-                const Icon = iconMap[q.en] || Sparkles
+              {LUNA_SUGGESTIONS.map((q, i) => {
+                const text = getSuggestion(q, language)
+                const Icon = iconMap[q.icon] || Sparkles
                 return (
                   <button
-                    key={i}
+                    key={q.id}
                     ref={el => chipsRef.current[i] = el}
                     onClick={() => handleSuggestedClick(q)}
                     className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-safenet-primary-light text-safenet-primary text-sm font-medium hover:bg-safenet-primary/20 transition-colors"

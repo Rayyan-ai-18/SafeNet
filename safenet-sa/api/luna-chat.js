@@ -1,7 +1,23 @@
 // Serverless chat endpoint for SafeNet SA's Luna voice guardian.
 // Uses OpenRouter, key kept server-side (set OPENROUTER_API_KEY in Vercel env).
-// Replies in the language the parent is speaking (English or isiZulu).
+// Replies in the parent's chosen language (any of the 11 official SA languages).
 import { guard } from './_guard.js'
+
+// App locale code -> language name given to the model. Mirrors
+// src/lib/lunaLanguages.js (keep in sync if languages change).
+const LANGUAGE_NAMES = {
+  en: 'English',
+  af: 'Afrikaans',
+  zu: 'isiZulu (Zulu)',
+  xh: 'isiXhosa (Xhosa)',
+  st: 'Sesotho (Southern Sotho)',
+  tn: 'Setswana (Tswana)',
+  nso: 'Sepedi (Northern Sotho)',
+  ve: 'Tshivenda (Venda)',
+  ts: 'Xitsonga (Tsonga)',
+  ss: 'siSwati (Swati)',
+  nr: 'isiNdebele (Southern Ndebele)',
+}
 
 const LUNA_SYSTEM_PROMPT = `You are Luna, the AI guardian of SafeNet SA - South Africa's child digital safety platform. You are warm, caring, and maternal - like a trusted family friend. You help parents understand: how SafeNet works, what cyberbullying looks like in SA, what grooming and honey trap tactics look like, how SafeNet protects their child, and what to do when they receive an alert. Keep all responses to 2-3 sentences maximum - your response will be spoken aloud. No bullet points, no markdown, no jargon. Always end with warmth or an offer to help further. Message content is never stored or transmitted - always reassure parents of this when relevant.`
 
@@ -21,9 +37,10 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Service unavailable' })
   }
 
-  const languageDirective = language === 'zu'
-    ? 'The parent is speaking isiZulu. Reply ENTIRELY in natural, conversational isiZulu.'
-    : 'The parent is speaking English. Reply in English.'
+  const languageName = LANGUAGE_NAMES[language] || LANGUAGE_NAMES.en
+  const languageDirective = language === 'en'
+    ? 'The parent is speaking English. Reply in English.'
+    : `The parent has chosen ${languageName}. Reply ENTIRELY in natural, conversational ${languageName}. Do not mix in English.`
 
   const priorTurns = Array.isArray(history)
     ? history.slice(-6).map((m) => ({

@@ -1,5 +1,6 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
 import { fetchToucanAudioUrl, isToucanApproved } from '../lib/voiceRouter'
+import { canMic } from '../lib/lunaLanguages'
 
 // Luna voice hook - mirrors the Luna-AI pipeline so it works cross-browser
 // (incl. Safari/iOS): Silero VAD captures speech -> Groq Whisper STT
@@ -295,7 +296,7 @@ export function useLunaVoice() {
     try {
       setState('thinking')
       const text = await transcribe(float32)
-      await handleTurn(text, languageRef.current === 'zu' ? 'zu' : undefined)
+      await handleTurn(text, languageRef.current)
     } catch (e) {
       console.warn('Luna turn error:', e.message)
       setState(vadRef.current ? 'listening' : 'idle')
@@ -385,12 +386,17 @@ export function useLunaVoice() {
       localStorage.setItem('luna_setup_done', 'true')
       setGender('F')
     }
-    await handleTurn(text, detectLanguage(text))
+    await handleTurn(text, languageRef.current)
   }, [unlockAudio, handleTurn])
 
-  const toggleLanguage = useCallback(() => {
-    setLanguage(prev => (prev === 'en' ? 'zu' : 'en'))
-  }, [])
+  // Set Luna's language explicitly (the picker). The selected language is the
+  // source of truth for replies + voice. If we switch to a language we can't
+  // take mic input for, end any live mic session so the UI stays consistent.
+  const setLanguageCode = useCallback((code) => {
+    setLanguage(code)
+    languageRef.current = code
+    if (!canMic(code) && vadRef.current) stopListening()
+  }, [stopListening])
 
   return {
     state,
@@ -407,7 +413,7 @@ export function useLunaVoice() {
     stopListening,
     sendTextInput,
     setGenderPreference,
-    toggleLanguage,
+    setLanguageCode,
   }
 }
 
