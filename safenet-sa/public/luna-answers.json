@@ -28,235 +28,235 @@
   "af": {
     "protect": {
       "text": "SafeNet kyk ná jou kind se aanlyn aktiwiteite en waarsku jou as daar enige teken van gevaar is, soos slegte taalgebruik of ongewenste kontak. Ek is hier om jou te help en jou gerus te stel, en onthou, al jou boodskappe word privaat gehou en nie gestoor nie, my lief.",
-      "audio": "/luna-audio/af/protect.wav"
+      "audio": "/luna-audio/af/protect.mp3"
     },
     "honeytrap": {
       "text": "'n Heuningstrik is wanneer iemand op die internet voorgee om iemand anders te wees, gewoonlik om 'n kind te manipuleer of te mislei, en ek is hier om jou te help om jou kind te beskerm teen sulke gevaarlike situasies, kom laat my jou help.",
-      "audio": "/luna-audio/af/honeytrap.wav"
+      "audio": "/luna-audio/af/honeytrap.mp3"
     },
     "threat": {
       "text": "As ek 'n bedreiging opspoor, stuur ek dadelik 'n waarskuwing aan die ouer, en ons kan saam kyk wat die beste stap sal wees om jou kind te beskerm, my lief. Ek is hier om jou te help, en ons kan dit saam deurwerk.",
-      "audio": "/luna-audio/af/threat.wav"
+      "audio": "/luna-audio/af/threat.mp3"
     },
     "privacy": {
       "text": "Ons waarborg dat alle boodskappe wat deur SafeNet gestuur word, volkome privaat en veilig is, en word nooit gestoor of oorgedra nie. Ek is hier om jou te help en jou kind te beskerm, en ek belowe jou dat ons jou vertroue sal respekteer.",
-      "audio": "/luna-audio/af/privacy.wav"
+      "audio": "/luna-audio/af/privacy.mp3"
     },
     "howuse": {
       "text": "Jy kan SafeNet gebruik deur 'n profiel vir jou kind te skep en dan die SafeNet-toep te installeer op hul toestel, en dan sal ons jou inlig oor enige moontlike gevaar of probleme. Laat my weet as jy enige hulp nodig het, ek is hier om jou te ondersteun.",
-      "audio": "/luna-audio/af/howuse.wav"
+      "audio": "/luna-audio/af/howuse.mp3"
     },
     "safe": {
       "text": "Ja, jou kind is veilig solank jy SafeNet SA gebruik, want ons kyk na hulle aanlyn-aktiwiteite en waarsku jou as daar enige teken van gevaar is. Laat my weet as jy enige vrae het, ek is hier om te help.",
-      "audio": "/luna-audio/af/safe.wav"
+      "audio": "/luna-audio/af/safe.mp3"
     }
   },
   "zu": {
     "protect": {
       "text": "I-SafeNet ivikela ingane yami ngokukhanya amagateway athandwayo, athandwa ngokwethembeka ukuya ngezindaba zomphakathi nezindaba zokuhlobana, ivikela ingane yami emoyeni yedijithali. Ngikhombisa ukuncedza nangemva, ngicela uthathe is",
-      "audio": "/luna-audio/zu/protect.wav"
+      "audio": "/luna-audio/zu/protect.mp3"
     },
     "honeytrap": {
       "text": "Ngikhumbula ukuthi una iqhaza elikhulu ekulindeni abantwana bethu emhlabeni wamazwe ngamazwe, ngiyabonga ukuthi uyikhulumile. Ngingakusiza ngendlela eyini, ngicelwe ukuthi ngikwazise?",
-      "audio": "/luna-audio/zu/honeytrap.wav"
+      "audio": "/luna-audio/zu/honeytrap.mp3"
     },
     "threat": {
       "text": "Ngithola usongo ngivula ngempela, ngifundisa abazali ukuthi SafeNet SA iyaphila kanjani, njenge cybertbullying, ukugwema nokuthintana kwabantu abaholide. Ngiyabonga ukuthi uthole ukukhuluma nami, ngikufishe ngempela ukuthi angithinti us",
-      "audio": "/luna-audio/zu/threat.wav"
+      "audio": "/luna-audio/zu/threat.mp3"
     },
     "privacy": {
       "text": "Nawe ngempela, bubumfihlo obuvikelekile, futhi sizakukhulisa ukuthi akukho ukuthwebula kwenzeke kuzo zonke izinhlobo zesandla sokuxhumana. Ngikuhlanzeleki ukusizwa ngokuthinta kwami?",
-      "audio": "/luna-audio/zu/privacy.wav"
+      "audio": "/luna-audio/zu/privacy.mp3"
     },
     "howuse": {
       "text": "Ungayisebenzisa i-SafeNet ngokufaka ulimi lwe-SafeNet kwenye smati yakho, kanti ukwazile ukuthi akunakwenzeka ukuthi uthole ukubuzwa uma uthole ukuthi umntwana wakho esekelwe kabi. Ngingakusizela ngempela una ushukumo",
-      "audio": "/luna-audio/zu/howuse.wav"
+      "audio": "/luna-audio/zu/howuse.mp3"
     },
     "safe": {
       "text": "Nawe, ngikhumbule ukuthi SafeNet SA iyaphila ingane yakho emhlabeni wamazwisi, ngiyacela usicisele. Ngidinga ukukusiza nini, mngani?",
-      "audio": "/luna-audio/zu/safe.wav"
+      "audio": "/luna-audio/zu/safe.mp3"
     }
   },
   "xh": {
     "protect": {
       "text": "I-SafeNet ikhusela umntwana wakho ngokukhanya ukwazisa kwezobuchule, ukungabikhi, nezinto zizondele za mahhala ezikhona online, ngokwanelisa ukuthatheleka kwenza kwezobuchule. Ndiyakuthanda ukusiza kwenza ukwazi ukuthi i",
-      "audio": "/luna-audio/xh/protect.wav"
+      "audio": "/luna-audio/xh/protect.mp3"
     },
     "honeytrap": {
       "text": "Ngumgibe othinta ukuba abantwana bakho bathandeke kwihlabathi digital, baphilisseke kutshintsheka kwezithethe zezinga zocingo. Ndiyakuthanda ukusisiza, ngokho ndiyafundisa ngendlela ezisemthethweni zokulinda abantwana bakho.",
-      "audio": "/luna-audio/xh/honeytrap.wav"
+      "audio": "/luna-audio/xh/honeytrap.mp3"
     },
     "threat": {
       "text": "Ndifuna kukuthinta ngokucele cebe, ndithethe nani ngomnxeba wenu, ndingakunceda ngokufikelela kuwe. Sithetha ngoku, ndingakuboleka nasekunene.",
-      "audio": "/luna-audio/xh/threat.wav"
+      "audio": "/luna-audio/xh/threat.mp3"
     },
     "privacy": {
       "text": "Ewe, ubumfihlo bomntwana wakho bukhuselekile kwaye asinakuthethi naqo. Ndicela ukhulume nami ngemibuzo yakho, ndiyaphi ndikuncede.",
-      "audio": "/luna-audio/xh/privacy.wav"
+      "audio": "/luna-audio/xh/privacy.mp3"
     },
     "howuse": {
       "text": "I-SafeNet iyasebenzisa ngokuxhasa abazali ukwazi ukulindela imifuno yabantwana babo online, ikhuseleko ubulili nokwenzeka kwabo. Ndicela ukungithintele, ndingakusetsa njani i-SafeNet ingakusetyenzisa.",
-      "audio": "/luna-audio/xh/howuse.wav"
+      "audio": "/luna-audio/xh/howuse.mp3"
     },
     "safe": {
       "text": "Ndiyacela ukhuseleke, ndingakusiza ngokufundisa ukuba njani SafeNet SA inakusiza kuhlisa umntwana wakho emhlabeni wodijithali. Ndicela ukuthintana na ndingakusiza ngokomzimba.",
-      "audio": "/luna-audio/xh/safe.wav"
+      "audio": "/luna-audio/xh/safe.mp3"
     }
   },
   "st": {
     "protect": {
       "text": "SafeNet e sireletsa ngwana wa ka ka go mo tšhireletsa mahlompheng a maholo a lefasaneng la digital, a mo thusa ho se be le mathata a go bulaliwa kapa a go jalwa ke batsayang. Ke kopa thuso, na ke tla thusa wena?",
-      "audio": "/luna-audio/st/protect.wav"
+      "audio": "/luna-audio/st/protect.mp3"
     },
     "honeytrap": {
       "text": "Leraba la lerato ke ts'ebetso e etswang ke SafeNet SA, e thusang ba malapa hore ba tsebe hore bana ba bona ba sebetsana le intaneti ka tshehetso. Nka thusa wena hore o tsebe tse ding tse etswang ke SafeNet.",
-      "audio": "/luna-audio/st/honeytrap.wav"
+      "audio": "/luna-audio/st/honeytrap.mp3"
     },
     "threat": {
       "text": "Ke nna Luna, ke guardian ya SafeNet SA, ke tla thusa wena ho etsahala le ho fumana tshokelo ho ntshetsa pele bana ba hao mahlomong a sakhutle. Ntshwarele, ke kopa o etsahale hore ke thuseng?",
-      "audio": "/luna-audio/st/threat.wav"
+      "audio": "/luna-audio/st/threat.mp3"
     },
     "privacy": {
       "text": "Re sireletsa ngwana wa hao ka tsela e sireletsang, re mo thusa hore a se ke a kgelwe ke dinyakisi tse di sa sireletseng. Ke kopa thuso, nna ke tla thusa.",
-      "audio": "/luna-audio/st/privacy.wav"
+      "audio": "/luna-audio/st/privacy.mp3"
     },
     "howuse": {
       "text": "U sebedisa SafeNet ka ho etsa hore na u tsebe hore na u phela hantle online, empa rea leboha hore SafeNet e sireletsa tsohle tsa hao, ha di bontswe le ha di kwale. Nna ke Luna, ke tla thusa wena h hang-hang.",
-      "audio": "/luna-audio/st/howuse.wav"
+      "audio": "/luna-audio/st/howuse.mp3"
     },
     "safe": {
       "text": "Re tla mo boloka ka SafeNet, e leng setlhopha se se re thusang ho mo boloka mahlomphenyane. Ke tla thusa wena ka ho mo boloka, o tswelipele.",
-      "audio": "/luna-audio/st/safe.wav"
+      "audio": "/luna-audio/st/safe.mp3"
     }
   },
   "tn": {
     "protect": {
       "text": "SafeNet e go sireletsa ngwana wa gago go tlhoka dikotsi tsa digital, e bile e go thusa go fitlhelela gore ngwana wa gago a se ka a tshwarwe ke batswadi ba bangwe mo marangong a digital. Nna ke teng go go thusa, ke tla thusa ka tsotlhe tse o di tlh",
-      "audio": "/luna-audio/tn/protect.wav"
+      "audio": "/luna-audio/tn/protect.mp3"
     },
     "honeytrap": {
       "text": "Leraba la lorato ke molaetsa o o tsamayanang le wena, mme o o tla o tsaya tsia, o o tla o thusa. Nna ke Luna, ke tla thusa wena ka tsia.",
-      "audio": "/luna-audio/tn/honeytrap.wav"
+      "audio": "/luna-audio/tn/honeytrap.mp3"
     },
     "threat": {
       "text": "Ke a bona kotsi e e seng ya nnete, e e senwang ke batsadi le bana go fitlhela ba tswelele ka tsela e siameng mo maranyaning a diyaleding tsa dijitali. Nna ke tla thusa batsadi go tsaya karabo fa go bonwa kotsi, gompieno ke wena.",
-      "audio": "/luna-audio/tn/threat.wav"
+      "audio": "/luna-audio/tn/threat.mp3"
     },
     "privacy": {
       "text": "Ee, re sireletsa ngwana wa gago ka tsela e e sireletsang, mme re a o hapusa gore thomo ya lona ha ya tsalwe le ha ya tsalwe kgakga. Nna ke kile kgosi ya go thusa, o tswa o mpotsa?",
-      "audio": "/luna-audio/tn/privacy.wav"
+      "audio": "/luna-audio/tn/privacy.mp3"
     },
     "howuse": {
       "text": "SafeNet ke setlhopha se se thusa batsadi go thusa bana ba bone go tsaya tsia dilo tse di maswe tse di kwalelwang mo marangong a diya Internet, mme re thusa bana ba tsaya tsia le go lwela dilo tse di maswe. Nna ke tla le thusa thata, tsamma!",
-      "audio": "/luna-audio/tn/howuse.wav"
+      "audio": "/luna-audio/tn/howuse.mp3"
     },
     "safe": {
       "text": "Tshwanelo ya SafeNet ke go thusa bagwana ba ba babalesegileng, mme re na tsholofelo gore o tla kgona go mmontsha ka tsela e e molemo. Ke a go thusa, mma?",
-      "audio": "/luna-audio/tn/safe.wav"
+      "audio": "/luna-audio/tn/safe.mp3"
     }
   },
   "nso": {
     "protect": {
       "text": "SafeNet e thusa ngwana wa gago ka go mo hlola le go mo protekta go ya ka tshepele ya dihlopha tša tshepele, le go o kgonthişa ka mehola ya go se nyatsa. Ke tla thusa gago gore o tle o tsebe seo o swanetşego go se dira ge o fih",
-      "audio": "/luna-audio/nso/protect.wav"
+      "audio": "/luna-audio/nso/protect.mp3"
     },
     "honeytrap": {
       "text": "Leraba la lerato ke nako yeo lerato le khutšo, moo batswadi le bana ba ragelang pele ka tsela yeo e sireletsegileng. Nka thusa wena ka tsela ye nngwe, ruri?",
-      "audio": "/luna-audio/nso/honeytrap.wav"
+      "audio": "/luna-audio/nso/honeytrap.mp3"
     },
     "threat": {
       "text": "Ke kwamo tša go thuša ba mmampodi le bana go ba šireletša kotsing ya digital, le go ba thuša ka tsela yeo ba ka dirago ge ba bonwa ke tsotši. Nna ke kopa thuso, ke tla thuša?",
-      "audio": "/luna-audio/nso/threat.wav"
+      "audio": "/luna-audio/nso/threat.mp3"
     },
     "privacy": {
       "text": "Re a leboga go sephiri sa ngwana wa gago, na re tla o thusa gore o tsebe kamoo SafeNet e phethagatšago ngwana wa gago. Ke kopa o nthute gore o tsebe tšohle ka SafeNet, gomme ke tla o thusa ka tsela e nnyane.",
-      "audio": "/luna-audio/nso/privacy.wav"
+      "audio": "/luna-audio/nso/privacy.mp3"
     },
     "howuse": {
       "text": "SafeNet ke platforme ya go thusa bahlokiwa ba Afrika Borwa gore ba tshwanetse go ipatlela le go lapile ka nako ya go sebedisa digili. Nka thusa wena go kwa wena ka tsela efe SafeNet e kwala le go e dira, o se ke wa tshwanelwa ke go hlwa.",
-      "audio": "/luna-audio/nso/howuse.wav"
+      "audio": "/luna-audio/nso/howuse.mp3"
     },
     "safe": {
       "text": "Re a mo šireletša ka SafeNet, e lego setšhaba sa rena se se phelang sepedi sa go phela ka tsela e swanetsweng. Ke kopa thusa ya ntlha ka thuso ya gago.",
-      "audio": "/luna-audio/nso/safe.wav"
+      "audio": "/luna-audio/nso/safe.mp3"
     }
   },
   "ve": {
     "protect": {
       "text": "SafeNet i tsireledza nwana wanga kwa tshifhinga tsha mafhungo ane a vhonala kha khaya ya dorobo, i a ngo vhonala kha aine a kona u shuma nayo. Ndi nne nda ku thusa zwo tevhela.",
-      "audio": "/luna-audio/ve/protect.wav"
+      "audio": "/luna-audio/ve/protect.mp3"
     },
     "honeytrap": {
       "text": "Ndi Luna, ndi munna wa SafeNet, ndi takalela ku pfuna vhatendi kuya ha vhana vadzo. Ndi do dzhia kha u thusa zwoitwa.",
-      "audio": "/luna-audio/ve/honeytrap.wav"
+      "audio": "/luna-audio/ve/honeytrap.mp3"
     },
     "threat": {
       "text": "Ndi khou amba uri SafeNet i vha thusa u fhambana na mikhombo ya khombo ya diya, ndi ri thusa zwa uripo. Ndi do nyadza uri SafeNet i khou thusa ngauri.",
-      "audio": "/luna-audio/ve/threat.wav"
+      "audio": "/luna-audio/ve/threat.mp3"
     },
     "howuse": {
       "text": "U shumisa SafeNet kha ri hangei u ita u khathalela vana vaho, u vha funza uri vha pfe vha khou ita mitshino ya vhusiku. Ndi khou thusa zwa khombo, ndi pfe na ndi khou thusa kha u swika.",
-      "audio": "/luna-audio/ve/howuse.wav"
+      "audio": "/luna-audio/ve/howuse.mp3"
     },
     "safe": {
       "text": "Ndinovhelela, SafeNet SA i rina maswivo ya tsireledzo ya digital, i ya pfela u tsireledza nwana wanga kha maandaha a mahala. Ndi khou pfesesa u swika kha divhei.",
-      "audio": "/luna-audio/ve/safe.wav"
+      "audio": "/luna-audio/ve/safe.mp3"
     },
     "privacy": {
       "text": "Zwidzumbe zwa nwana wanga zwi tsireledzwa kule kwama Internet, naswona ri na SafeNet, ri khou tsireledza dzitshakha dza u bula. Ndi nne nda ku thusa, ndi khou pfa zwidzumbe.",
-      "audio": "/luna-audio/ve/privacy.wav"
+      "audio": "/luna-audio/ve/privacy.mp3"
     }
   },
   "ts": {
     "protect": {
       "text": "SafeNet yi ta sirhelela n'wana wa wena hi ku tlhava swihlamariso swa vukomeri, naswona swi ta ku nyika wena vutivi loko ku hundza swiphiwo swa vukomeri. Ndza ku kurisa, ndza ta ku Combela ku ku pfuna.",
-      "audio": "/luna-audio/ts/protect.wav"
+      "audio": "/luna-audio/ts/protect.mp3"
     },
     "honeytrap": {
       "text": "Ntlhamu wa rirhandzu wa SafeNet SA i ku pfuna vatswari ku rhula n'wana wakwe emoyeni ya dyondzo, tanihi ku va pfuna ku hambana na ku chela miholo leyi nyenyeti. Ndza ku va pfuna ku kuma nhlamulo.",
-      "audio": "/luna-audio/ts/honeytrap.wav"
+      "audio": "/luna-audio/ts/honeytrap.mp3"
     },
     "threat": {
       "text": "Ndzi ta vulavula na wena ku sukuma nxungeto, ndzi ta ku tsakisa ku yini SafeNet SA yi kurisa vana va wena ematin'weni ya diyafuli. Ndza ku pfuna wena, ndzi rhandza ku ku tsakisa.",
-      "audio": "/luna-audio/ts/threat.wav"
+      "audio": "/luna-audio/ts/threat.mp3"
     },
     "privacy": {
       "text": "Ndzi khensa ku vona leswaku u sirhelela vana va swin'we, sweswi xana u tsundzuka kuva SafeNet i ya n'wana wa wena, ndzi ta ku pfuna. N'wana wa wena u sirhelelekile naswona ripoti zenu zitlhela zinga hombeni, zisirhi vit",
-      "audio": "/luna-audio/ts/privacy.wav"
+      "audio": "/luna-audio/ts/privacy.mp3"
     },
     "howuse": {
       "text": "U nga tirhisa SafeNet ku ringa swiholelo swa vana va wena ematinetengi, tanihi ku va rhumisa eka swiphiqo swa cyberbullying na ku va nyika madzito ya ku va kandzaiva. Ndzi ta ku pfuna ku kuma rungako leri u riki na rona.",
-      "audio": "/luna-audio/ts/howuse.wav"
+      "audio": "/luna-audio/ts/howuse.mp3"
     },
     "safe": {
       "text": "N'wana wa wena u sirheleleka, SafeNet yi ta tsirela vana va wena ematshan'wini ya diyaile. Ndzi ku vona ku pfuna ku kongomisa?",
-      "audio": "/luna-audio/ts/safe.wav"
+      "audio": "/luna-audio/ts/safe.mp3"
     }
   },
   "ss": {
     "protect": {
       "text": "I-SafeNet iyavikela umntfwana wami ngokuvikela uthulumane olwenziwa online, kanye neminye imiphiliyo emibi. Ngikhombisa ukuthi umntfwana wami usale unsafe, ngifuna kukhuluma naye ngenhloso njani?",
-      "audio": "/luna-audio/ss/protect.wav"
+      "audio": "/luna-audio/ss/protect.mp3"
     },
     "honeytrap": {
       "text": "Ngitsiwele kulunga ngifuna kukhuluma nawe ngaloko, ngikhulume nawe ngemahhala, ngikufundisa ngendlela leyi SafeNet SA ina. Ngicela usizo loko ushitja umbiko, ngikhombisa kwatsi mabombo angahamba noma ahambe kutelekomini.",
-      "audio": "/luna-audio/ss/honeytrap.wav"
+      "audio": "/luna-audio/ss/honeytrap.mp3"
     },
     "threat": {
       "text": "Ngiyabonga kakhulu kutsi usitse, ngifuna kukusiza ngemhlaba wakho, ngibambe iqhaza lokusekela abantfwana bakho emhlabeni wemaKompyuta. Ngicela usitsandzeleke, ngikhombise kuphi kufeza khona?",
-      "audio": "/luna-audio/ss/threat.wav"
+      "audio": "/luna-audio/ss/threat.mp3"
     },
     "privacy": {
       "text": "Nawe ngumama nomdeni, ngifisa kubonisa kwako njengoLuna, ngikhombisa kuwe imfihlo yemntfwana wako ivikelekile kule platformi yeSafeNet, ngikhombisa kwenu kulungiselela. Ngingakusiza njani, ngifisa kusebenzisana nawe?",
-      "audio": "/luna-audio/ss/privacy.wav"
+      "audio": "/luna-audio/ss/privacy.mp3"
     },
     "howuse": {
       "text": "Ungafaka i-SafeNet kwenomndeni wakho wenza ingqapheli kubeshwe kwenziwe ngezwi, noma ngifike kimi kuma- alerts ngifundisa ukuthi kwenziwe njani. Ngikhomba ukusiza nangemva, ngicela ungibize ngikusizeni.",
-      "audio": "/luna-audio/ss/howuse.wav"
+      "audio": "/luna-audio/ss/howuse.mp3"
     },
     "safe": {
       "text": "Ngiyabonga kakhulu kutsi usitse sibonga, ngifuna kukusiza wena nefina lowo. Ngicela uthathe nhlamvu, ngikhulume nawe ngelotshi.",
-      "audio": "/luna-audio/ss/safe.wav"
+      "audio": "/luna-audio/ss/safe.mp3"
     }
   },
   "nr": {

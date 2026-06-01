@@ -19,10 +19,38 @@
 // native speaker (same gate as the chip questions themselves).
 
 import fs from 'node:fs'
+import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { execFileSync } from 'node:child_process'
+import { createRequire } from 'node:module'
 import { LUNA_SUGGESTIONS, getSuggestion } from '../src/data/lunaSuggestions.js'
 import { LUNA_LANGUAGES } from '../src/lib/lunaLanguages.js'
+
+const require = createRequire(import.meta.url)
+
+// Transcode a WAV buffer to MP3 if a static ffmpeg is available
+// (`npm install --no-save ffmpeg-static`), else return null to keep the WAV.
+let _ffmpeg
+function ffmpegBin() {
+  if (_ffmpeg !== undefined) return _ffmpeg
+  try { _ffmpeg = require('ffmpeg-static') } catch { _ffmpeg = null }
+  return _ffmpeg
+}
+function toMp3(wavBuf, tag) {
+  const bin = ffmpegBin()
+  if (!bin) return null
+  const inF = path.join(os.tmpdir(), `luna-${tag}.wav`)
+  const outF = path.join(os.tmpdir(), `luna-${tag}.mp3`)
+  try {
+    fs.writeFileSync(inF, wavBuf)
+    execFileSync(bin, ['-y', '-i', inF, '-ac', '1', '-ar', '24000', '-codec:a', 'libmp3lame', '-b:a', '64k', outF], { stdio: 'ignore' })
+    return fs.readFileSync(outF)
+  } catch { return null } finally {
+    try { fs.rmSync(inF) } catch { /* noop */ }
+    try { fs.rmSync(outF) } catch { /* noop */ }
+  }
+}
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const PUBLIC = path.resolve(__dirname, '..', 'public')
@@ -69,7 +97,9 @@ async function synth(reply, lang) {
   if (lang === 'nr' || lang === 'nbl') return null // isiNdebele: text only
   const res = await postJson(`${TOUCAN}/tts`, { text: reply, lang })
   if (!res.ok) throw new Error(`toucan ${res.status}`)
-  return { buf: Buffer.from(await res.arrayBuffer()), ext: 'wav' }
+  const wav = Buffer.from(await res.arrayBuffer())
+  const mp3 = toMp3(wav, lang)
+  return mp3 ? { buf: mp3, ext: 'mp3' } : { buf: wav, ext: 'wav' }
 }
 
 function loadManifest() {
