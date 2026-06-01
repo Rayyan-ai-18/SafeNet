@@ -38,9 +38,14 @@ export default async function handler(req, res) {
   }
 
   const languageName = LANGUAGE_NAMES[language] || LANGUAGE_NAMES.en
+  // Non-English replies are synthesised on a CPU TTS box where time scales with
+  // length, so keep voiced (non-English) replies to 1-2 short sentences.
   const languageDirective = language === 'en'
     ? 'The parent is speaking English. Reply in English.'
-    : `The parent has chosen ${languageName}. Reply ENTIRELY in natural, conversational ${languageName}. Do not mix in English.`
+    : `The parent has chosen ${languageName}. Reply ENTIRELY in natural, conversational ${languageName}. Do not mix in English. Keep it to 1 or 2 short sentences so it is quick to speak aloud.`
+
+  // Shorter cap for voiced languages keeps synthesis fast; English stays roomier.
+  const maxTokens = language === 'en' ? 150 : 90
 
   const priorTurns = Array.isArray(history)
     ? history.slice(-6).map((m) => ({
@@ -68,7 +73,7 @@ export default async function handler(req, res) {
           ...priorTurns,
           { role: 'user', content: message },
         ],
-        max_tokens: 150,
+        max_tokens: maxTokens,
         temperature: 0.7,
       }),
     })

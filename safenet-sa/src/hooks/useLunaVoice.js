@@ -113,6 +113,18 @@ export function useLunaVoice() {
 
   useEffect(() => { languageRef.current = language }, [language])
 
+  // Frozen (precomputed) answers for the suggested-question chips, loaded once.
+  // Shape: { [langCode]: { [questionId]: { text, audio } } }. Missing file -> {}.
+  const cannedRef = useRef({})
+  useEffect(() => {
+    let cancelled = false
+    fetch('/luna-answers.json')
+      .then((r) => (r.ok ? r.json() : {}))
+      .then((d) => { if (!cancelled) cannedRef.current = d || {} })
+      .catch(() => { cannedRef.current = {} })
+    return () => { cancelled = true }
+  }, [])
+
   // ── Audio element + iOS/Safari unlock (must run during a user gesture) ──
   const getAudioEl = useCallback(() => {
     if (!audioRef.current) {
@@ -389,6 +401,36 @@ export function useLunaVoice() {
     await handleTurn(text, languageRef.current)
   }, [unlockAudio, handleTurn])
 
+  // ── Suggested-question chip: serve the frozen answer (instant, precomputed
+  // audio) when one exists for this language; otherwise fall back to the live
+  // chat + TTS path. Keeps common interactions snappy on the free CPU voice box. ──
+  const sendSuggested = useCallback(async (id, text) => {
+    if (!text || !text.trim()) return
+    unlockAudio()
+    if (!isVoiceSetupDone()) {
+      localStorage.setItem('luna_voice_gender', 'F')
+      localStorage.setItem('luna_setup_done', 'true')
+      setGender('F')
+    }
+    const lang = languageRef.current
+    const canned = cannedRef.current?.[lang]?.[id]
+    if (!canned || !canned.text) { await sendTextInput(text); return }
+
+    setTranscript(text)
+    pushHistory({ role: 'user', text })
+    setState('thinking')
+    setLunaResponse(canned.text)
+    pushHistory({ role: 'luna', text: canned.text })
+    setState('speaking')
+    if (canned.audio) {
+      try { await playUrlWithPulse(canned.audio) }
+      catch { await speak(canned.text, lang) } // asset missing/blocked: synth live
+    } else if (lang !== 'nr' && lang !== 'nbl') {
+      await speak(canned.text, lang)
+    }
+    setState(vadRef.current ? 'listening' : 'idle')
+  }, [unlockAudio, sendTextInput, pushHistory, playUrlWithPulse, speak])
+
   // Set Luna's language explicitly (the picker). The selected language is the
   // source of truth for replies + voice. If we switch to a language we can't
   // take mic input for, end any live mic session so the UI stays consistent.
@@ -412,6 +454,7 @@ export function useLunaVoice() {
     startListening,
     stopListening,
     sendTextInput,
+    sendSuggested,
     setGenderPreference,
     setLanguageCode,
   }

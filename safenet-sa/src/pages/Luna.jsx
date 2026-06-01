@@ -18,7 +18,7 @@ export default function Luna() {
   const {
     state, sessionActive, transcript, interimTranscript, lunaResponse, language,
     showGenderChoice, conversationHistory, browserSupported,
-    startListening, stopListening, sendTextInput, setGenderPreference, setLanguageCode,
+    startListening, stopListening, sendTextInput, sendSuggested, setGenderPreference, setLanguageCode,
     gender,
   } = useLunaVoice()
 
@@ -63,7 +63,7 @@ export default function Luna() {
   }
 
   const handleSuggestedClick = (question) => {
-    sendTextInput(getSuggestion(question, language))
+    sendSuggested(question.id, getSuggestion(question, language))
   }
 
   const handleLanguageSelect = (code) => {
