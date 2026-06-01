@@ -428,7 +428,7 @@ function PhoneScreen({ screenState, messages, showTypingAisha, showTypingThabo, 
               <span className="text-lg">🇿🇦</span>
               <div>
                 <p className="text-[10px] font-semibold text-safenet-text">Detects threats in 11 official languages</p>
-                <p className="text-[8px] text-safenet-text-3">Including Zulu, Sesotho, Afrikaans & more</p>
+                <p className="text-[8px] text-safenet-text-3">Including isiZulu, Sesotho, Afrikaans & more</p>
               </div>
             </div>
 
@@ -767,7 +767,7 @@ export default function Demo() {
     <>
       <SEO
         title="Live Demo - SafeNet SA Threat Detection in Action"
-        description="Watch Luna detect and block cyberbullying on WhatsApp in real time. See SafeNet SA's AI threat detection with alert notifications and parent dashboard. English and Zulu."
+        description="Watch Luna detect and block cyberbullying on WhatsApp in real time. See SafeNet SA's AI threat detection with alert notifications and parent dashboard. English and isiZulu."
         canonicalPath="/demo"
       />
       <div className="min-h-screen bg-[#F4F6F5]">
@@ -833,7 +833,7 @@ export default function Demo() {
                       isZu ? 'bg-safenet-primary text-white shadow-safenet-sm' : 'text-safenet-text-2 hover:text-safenet-text'
                     }`}
                   >
-                    🇿🇦 Zulu
+                    🇿🇦 isiZulu
                   </button>
                 </div>
               </div>
@@ -854,7 +854,7 @@ export default function Demo() {
                   {timelinePhase === 'parent-notified' && '📱 Parent alerted'}
                   {timelinePhase === 'luna-power' && '🛡️ Luna intercepted'}
                   {timelinePhase === 'result' && '✓ Threat blocked'}
-                  {timelinePhase === 'zulu-demo' && '🇿🇦 Zulu detection'}
+                  {timelinePhase === 'zulu-demo' && '🇿🇦 isiZulu detection'}
                   {timelinePhase === 'conclusion' && '✨ Luna\'s full power'}
                   {timelinePhase === 'complete' && '✅ Demo complete'}
                 </span>
@@ -1244,7 +1244,7 @@ export default function Demo() {
                         </div>
                         <div>
                           <h4 className="text-sm font-semibold text-safenet-text">Voice AI Guardian</h4>
-                          <p className="text-xs text-safenet-text-3">Talk to Luna in English or Zulu. Ask anything about your child's safety.</p>
+                          <p className="text-xs text-safenet-text-3">Talk to Luna in English or isiZulu. Ask anything about your child's safety.</p>
                         </div>
                       </div>
                     </div>
@@ -1274,18 +1274,18 @@ export default function Demo() {
                           Bilingual AI
                         </div>
                         <h3 className="font-display text-heading-lg text-safenet-text mb-3">
-                          Luna speaks Zulu too
+                          Luna speaks isiZulu too
                         </h3>
                         <p className="text-base text-safenet-text-2 leading-relaxed mb-4">
                           Luna understands and detects threats in all 11 official South African languages - not just English. 
-                          Cyberbullying in Zulu, phishing in Afrikaans, scams in Sesotho - Luna catches them all.
+                          Cyberbullying in isiZulu, phishing in Afrikaans, scams in Sesotho - Luna catches them all.
                         </p>
                         <div className="flex flex-wrap justify-center lg:justify-start gap-2">
                           {[
-                            { name: 'English', speaks: true }, { name: 'Zulu', speaks: true },
-                            { name: 'Afrikaans' }, { name: 'Xhosa' }, { name: 'Sesotho' },
+                            { name: 'English', speaks: true }, { name: 'isiZulu', speaks: true },
+                            { name: 'Afrikaans' }, { name: 'isiXhosa' }, { name: 'Sesotho' },
                             { name: 'Setswana' }, { name: 'Sepedi' }, { name: 'Tshivenḓa' },
-                            { name: 'Xitsonga' }, { name: 'Swati' }, { name: 'Ndebele' },
+                            { name: 'Xitsonga' }, { name: 'siSwati' }, { name: 'isiNdebele' },
                           ].map((l, i) => (
                             <motion.span
                               key={l.name}
@@ -1342,7 +1342,7 @@ export default function Demo() {
                         </div>
                         <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white border border-safenet-border shadow-safenet-sm">
                           <Shield className="w-3.5 h-3.5 text-safenet-primary" />
-                          <span className="text-[11px] font-semibold text-safenet-text">Flagged in Zulu</span>
+                          <span className="text-[11px] font-semibold text-safenet-text">Flagged in isiZulu</span>
                           <span className="text-[10px] text-safenet-text-3">· 0.3s</span>
                         </div>
                       </div>
@@ -1362,7 +1362,7 @@ export default function Demo() {
               <h2 className="font-display text-heading-lg text-safenet-text mb-4">Luna threat detection in action: what you'll see in this demo</h2>
               <div className="text-sm text-safenet-text-2 leading-relaxed space-y-3">
                 <p>
-                  This live demo shows exactly how SafeNet SA protects your child from cyberbullying, grooming, and online threats on WhatsApp. You'll watch Luna AI intercept a bullying message in real time - detecting harmful language, analyzing the threat in its South African cultural context, and alerting the parent within 0.3 seconds. The demo works in both English and Zulu, reflecting SafeNet's ability to monitor threats across all 11 official South African languages.
+                  This live demo shows exactly how SafeNet SA protects your child from cyberbullying, grooming, and online threats on WhatsApp. You'll watch Luna AI intercept a bullying message in real time - detecting harmful language, analyzing the threat in its South African cultural context, and alerting the parent within 0.3 seconds. The demo works in both English and isiZulu, reflecting SafeNet's ability to monitor threats across all 11 official South African languages.
                 </p>
                 <p>
                   After Luna flags the threat, you'll see the <strong className="text-safenet-text">threat analysis overlay</strong> - a 4-stage scan process that shows exactly how Luna evaluates message content: scanning, analyzing SA language context, running the threat detection model, and confirming the threat at 94% confidence. All processing happens on-device, meaning no message content is ever transmitted or stored.

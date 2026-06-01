@@ -6,7 +6,7 @@ import { gsap } from '../../lib/gsap'
 const capabilities = [
   'Live phishing scanner',
   'SA language NLP',
-  'Voice alerts in Zulu',
+  'Voice alerts in isiZulu',
   'Weekly digest',
   'School Shield',
   'Conversational AI',

@@ -266,7 +266,7 @@ export default function HowItWorks() {
     <>
       <SEO
         title="How SafeNet SA Works - Digital Safety for South African Families"
-        description="See how SafeNet SA protects your child online. Install in 30 seconds. Luna AI monitors WhatsApp, blocks threats, and alerts parents instantly. POPIA compliant. Speaks Zulu."
+        description="See how SafeNet SA protects your child online. Install in 30 seconds. Luna AI monitors WhatsApp, blocks threats, and alerts parents instantly. POPIA compliant. Speaks isiZulu."
         canonicalPath="/how-it-works"
         jsonLd={howItWorksSchema}
       />

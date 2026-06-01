@@ -5,16 +5,16 @@ import { gsap, ScrollTrigger } from '../../lib/gsap'
 
 const languages = [
   { name: 'English', native: 'English', speakers: '1.5M', flag: '🇿🇦' },
-  { name: 'Zulu', native: 'Zulu', speakers: '12M', flag: '🇿🇦' },
+  { name: 'isiZulu', native: 'isiZulu', speakers: '12M', flag: '🇿🇦' },
   { name: 'Afrikaans', native: 'Afrikaans', speakers: '6.5M', flag: '🇿🇦' },
-  { name: 'Xhosa', native: 'Xhosa', speakers: '8.2M', flag: '🇿🇦' },
+  { name: 'isiXhosa', native: 'isiXhosa', speakers: '8.2M', flag: '🇿🇦' },
   { name: 'Sesotho', native: 'Sesotho', speakers: '3.8M', flag: '🇿🇦' },
   { name: 'Setswana', native: 'Setswana', speakers: '4.1M', flag: '🇿🇦' },
   { name: 'Sepedi', native: 'Sepedi', speakers: '4.6M', flag: '🇿🇦' },
   { name: 'Tshivenḓa', native: 'Tshivenḓa', speakers: '1.3M', flag: '🇿🇦' },
   { name: 'Xitsonga', native: 'Xitsonga', speakers: '2.3M', flag: '🇿🇦' },
-  { name: 'Swati', native: 'Swati', speakers: '1.3M', flag: '🇿🇦' },
-  { name: 'Ndebele', native: 'Ndebele', speakers: '1.1M', flag: '🇿🇦' },
+  { name: 'siSwati', native: 'siSwati', speakers: '1.3M', flag: '🇿🇦' },
+  { name: 'isiNdebele', native: 'isiNdebele', speakers: '1.1M', flag: '🇿🇦' },
 ]
 
 const capabilities = [
@@ -26,12 +26,12 @@ const capabilities = [
   {
     icon: Ear,
     title: 'Voice Alerts',
-    desc: 'Luna speaks alerts aloud in English and Zulu today, with more SA languages on the way.',
+    desc: 'Luna speaks alerts aloud in English and isiZulu today, with more SA languages on the way.',
   },
   {
     icon: Volume2,
     title: 'Voice Commands',
-    desc: 'Ask Luna by voice in English or Zulu. "Ingane yami ikuphephi?" (is my child safe?), answered in Zulu.',
+    desc: 'Ask Luna by voice in English or isiZulu. "Ingane yami ikuphephi?" (is my child safe?), answered in isiZulu.',
   },
   {
     icon: Languages,
@@ -95,7 +95,7 @@ export default function LanguagesSection() {
         </h2>
         <p className="text-center text-safenet-text-2 text-base max-w-2xl mx-auto mb-16">
           SafeNet SA understands all 11 official South African languages.
-          Every alert and the full dashboard are available in your language, with Luna's voice in English and Zulu today and more on the way.
+          Every alert and the full dashboard are available in your language, with Luna's voice in English and isiZulu today and more on the way.
         </p>
 
         {/* Language grid */}

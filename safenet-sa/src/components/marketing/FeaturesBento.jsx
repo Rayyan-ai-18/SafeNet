@@ -7,7 +7,7 @@ import Toggle from '../ui/Toggle'
 const bentoCards = [
   {
     title: 'WhatsApp Monitoring',
-    desc: 'The only platform that understands WhatsApp threats in Zulu, Afrikaans, Sotho and Xhosa. Never transmitted. POPIA safe.',
+    desc: 'The only platform that understands WhatsApp threats in isiZulu, Afrikaans, Sotho and isiXhosa. Never transmitted. POPIA safe.',
     icon: MessageCircle,
     span: 'lg:col-span-2 lg:row-span-2',
     variant: 'primary',
@@ -49,7 +49,7 @@ const bentoCards = [
     icon: Languages,
     span: 'lg:col-span-2 lg:row-span-1',
     variant: 'surface',
-    languages: ['English', 'Zulu', 'Afrikaans', 'Xhosa', 'Sesotho', 'Setswana', 'Sepedi', 'Tshivenḓa', 'Xitsonga', 'Swati', 'Ndebele'],
+    languages: ['English', 'isiZulu', 'Afrikaans', 'isiXhosa', 'Sesotho', 'Setswana', 'Sepedi', 'Tshivenḓa', 'Xitsonga', 'siSwati', 'isiNdebele'],
   },
   {
     title: 'Screen Time Reports',

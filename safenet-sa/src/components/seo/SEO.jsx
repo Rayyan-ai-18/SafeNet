@@ -5,7 +5,7 @@ const SITE_URL = 'https://safenet-sa.co.za'
 const DEFAULT_OG_IMAGE = '/og-image.png'
 const DEFAULT_TITLE = 'SafeNet SA - Digital Safety for South African Families'
 const DEFAULT_DESC =
-  'The only digital safety platform built for South African families. Monitors WhatsApp. Speaks Zulu. POPIA compliant. Ready in 5 minutes.'
+  'The only digital safety platform built for South African families. Monitors WhatsApp. Speaks isiZulu. POPIA compliant. Ready in 5 minutes.'
 
 const LANGUAGES = ['en-ZA', 'zu', 'af', 'xh', 'st', 'tn', 'nso', 've', 'ts', 'ss', 'nr']
 
