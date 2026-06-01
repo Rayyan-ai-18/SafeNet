@@ -38,15 +38,28 @@ ENV XDG_CACHE_HOME=/srv/.cache
 ENV TORCH_HOME=/srv/.cache/torch
 ENV NUMBA_CACHE_DIR=/tmp/numba
 ENV MPLCONFIGDIR=/tmp/mpl
+# huggingface_hub's default read timeout is 10s. The free Space tripped it
+# fetching the speaker-embedding model at request time. Give downloads room
+# (applies to the build-time warm-up below and any runtime metadata check).
+ENV HF_HUB_DOWNLOAD_TIMEOUT=60
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY app.py .
 
-# Model downloads on first request (keeps the build light enough for free tier).
-# Make caches + model dir writable by any runtime UID.
+# Caches + model dir writable by any runtime UID, before we populate them.
 RUN mkdir -p /srv/.cache/hf /srv/.cache/torch /srv/IMS-Toucan/Models /tmp/numba /tmp/mpl \
     && chmod -R 777 /srv /tmp/numba /tmp/mpl
+
+# Pre-download ALL model weights at build time so the first request is instant
+# and we never depend on request-time Hub connectivity. Instantiating the
+# interface caches ToucanTTS.pt + Vocoder.pt (-> /srv/Models) and the speechbrain
+# ECAPA speaker embedding (-> HF_HOME). One English warm-up covers every language
+# (set_language only does a local id lookup, no extra download). cwd is /srv, the
+# same as runtime, so the relative MODEL_DIR ("Models/") resolves identically.
+# Final chmod makes the downloaded files readable by the non-root runtime UID.
+RUN python -c "import sys; sys.path.insert(0, '/srv/IMS-Toucan'); from InferenceInterfaces.ToucanTTSInterface import ToucanTTSInterface; ToucanTTSInterface(device='cpu'); print('Toucan models cached at build')" \
+    && chmod -R 777 /srv
 
 EXPOSE 8080
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8080"]
