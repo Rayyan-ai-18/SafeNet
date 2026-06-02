@@ -73,7 +73,7 @@ export default function Hero() {
 
             {/* Subheadline */}
             <p ref={subRef} className="text-base sm:text-lg text-safenet-text-2 max-w-[480px] leading-relaxed mb-6">
-              Detect cyberbullying. Block grooming. Speak isiZulu. Built for South Africa.
+              Luna keeps watch over your child's WhatsApp for scams, grooming and bullying, and warns you the moment something looks wrong. Built here in South Africa, and she speaks isiZulu too.
             </p>
 
             {/* CTAs */}

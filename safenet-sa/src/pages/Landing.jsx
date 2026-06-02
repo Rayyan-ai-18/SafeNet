@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
-import { Mic, Shield, ArrowRight, Sparkles, RotateCcw, Database, GraduationCap, Lock, ExternalLink, HelpCircle } from 'lucide-react'
+import { Mic, ArrowRight, Sparkles, RotateCcw, ExternalLink, HelpCircle } from 'lucide-react'
 import SEO from '../components/seo/SEO'
 import Nav from '../components/layout/Nav'
 import Footer from '../components/layout/Footer'
@@ -10,12 +10,10 @@ import TrustBar from '../components/marketing/TrustBar'
 import Problem from '../components/marketing/Problem'
 import HowItWorks from '../components/marketing/HowItWorks'
 import FeaturesBento from '../components/marketing/FeaturesBento'
-import LunaShowcase from '../components/marketing/LunaShowcase'
 import ForSchools from '../components/marketing/ForSchools'
 import LanguagesSection from '../components/marketing/LanguagesSection'
 import Pricing from '../components/marketing/Pricing'
 import Testimonials from '../components/marketing/Testimonials'
-import TeamSection from '../components/marketing/TeamSection'
 import ContactSection from '../components/marketing/ContactSection'
 import FinalCTA from '../components/marketing/FinalCTA'
 import LunaOrb from '../components/ui/LunaOrb'
@@ -257,30 +255,6 @@ const homepageStats = [
   { value: '11', suffix: '', label: 'Languages', description: 'SA languages Luna supports 🇿🇦' },
 ]
 
-const moatCards = [
-  {
-    icon: Database,
-    color: 'text-safenet-primary',
-    bg: 'bg-safenet-primary-light',
-    title: 'SA Language Intelligence',
-    desc: 'The only threat database trained on South African languages, slang, and cultural context. Built with Childline SA data.',
-  },
-  {
-    icon: GraduationCap,
-    color: 'text-safenet-accent',
-    bg: 'bg-safenet-accent-light',
-    title: 'School & Government Distribution',
-    desc: 'Institutional partnerships that deliver more families than any marketing budget. One school MOU = thousands of protected children.',
-  },
-  {
-    icon: Lock,
-    color: 'text-safenet-danger',
-    bg: 'bg-safenet-danger-light',
-    title: 'On-Device Privacy by Architecture',
-    desc: 'Message content never transmitted. Parents see threat alerts - not chats. POPIA compliant from the first line of code.',
-  },
-]
-
 // Homepage mini Luna voice section
 function LunaVoiceTeaser() {
   const { state, language, startListening, stopListening, browserSupported, lunaResponse, transcript, sendTextInput } = useLunaVoice()
@@ -398,58 +372,6 @@ function StatsStrip() {
   )
 }
 
-// The Moat - SECTION B
-function TheMoat() {
-  const sectionRef = useRef(null)
-  const cardsRef = useRef([])
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(cardsRef.current, { opacity: 0, y: 24 }, {
-        opacity: 1, y: 0, stagger: 0.15, duration: 0.6, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 85%', once: true },
-      })
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [])
-
-  return (
-    <section ref={sectionRef} className="bg-safenet-surface py-16 lg:py-20">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
-          <span className="inline-block text-xs font-semibold text-safenet-primary tracking-[0.2em] uppercase bg-safenet-primary-light px-4 py-1.5 rounded-full mb-4">
-            Our Advantage
-          </span>
-          <h2 className="font-display text-display-sm text-safenet-text max-w-xl mx-auto">
-            What makes SafeNet irreplaceable
-          </h2>
-          <p className="text-base text-safenet-text-2 max-w-lg mx-auto mt-3">
-            Three things that would take any competitor years to replicate.
-          </p>
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {moatCards.map((card, i) => {
-            const Icon = card.icon
-            return (
-              <div
-                key={card.title}
-                ref={el => cardsRef.current[i] = el}
-                className="bg-white rounded-card-lg shadow-safenet-md border border-safenet-border p-6 hover:shadow-safenet-lg transition-shadow"
-              >
-                <div className={`w-14 h-14 rounded-xl ${card.bg} flex items-center justify-center mb-4`}>
-                  <Icon className={`w-7 h-7 ${card.color}`} />
-                </div>
-                <h3 className="font-display text-heading-sm text-safenet-text mb-2">{card.title}</h3>
-                <p className="text-sm text-safenet-text-2 leading-relaxed">{card.desc}</p>
-              </div>
-            )
-          })}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 // Demo Teaser - SECTION D
 function LiveDemoTeaser() {
   const sectionRef = useRef(null)
@@ -528,112 +450,6 @@ function LiveDemoTeaser() {
   )
 }
 
-// Pilot Target - SECTION E (replaces revenue projection language)
-function PilotTarget() {
-  const sectionRef = useRef(null)
-  const timelineRef = useRef(null)
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(sectionRef.current, { opacity: 0, y: 24 }, {
-        opacity: 1, y: 0, duration: 0.6, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 85%', once: true },
-      })
-      if (timelineRef.current) {
-        gsap.fromTo(timelineRef.current.children, { opacity: 0, y: 20 }, {
-          opacity: 1, y: 0, stagger: 0.2, duration: 0.5, ease: 'power2.out',
-          scrollTrigger: { trigger: timelineRef.current, start: 'top 80%', once: true },
-        })
-      }
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [])
-
-  const milestones = [
-    { period: 'NOW', label: 'Building & testing with pilot families', active: true },
-    { period: 'NEXT', label: '50 retained SA families with real usage data', active: false },
-    { period: 'THEN', label: 'School pilots across Gauteng, WC, KZN', active: false },
-    { period: 'FUTURE', label: '11 SA languages. Every child protected.', active: false },
-  ]
-
-  return (
-    <section ref={sectionRef} className="bg-safenet-surface py-16 lg:py-20">
-      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
-          <h2 className="font-display text-display-sm text-safenet-text mb-3">
-            Where we are going
-          </h2>
-          <p className="text-base text-safenet-text-2 max-w-lg mx-auto">
-            We are not showing you a billion-rand projection. We are showing you the next 50 families we will protect.
-          </p>
-        </div>
-
-        {/* Timeline */}
-        <div ref={timelineRef} className="relative">
-          {/* Desktop: horizontal timeline */}
-          <div className="hidden lg:flex items-start justify-between">
-            {milestones.map((m, i) => (
-              <div key={m.period} className="flex flex-col items-center flex-1 relative">
-                {/* Connector line */}
-                {i < milestones.length - 1 && (
-                  <div className="absolute top-4 left-[60%] w-full h-0.5 bg-safenet-border">
-                    <div className={`h-full bg-safenet-primary transition-all duration-1000 ${m.active ? 'w-full' : 'w-0'}`} />
-                  </div>
-                )}
-                {/* Dot */}
-                <div className={`relative z-10 w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold mb-3 ${
-                  m.active
-                    ? 'bg-safenet-primary text-white shadow-lg shadow-safenet-primary/30'
-                    : 'bg-white border-2 border-safenet-border text-safenet-text-3'
-                }`}>
-                  {m.active ? '●' : '●'}
-                </div>
-                {/* Period label */}
-                <div className={`text-xs font-bold mb-1 ${m.active ? 'text-safenet-primary' : 'text-safenet-text-3'}`}>
-                  {m.period}
-                </div>
-                {/* Description */}
-                <div className={`text-xs text-center px-2 ${m.active ? 'text-safenet-text font-medium' : 'text-safenet-text-3'}`}>
-                  {m.label}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile: vertical timeline */}
-          <div className="lg:hidden space-y-6">
-            {milestones.map((m, i) => (
-              <div key={m.period} className="flex items-start gap-4">
-                {/* Dot + line */}
-                <div className="flex flex-col items-center">
-                  <div className={`relative z-10 w-7 h-7 rounded-full flex items-center justify-center text-[10px] font-bold flex-shrink-0 ${
-                    m.active
-                      ? 'bg-safenet-primary text-white shadow-md'
-                      : 'bg-white border-2 border-safenet-border text-safenet-text-3'
-                  }`}>
-                    ●
-                  </div>
-                  {i < milestones.length - 1 && (
-                    <div className="w-0.5 h-10 bg-safenet-border mt-1" />
-                  )}
-                </div>
-                <div className="flex-1 pb-2">
-                  <div className={`text-xs font-bold mb-0.5 ${m.active ? 'text-safenet-primary' : 'text-safenet-text-3'}`}>
-                    {m.period}
-                  </div>
-                  <div className={`text-sm ${m.active ? 'text-safenet-text font-medium' : 'text-safenet-text-2'}`}>
-                    {m.label}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
-}
-
 export default function Landing() {
   return (
     <>
@@ -646,48 +462,32 @@ export default function Landing() {
       <div className="min-h-screen bg-white">
         <Nav />
         <Hero />
-        {/* Investor-critical sections after Hero */}
+        <TrustBar />
         <StatsStrip />
-        <TheMoat />
+        <Problem />
+        <HowItWorks />
         <LunaVoiceTeaser />
         <LiveDemoTeaser />
-        <PilotTarget />
+        <div id="features" className="scroll-mt-20"><FeaturesBento /></div>
+        <LanguagesSection />
+        <div id="pricing" className="scroll-mt-20"><Pricing /></div>
+        <div id="schools" className="scroll-mt-20"><ForSchools /></div>
+        <Testimonials />
 
-        {/* Body text section for SEO depth */}
+        {/* Short body text for SEO depth */}
         <section id="about" className="bg-white py-12 lg:py-16 scroll-mt-20">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-safenet-surface rounded-card-lg p-6 lg:p-8">
-              <h2 className="font-display text-heading-lg text-safenet-text mb-4">About SafeNet SA - South Africa's Child Digital Safety Platform</h2>
-              <div className="text-sm text-safenet-text-2 leading-relaxed space-y-3">
-                <p>
-                  SafeNet SA is the first AI-powered child digital safety platform built specifically for South African families. While global parental control apps scan for English keywords only, SafeNet's Luna AI detects cyberbullying, grooming, phishing, and adult content across all 11 official South African languages - including isiZulu, Afrikaans, isiXhosa, and Sesotho. This is possible because SafeNet's threat database is trained on South African language data, slang, and cultural context, built with guidance from <a href="https://www.childlinesa.org.za" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">Childline South Africa</a>.
-                </p>
-                <p>
-                  According to <a href="https://www.unicef.org/southafrica/reports" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">UNICEF South Africa</a>, 1 in 3 children in South Africa face cyberbullying, and 94% of SA teens access the internet via smartphone - almost exclusively Android. SafeNet is optimised for the R1,500 Samsung A-series devices that most SA families use, running entirely on-device so that message content never leaves the child's phone. Parents receive only threat alerts - never chat content - making SafeNet fully POPIA compliant by architecture, not as an afterthought.
-                </p>
-                <p>
-                  SafeNet works across WhatsApp, TikTok, and Instagram. It blocks fake SASSA phishing links, detects grooming and honey trap tactics in isiZulu and English, manages screen time, tracks location with geofencing, and lets parents block apps or pause the internet with a single tap. The platform is free to start, with Guardian (R89/month) and Sentinel (R149/month) plans for families needing advanced features like School Shield integration and 24/7 phone support. <Link to="/how-it-works" className="text-safenet-primary font-medium hover:underline">See how SafeNet works →</Link> or <Link to="/demo" className="text-safenet-primary font-medium hover:underline">watch the live demo</Link> to see Luna catch a threat in real time.
-                </p>
-              </div>
+              <h2 className="font-display text-heading-lg text-safenet-text mb-3">About SafeNet SA</h2>
+              <p className="text-sm text-safenet-text-2 leading-relaxed">
+                SafeNet SA is the first AI child-safety platform built for South African families. While global apps scan only English keywords, Luna AI detects cyberbullying, grooming, phishing and adult content in South African languages, starting with English and isiZulu. According to <a href="https://www.unicef.org/southafrica/reports" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">UNICEF South Africa</a>, 1 in 3 SA children face cyberbullying and 94% of teens are online by smartphone. SafeNet runs on-device, so message content never leaves the child's phone, and is optimised for the affordable Android phones most families use. Built with guidance from <a href="https://www.childlinesa.org.za" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">Childline South Africa</a>. <Link to="/how-it-works" className="text-safenet-primary font-medium hover:underline">See how SafeNet works</Link> or <Link to="/demo" className="text-safenet-primary font-medium hover:underline">watch the live demo</Link>.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* Existing marketing sections */}
-        <TrustBar />
-        <Problem />
-        <HowItWorks />
-        <div id="features" className="scroll-mt-20"><FeaturesBento /></div>
-        <LunaShowcase />
-        <div id="schools" className="scroll-mt-20"><ForSchools /></div>
-        <LanguagesSection />
-        <div id="pricing" className="scroll-mt-20"><Pricing /></div>
-        <Testimonials />
-        {/* Team & Contact - investor-facing */}
-        <TeamSection />
-        <FinalCTA />
-        {/* FAQ Section - boosts AEO/SEO with structured Q&A */}
         <FAQSection />
+        <FinalCTA />
         <ContactSection />
         <Footer />
       </div>

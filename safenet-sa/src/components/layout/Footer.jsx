@@ -16,7 +16,7 @@ const footerLinks = {
   ],
   Company: [
     { label: 'About', href: '/#about', kind: 'hash' },
-    { label: 'Team', href: '/#team', kind: 'hash' },
+    { label: 'Investors', href: '/investors', kind: 'route' },
     { label: 'Contact', href: '/#contact', kind: 'hash' },
     { label: 'FAQ', href: '/#faq', kind: 'hash' },
   ],
@@ -27,7 +27,7 @@ const footerLinks = {
   ],
   Connect: [
     { label: 'hello@safenet-sa.co.za', href: 'mailto:hello@safenet-sa.co.za', kind: 'mail' },
-    { label: 'For investors', href: '/#contact', kind: 'hash' },
+    { label: 'For investors', href: '/investors', kind: 'route' },
     { label: 'Information Regulator', href: 'https://inforegulator.org.za', kind: 'ext' },
   ],
 }

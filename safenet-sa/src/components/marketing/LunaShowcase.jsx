@@ -71,14 +71,14 @@ export default function LunaShowcase() {
         </div>
 
         <h2 ref={headlineRef} className="font-display text-display-sm sm:text-display-md text-center text-safenet-text mb-16 max-w-3xl mx-auto">
-          The intelligence underneath SafeNet SA is ours. Entirely.
+          The brain behind SafeNet SA is ours, and we built it ourselves.
         </h2>
 
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-center">
           {/* Left: Copy */}
           <div className="flex-1 max-w-lg">
             <p ref={copyRef} className="text-lg text-safenet-text-2 leading-relaxed mb-8">
-              Luna is not a vendor. Not a third-party API. Not a white-label. We built Luna from the ground up. Every model. Every pipeline. Every insight. It belongs to us - which means it belongs to you.
+              Luna is not some borrowed AI we slapped our name on. We built her ourselves, every model and every line that decides what is safe and what is not. She belongs to us, which means she works for you and your kids, not for an advertiser somewhere.
             </p>
 
             {/* Capability pills */}

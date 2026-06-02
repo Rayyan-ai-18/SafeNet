@@ -25,7 +25,7 @@ function isIOS() {
 }
 
 export default function GetApp() {
-  const [installUrl, setInstallUrl] = useState(`${SITE}/app`)
+  const [installUrl, setInstallUrl] = useState(`${SITE}/app#install`)
   const [deferredPrompt, setDeferredPrompt] = useState(null)
   const [installed, setInstalled] = useState(false)
   const [ios, setIos] = useState(false)
@@ -41,7 +41,9 @@ export default function GetApp() {
     const isLocal = /localhost|127\.0\.0\.1|0\.0\.0\.0|\[::1\]/.test(origin)
     // Real public deploy: use its own origin. Local dev: fall back to the
     // canonical site so the on-screen QR is always scannable from a phone.
-    setInstallUrl(`${isLocal ? SITE : origin}/app`)
+    // The #install hash drops a scanning phone straight onto the install steps,
+    // below the hero + live preview that otherwise push them off-screen.
+    setInstallUrl(`${isLocal ? SITE : origin}/app#install`)
     const onIOS = isIOS()
     setIos(onIOS)
     setPlatform(onIOS ? 'ios' : 'android')
@@ -69,6 +71,21 @@ export default function GetApp() {
       window.removeEventListener('beforeinstallprompt', onPrompt)
       window.removeEventListener('appinstalled', onInstalled)
     }
+  }, [])
+
+  // A phone arriving from the QR scan lands on /app#install. The native hash
+  // scroll can fire before the lazy route + preview iframe finish laying out,
+  // so nudge the install steps into view once after mount.
+  useEffect(() => {
+    if (window.location.hash !== '#install') return
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const t = setTimeout(() => {
+      document.getElementById('install')?.scrollIntoView({
+        behavior: reduce ? 'auto' : 'smooth',
+        block: 'start',
+      })
+    }, 300)
+    return () => clearTimeout(t)
   }, [])
 
   const handleInstall = async () => {
@@ -102,6 +119,13 @@ export default function GetApp() {
               This isn't a video or a mockup. It's the real SafeNet app running below. Tap through it,
               then install it on your phone in seconds. No app store, no waiting.
             </p>
+            <a
+              href="#install"
+              className="lg:hidden mt-6 inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-safenet-primary-light text-safenet-primary text-sm font-medium"
+            >
+              Jump to install steps
+              <span aria-hidden="true">↓</span>
+            </a>
           </div>
 
           <div className="max-w-5xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-14 items-start">
@@ -156,7 +180,7 @@ export default function GetApp() {
 
             {/* Install panel */}
             <div className="space-y-6">
-              <div className="bg-white rounded-card-lg shadow-safenet-md border border-safenet-border p-6">
+              <div id="install" className="scroll-mt-28 bg-white rounded-card-lg shadow-safenet-md border border-safenet-border p-6">
                 <h2 className="font-display text-heading-md text-safenet-text mb-1">
                   {isMobile ? 'Add SafeNet to your home screen' : 'Install on your phone'}
                 </h2>

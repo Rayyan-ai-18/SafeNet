@@ -9,32 +9,32 @@ const schoolFeatures = [
   {
     icon: Building2,
     title: 'School-Wide Dashboard',
-    desc: 'Monitor all enrolled students from a single admin panel with real-time alerts and location overview.',
+    desc: 'See every enrolled learner from one admin panel, with live alerts and a clear view of where everyone is.',
   },
   {
     icon: BookOpen,
     title: 'Curriculum Mode',
-    desc: 'Automatically silence devices during class hours, exams, and study periods across the entire school.',
+    desc: 'Quiet every device during class, exams and study time, across the whole school, without anyone lifting a finger.',
   },
   {
     icon: Shield,
     title: 'Luna AI for Schools',
-    desc: 'AI-powered threat detection tuned for school environments - bullying detection, suspicious contact alerts.',
+    desc: 'Luna tuned for school life: she watches for bullying and flags strangers trying to make contact with your learners.',
   },
   {
     icon: Users,
     title: 'Batch Enrollment',
-    desc: 'Enroll entire classes or grades at once via CSV upload. Parent consent managed digitally (POPIA compliant).',
+    desc: 'Sign up whole classes or grades at once with a simple CSV upload. Parent consent is handled online and stays POPIA compliant.',
   },
   {
     icon: Bell,
     title: 'Emergency Broadcast',
-    desc: 'Send instant safety alerts to all parents when lockdowns, evacuations, or emergencies occur.',
+    desc: 'Reach every parent in seconds when there is a lockdown, an evacuation or any emergency at the school.',
   },
   {
     icon: GraduationCap,
     title: 'ISP Partnership',
-    desc: 'Whitelabel SafeNet SA directly into your school\'s existing parent communication app or ISP bundle.',
+    desc: 'Put SafeNet SA under your own brand, right inside the parent app or ISP bundle your school already uses.',
   },
 ]
 

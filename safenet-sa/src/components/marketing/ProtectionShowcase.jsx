@@ -29,9 +29,9 @@ const statusStyle = (status) =>
     : 'bg-safenet-accent-light text-safenet-accent'
 
 const pillars = [
-  { Icon: LinkIcon, title: 'Blocks dangerous links', body: 'Phishing, scams and fake giveaways are stopped before your child can tap them.' },
-  { Icon: ShieldCheck, title: 'Keeps children secure', body: 'Grooming, bullying and predatory messages are caught on-device, across every app.' },
-  { Icon: BellRing, title: 'Real-time parent alerts', body: 'You are notified the moment a threat is found - on average within 0.3 seconds.' },
+  { Icon: LinkIcon, title: 'Blocks dangerous links', body: 'Phishing, scams and fake giveaways get stopped before your child can tap them.' },
+  { Icon: ShieldCheck, title: 'Keeps children secure', body: 'Grooming, bullying and predatory messages are caught right on the phone, across every app.' },
+  { Icon: BellRing, title: 'Real-time parent alerts', body: 'You hear about it the moment a threat shows up, on average within 0.3 seconds.' },
 ]
 
 const fadeUp = {
@@ -82,8 +82,8 @@ export default function ProtectionShowcase() {
           Luna protects on every app your child uses
         </h2>
         <p className="text-safenet-text-2 leading-relaxed">
-          Not just WhatsApp. Luna watches across messaging and social platforms, blocks dangerous
-          links, and alerts you in real time - so your child stays safe wherever they are online.
+          It is not just WhatsApp. Luna keeps an eye across messaging and social apps, blocks
+          dangerous links, and lets you know straight away, so your child stays safe wherever they go online.
         </p>
       </motion.div>
 
@@ -191,8 +191,8 @@ export default function ProtectionShowcase() {
                   <span className="text-[10px] text-safenet-text-3">now</span>
                 </div>
                 <p className="text-xs text-safenet-text-2 leading-snug mt-0.5">
-                  Threat blocked on <span className="font-semibold text-safenet-text">Liam’s</span> WhatsApp -
-                  cyberbullying detected and stopped. Tap to review.
+                  We blocked a threat on <span className="font-semibold text-safenet-text">Liam’s</span> WhatsApp.
+                  Someone was bullying him and Luna stopped it. Tap to have a look.
                 </p>
               </div>
             </div>

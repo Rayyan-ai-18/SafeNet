@@ -23,10 +23,10 @@ export default {
         },
       },
       fontFamily: {
-        display: ['Newsreader', 'Georgia', 'serif'],
-        'display-bold': ['Newsreader', 'Georgia', 'serif'],
-        body: ['DM Sans', 'system-ui', 'sans-serif'],
-        mono: ['IBM Plex Mono', 'monospace'],
+        display: ['Space Grotesk', 'system-ui', 'sans-serif'],
+        'display-bold': ['Space Grotesk', 'system-ui', 'sans-serif'],
+        body: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
       },
       fontSize: {
         display: ['80px', { lineHeight: '1.1', letterSpacing: '-0.04em', fontWeight: '700' }],

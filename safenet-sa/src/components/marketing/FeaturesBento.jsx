@@ -7,7 +7,7 @@ import Toggle from '../ui/Toggle'
 const bentoCards = [
   {
     title: 'WhatsApp Monitoring',
-    desc: 'The only platform that understands WhatsApp threats in isiZulu, Afrikaans, Sotho and isiXhosa. Never transmitted. POPIA safe.',
+    desc: 'We are the only platform that reads WhatsApp threats in isiZulu, Afrikaans, Sotho and isiXhosa, all on the phone itself. The messages never leave the device, so it stays POPIA safe.',
     icon: MessageCircle,
     span: 'lg:col-span-2 lg:row-span-2',
     variant: 'primary',
@@ -23,7 +23,7 @@ const bentoCards = [
   },
   {
     title: 'Internet Pause',
-    desc: 'Pause the internet. One tap.',
+    desc: 'Pause the internet with one tap.',
     icon: WifiOff,
     span: 'lg:col-span-1 lg:row-span-1',
     variant: 'default',
@@ -45,7 +45,7 @@ const bentoCards = [
   },
   {
     title: '11 Languages',
-    desc: 'Alerts in every South African language.',
+    desc: 'Alerts in every South African language, so the news reaches you in the words you actually speak at home.',
     icon: Languages,
     span: 'lg:col-span-2 lg:row-span-1',
     variant: 'surface',
@@ -69,7 +69,7 @@ const bentoCards = [
   },
   {
     title: 'School Hours Mode',
-    desc: 'Automatically silence distractions during class time. Set it once, it just works.',
+    desc: 'Quietly switch off the distractions during class. Set it once and you can forget about it.',
     icon: Bell,
     span: 'lg:col-span-2 lg:row-span-1',
     variant: 'surface',
@@ -117,7 +117,7 @@ export default function FeaturesBento() {
         </div>
 
         <h2 ref={headlineRef} className="font-display text-display-sm sm:text-display-md text-center text-safenet-text mb-16 max-w-3xl mx-auto">
-          Everything a South African parent needs
+          Everything you need to keep your child safe
         </h2>
 
         {/* Bento Grid */}

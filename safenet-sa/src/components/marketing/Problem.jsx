@@ -76,9 +76,7 @@ export default function Problem() {
           <div className="lg:w-[55%] space-y-8">
             <div ref={bodyRef} className="space-y-5">
               <p className="text-lg text-safenet-text-2 leading-relaxed">
-                Your child lives on WhatsApp. Not iMessage. Not Snapchat.
-                WhatsApp - where the real threats in South Africa happen every day.
-                According to{' '}
+                In South Africa, your child's whole social world runs on WhatsApp, and that is exactly where the real threats show up. According to{' '}
                 <a
                   href="https://businesstech.co.za/news/internet/758979/cybercrime-in-sa-phishing-attacks-now-targeting-whatsapp-users/"
                   target="_blank"
@@ -86,12 +84,10 @@ export default function Problem() {
                   className="text-safenet-primary underline decoration-safenet-primary/30 hover:decoration-safenet-primary transition-all"
                 >
                   BusinessTech
-                </a>, phishing attacks targeting WhatsApp users in South Africa have surged, with criminals exploiting messaging apps to steal personal data.
+                </a>, phishing attacks aimed at WhatsApp users here have surged, with criminals using the app to steal people's personal details.
               </p>
               <p className="text-lg text-safenet-text-2 leading-relaxed">
-                Bark costs R260 a month and does not monitor WhatsApp.
-                Qustodio does not speak Afrikaans.
-                Google Family Link can be bypassed in 30 seconds.
+                The global apps were never built for this. Bark costs R260 a month and still cannot watch WhatsApp. Qustodio does not speak Afrikaans. And Google Family Link? A determined teenager is around it in about 30 seconds.
               </p>
               <p className="text-lg text-safenet-text font-semibold">
                 SafeNet SA was built for Soweto, Stellenbosch, Polokwane,
@@ -106,7 +102,7 @@ export default function Problem() {
                 >
                   Childline South Africa
                 </a>{' '}
-                reports that online grooming and cyberbullying cases have risen significantly, making digital safety tools essential for modern parenting.
+                says reports of online grooming and cyberbullying have climbed sharply in recent years.
               </p>
               <p className="text-sm text-safenet-text-3 leading-relaxed">
                 According to{' '}
@@ -117,7 +113,7 @@ export default function Problem() {
                   className="text-safenet-primary underline decoration-safenet-primary/30 hover:decoration-safenet-primary transition-all"
                 >
                   UNICEF South Africa
-                </a>, children in SA are increasingly targeted online, with 1 in 3 children having been exposed to harmful content. Early intervention and digital monitoring are critical.
+                </a>, children in South Africa are being targeted online more than ever, with 1 in 3 exposed to harmful content.
               </p>
               <p className="text-sm text-safenet-text-3 leading-relaxed">
                 The{' '}
@@ -129,7 +125,7 @@ export default function Problem() {
                 >
                   South African Police Service
                 </a>{' '}
-                has reported a significant rise in cybercrimes targeting minors, including online extortion and grooming through social media platforms like WhatsApp.
+                has flagged a sharp rise in cybercrime against minors, including sextortion and grooming through apps like WhatsApp.
               </p>
             </div>
 
@@ -139,7 +135,7 @@ export default function Problem() {
                 href="#pricing"
                 className="inline-flex items-center gap-2 text-sm font-medium text-safenet-primary hover:text-safenet-primary-dark transition-colors group"
               >
-                See our affordable plans - starting at free
+                See our plans, free to start
                 <span className="transition-transform group-hover:translate-x-1">→</span>
               </a>
             </div>

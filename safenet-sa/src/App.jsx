@@ -6,6 +6,7 @@ import { AuthProvider } from './context/AuthContext'
 import { trackPageview } from './lib/analytics'
 
 const Landing = lazy(() => import('./pages/Landing'))
+const Investors = lazy(() => import('./pages/Investors'))
 const Auth = lazy(() => import('./pages/Auth'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Children = lazy(() => import('./pages/Children'))
@@ -43,11 +44,11 @@ function PageWrapper({ children }) {
 
 function LoadingFallback() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-safenet-bg">
-      <div className="flex flex-col items-center gap-5">
+    <div className="min-h-screen flex items-center justify-center bg-[#F4F6F5]">
+      <div className="flex flex-col items-center">
         <svg
-          width="48"
-          height="48"
+          width="56"
+          height="56"
           viewBox="0 0 48 48"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -57,7 +58,7 @@ function LoadingFallback() {
           <path d="M24 4L6 12V22C6 34 14 40 24 44C34 40 42 34 42 22V12L24 4Z" stroke="#0F7B4D" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           <path d="M18 24L22 28L30 20" stroke="#0F7B4D" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-        <p className="text-sm text-safenet-text-3 font-body">Loading SafeNet SA…</p>
+        <p className="mt-4 text-safenet-primary font-semibold tracking-wide">SafeNet SA</p>
       </div>
     </div>
   )
@@ -78,6 +79,7 @@ export default function App() {
         <AnimatePresence mode="wait">
           <Routes location={location} key={location.pathname}>
             <Route path="/" element={<PageWrapper><Landing /></PageWrapper>} />
+            <Route path="/investors" element={<PageWrapper><Investors /></PageWrapper>} />
             <Route path="/auth" element={<PageWrapper><Auth /></PageWrapper>} />
             <Route path="/dashboard" element={<PageWrapper><Dashboard /></PageWrapper>} />
             <Route path="/children" element={<PageWrapper><Children /></PageWrapper>} />
