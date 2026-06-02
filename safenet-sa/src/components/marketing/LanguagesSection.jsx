@@ -91,7 +91,7 @@ export default function LanguagesSection() {
 
         {/* Headline */}
         <h2 ref={headlineRef} className="font-display text-display-sm sm:text-display-md text-center text-safenet-text mb-4 max-w-3xl mx-auto">
-          11 languages. One mission: keeping your family safe
+          Safety that speaks your language. All 11 of them.
         </h2>
         <p className="text-center text-safenet-text-2 text-base max-w-2xl mx-auto mb-16">
           SafeNet SA understands all 11 official South African languages.

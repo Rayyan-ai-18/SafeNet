@@ -26,7 +26,7 @@ export default function FinalCTA() {
     return () => ctx.revert()
   }, [])
 
-  const headlineWords = ['3.2', 'million', 'South', 'African', 'families', 'need', 'this.', 'Yours', 'is', 'one', 'of', 'them.']
+  const headlineWords = ['Every', 'day,', 'your', 'child', 'is', 'online', 'without', 'you.', 'Luna', 'is', 'there', 'when', 'you', "can't", 'be.']
 
   return (
     <section ref={sectionRef} className="relative bg-safenet-primary py-24 lg:py-32 overflow-hidden grain-overlay">
@@ -49,7 +49,7 @@ export default function FinalCTA() {
 
         {/* Sub */}
         <p className="text-lg text-white/80 mb-10 max-w-xl mx-auto">
-          Start protecting your family today. Free to try. POPIA compliant. Ready in 5 minutes.
+          Free to start, ready in about five minutes, and built to keep your family's data private under POPIA.
         </p>
 
         {/* CTA */}

@@ -64,12 +64,12 @@ function InvestorHero() {
           Investors
         </span>
         <h1 className="font-display text-display-sm sm:text-display-md text-safenet-text mb-5">
-          Safety infrastructure for South Africa's children
+          Protecting South African kids where the global apps don't
         </h1>
         <p className="text-lg text-safenet-text-2 leading-relaxed max-w-2xl mx-auto">
-          SafeNet protects children where global parental-control apps cannot: in the languages they speak,
-          against the scams they actually face, on the phones they actually use. Here is the advantage, the
-          technology, and where we are going.
+          SafeNet keeps children safer in the places the global apps miss: the local languages kids actually
+          use, the scams aimed at South Africans, and the affordable Android phones in most homes here. Here is
+          what we have, how it works, and where we are headed.
         </p>
       </div>
     </section>
@@ -242,8 +242,7 @@ function InvestorCTA() {
           Let us talk
         </h2>
         <p className="text-base text-safenet-text-2 mb-8 max-w-lg mx-auto leading-relaxed">
-          We are building the safety layer for a generation of South African children. If that is a mission
-          you want to back, we would like to hear from you.
+          We are early, and we are building something that keeps South African children safer online. If that is a mission you want to back, we would like to hear from you.
         </p>
         <Link to="/#contact">
           <Button variant="primary" size="lg">

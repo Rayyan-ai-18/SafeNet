@@ -29,7 +29,7 @@ export default function ContactSection() {
             Let's keep SA children safe together
           </h2>
           <p className="text-base text-safenet-text-2 max-w-lg mx-auto mt-3">
-            Whether you're a parent, a school, or an investor - we'd love to hear from you.
+            Whether you're a parent, a school, or an investor, we'd love to hear from you.
           </p>
         </motion.div>
 
@@ -47,7 +47,7 @@ export default function ContactSection() {
             </span>
             <h3 className="font-display text-heading-sm text-safenet-text mb-1">General &amp; partnerships</h3>
             <p className="text-sm text-safenet-text-2 leading-relaxed mb-5 flex-1">
-              Questions, school partnerships, press, or support - reach the team directly.
+              Questions, school partnerships, press, or support? Reach the team directly.
             </p>
             <a
               href={`mailto:${GENERAL_EMAIL}`}
@@ -71,8 +71,8 @@ export default function ContactSection() {
             </span>
             <h3 className="font-display text-heading-sm mb-1">For investors</h3>
             <p className="text-sm text-white/70 leading-relaxed mb-5 flex-1">
-              Building South Africa's child-safety infrastructure. Request our deck and pilot
-              data, or set up an intro call.
+              We're building tools that keep South African children safer online. Request our
+              deck and pilot data, or set up an intro call.
             </p>
             <a
               href={`mailto:${INVESTOR_EMAIL}?subject=Investor%20enquiry%20-%20SafeNet%20SA`}

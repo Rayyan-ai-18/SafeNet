@@ -32,7 +32,7 @@ const steps = [
     iconBg: 'bg-safenet-accent-light',
     iconColor: 'text-safenet-accent',
     title: { en: 'Every link and message scanned before your child sees it', zu: 'Zonke izixhumanisi nemilayezo kuhlolwa ngaphambi kokuba ingane yakho ibone' },
-    desc: 'Fake SASSA sites, phishing links, adult content - blocked instantly. Cyberbullying and grooming detected on-device.',
+    desc: 'Fake SASSA sites, phishing links and adult content are blocked instantly, and bullying or grooming is spotted right on the device.',
     side: 'left',
     hasScanAnimation: true,
   },
@@ -40,7 +40,7 @@ const steps = [
     icon: AlertTriangle,
     iconBg: 'bg-safenet-danger-light',
     iconColor: 'text-safenet-danger',
-    title: { en: 'Threat detected - you know in under a second', zu: 'Usongo lutholakele - wazi ngaphansi komzuzwana' },
+    title: { en: 'Threat detected, and you know in under a second', zu: 'Usongo lutholakele - wazi ngaphansi komzuzwana' },
     desc: 'You receive a push notification with the threat type, severity, and culturally appropriate guidance in your language. Message content never leaves your child\'s device.',
     side: 'right',
     hasAlertCard: true,
@@ -50,7 +50,7 @@ const steps = [
     iconBg: 'bg-safenet-primary-light',
     iconColor: 'text-safenet-primary',
     title: { en: 'You decide what happens next', zu: 'Wena unquma okulandelayo' },
-    desc: 'Block the app. Pause the internet. Call your child. Or simply stay informed. SafeNet gives you the information - you make the decision.',
+    desc: 'Block the app, pause the internet, or call your child. Or just stay informed. SafeNet gives you the facts, and you make the call.',
     side: 'left',
     hasActions: true,
   },
@@ -110,7 +110,7 @@ function StepCard({ step, index }) {
                 <span className="text-[8px] text-safenet-text-3">●●●●</span>
               </div>
             </div>
-            <p className="text-xs text-safenet-text-3 mt-3">Luna's green dot in the status bar - the only sign she's there.</p>
+            <p className="text-xs text-safenet-text-3 mt-3">Luna's green dot in the status bar, the only sign she's there.</p>
           </div>
         )}
 
@@ -168,10 +168,10 @@ function StepCard({ step, index }) {
             </div>
             <div className="flex justify-center gap-4 mt-4">
               <span className="inline-flex items-center gap-1 text-xs text-green-600 font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-green-500" /> Safe - passes through
+                <span className="w-1.5 h-1.5 rounded-full bg-green-500" /> Safe, passes through
               </span>
               <span className="inline-flex items-center gap-1 text-xs text-safenet-danger font-medium">
-                <span className="w-1.5 h-1.5 rounded-full bg-safenet-danger" /> Blocked - threat stopped
+                <span className="w-1.5 h-1.5 rounded-full bg-safenet-danger" /> Blocked, threat stopped
               </span>
             </div>
           </div>
@@ -305,7 +305,7 @@ export default function HowItWorks() {
                   </h3>
                   <p className="text-sm text-safenet-text-2 leading-relaxed">
                     SafeNet never reads or stores your child's messages. Luna's AI runs entirely on your child's device. 
-                    Only threat alerts - never message content - are sent to you. POPIA compliant by design.
+                    Only threat alerts, never the message content, are sent to you, and it is POPIA compliant by design.
                   </p>
                   <div className="flex flex-wrap gap-3 mt-3">
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-safenet-primary-light/30 rounded-full text-[11px] text-safenet-primary font-medium">
@@ -328,7 +328,7 @@ export default function HowItWorks() {
                 Start protecting your child today 🇿🇦
               </h2>
               <p className="text-base text-safenet-text-2 mb-6 max-w-md mx-auto">
-                Trusted by South African families. Free to start.
+                Built for South African families. Free to start.
               </p>
               <Link to="/auth">
                 <Button variant="primary" size="lg">

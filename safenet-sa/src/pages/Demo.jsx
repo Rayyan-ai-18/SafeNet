@@ -793,7 +793,7 @@ export default function Demo() {
               See Luna in Action
             </h1>
             <p className="text-base text-safenet-text-2 max-w-lg mx-auto mb-5">
-              Watch how Luna detects and blocks cyberbullying on WhatsApp - in under a second. Then see everything else Luna can do.
+              Watch how Luna spots and blocks cyberbullying on WhatsApp in under a second. Then see what else she can do.
             </p>
 
             {/* Luna live guardian: reinforces the real-time, always-watching narrative */}
@@ -1036,7 +1036,7 @@ export default function Demo() {
                         className="flex items-center gap-1.5 mt-2 text-[10px] text-safenet-text-3"
                       >
                         <Check className="w-3 h-3 text-safenet-primary" />
-                        Alert sent via push notification - parent notified in 0.3s
+                        Alert sent via push notification, parent notified in 0.3s
                       </motion.div>
                     </div>
                   </motion.div>
@@ -1211,7 +1211,7 @@ export default function Demo() {
                         </div>
                         <div>
                           <h4 className="text-sm font-semibold text-safenet-text">Link Scanner</h4>
-                          <p className="text-xs text-safenet-text-3">Scans every URL before your child taps - phishing, scams, blocked.</p>
+                          <p className="text-xs text-safenet-text-3">Checks every link before your child taps it, so phishing and scams get blocked.</p>
                         </div>
                       </div>
 
@@ -1277,8 +1277,8 @@ export default function Demo() {
                           Luna speaks isiZulu too
                         </h3>
                         <p className="text-base text-safenet-text-2 leading-relaxed mb-4">
-                          Luna understands and detects threats in all 11 official South African languages - not just English. 
-                          Cyberbullying in isiZulu, phishing in Afrikaans, scams in Sesotho - Luna catches them all.
+                          Luna understands threats in all 11 official South African languages, not just English.
+                          A scam in Sesotho or bullying in isiZulu reads nothing like it would in English, and Luna is built to catch it.
                         </p>
                         <div className="flex flex-wrap justify-center lg:justify-start gap-2">
                           {[
@@ -1362,16 +1362,16 @@ export default function Demo() {
               <h2 className="font-display text-heading-lg text-safenet-text mb-4">Luna threat detection in action: what you'll see in this demo</h2>
               <div className="text-sm text-safenet-text-2 leading-relaxed space-y-3">
                 <p>
-                  This live demo shows exactly how SafeNet SA protects your child from cyberbullying, grooming, and online threats on WhatsApp. You'll watch Luna AI intercept a bullying message in real time - detecting harmful language, analyzing the threat in its South African cultural context, and alerting the parent within 0.3 seconds. The demo works in both English and isiZulu, reflecting SafeNet's ability to monitor threats across all 11 official South African languages.
+                  This live demo shows exactly how SafeNet SA protects your child from cyberbullying, grooming, and online threats on WhatsApp. You'll watch Luna catch a bullying message in real time. She flags the harmful language, reads the threat in its South African context, and alerts the parent within 0.3 seconds. The demo works in both English and isiZulu, reflecting SafeNet's ability to monitor threats across all 11 official South African languages.
                 </p>
                 <p>
-                  After Luna flags the threat, you'll see the <strong className="text-safenet-text">threat analysis overlay</strong> - a 4-stage scan process that shows exactly how Luna evaluates message content: scanning, analyzing SA language context, running the threat detection model, and confirming the threat at 94% confidence. All processing happens on-device, meaning no message content is ever transmitted or stored.
+                  After Luna flags the threat, you'll see the <strong className="text-safenet-text">threat analysis overlay</strong>, a 4-stage scan that shows how Luna reads the message: scanning, analyzing SA language context, running the threat detection model, and confirming the threat at 94% confidence. All processing happens on-device, meaning no message content is ever transmitted or stored.
                 </p>
                 <p>
                   Next, you'll see the <strong className="text-safenet-text">parent alert flow</strong>: a push notification sent to the parent's phone, followed by the parent dashboard view showing Liam's active alert alongside other children's safety status. Parents can then block the app, pause the internet, or call their child directly. According to <a href="https://www.childlinesa.org.za" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">Childline South Africa</a>, cyberbullying and online grooming have become the fastest-growing threats to SA children. <a href="https://www.unicef.org/southafrica/reports" target="_blank" rel="noopener noreferrer" className="text-safenet-primary font-medium hover:underline">UNICEF SA</a> reports that 1 in 3 children in South Africa face cyberbullying.
                 </p>
                 <p>
-                  SafeNet SA is fully POPIA compliant - message content never leaves your child's device. Parents see only threat alerts, never chat content. <Link to="/how-it-works" className="text-safenet-primary font-medium hover:underline">Learn how SafeNet works →</Link> or <Link to="/luna" className="text-safenet-primary font-medium hover:underline">talk to Luna</Link> to ask about your child's safety.
+                  SafeNet SA is fully POPIA compliant, so message content never leaves your child's device. Parents see only threat alerts, never the chats themselves. <Link to="/how-it-works" className="text-safenet-primary font-medium hover:underline">Learn how SafeNet works →</Link> or <Link to="/luna" className="text-safenet-primary font-medium hover:underline">talk to Luna</Link> to ask about your child's safety.
                 </p>
               </div>
             </div>
@@ -1416,8 +1416,8 @@ export default function Demo() {
                         <span className="text-safenet-primary">Always protecting.</span>
                       </h2>
                       <p className="text-base text-safenet-text-2 max-w-lg mx-auto leading-relaxed mb-6">
-                        From cyberbullying to phishing links, screen time to location safety - 
-                        Luna is your family's complete digital guardian. 
+                        From cyberbullying to phishing links, screen time to location safety,
+                        Luna is your family's digital guardian.
                         <strong className="text-safenet-text"> Free to start. Ready in 5 minutes.</strong>
                       </p>
                       <div className="flex flex-wrap justify-center gap-3 mb-6">
